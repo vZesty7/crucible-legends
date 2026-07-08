@@ -2110,7 +2110,6 @@ export default function App() {
   const rerender = () => setTick((x) => x + 1);
   const timers = useRef([]);
   const pendingRef = useRef(null);
-  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G };
 
   const [screen, setScreen] = useState("title");
   const [diff, setDiff] = useState("proving");
@@ -3377,6 +3376,12 @@ export default function App() {
     resetSel(G.current);
     later(() => { if (G.current && G.current.phase === "vs") beginBout(); }, REDUCED ? 1500 : 6000);
   };
+
+  // Dormant test hook: exposes engine internals to the automated test/audit
+  // harness only when a test runner sets window.__CL_TEST_HOOK__. Inert in play.
+  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G, api: { startGame, beginBout, aiMakePlan, aiPivot, applyToll, resolveRound, confirmClash, confirmPlan, useCraven, answerPrompt, processPrompts, throwSudden, skipPlay, clearTimers, confirmUmbralMove, confirmFeint, confirmFeintClash, afterCutin, railPromptPick, aiPickOpt, runClash }, defs: { FIGHTERS, ABILITIES, PASSIVES, TUTS, QUADS, ADJ, BEATS, CLASH_ROUNDS } };
+  // Headless lab mode: the engine runs, nothing renders. Test-harness only.
+  if (typeof window !== "undefined" && window.__CL_LAB__) return null;
 
   /* ================= screens ================= */
   if (screen === "title") return (
