@@ -15,3 +15,10 @@ A single-file React game. The game logic and design intent both live in this fol
 - `bloodgrounds-design-v0-1.md` — the design document
 
 Current version: tracked as a comment/constant inside the jsx file (v0.82.4 as of the initial project setup).
+
+## Where things live
+
+- GitHub repo: https://github.com/vZesty7/crucible-legends
+- Live game (auto-updates on every push to `main`): https://vzesty7.github.io/crucible-legends/
+- Local preview: `npm run dev` (Node/npm are installed at `~/.local/node/bin`, GitHub CLI at `~/.local/gh/bin` — both added to PATH)
+- Pushing to `main` automatically rebuilds and republishes the live site via GitHub Actions (`.github/workflows/deploy.yml`) — no manual deploy step needed.
