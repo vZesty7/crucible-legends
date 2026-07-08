@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: 22
       - run: npm ci
+      - run: npm test   # a failing test stops the deploy here
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
