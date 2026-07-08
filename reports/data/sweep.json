@@ -1,0 +1,5405 @@
+{
+ "G": [
+  {
+   "load": [
+    "skull",
+    "howl",
+    "sunder",
+    "iron"
+   ],
+   "pass": "warmonger",
+   "winrate": 67.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "iron",
+    "harvest"
+   ],
+   "pass": "warmonger",
+   "winrate": 66.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "frenzy",
+    "iron"
+   ],
+   "pass": "warmonger",
+   "winrate": 66.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "sunder",
+    "harvest"
+   ],
+   "pass": "warmonger",
+   "winrate": 60.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "sunder",
+    "iron",
+    "harvest"
+   ],
+   "pass": "warmonger",
+   "winrate": 46.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "sunder",
+    "frenzy",
+    "iron"
+   ],
+   "pass": "warmonger",
+   "winrate": 46.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "sunder",
+    "frenzy"
+   ],
+   "pass": "warmonger",
+   "winrate": 45,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "sunder",
+    "harvest"
+   ],
+   "pass": "scent",
+   "winrate": 45,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "sunder",
+    "harvest"
+   ],
+   "pass": "pact",
+   "winrate": 44.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "frenzy",
+    "harvest"
+   ],
+   "pass": "warmonger",
+   "winrate": 43.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "frenzy",
+    "iron",
+    "harvest"
+   ],
+   "pass": "warmonger",
+   "winrate": 43.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "frenzy",
+    "iron"
+   ],
+   "pass": "pact",
+   "winrate": 38.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "sunder",
+    "iron"
+   ],
+   "pass": "pact",
+   "winrate": 38.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "iron",
+    "harvest"
+   ],
+   "pass": "pact",
+   "winrate": 36.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "sunder",
+    "frenzy"
+   ],
+   "pass": "pact",
+   "winrate": 34.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "sunder",
+    "frenzy"
+   ],
+   "pass": "scent",
+   "winrate": 34.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "sunder",
+    "iron"
+   ],
+   "pass": "scent",
+   "winrate": 34.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "iron",
+    "harvest"
+   ],
+   "pass": "scent",
+   "winrate": 34.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "frenzy",
+    "harvest"
+   ],
+   "pass": "scent",
+   "winrate": 31.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "frenzy",
+    "iron",
+    "harvest"
+   ],
+   "pass": "pact",
+   "winrate": 30.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "frenzy",
+    "iron"
+   ],
+   "pass": "scent",
+   "winrate": 29.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "sunder",
+    "frenzy",
+    "harvest"
+   ],
+   "pass": "pact",
+   "winrate": 29.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "howl",
+    "frenzy",
+    "harvest"
+   ],
+   "pass": "pact",
+   "winrate": 28.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "frenzy",
+    "iron",
+    "harvest"
+   ],
+   "pass": "scent",
+   "winrate": 28.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "frenzy",
+    "iron",
+    "harvest"
+   ],
+   "pass": "warmonger",
+   "winrate": 27,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "sunder",
+    "frenzy",
+    "iron"
+   ],
+   "pass": "scent",
+   "winrate": 24.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "sunder",
+    "frenzy",
+    "harvest"
+   ],
+   "pass": "scent",
+   "winrate": 21.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "sunder",
+    "iron",
+    "harvest"
+   ],
+   "pass": "scent",
+   "winrate": 21.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "sunder",
+    "iron",
+    "harvest"
+   ],
+   "pass": "pact",
+   "winrate": 20.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "sunder",
+    "frenzy",
+    "iron"
+   ],
+   "pass": "pact",
+   "winrate": 20.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "sunder",
+    "frenzy",
+    "iron"
+   ],
+   "pass": "pact",
+   "winrate": 20.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "frenzy",
+    "iron",
+    "harvest"
+   ],
+   "pass": "scent",
+   "winrate": 20.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "sunder",
+    "frenzy",
+    "iron"
+   ],
+   "pass": "warmonger",
+   "winrate": 20,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "sunder",
+    "frenzy",
+    "harvest"
+   ],
+   "pass": "warmonger",
+   "winrate": 19.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "howl",
+    "frenzy",
+    "iron",
+    "harvest"
+   ],
+   "pass": "pact",
+   "winrate": 17.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "sunder",
+    "frenzy",
+    "iron"
+   ],
+   "pass": "scent",
+   "winrate": 16.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "sunder",
+    "frenzy",
+    "harvest"
+   ],
+   "pass": "pact",
+   "winrate": 15.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "sunder",
+    "frenzy",
+    "harvest"
+   ],
+   "pass": "warmonger",
+   "winrate": 14.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "sunder",
+    "iron",
+    "harvest"
+   ],
+   "pass": "pact",
+   "winrate": 13.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "sunder",
+    "frenzy",
+    "harvest"
+   ],
+   "pass": "scent",
+   "winrate": 12.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "sunder",
+    "iron",
+    "harvest"
+   ],
+   "pass": "scent",
+   "winrate": 10.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "skull",
+    "sunder",
+    "iron",
+    "harvest"
+   ],
+   "pass": "warmonger",
+   "winrate": 9.1,
+   "n": 440
+  }
+ ],
+ "M": [
+  {
+   "load": [
+    "viper",
+    "umbral",
+    "gloom",
+    "heart"
+   ],
+   "pass": "tithe",
+   "winrate": 49.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "gloom",
+    "twin",
+    "heart"
+   ],
+   "pass": "tithe",
+   "winrate": 48.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "gloom",
+    "heart"
+   ],
+   "pass": "tithe",
+   "winrate": 42,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "umbral",
+    "gloom",
+    "heart"
+   ],
+   "pass": "twist",
+   "winrate": 40.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "gloom",
+    "twin",
+    "heart"
+   ],
+   "pass": "twist",
+   "winrate": 40.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "gloom",
+    "heart"
+   ],
+   "pass": "twist",
+   "winrate": 35,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "twin",
+    "heart"
+   ],
+   "pass": "tithe",
+   "winrate": 33.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "umbral",
+    "gloom",
+    "twin"
+   ],
+   "pass": "tithe",
+   "winrate": 33.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "gloom",
+    "twin"
+   ],
+   "pass": "tithe",
+   "winrate": 33,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "gloom",
+    "twin",
+    "heart"
+   ],
+   "pass": "craven",
+   "winrate": 31.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "umbral",
+    "gloom",
+    "twin"
+   ],
+   "pass": "twist",
+   "winrate": 30.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "umbral",
+    "gloom",
+    "twin"
+   ],
+   "pass": "craven",
+   "winrate": 30.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "gloom",
+    "twin"
+   ],
+   "pass": "twist",
+   "winrate": 29.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "gloom",
+    "heart"
+   ],
+   "pass": "craven",
+   "winrate": 29.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "umbral",
+    "gloom"
+   ],
+   "pass": "tithe",
+   "winrate": 28,
+   "n": 440
+  },
+  {
+   "load": [
+    "umbral",
+    "gloom",
+    "twin",
+    "heart"
+   ],
+   "pass": "tithe",
+   "winrate": 27,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "umbral",
+    "gloom",
+    "heart"
+   ],
+   "pass": "craven",
+   "winrate": 26.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "umbral",
+    "gloom",
+    "twin",
+    "heart"
+   ],
+   "pass": "twist",
+   "winrate": 25.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "gloom",
+    "twin"
+   ],
+   "pass": "craven",
+   "winrate": 25.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "umbral",
+    "gloom"
+   ],
+   "pass": "twist",
+   "winrate": 24.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "umbral",
+    "heart"
+   ],
+   "pass": "tithe",
+   "winrate": 23.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "umbral",
+    "twin"
+   ],
+   "pass": "tithe",
+   "winrate": 22.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "twin",
+    "heart"
+   ],
+   "pass": "twist",
+   "winrate": 22.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "umbral",
+    "heart"
+   ],
+   "pass": "twist",
+   "winrate": 20.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "blackout",
+    "gloom",
+    "twin",
+    "heart"
+   ],
+   "pass": "tithe",
+   "winrate": 20.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "umbral",
+    "gloom",
+    "twin",
+    "heart"
+   ],
+   "pass": "craven",
+   "winrate": 20,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "umbral",
+    "gloom"
+   ],
+   "pass": "craven",
+   "winrate": 19.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "umbral",
+    "twin"
+   ],
+   "pass": "twist",
+   "winrate": 19.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "blackout",
+    "umbral",
+    "gloom",
+    "heart"
+   ],
+   "pass": "tithe",
+   "winrate": 19.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "blackout",
+    "gloom",
+    "twin",
+    "heart"
+   ],
+   "pass": "twist",
+   "winrate": 18.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "blackout",
+    "umbral",
+    "gloom",
+    "heart"
+   ],
+   "pass": "twist",
+   "winrate": 18.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "blackout",
+    "umbral",
+    "gloom",
+    "twin"
+   ],
+   "pass": "tithe",
+   "winrate": 17.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "twin",
+    "heart"
+   ],
+   "pass": "craven",
+   "winrate": 15,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "umbral",
+    "heart"
+   ],
+   "pass": "craven",
+   "winrate": 14.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "blackout",
+    "umbral",
+    "gloom",
+    "twin"
+   ],
+   "pass": "twist",
+   "winrate": 14.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "blackout",
+    "umbral",
+    "gloom",
+    "twin"
+   ],
+   "pass": "craven",
+   "winrate": 13.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "blackout",
+    "umbral",
+    "gloom",
+    "heart"
+   ],
+   "pass": "craven",
+   "winrate": 12.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "blackout",
+    "gloom",
+    "twin",
+    "heart"
+   ],
+   "pass": "craven",
+   "winrate": 12.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "blackout",
+    "umbral",
+    "twin"
+   ],
+   "pass": "craven",
+   "winrate": 12,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "umbral",
+    "twin",
+    "heart"
+   ],
+   "pass": "tithe",
+   "winrate": 7.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "umbral",
+    "twin",
+    "heart"
+   ],
+   "pass": "twist",
+   "winrate": 6.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "viper",
+    "umbral",
+    "twin",
+    "heart"
+   ],
+   "pass": "craven",
+   "winrate": 5.9,
+   "n": 440
+  }
+ ],
+ "V": [
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "mantle"
+   ],
+   "pass": "permafrost",
+   "winrate": 47.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "mantle"
+   ],
+   "pass": "shatter",
+   "winrate": 42,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "aval"
+   ],
+   "pass": "permafrost",
+   "winrate": 40.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "freeze"
+   ],
+   "pass": "shatter",
+   "winrate": 40.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "aval"
+   ],
+   "pass": "shatter",
+   "winrate": 40.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "freeze"
+   ],
+   "pass": "numb",
+   "winrate": 39.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "mantle"
+   ],
+   "pass": "numb",
+   "winrate": 39.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "mantle",
+    "aval"
+   ],
+   "pass": "shatter",
+   "winrate": 39.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "shatter",
+   "winrate": 39.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "freeze"
+   ],
+   "pass": "permafrost",
+   "winrate": 37.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "aval"
+   ],
+   "pass": "numb",
+   "winrate": 37.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "permafrost",
+   "winrate": 36.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "mantle",
+    "aval"
+   ],
+   "pass": "numb",
+   "winrate": 35.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "numb",
+   "winrate": 33.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "spike",
+    "mantle",
+    "aval"
+   ],
+   "pass": "shatter",
+   "winrate": 33.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "mantle",
+    "aval"
+   ],
+   "pass": "permafrost",
+   "winrate": 33.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "freeze",
+    "aval"
+   ],
+   "pass": "shatter",
+   "winrate": 31.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "mantle",
+    "aval"
+   ],
+   "pass": "permafrost",
+   "winrate": 31.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "mantle",
+    "aval"
+   ],
+   "pass": "numb",
+   "winrate": 31.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "mantle",
+    "aval"
+   ],
+   "pass": "shatter",
+   "winrate": 31.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "freeze",
+    "aval"
+   ],
+   "pass": "permafrost",
+   "winrate": 30.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "spike",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "permafrost",
+   "winrate": 30.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "permafrost",
+   "winrate": 30.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "spike",
+    "mantle",
+    "aval"
+   ],
+   "pass": "numb",
+   "winrate": 30,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "freeze",
+    "aval"
+   ],
+   "pass": "shatter",
+   "winrate": 30,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "shatter",
+   "winrate": 29.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "freeze",
+    "aval"
+   ],
+   "pass": "numb",
+   "winrate": 29.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "spike",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "numb",
+   "winrate": 29.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "freeze",
+    "mantle",
+    "aval"
+   ],
+   "pass": "numb",
+   "winrate": 28.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "freeze",
+    "mantle",
+    "aval"
+   ],
+   "pass": "shatter",
+   "winrate": 28.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "spike",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "shatter",
+   "winrate": 28,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "freeze",
+    "mantle",
+    "aval"
+   ],
+   "pass": "permafrost",
+   "winrate": 27.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "numb",
+   "winrate": 26.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "spike",
+    "mantle",
+    "aval"
+   ],
+   "pass": "permafrost",
+   "winrate": 26.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "freeze",
+    "aval"
+   ],
+   "pass": "permafrost",
+   "winrate": 25,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "freeze",
+    "aval"
+   ],
+   "pass": "numb",
+   "winrate": 24.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "freeze",
+    "mantle",
+    "aval"
+   ],
+   "pass": "numb",
+   "winrate": 23.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "freeze",
+    "mantle",
+    "aval"
+   ],
+   "pass": "permafrost",
+   "winrate": 22.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "freeze",
+    "mantle",
+    "aval"
+   ],
+   "pass": "shatter",
+   "winrate": 21.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "spike",
+    "freeze",
+    "aval"
+   ],
+   "pass": "shatter",
+   "winrate": 14.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "spike",
+    "freeze",
+    "aval"
+   ],
+   "pass": "permafrost",
+   "winrate": 14.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "spike",
+    "freeze",
+    "aval"
+   ],
+   "pass": "numb",
+   "winrate": 14.1,
+   "n": 440
+  }
+ ],
+ "C": [
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "smoke",
+    "pyre"
+   ],
+   "pass": "killheat",
+   "winrate": 66.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "smoke",
+    "pyre"
+   ],
+   "pass": "heatrise",
+   "winrate": 64.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "comb",
+    "pyre"
+   ],
+   "pass": "everburn",
+   "winrate": 64.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "smoke",
+    "pyre"
+   ],
+   "pass": "everburn",
+   "winrate": 61.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "smoke",
+    "comb"
+   ],
+   "pass": "everburn",
+   "winrate": 57.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "flash",
+    "smoke",
+    "pyre"
+   ],
+   "pass": "heatrise",
+   "winrate": 55.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "flash",
+    "smoke"
+   ],
+   "pass": "killheat",
+   "winrate": 54.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "comb",
+    "pyre"
+   ],
+   "pass": "heatrise",
+   "winrate": 54.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "flash",
+    "smoke",
+    "pyre"
+   ],
+   "pass": "everburn",
+   "winrate": 54.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "flash",
+    "smoke"
+   ],
+   "pass": "heatrise",
+   "winrate": 54.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "flash",
+    "smoke",
+    "pyre"
+   ],
+   "pass": "killheat",
+   "winrate": 53.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "flash",
+    "smoke",
+    "comb"
+   ],
+   "pass": "killheat",
+   "winrate": 52.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "flash",
+    "smoke",
+    "comb"
+   ],
+   "pass": "heatrise",
+   "winrate": 51.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "smoke",
+    "comb",
+    "pyre"
+   ],
+   "pass": "killheat",
+   "winrate": 51.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "comb",
+    "pyre"
+   ],
+   "pass": "killheat",
+   "winrate": 50.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "flash",
+    "pyre"
+   ],
+   "pass": "killheat",
+   "winrate": 50.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "smoke",
+    "comb",
+    "pyre"
+   ],
+   "pass": "heatrise",
+   "winrate": 50.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "flash",
+    "smoke",
+    "pyre"
+   ],
+   "pass": "heatrise",
+   "winrate": 48.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "flash",
+    "smoke",
+    "pyre"
+   ],
+   "pass": "everburn",
+   "winrate": 48.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "smoke",
+    "comb"
+   ],
+   "pass": "killheat",
+   "winrate": 47.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "flash",
+    "smoke",
+    "comb"
+   ],
+   "pass": "killheat",
+   "winrate": 46.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "flash",
+    "smoke",
+    "pyre"
+   ],
+   "pass": "killheat",
+   "winrate": 46.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "flash",
+    "comb"
+   ],
+   "pass": "everburn",
+   "winrate": 45.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "flash",
+    "smoke"
+   ],
+   "pass": "everburn",
+   "winrate": 44.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "flash",
+    "comb",
+    "pyre"
+   ],
+   "pass": "heatrise",
+   "winrate": 43.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "flash",
+    "smoke",
+    "comb"
+   ],
+   "pass": "heatrise",
+   "winrate": 43.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "smoke",
+    "comb"
+   ],
+   "pass": "heatrise",
+   "winrate": 42.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "flash",
+    "smoke",
+    "comb"
+   ],
+   "pass": "everburn",
+   "winrate": 42.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "flash",
+    "smoke",
+    "comb"
+   ],
+   "pass": "everburn",
+   "winrate": 41.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "flash",
+    "pyre"
+   ],
+   "pass": "heatrise",
+   "winrate": 40.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "smoke",
+    "comb",
+    "pyre"
+   ],
+   "pass": "everburn",
+   "winrate": 40.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "flash",
+    "comb",
+    "pyre"
+   ],
+   "pass": "killheat",
+   "winrate": 40.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "flash",
+    "comb",
+    "pyre"
+   ],
+   "pass": "heatrise",
+   "winrate": 38.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "flash",
+    "comb"
+   ],
+   "pass": "heatrise",
+   "winrate": 38.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "flash",
+    "comb"
+   ],
+   "pass": "killheat",
+   "winrate": 35,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "magma",
+    "flash",
+    "pyre"
+   ],
+   "pass": "everburn",
+   "winrate": 32.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "smoke",
+    "comb",
+    "pyre"
+   ],
+   "pass": "everburn",
+   "winrate": 32,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "flash",
+    "comb",
+    "pyre"
+   ],
+   "pass": "killheat",
+   "winrate": 30.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "flash",
+    "comb",
+    "pyre"
+   ],
+   "pass": "everburn",
+   "winrate": 30,
+   "n": 440
+  },
+  {
+   "load": [
+    "cinder",
+    "flash",
+    "comb",
+    "pyre"
+   ],
+   "pass": "everburn",
+   "winrate": 27.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "flash",
+    "smoke",
+    "comb",
+    "pyre"
+   ],
+   "pass": "heatrise",
+   "winrate": 26.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "flash",
+    "smoke",
+    "comb",
+    "pyre"
+   ],
+   "pass": "everburn",
+   "winrate": 25.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "flash",
+    "smoke",
+    "comb",
+    "pyre"
+   ],
+   "pass": "killheat",
+   "winrate": 23.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "smoke",
+    "comb",
+    "pyre"
+   ],
+   "pass": "killheat",
+   "winrate": 22,
+   "n": 440
+  },
+  {
+   "load": [
+    "magma",
+    "smoke",
+    "comb",
+    "pyre"
+   ],
+   "pass": "heatrise",
+   "winrate": 20.2,
+   "n": 440
+  }
+ ],
+ "K": [
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "frame",
+    "gyro"
+   ],
+   "pass": "overclock",
+   "winrate": 73.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "frame",
+    "gyro"
+   ],
+   "pass": "nova",
+   "winrate": 58.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "frame",
+    "gyro"
+   ],
+   "pass": "vent",
+   "winrate": 55,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "frame",
+    "arc"
+   ],
+   "pass": "vent",
+   "winrate": 52.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "frame",
+    "core"
+   ],
+   "pass": "nova",
+   "winrate": 51.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "frame",
+    "core"
+   ],
+   "pass": "vent",
+   "winrate": 51.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "frame",
+    "arc"
+   ],
+   "pass": "nova",
+   "winrate": 49.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "frame",
+    "arc",
+    "core"
+   ],
+   "pass": "vent",
+   "winrate": 48.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "frame",
+    "gyro",
+    "arc"
+   ],
+   "pass": "vent",
+   "winrate": 48,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "frame",
+    "arc",
+    "core"
+   ],
+   "pass": "vent",
+   "winrate": 48,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "frame",
+    "core"
+   ],
+   "pass": "overclock",
+   "winrate": 47.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "frame",
+    "arc",
+    "core"
+   ],
+   "pass": "overclock",
+   "winrate": 46.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "frame",
+    "gyro",
+    "arc"
+   ],
+   "pass": "nova",
+   "winrate": 43.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "frame",
+    "arc"
+   ],
+   "pass": "overclock",
+   "winrate": 43,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "frame",
+    "arc",
+    "core"
+   ],
+   "pass": "nova",
+   "winrate": 42.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "frame",
+    "arc",
+    "core"
+   ],
+   "pass": "nova",
+   "winrate": 42.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "frame",
+    "arc",
+    "core"
+   ],
+   "pass": "overclock",
+   "winrate": 42,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "frame",
+    "gyro",
+    "core"
+   ],
+   "pass": "vent",
+   "winrate": 40.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "gyro",
+    "core"
+   ],
+   "pass": "overclock",
+   "winrate": 38.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "gyro",
+    "core"
+   ],
+   "pass": "vent",
+   "winrate": 37.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "frame",
+    "gyro",
+    "core"
+   ],
+   "pass": "vent",
+   "winrate": 37.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "frame",
+    "gyro",
+    "arc"
+   ],
+   "pass": "overclock",
+   "winrate": 37.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "frame",
+    "gyro",
+    "core"
+   ],
+   "pass": "nova",
+   "winrate": 36.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "frame",
+    "gyro",
+    "core"
+   ],
+   "pass": "overclock",
+   "winrate": 36.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "frame",
+    "gyro",
+    "arc"
+   ],
+   "pass": "vent",
+   "winrate": 35.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "frame",
+    "gyro",
+    "arc"
+   ],
+   "pass": "overclock",
+   "winrate": 34.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "frame",
+    "gyro",
+    "core"
+   ],
+   "pass": "overclock",
+   "winrate": 34.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "gyro",
+    "arc",
+    "core"
+   ],
+   "pass": "vent",
+   "winrate": 33.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "gyro",
+    "core"
+   ],
+   "pass": "nova",
+   "winrate": 33.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "frame",
+    "gyro",
+    "arc",
+    "core"
+   ],
+   "pass": "vent",
+   "winrate": 33,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "frame",
+    "gyro",
+    "core"
+   ],
+   "pass": "nova",
+   "winrate": 31.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "gyro",
+    "arc",
+    "core"
+   ],
+   "pass": "nova",
+   "winrate": 29.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "frame",
+    "gyro",
+    "arc"
+   ],
+   "pass": "nova",
+   "winrate": 29.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "gyro",
+    "arc"
+   ],
+   "pass": "vent",
+   "winrate": 28.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "frame",
+    "gyro",
+    "arc",
+    "core"
+   ],
+   "pass": "nova",
+   "winrate": 26.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "gyro",
+    "arc"
+   ],
+   "pass": "nova",
+   "winrate": 26.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "frame",
+    "gyro",
+    "arc",
+    "core"
+   ],
+   "pass": "overclock",
+   "winrate": 25.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "gyro",
+    "arc"
+   ],
+   "pass": "overclock",
+   "winrate": 25.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "arc",
+    "core"
+   ],
+   "pass": "vent",
+   "winrate": 23.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "gyro",
+    "arc",
+    "core"
+   ],
+   "pass": "overclock",
+   "winrate": 23.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "arc",
+    "core"
+   ],
+   "pass": "nova",
+   "winrate": 21.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "cannon",
+    "flux",
+    "arc",
+    "core"
+   ],
+   "pass": "overclock",
+   "winrate": 20.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "gyro",
+    "arc",
+    "core"
+   ],
+   "pass": "vent",
+   "winrate": 19.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "gyro",
+    "arc",
+    "core"
+   ],
+   "pass": "overclock",
+   "winrate": 12.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "flux",
+    "gyro",
+    "arc",
+    "core"
+   ],
+   "pass": "nova",
+   "winrate": 10.9,
+   "n": 440
+  }
+ ],
+ "Z": [
+  {
+   "load": [
+    "ruin",
+    "tap",
+    "brand",
+    "dark"
+   ],
+   "pass": "surplus",
+   "winrate": 38.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "chains",
+    "tap",
+    "dark",
+    "pact"
+   ],
+   "pass": "surplus",
+   "winrate": 38,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "tap",
+    "brand"
+   ],
+   "pass": "agonist",
+   "winrate": 37.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "brand",
+    "dark"
+   ],
+   "pass": "surplus",
+   "winrate": 36.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "chains",
+    "tap",
+    "brand",
+    "dark"
+   ],
+   "pass": "surplus",
+   "winrate": 35.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "chains",
+    "tap",
+    "brand",
+    "pact"
+   ],
+   "pass": "surplus",
+   "winrate": 35.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "brand",
+    "pact"
+   ],
+   "pass": "surplus",
+   "winrate": 34.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "tap",
+    "brand",
+    "dark"
+   ],
+   "pass": "knock",
+   "winrate": 34.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "tap",
+    "brand",
+    "dark",
+    "pact"
+   ],
+   "pass": "surplus",
+   "winrate": 33.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "chains",
+    "tap",
+    "brand",
+    "dark"
+   ],
+   "pass": "agonist",
+   "winrate": 32.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "dark",
+    "pact"
+   ],
+   "pass": "surplus",
+   "winrate": 32,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "tap",
+    "pact"
+   ],
+   "pass": "agonist",
+   "winrate": 31.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "tap",
+    "dark"
+   ],
+   "pass": "agonist",
+   "winrate": 31.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "tap",
+    "brand",
+    "dark"
+   ],
+   "pass": "agonist",
+   "winrate": 30.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "tap",
+    "dark"
+   ],
+   "pass": "knock",
+   "winrate": 29.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "tap",
+    "brand"
+   ],
+   "pass": "surplus",
+   "winrate": 29.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "tap",
+    "brand"
+   ],
+   "pass": "knock",
+   "winrate": 29.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "tap",
+    "dark"
+   ],
+   "pass": "surplus",
+   "winrate": 27.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "tap",
+    "brand",
+    "dark",
+    "pact"
+   ],
+   "pass": "agonist",
+   "winrate": 26.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "chains",
+    "tap",
+    "brand",
+    "pact"
+   ],
+   "pass": "agonist",
+   "winrate": 25.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "chains",
+    "tap",
+    "dark",
+    "pact"
+   ],
+   "pass": "knock",
+   "winrate": 25.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "tap",
+    "brand",
+    "dark",
+    "pact"
+   ],
+   "pass": "knock",
+   "winrate": 25.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "brand",
+    "dark",
+    "pact"
+   ],
+   "pass": "agonist",
+   "winrate": 25.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "tap",
+    "brand",
+    "pact"
+   ],
+   "pass": "agonist",
+   "winrate": 25.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "chains",
+    "tap",
+    "brand",
+    "dark"
+   ],
+   "pass": "knock",
+   "winrate": 24.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "chains",
+    "tap",
+    "dark",
+    "pact"
+   ],
+   "pass": "agonist",
+   "winrate": 24.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "tap",
+    "brand",
+    "pact"
+   ],
+   "pass": "surplus",
+   "winrate": 24.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "tap",
+    "pact"
+   ],
+   "pass": "knock",
+   "winrate": 23.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "chains",
+    "tap",
+    "brand",
+    "pact"
+   ],
+   "pass": "knock",
+   "winrate": 23.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "tap",
+    "pact"
+   ],
+   "pass": "surplus",
+   "winrate": 23,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "dark",
+    "pact"
+   ],
+   "pass": "agonist",
+   "winrate": 23,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "brand",
+    "pact"
+   ],
+   "pass": "agonist",
+   "winrate": 22.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "brand",
+    "dark",
+    "pact"
+   ],
+   "pass": "knock",
+   "winrate": 21.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "dark",
+    "pact"
+   ],
+   "pass": "knock",
+   "winrate": 20.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "brand",
+    "pact"
+   ],
+   "pass": "knock",
+   "winrate": 20.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "tap",
+    "brand",
+    "pact"
+   ],
+   "pass": "knock",
+   "winrate": 20.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "brand",
+    "dark"
+   ],
+   "pass": "agonist",
+   "winrate": 19.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "chains",
+    "brand",
+    "dark"
+   ],
+   "pass": "knock",
+   "winrate": 18.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "brand",
+    "dark",
+    "pact"
+   ],
+   "pass": "surplus",
+   "winrate": 17,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "tap",
+    "dark",
+    "pact"
+   ],
+   "pass": "surplus",
+   "winrate": 15.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "tap",
+    "dark",
+    "pact"
+   ],
+   "pass": "agonist",
+   "winrate": 10.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "ruin",
+    "tap",
+    "dark",
+    "pact"
+   ],
+   "pass": "knock",
+   "winrate": 7.7,
+   "n": 440
+  }
+ ],
+ "L": [
+  {
+   "load": [
+    "censure",
+    "llance",
+    "aegis",
+    "dawn"
+   ],
+   "pass": "pilgrim",
+   "winrate": 90.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "aegis",
+    "consec",
+    "dawn"
+   ],
+   "pass": "pilgrim",
+   "winrate": 83.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "oath",
+    "aegis",
+    "dawn"
+   ],
+   "pass": "pilgrim",
+   "winrate": 83.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "oath",
+    "consec",
+    "dawn"
+   ],
+   "pass": "vigil",
+   "winrate": 83.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "oath",
+    "aegis",
+    "consec"
+   ],
+   "pass": "pilgrim",
+   "winrate": 82,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "aegis",
+    "consec"
+   ],
+   "pass": "sanct",
+   "winrate": 81.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "oath",
+    "consec",
+    "dawn"
+   ],
+   "pass": "sanct",
+   "winrate": 81.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "oath",
+    "aegis",
+    "consec"
+   ],
+   "pass": "pilgrim",
+   "winrate": 81.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "aegis",
+    "consec"
+   ],
+   "pass": "pilgrim",
+   "winrate": 81.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "aegis",
+    "dawn"
+   ],
+   "pass": "sanct",
+   "winrate": 81.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "aegis",
+    "consec"
+   ],
+   "pass": "vigil",
+   "winrate": 80.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "oath",
+    "aegis",
+    "consec",
+    "dawn"
+   ],
+   "pass": "pilgrim",
+   "winrate": 80.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "oath",
+    "aegis",
+    "consec"
+   ],
+   "pass": "vigil",
+   "winrate": 80,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "oath",
+    "consec",
+    "dawn"
+   ],
+   "pass": "pilgrim",
+   "winrate": 78.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "oath",
+    "aegis",
+    "consec",
+    "dawn"
+   ],
+   "pass": "vigil",
+   "winrate": 78.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "oath",
+    "aegis"
+   ],
+   "pass": "vigil",
+   "winrate": 78.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "aegis",
+    "dawn"
+   ],
+   "pass": "vigil",
+   "winrate": 78,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "oath",
+    "aegis",
+    "consec"
+   ],
+   "pass": "sanct",
+   "winrate": 77.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "oath",
+    "consec",
+    "dawn"
+   ],
+   "pass": "pilgrim",
+   "winrate": 77.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "oath",
+    "aegis",
+    "dawn"
+   ],
+   "pass": "vigil",
+   "winrate": 77.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "oath",
+    "aegis",
+    "consec"
+   ],
+   "pass": "vigil",
+   "winrate": 77,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "oath",
+    "aegis",
+    "dawn"
+   ],
+   "pass": "sanct",
+   "winrate": 76.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "oath",
+    "consec",
+    "dawn"
+   ],
+   "pass": "vigil",
+   "winrate": 76.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "oath",
+    "aegis",
+    "dawn"
+   ],
+   "pass": "sanct",
+   "winrate": 76.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "oath",
+    "consec",
+    "dawn"
+   ],
+   "pass": "sanct",
+   "winrate": 75.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "oath",
+    "aegis",
+    "dawn"
+   ],
+   "pass": "vigil",
+   "winrate": 75.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "oath",
+    "dawn"
+   ],
+   "pass": "sanct",
+   "winrate": 75.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "oath",
+    "aegis",
+    "consec",
+    "dawn"
+   ],
+   "pass": "sanct",
+   "winrate": 75.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "oath",
+    "aegis"
+   ],
+   "pass": "sanct",
+   "winrate": 74.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "oath",
+    "consec"
+   ],
+   "pass": "sanct",
+   "winrate": 74.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "oath",
+    "aegis"
+   ],
+   "pass": "pilgrim",
+   "winrate": 74.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "oath",
+    "dawn"
+   ],
+   "pass": "vigil",
+   "winrate": 73.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "oath",
+    "consec"
+   ],
+   "pass": "pilgrim",
+   "winrate": 73.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "oath",
+    "aegis",
+    "consec"
+   ],
+   "pass": "sanct",
+   "winrate": 72.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "oath",
+    "consec"
+   ],
+   "pass": "vigil",
+   "winrate": 72,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "oath",
+    "dawn"
+   ],
+   "pass": "pilgrim",
+   "winrate": 72,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "oath",
+    "aegis",
+    "dawn"
+   ],
+   "pass": "pilgrim",
+   "winrate": 72,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "aegis",
+    "consec",
+    "dawn"
+   ],
+   "pass": "vigil",
+   "winrate": 71.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "aegis",
+    "consec",
+    "dawn"
+   ],
+   "pass": "sanct",
+   "winrate": 70.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "llance",
+    "aegis",
+    "consec",
+    "dawn"
+   ],
+   "pass": "vigil",
+   "winrate": 70.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "aegis",
+    "consec",
+    "dawn"
+   ],
+   "pass": "pilgrim",
+   "winrate": 69.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "aegis",
+    "consec",
+    "dawn"
+   ],
+   "pass": "sanct",
+   "winrate": 69.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "consec",
+    "dawn"
+   ],
+   "pass": "pilgrim",
+   "winrate": 60.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "consec",
+    "dawn"
+   ],
+   "pass": "vigil",
+   "winrate": 60.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "censure",
+    "llance",
+    "consec",
+    "dawn"
+   ],
+   "pass": "sanct",
+   "winrate": 52.7,
+   "n": 440
+  }
+ ],
+ "D": [
+  {
+   "load": [
+    "claim",
+    "quake",
+    "grind",
+    "mount"
+   ],
+   "pass": "home",
+   "winrate": 68.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "quake",
+    "grind",
+    "fissure"
+   ],
+   "pass": "home",
+   "winrate": 65.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "quake",
+    "grind",
+    "wall"
+   ],
+   "pass": "home",
+   "winrate": 59.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "grind",
+    "fissure",
+    "mount"
+   ],
+   "pass": "home",
+   "winrate": 58,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "quake",
+    "grind",
+    "mount"
+   ],
+   "pass": "roots",
+   "winrate": 55.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "quake",
+    "grind",
+    "mount"
+   ],
+   "pass": "reserves",
+   "winrate": 52.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "quake",
+    "grind",
+    "wall"
+   ],
+   "pass": "reserves",
+   "winrate": 49.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "quake",
+    "grind",
+    "fissure"
+   ],
+   "pass": "reserves",
+   "winrate": 49.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "grind",
+    "wall",
+    "fissure"
+   ],
+   "pass": "home",
+   "winrate": 48,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "quake",
+    "grind",
+    "wall"
+   ],
+   "pass": "roots",
+   "winrate": 47.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "quake",
+    "grind",
+    "fissure"
+   ],
+   "pass": "roots",
+   "winrate": 45.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "grind",
+    "wall",
+    "mount"
+   ],
+   "pass": "home",
+   "winrate": 45,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "grind",
+    "fissure",
+    "mount"
+   ],
+   "pass": "reserves",
+   "winrate": 41.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "quake",
+    "grind",
+    "wall",
+    "fissure"
+   ],
+   "pass": "home",
+   "winrate": 40,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "grind",
+    "fissure",
+    "mount"
+   ],
+   "pass": "roots",
+   "winrate": 39.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "quake",
+    "grind",
+    "wall",
+    "mount"
+   ],
+   "pass": "home",
+   "winrate": 36.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "quake",
+    "grind",
+    "fissure",
+    "mount"
+   ],
+   "pass": "home",
+   "winrate": 36.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "quake",
+    "grind",
+    "wall",
+    "mount"
+   ],
+   "pass": "roots",
+   "winrate": 33.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "grind",
+    "wall",
+    "fissure",
+    "mount"
+   ],
+   "pass": "home",
+   "winrate": 33.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "grind",
+    "wall",
+    "fissure"
+   ],
+   "pass": "roots",
+   "winrate": 32.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "grind",
+    "wall",
+    "mount"
+   ],
+   "pass": "roots",
+   "winrate": 32.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "quake",
+    "grind",
+    "wall",
+    "mount"
+   ],
+   "pass": "reserves",
+   "winrate": 31.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "grind",
+    "wall",
+    "fissure"
+   ],
+   "pass": "reserves",
+   "winrate": 30.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "quake",
+    "grind",
+    "wall",
+    "fissure"
+   ],
+   "pass": "reserves",
+   "winrate": 30.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "claim",
+    "grind",
+    "wall",
+    "mount"
+   ],
+   "pass": "reserves",
+   "winrate": 30,
+   "n": 440
+  },
+  {
+   "load": [
+    "quake",
+    "grind",
+    "fissure",
+    "mount"
+   ],
+   "pass": "roots",
+   "winrate": 30,
+   "n": 440
+  },
+  {
+   "load": [
+    "quake",
+    "grind",
+    "fissure",
+    "mount"
+   ],
+   "pass": "reserves",
+   "winrate": 29.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "quake",
+    "grind",
+    "wall",
+    "fissure"
+   ],
+   "pass": "roots",
+   "winrate": 26.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "grind",
+    "wall",
+    "fissure",
+    "mount"
+   ],
+   "pass": "roots",
+   "winrate": 26.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "grind",
+    "wall",
+    "fissure",
+    "mount"
+   ],
+   "pass": "reserves",
+   "winrate": 22.5,
+   "n": 440
+  }
+ ],
+ "Y": [
+  {
+   "load": [
+    "lash",
+    "current",
+    "bwater",
+    "undine"
+   ],
+   "pass": "ebb",
+   "winrate": 59.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "bwater",
+    "whirlA",
+    "storm"
+   ],
+   "pass": "rider",
+   "winrate": 57.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "bwater",
+    "storm"
+   ],
+   "pass": "ebb",
+   "winrate": 55.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "bwater",
+    "whirlA",
+    "storm"
+   ],
+   "pass": "ebb",
+   "winrate": 55.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "bwater",
+    "storm"
+   ],
+   "pass": "rider",
+   "winrate": 55.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "bwater",
+    "whirlA"
+   ],
+   "pass": "rider",
+   "winrate": 54.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "bwater",
+    "whirlA",
+    "undine"
+   ],
+   "pass": "ebb",
+   "winrate": 54.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "bwater",
+    "whirlA"
+   ],
+   "pass": "undertow",
+   "winrate": 53.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "bwater",
+    "whirlA"
+   ],
+   "pass": "ebb",
+   "winrate": 53.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "bwater",
+    "whirlA",
+    "undine"
+   ],
+   "pass": "undertow",
+   "winrate": 53.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "bwater",
+    "whirlA",
+    "undine"
+   ],
+   "pass": "rider",
+   "winrate": 52.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "bwater",
+    "whirlA",
+    "storm"
+   ],
+   "pass": "undertow",
+   "winrate": 50.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "bwater",
+    "undine"
+   ],
+   "pass": "rider",
+   "winrate": 49.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "whirlA",
+    "storm"
+   ],
+   "pass": "rider",
+   "winrate": 49.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "whirlA",
+    "undine"
+   ],
+   "pass": "ebb",
+   "winrate": 48.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "whirlA",
+    "storm"
+   ],
+   "pass": "undertow",
+   "winrate": 48.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "whirlA",
+    "storm"
+   ],
+   "pass": "ebb",
+   "winrate": 48.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "undine",
+    "storm"
+   ],
+   "pass": "ebb",
+   "winrate": 47.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "bwater",
+    "undine"
+   ],
+   "pass": "undertow",
+   "winrate": 46.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "bwater",
+    "storm"
+   ],
+   "pass": "undertow",
+   "winrate": 46.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "undine",
+    "storm"
+   ],
+   "pass": "undertow",
+   "winrate": 46.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "undine",
+    "storm"
+   ],
+   "pass": "rider",
+   "winrate": 45.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "whirlA",
+    "undine",
+    "storm"
+   ],
+   "pass": "undertow",
+   "winrate": 43.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "whirlA",
+    "undine",
+    "storm"
+   ],
+   "pass": "ebb",
+   "winrate": 43.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "bwater",
+    "undine",
+    "storm"
+   ],
+   "pass": "rider",
+   "winrate": 43,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "bwater",
+    "undine",
+    "storm"
+   ],
+   "pass": "undertow",
+   "winrate": 42.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "whirlA",
+    "undine"
+   ],
+   "pass": "undertow",
+   "winrate": 41.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "current",
+    "whirlA",
+    "undine"
+   ],
+   "pass": "rider",
+   "winrate": 41.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "bwater",
+    "undine",
+    "storm"
+   ],
+   "pass": "ebb",
+   "winrate": 40,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "bwater",
+    "whirlA",
+    "storm"
+   ],
+   "pass": "ebb",
+   "winrate": 39.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "current",
+    "whirlA",
+    "undine",
+    "storm"
+   ],
+   "pass": "rider",
+   "winrate": 39.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "bwater",
+    "whirlA",
+    "undine"
+   ],
+   "pass": "ebb",
+   "winrate": 34.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "whirlA",
+    "undine",
+    "storm"
+   ],
+   "pass": "ebb",
+   "winrate": 32,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "whirlA",
+    "undine",
+    "storm"
+   ],
+   "pass": "undertow",
+   "winrate": 31.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "bwater",
+    "whirlA",
+    "undine"
+   ],
+   "pass": "undertow",
+   "winrate": 29.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "bwater",
+    "whirlA",
+    "storm"
+   ],
+   "pass": "undertow",
+   "winrate": 28.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "whirlA",
+    "undine",
+    "storm"
+   ],
+   "pass": "rider",
+   "winrate": 28,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "bwater",
+    "whirlA",
+    "storm"
+   ],
+   "pass": "rider",
+   "winrate": 26.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "bwater",
+    "whirlA",
+    "undine"
+   ],
+   "pass": "rider",
+   "winrate": 23.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "bwater",
+    "undine",
+    "storm"
+   ],
+   "pass": "ebb",
+   "winrate": 9.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "bwater",
+    "undine",
+    "storm"
+   ],
+   "pass": "rider",
+   "winrate": 8.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "lash",
+    "bwater",
+    "undine",
+    "storm"
+   ],
+   "pass": "undertow",
+   "winrate": 6.6,
+   "n": 440
+  }
+ ],
+ "W": [
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "toll",
+    "sky"
+   ],
+   "pass": "talon",
+   "winrate": 41.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "toll",
+    "sky"
+   ],
+   "pass": "parting",
+   "winrate": 38.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "pin",
+    "sky"
+   ],
+   "pass": "parting",
+   "winrate": 34.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "toll",
+    "sky"
+   ],
+   "pass": "deadeye",
+   "winrate": 33.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "pin",
+    "toll"
+   ],
+   "pass": "talon",
+   "winrate": 30.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "pin",
+    "sky"
+   ],
+   "pass": "deadeye",
+   "winrate": 30.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "pin",
+    "strideW"
+   ],
+   "pass": "deadeye",
+   "winrate": 29.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "pin",
+    "sky"
+   ],
+   "pass": "talon",
+   "winrate": 29.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "strideW",
+    "sky"
+   ],
+   "pass": "deadeye",
+   "winrate": 27.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "strideW",
+    "sky"
+   ],
+   "pass": "talon",
+   "winrate": 27.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "pin",
+    "strideW"
+   ],
+   "pass": "talon",
+   "winrate": 26.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "pin",
+    "toll"
+   ],
+   "pass": "parting",
+   "winrate": 26.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "pin",
+    "toll"
+   ],
+   "pass": "deadeye",
+   "winrate": 25.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "strideW",
+    "sky"
+   ],
+   "pass": "parting",
+   "winrate": 25.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "pin",
+    "strideW",
+    "sky"
+   ],
+   "pass": "talon",
+   "winrate": 24.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "strideW",
+    "toll",
+    "sky"
+   ],
+   "pass": "talon",
+   "winrate": 23.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "strideW",
+    "toll"
+   ],
+   "pass": "parting",
+   "winrate": 23.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "pin",
+    "strideW",
+    "toll"
+   ],
+   "pass": "talon",
+   "winrate": 23.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "pin",
+    "strideW"
+   ],
+   "pass": "parting",
+   "winrate": 23.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "strideW",
+    "toll"
+   ],
+   "pass": "talon",
+   "winrate": 23.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "pin",
+    "strideW",
+    "toll"
+   ],
+   "pass": "parting",
+   "winrate": 22.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "pin",
+    "strideW",
+    "sky"
+   ],
+   "pass": "parting",
+   "winrate": 21.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "pin",
+    "strideW",
+    "sky"
+   ],
+   "pass": "deadeye",
+   "winrate": 21.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "strideW",
+    "toll",
+    "sky"
+   ],
+   "pass": "parting",
+   "winrate": 20.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "pin",
+    "toll",
+    "sky"
+   ],
+   "pass": "parting",
+   "winrate": 18.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "pin",
+    "toll",
+    "sky"
+   ],
+   "pass": "deadeye",
+   "winrate": 18.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "pin",
+    "strideW",
+    "toll"
+   ],
+   "pass": "deadeye",
+   "winrate": 18,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "pin",
+    "toll",
+    "sky"
+   ],
+   "pass": "talon",
+   "winrate": 17.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "strideW",
+    "toll",
+    "sky"
+   ],
+   "pass": "parting",
+   "winrate": 16.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "hawk",
+    "strideW",
+    "toll",
+    "sky"
+   ],
+   "pass": "deadeye",
+   "winrate": 16.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "pin",
+    "toll",
+    "sky"
+   ],
+   "pass": "parting",
+   "winrate": 16.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "hawk",
+    "strideW",
+    "toll"
+   ],
+   "pass": "deadeye",
+   "winrate": 15.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "pin",
+    "strideW",
+    "toll"
+   ],
+   "pass": "parting",
+   "winrate": 13.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "pin",
+    "toll",
+    "sky"
+   ],
+   "pass": "deadeye",
+   "winrate": 12.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "pin",
+    "strideW",
+    "sky"
+   ],
+   "pass": "parting",
+   "winrate": 10.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "strideW",
+    "toll",
+    "sky"
+   ],
+   "pass": "deadeye",
+   "winrate": 10.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "pin",
+    "strideW",
+    "toll"
+   ],
+   "pass": "deadeye",
+   "winrate": 10.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "pin",
+    "strideW",
+    "sky"
+   ],
+   "pass": "deadeye",
+   "winrate": 10.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "pin",
+    "toll",
+    "sky"
+   ],
+   "pass": "talon",
+   "winrate": 10,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "pin",
+    "strideW",
+    "toll"
+   ],
+   "pass": "talon",
+   "winrate": 9.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "pin",
+    "strideW",
+    "sky"
+   ],
+   "pass": "talon",
+   "winrate": 7.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "broad",
+    "strideW",
+    "toll",
+    "sky"
+   ],
+   "pass": "talon",
+   "winrate": 7.3,
+   "n": 440
+  }
+ ],
+ "X": [
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "chainX",
+    "cadence"
+   ],
+   "pass": "pedge",
+   "winrate": 64.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "chainX",
+    "arsenal"
+   ],
+   "pass": "pedge",
+   "winrate": 64.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "riposte",
+    "chainX"
+   ],
+   "pass": "tempo",
+   "winrate": 63,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "chainX",
+    "arsenal"
+   ],
+   "pass": "tempo",
+   "winrate": 62.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "chainX",
+    "cadence"
+   ],
+   "pass": "tempo",
+   "winrate": 61.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "chainX",
+    "arsenal"
+   ],
+   "pass": "momentum",
+   "winrate": 59.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "chainX",
+    "cadence"
+   ],
+   "pass": "momentum",
+   "winrate": 58.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "riposte",
+    "chainX",
+    "arsenal"
+   ],
+   "pass": "tempo",
+   "winrate": 58.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "chainX",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "tempo",
+   "winrate": 58,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "riposte",
+    "chainX"
+   ],
+   "pass": "pedge",
+   "winrate": 55.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "riposte",
+    "chainX",
+    "cadence"
+   ],
+   "pass": "tempo",
+   "winrate": 54.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "riposte",
+    "chainX"
+   ],
+   "pass": "momentum",
+   "winrate": 51.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "pedge",
+   "winrate": 51.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "riposte",
+    "chainX",
+    "arsenal"
+   ],
+   "pass": "pedge",
+   "winrate": 50.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "chainX",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "pedge",
+   "winrate": 47.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "riposte",
+    "chainX",
+    "cadence"
+   ],
+   "pass": "pedge",
+   "winrate": 47,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "momentum",
+   "winrate": 46.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "chainX",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "tempo",
+   "winrate": 45.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "riposte",
+    "chainX",
+    "arsenal"
+   ],
+   "pass": "momentum",
+   "winrate": 43.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "riposte",
+    "chainX",
+    "arsenal"
+   ],
+   "pass": "tempo",
+   "winrate": 43.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "riposte",
+    "chainX",
+    "cadence"
+   ],
+   "pass": "momentum",
+   "winrate": 42,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "tempo",
+   "winrate": 41.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "riposte",
+    "chainX",
+    "cadence"
+   ],
+   "pass": "tempo",
+   "winrate": 40,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "riposte",
+    "cadence"
+   ],
+   "pass": "momentum",
+   "winrate": 39.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "riposte",
+    "cadence"
+   ],
+   "pass": "pedge",
+   "winrate": 39.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "riposte",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "pedge",
+   "winrate": 36.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "chainX",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "momentum",
+   "winrate": 35.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "riposte",
+    "chainX",
+    "arsenal"
+   ],
+   "pass": "pedge",
+   "winrate": 33.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "chainX",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "momentum",
+   "winrate": 33.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "riposte",
+    "cadence"
+   ],
+   "pass": "tempo",
+   "winrate": 33.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "chainX",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "pedge",
+   "winrate": 32.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "riposte",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "tempo",
+   "winrate": 32.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "riposte",
+    "chainX",
+    "cadence"
+   ],
+   "pass": "pedge",
+   "winrate": 32,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "riposte",
+    "arsenal"
+   ],
+   "pass": "pedge",
+   "winrate": 31.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "riposte",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "tempo",
+   "winrate": 29.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "riposte",
+    "arsenal"
+   ],
+   "pass": "tempo",
+   "winrate": 27.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "riposte",
+    "chainX",
+    "arsenal"
+   ],
+   "pass": "momentum",
+   "winrate": 25.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "eguard",
+    "riposte",
+    "arsenal"
+   ],
+   "pass": "momentum",
+   "winrate": 25,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "riposte",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "pedge",
+   "winrate": 25,
+   "n": 440
+  },
+  {
+   "load": [
+    "eguard",
+    "riposte",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "momentum",
+   "winrate": 24.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "riposte",
+    "chainX",
+    "cadence"
+   ],
+   "pass": "momentum",
+   "winrate": 23.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "cres",
+    "riposte",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "momentum",
+   "winrate": 17,
+   "n": 440
+  }
+ ],
+ "O": [
+  {
+   "load": [
+    "stick",
+    "knit",
+    "eye",
+    "sorrow"
+   ],
+   "pass": "stitch",
+   "winrate": 53,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "eye",
+    "mireA"
+   ],
+   "pass": "stitch",
+   "winrate": 52.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "eye",
+    "puppet"
+   ],
+   "pass": "stitch",
+   "winrate": 50.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "eye",
+    "sorrow"
+   ],
+   "pass": "juju",
+   "winrate": 47,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "mireA",
+    "sorrow"
+   ],
+   "pass": "stitch",
+   "winrate": 43.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "eye",
+    "sorrow"
+   ],
+   "pass": "mdeep",
+   "winrate": 43.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "mireA",
+    "sorrow"
+   ],
+   "pass": "juju",
+   "winrate": 41.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "eye",
+    "mireA"
+   ],
+   "pass": "mdeep",
+   "winrate": 41.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "eye",
+    "mireA",
+    "puppet"
+   ],
+   "pass": "stitch",
+   "winrate": 41.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "eye",
+    "mireA"
+   ],
+   "pass": "juju",
+   "winrate": 40.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "eye",
+    "puppet",
+    "sorrow"
+   ],
+   "pass": "stitch",
+   "winrate": 39.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "mireA",
+    "sorrow"
+   ],
+   "pass": "mdeep",
+   "winrate": 37.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "mireA",
+    "puppet"
+   ],
+   "pass": "stitch",
+   "winrate": 37,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "eye",
+    "puppet"
+   ],
+   "pass": "juju",
+   "winrate": 36.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "eye",
+    "puppet"
+   ],
+   "pass": "mdeep",
+   "winrate": 34.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "mireA",
+    "puppet",
+    "sorrow"
+   ],
+   "pass": "stitch",
+   "winrate": 34.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "eye",
+    "puppet",
+    "sorrow"
+   ],
+   "pass": "juju",
+   "winrate": 33.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "eye",
+    "mireA",
+    "puppet"
+   ],
+   "pass": "juju",
+   "winrate": 32.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "eye",
+    "puppet",
+    "sorrow"
+   ],
+   "pass": "mdeep",
+   "winrate": 32.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "eye",
+    "mireA",
+    "sorrow"
+   ],
+   "pass": "stitch",
+   "winrate": 31.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "mireA",
+    "puppet"
+   ],
+   "pass": "mdeep",
+   "winrate": 30.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "eye",
+    "mireA",
+    "puppet"
+   ],
+   "pass": "mdeep",
+   "winrate": 30.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "mireA",
+    "puppet"
+   ],
+   "pass": "juju",
+   "winrate": 29.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "puppet",
+    "sorrow"
+   ],
+   "pass": "stitch",
+   "winrate": 29.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "puppet",
+    "sorrow"
+   ],
+   "pass": "mdeep",
+   "winrate": 27.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "knit",
+    "puppet",
+    "sorrow"
+   ],
+   "pass": "juju",
+   "winrate": 25.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "mireA",
+    "puppet",
+    "sorrow"
+   ],
+   "pass": "juju",
+   "winrate": 21.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "mireA",
+    "puppet",
+    "sorrow"
+   ],
+   "pass": "mdeep",
+   "winrate": 21.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "eye",
+    "mireA",
+    "sorrow"
+   ],
+   "pass": "mdeep",
+   "winrate": 18.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "stick",
+    "eye",
+    "mireA",
+    "sorrow"
+   ],
+   "pass": "juju",
+   "winrate": 16.4,
+   "n": 440
+  }
+ ]
+}

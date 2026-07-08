@@ -3128,20 +3128,18 @@ export default function App() {
   const runClash = (pPlan, aPlan) => {
     const g = G.current;
     g.stats.clashes += 1;
+    g.roundJustPlayed = g.round;
+    g.feed = [];
+    const L = [];
     if (!g.pactBled) {
       const gF = [g.P, g.A].find((f) => f.fk === "G" && f.pass === "pact");
       if (gF) {
         g.pactBled = true;
-        const L0 = [];
-        L0.push({ t: `🩸 THE PACT DEMANDS BLOOD — both fighters are cut before the bell.`, fx: { kind: "combo", text: "BLOOD PACT" } });
-        dealRaw(g.P, 1, L0, "The Pact", "break", "#dc2626");
-        dealRaw(g.A, 1, L0, "The Pact", "break", "#dc2626");
-        L0.forEach((l) => { g.feed.push(l); fireFx(l.fx); });
+        L.push({ t: `🩸 THE PACT DEMANDS BLOOD — both fighters are cut before the bell.`, fx: { kind: "combo", text: "BLOOD PACT" } });
+        dealRaw(g.P, 1, L, "The Pact", "break", "#dc2626");
+        dealRaw(g.A, 1, L, "The Pact", "break", "#dc2626");
       }
     }
-    g.roundJustPlayed = g.round;
-    g.feed = [];
-    const L = [];
     const mult = 1;
     const P = g.P, A = g.A;
     [[P, pPlan], [A, aPlan]].forEach(([s, pl]) => {

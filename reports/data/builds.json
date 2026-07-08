@@ -1,0 +1,222 @@
+{
+ "best": {
+  "G": {
+   "load": [
+    "skull",
+    "howl",
+    "sunder",
+    "iron"
+   ],
+   "pass": "warmonger"
+  },
+  "M": {
+   "load": [
+    "viper",
+    "umbral",
+    "gloom",
+    "heart"
+   ],
+   "pass": "tithe"
+  },
+  "V": {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "mantle"
+   ],
+   "pass": "permafrost"
+  },
+  "C": {
+   "load": [
+    "cinder",
+    "magma",
+    "smoke",
+    "pyre"
+   ],
+   "pass": "killheat"
+  },
+  "K": {
+   "load": [
+    "cannon",
+    "flux",
+    "frame",
+    "gyro"
+   ],
+   "pass": "overclock"
+  },
+  "Z": {
+   "load": [
+    "ruin",
+    "tap",
+    "brand",
+    "dark"
+   ],
+   "pass": "surplus"
+  },
+  "L": {
+   "load": [
+    "censure",
+    "llance",
+    "aegis",
+    "dawn"
+   ],
+   "pass": "pilgrim"
+  },
+  "D": {
+   "load": [
+    "claim",
+    "quake",
+    "grind",
+    "mount"
+   ],
+   "pass": "home"
+  },
+  "Y": {
+   "load": [
+    "lash",
+    "current",
+    "bwater",
+    "undine"
+   ],
+   "pass": "ebb"
+  },
+  "W": {
+   "load": [
+    "broad",
+    "hawk",
+    "toll",
+    "sky"
+   ],
+   "pass": "talon"
+  },
+  "X": {
+   "load": [
+    "cres",
+    "eguard",
+    "chainX",
+    "cadence"
+   ],
+   "pass": "pedge"
+  },
+  "O": {
+   "load": [
+    "stick",
+    "knit",
+    "eye",
+    "sorrow"
+   ],
+   "pass": "stitch"
+  }
+ },
+ "worst": {
+  "G": {
+   "load": [
+    "skull",
+    "sunder",
+    "iron",
+    "harvest"
+   ],
+   "pass": "warmonger"
+  },
+  "M": {
+   "load": [
+    "viper",
+    "umbral",
+    "twin",
+    "heart"
+   ],
+   "pass": "craven"
+  },
+  "V": {
+   "load": [
+    "lance",
+    "spike",
+    "freeze",
+    "aval"
+   ],
+   "pass": "numb"
+  },
+  "C": {
+   "load": [
+    "magma",
+    "smoke",
+    "comb",
+    "pyre"
+   ],
+   "pass": "heatrise"
+  },
+  "K": {
+   "load": [
+    "flux",
+    "gyro",
+    "arc",
+    "core"
+   ],
+   "pass": "nova"
+  },
+  "Z": {
+   "load": [
+    "ruin",
+    "tap",
+    "dark",
+    "pact"
+   ],
+   "pass": "knock"
+  },
+  "L": {
+   "load": [
+    "censure",
+    "llance",
+    "consec",
+    "dawn"
+   ],
+   "pass": "sanct"
+  },
+  "D": {
+   "load": [
+    "grind",
+    "wall",
+    "fissure",
+    "mount"
+   ],
+   "pass": "reserves"
+  },
+  "Y": {
+   "load": [
+    "lash",
+    "bwater",
+    "undine",
+    "storm"
+   ],
+   "pass": "undertow"
+  },
+  "W": {
+   "load": [
+    "broad",
+    "strideW",
+    "toll",
+    "sky"
+   ],
+   "pass": "talon"
+  },
+  "X": {
+   "load": [
+    "cres",
+    "riposte",
+    "cadence",
+    "arsenal"
+   ],
+   "pass": "momentum"
+  },
+  "O": {
+   "load": [
+    "stick",
+    "eye",
+    "mireA",
+    "sorrow"
+   ],
+   "pass": "juju"
+  }
+ }
+}
