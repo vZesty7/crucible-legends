@@ -1,0 +1,362 @@
+[
+ {
+  "id": "eco:spent",
+  "mechanic": "spender (1◆ Bone Grinder) gains nothing: 2−1+0",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "eco:cap",
+  "mechanic": "bag at cap 3 stays 3",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "eco:blood",
+  "mechanic": "0◆ + income 1 after blood-priced cast",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "eco:bloodHp",
+  "mechanic": "paid exactly 1 HP",
+  "expected": "13",
+  "observed": "13",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "eco:bloodFloor",
+  "mechanic": "Oblivion Pact at 2 HP pays only 1",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "eco:reserves",
+  "mechanic": "3◆ + income = 4 under Deep Reserves",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "eco:overclock",
+  "mechanic": "Arc at 3◆ costs 1 (3−1=2, no income)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "eco:tempo",
+  "mechanic": "broken spender keeps tempo ◆ (1−1+1)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "eco:tempo:line",
+  "mechanic": "Steel Tempo narrated",
+  "expected": "line",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "eco:domIncome",
+  "mechanic": "spent on Dominion still collects (2−1+1)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "eco:domIncome:line",
+  "mechanic": "the ground provides",
+  "expected": "line",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "koros:armor",
+  "mechanic": "1-damage hit absorbed at 3◆",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "koros:powered",
+  "mechanic": "Arc from full charge (trade)",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "koros:chargeBuilt",
+  "mechanic": "overcharge built after full round",
+  "expected": "OVERCHARGE builds",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "koros:vented",
+  "mechanic": "vent damage on the next paid attack",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "koros:chargeCleared",
+  "mechanic": "charge cleared after venting",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "koros:vent",
+  "mechanic": "Emergency Vent surged to 3◆",
+  "expected": "3◆",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "koros:ventLine",
+  "mechanic": "vent narrated",
+  "expected": "Emergency Vent",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "koros:nova",
+  "mechanic": "nova blast 1 to the co-occupant at round end",
+  "expected": "NOVA line + 1 dmg",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:pact:dmg",
+  "mechanic": "Skullsplitter at ≤6 HP (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:twist",
+  "mechanic": "Viper Fang vs freshly-shoved foe (clean read)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:scent:prompt",
+  "mechanic": "chase/lunge/hold prompt offered",
+  "expected": "step prompt incl. their square",
+  "observed": "NW,SE,SW",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:scent:lunge",
+  "mechanic": "lunged into their quadrant",
+  "expected": "SE",
+  "observed": "SE",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:scent:pb",
+  "mechanic": "point-blank Skullsplitter (collision trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:wreck:destroyed",
+  "mechanic": "frost destroyed by the slam",
+  "expected": "gone",
+  "observed": "none",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:wreck:dmg",
+  "mechanic": "clean skull 1 + slam 1",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:wreck:kessStun",
+  "mechanic": "Kess stunned by the slam",
+  "expected": "stun round set",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:deadeye",
+  "mechanic": "diagonal Broadhead (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:talon",
+  "mechanic": "dive chip on arrival",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:parting",
+  "mechanic": "loser's parting shot lands 1",
+  "expected": "Parting Shot — Maelis takes 1",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:momentum",
+  "mechanic": "flow after triangle win",
+  "expected": "flow=true",
+  "observed": "true",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:pedge",
+  "mechanic": "Perfect Edge Flow: 1 + 2 (trade)",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:flow:consumed",
+  "mechanic": "flow consumed on connect",
+  "expected": "false",
+  "observed": "false",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:flow:whiff",
+  "mechanic": "whiffed Flow is kept",
+  "expected": "flow=true",
+  "observed": "true",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:vigil:alive",
+  "mechanic": "Kastor refuses the grave at 1 HP",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:vigil:cleansed",
+  "mechanic": "all afflictions cleansed",
+  "expected": "burn/poison/curse/weak/brand = 0",
+  "observed": "0/0/0/0/0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:vigil:bank",
+  "mechanic": "bank filled to 3◆ (+income capped)",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:pilgrim",
+  "mechanic": "pilgrim reacts to the relic spawn",
+  "expected": "step prompt / movement / relic line",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:numb",
+  "mechanic": "co-occupant chilled",
+  "expected": "chill=true",
+  "observed": "true",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:undertow",
+  "mechanic": "lash + undertow throw + grind",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:ebb",
+  "mechanic": "tide fed Flow after the grind",
+  "expected": "flow=true",
+  "observed": "true",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:stitch",
+  "mechanic": "heal 1 on the first curse",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:roots",
+  "mechanic": "rooted Dhoram not moved by clash placement",
+  "expected": "NE",
+  "observed": "NE",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:agonist",
+  "mechanic": "Umbral Chains vs weakened (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "pass:killheat",
+  "mechanic": "point-blank cinder vs burning foe",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ }
+]

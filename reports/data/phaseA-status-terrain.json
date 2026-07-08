@@ -1,0 +1,314 @@
+[
+ {
+  "id": "st:poison:rupture",
+  "mechanic": "trade 1 + rupture 3",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:poison:cleared",
+  "mechanic": "stacks clear after rupture",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:tithe:maxHp",
+  "mechanic": "max HP 10 → 12",
+  "expected": "12",
+  "observed": "12",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:tithe:heal",
+  "mechanic": "healed 2 on rupture",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:chill:shatter",
+  "mechanic": "spike 2 + shatter 1 (trade)",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:chill:consumed",
+  "mechanic": "chill consumed by the shatter",
+  "expected": "false",
+  "observed": "false",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:chill:shatterpoint",
+  "mechanic": "spike 2 + shatterpoint 2",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:chill:rushSafe",
+  "mechanic": "Ice Lance trade does not shatter",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:chill:reapplied",
+  "mechanic": "lance re-chills on contact",
+  "expected": "true",
+  "observed": "true",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:chill:expiry",
+  "mechanic": "chill gone after its window",
+  "expected": "false",
+  "observed": "false",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:burn:cap2",
+  "mechanic": "3rd application refused at cap 2",
+  "expected": "burn stays ≤2 (post-tick 2)",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:burn:capLine",
+  "mechanic": "'already ablaze' logged",
+  "expected": "line present",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:burn:everburn",
+  "mechanic": "Everburn allows the 3rd stack",
+  "expected": "burn 3 (fresh, no fade)",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:heatrise",
+  "mechanic": "0◆ + heatrise 1 + income 1",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:curse:inert",
+  "mechanic": "no collection before round 8",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:curse:tick8",
+  "mechanic": "round 8 collects, capped at 2",
+  "expected": "Curses collect — Koros takes 2",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:curse:mdeep",
+  "mechanic": "collection at end of round 7",
+  "expected": "Curses collect",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:curse:mdeepNot6",
+  "mechanic": "still inert at round 6",
+  "expected": "no collection",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:juju:denied",
+  "mechanic": "Renewing Current heal denied",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:juju:feeds",
+  "mechanic": "denied heal feeds +1 curse (3→4)",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:juju:line",
+  "mechanic": "denial narrated",
+  "expected": "curses refuse the healing",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:mark:stamp",
+  "mechanic": "bag marked after ending on Kess's square",
+  "expected": "Kess screams line",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:mark:bonus",
+  "mechanic": "Broadhead vs marked (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:frost",
+  "mechanic": "occupant chilled at round end",
+  "expected": "chill=true",
+  "observed": "true",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:scorch",
+  "mechanic": "occupant gains burn, ticks 1 same round, stack survives (fresh grace)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:scorch:tick",
+  "mechanic": "burn ticked this round",
+  "expected": "Burning — Koros takes 1",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:env",
+  "mechanic": "occupant gains 1 poison",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:mire",
+  "mechanic": "occupant gains 1 curse",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:hall:heal",
+  "mechanic": "Kastor heals 1 on his Sanctuary",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:hall:sear",
+  "mechanic": "trespasser seared 1",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:surf:dmg",
+  "mechanic": "surf batters 1",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:surf:throw",
+  "mechanic": "occupant thrown to an adjacent quadrant",
+  "expected": "not NE",
+  "observed": "NW",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:surf:anchor",
+  "mechanic": "anchored fighter holds against the surf",
+  "expected": "NE",
+  "observed": "NE",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:dur:frost",
+  "mechanic": "frost expired after its 2-round window",
+  "expected": "gone",
+  "observed": "none",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:dur:hall",
+  "mechanic": "sanctuary expired after 3 rounds",
+  "expected": "gone",
+  "observed": "none",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:replace",
+  "mechanic": "Flash Freeze paves the Mire",
+  "expected": "frost",
+  "observed": "frost",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "terr:homefield",
+  "mechanic": "Homefield chips the squatter",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:undine:lash",
+  "mechanic": "Undine lashes 1",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:undine:expired",
+  "mechanic": "Undine drains away after its time",
+  "expected": "gone",
+  "observed": "none",
+  "pass": true,
+  "note": ""
+ }
+]

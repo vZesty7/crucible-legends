@@ -1,0 +1,290 @@
+[
+ {
+  "id": "ward:catch:total",
+  "mechanic": "basic ward catch = 2 total (riposte 1 + adv 1)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:break:taken",
+  "mechanic": "guard-broken warder takes 1+1",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:break:noRiposte",
+  "mechanic": "no riposte through a shattered guard",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:chip",
+  "mechanic": "splash 1 chips through the guard",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:iron:absorb",
+  "mechanic": "Iron Hide absorbs a basic guard-break entirely",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:iron:absorbLine",
+  "mechanic": "absorbed lines present",
+  "expected": "absorbed",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:hoar:frost",
+  "mechanic": "own quadrant frosted",
+  "expected": "frost at SW",
+  "observed": "frost",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:mantle:heal",
+  "mechanic": "heal 1",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:current:heal",
+  "mechanic": "heal 1",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:knit:heal",
+  "mechanic": "heal 1",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:frame:rich",
+  "mechanic": "heal 1 at 3◆",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:frame:poor",
+  "mechanic": "no heal below 3◆",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:tap:pow",
+  "mechanic": "0◆ + 1 tap + 1 income = 2",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:tap:hp",
+  "mechanic": "paid exactly 1 HP",
+  "expected": "13",
+  "observed": "13",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:claim:dom",
+  "mechanic": "dominion under Dhoram",
+  "expected": "dom at SW",
+  "observed": "dom",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:riposte:flow",
+  "mechanic": "flow banked",
+  "expected": "flow=true",
+  "observed": "true",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:aegis:heal",
+  "mechanic": "heal 1",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:whirlA:place",
+  "mechanic": "whirlpool placed",
+  "expected": "whirl at SE",
+  "observed": "whirl",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:whirlA:yank",
+  "mechanic": "adjacent foe yanked in",
+  "expected": "foe at SE",
+  "observed": "SE",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:whirlA:grind",
+  "mechanic": "vortex grinds 1 at round end",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:hawk:adjacent",
+  "mechanic": "Kess options are adjacent to her square (SW start)",
+  "expected": "NW,SE",
+  "observed": "NW,SE",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:hawk:moved",
+  "mechanic": "Kess moved",
+  "expected": "NW",
+  "observed": "NW",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:blackout:counter",
+  "mechanic": "riposte 1 + adv 1",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:blackout:poison",
+  "mechanic": "1 base + 1 adv poison",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:gloom:counter",
+  "mechanic": "riposte 1 + adv 1",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:gloom:poison",
+  "mechanic": "1 adv poison",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:gloom:step",
+  "mechanic": "warder stepped away",
+  "expected": "NW",
+  "observed": "NW",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:knit:curse",
+  "mechanic": "curse from the caught riposte",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:puppet:counter",
+  "mechanic": "riposte 1 + adv 1",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:puppet:curse",
+  "mechanic": "adv curse",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:puppet:drag",
+  "mechanic": "foe dragged one quadrant",
+  "expected": "SE",
+  "observed": "SE",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:eguard:flow",
+  "mechanic": "flow banked on adv catch",
+  "expected": "flow=true",
+  "observed": "true",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:oath:noKB",
+  "mechanic": "_noKB set on adv",
+  "expected": "true",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:claimAdv:spread",
+  "mechanic": "adjacent quadrant converted",
+  "expected": "dom at NW",
+  "observed": "dom",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:wall:soak",
+  "mechanic": "guard-break fully soaked on Dominion",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:aegis:contested",
+  "mechanic": "contested relic claimed via Aegis",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ }
+]

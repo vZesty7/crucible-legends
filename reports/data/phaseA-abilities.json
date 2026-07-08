@@ -1,0 +1,1162 @@
+[
+ {
+  "id": "base:skull",
+  "mechanic": "Skullsplitter base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:howl",
+  "mechanic": "Bloodhowl base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:sunder",
+  "mechanic": "Bone Grinder base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:frenzy",
+  "mechanic": "Blood Frenzy base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:harvest",
+  "mechanic": "Red Harvest base damage (trade)",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:viper",
+  "mechanic": "Viper Fang base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:umbral",
+  "mechanic": "Umbral Step base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:twin",
+  "mechanic": "Three Fangs base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:heart",
+  "mechanic": "Heartseeker base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:lance",
+  "mechanic": "Ice Lance base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:spike",
+  "mechanic": "Glacial Spike base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:freeze",
+  "mechanic": "Flash Freeze base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:aval",
+  "mechanic": "Avalanche base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:cinder",
+  "mechanic": "Cinder Jab base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:magma",
+  "mechanic": "Magma Haymaker base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:flash",
+  "mechanic": "Flashfire Step base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:comb",
+  "mechanic": "Combustion base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:pyre",
+  "mechanic": "Pyre of the Pit base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:cannon",
+  "mechanic": "Cannonarm base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:flux",
+  "mechanic": "Flux Jab base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:arc",
+  "mechanic": "Arc Discharge base damage (trade)",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:core",
+  "mechanic": "Overload Core base damage (trade)",
+  "expected": "5",
+  "observed": "5",
+  "pass": true,
+  "note": "4 printed + 1 powered: Core is only castable from full charge"
+ },
+ {
+  "id": "base:ruin",
+  "mechanic": "Ruinfire base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:chains",
+  "mechanic": "Umbral Chains base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:brand",
+  "mechanic": "Doombrand base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:dark",
+  "mechanic": "Devouring Dark base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:pact",
+  "mechanic": "Oblivion Pact base damage (trade)",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:censure",
+  "mechanic": "Censure base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:llance",
+  "mechanic": "Lightlance base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:consec",
+  "mechanic": "Consecration base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:dawn",
+  "mechanic": "Dawnhammer base damage (trade)",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:stick",
+  "mechanic": "Pinstick base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:eye",
+  "mechanic": "Shrunken Head base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:mireA",
+  "mechanic": "Sorrow Mire base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:sorrow",
+  "mechanic": "Harvest of Sorrows base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:quake",
+  "mechanic": "Quake Fist base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:grind",
+  "mechanic": "Continental Grind base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:fissure",
+  "mechanic": "Fissure base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:mount",
+  "mechanic": "Mountainfall base damage (trade)",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:lash",
+  "mechanic": "Riptide Lash base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:bwater",
+  "mechanic": "Crushing Wave base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:undine",
+  "mechanic": "Summon Undine base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:storm",
+  "mechanic": "Maelstrom base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:broad",
+  "mechanic": "Broadhead base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:pin",
+  "mechanic": "Pinning Shot base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:toll",
+  "mechanic": "Watcher's Toll base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:sky",
+  "mechanic": "Skyfall Volley base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:cres",
+  "mechanic": "Crescent Cut base damage (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:chainX",
+  "mechanic": "Arsenal Chain base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:cadence",
+  "mechanic": "Blade Cadence base damage (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:arsenal",
+  "mechanic": "Full Arsenal base damage (trade)",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:skull",
+  "mechanic": "Skullsplitter advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:howl",
+  "mechanic": "Bloodhowl advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:sunder",
+  "mechanic": "Bone Grinder advantage total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:frenzy",
+  "mechanic": "Blood Frenzy advantage total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:viper",
+  "mechanic": "Viper Fang advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:umbral",
+  "mechanic": "Umbral Step advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:twin",
+  "mechanic": "Three Fangs advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:heart",
+  "mechanic": "Heartseeker advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:lance",
+  "mechanic": "Ice Lance advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:spike",
+  "mechanic": "Glacial Spike advantage total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:cinder",
+  "mechanic": "Cinder Jab advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:magma",
+  "mechanic": "Magma Haymaker advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:flash",
+  "mechanic": "Flashfire Step advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:comb",
+  "mechanic": "Combustion advantage total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:cannon",
+  "mechanic": "Cannonarm advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:flux",
+  "mechanic": "Flux Jab advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:core",
+  "mechanic": "Overload Core advantage total",
+  "expected": "6",
+  "observed": "6",
+  "pass": true,
+  "note": "printed 4 + powered 1"
+ },
+ {
+  "id": "adv:ruin",
+  "mechanic": "Ruinfire advantage total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": "engine rider is +1; doc roster's '+2' predates the v0.9.1 flatten"
+ },
+ {
+  "id": "adv:chains",
+  "mechanic": "Umbral Chains advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:dark",
+  "mechanic": "Devouring Dark advantage total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:pact",
+  "mechanic": "Oblivion Pact advantage total",
+  "expected": "5",
+  "observed": "5",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:llance",
+  "mechanic": "Lightlance advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:dawn",
+  "mechanic": "Dawnhammer advantage total",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:stick",
+  "mechanic": "Pinstick advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:eye",
+  "mechanic": "Shrunken Head advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:mireA",
+  "mechanic": "Sorrow Mire advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:sorrow",
+  "mechanic": "Harvest of Sorrows advantage total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:quake",
+  "mechanic": "Quake Fist advantage total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:grind",
+  "mechanic": "Continental Grind advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:fissure",
+  "mechanic": "Fissure advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:lash",
+  "mechanic": "Riptide Lash advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:bwater",
+  "mechanic": "Crushing Wave advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:undine",
+  "mechanic": "Summon Undine advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:storm",
+  "mechanic": "Maelstrom advantage total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:broad",
+  "mechanic": "Broadhead advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:pin",
+  "mechanic": "Pinning Shot advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:toll",
+  "mechanic": "Watcher's Toll advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:sky",
+  "mechanic": "Skyfall Volley advantage total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:cres",
+  "mechanic": "Crescent Cut advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:cadence",
+  "mechanic": "Blade Cadence advantage total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:arsenal",
+  "mechanic": "Full Arsenal advantage total",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:harvest:dmg",
+  "mechanic": "Red Harvest adv total",
+  "expected": "5",
+  "observed": "5",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:harvest:kbAny",
+  "mechanic": "Red Harvest adv shove offers all 4 quadrants",
+  "expected": "4 options",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:freeze:dmg",
+  "mechanic": "Flash Freeze adv total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:freeze:root",
+  "mechanic": "Rooted bag cannot move next round",
+  "expected": "stays NE",
+  "observed": "NE",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:freeze:frost",
+  "mechanic": "Flash Freeze frosts the target quadrant",
+  "expected": "frost at NE",
+  "observed": "frost",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:aval:0frost",
+  "mechanic": "Avalanche adv, 0 frost",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:aval:1frost",
+  "mechanic": "Avalanche adv, 1 frost",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:aval:3frost",
+  "mechanic": "Avalanche adv, 3 frost (cap +2)",
+  "expected": "5",
+  "observed": "5",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:arc:dmg",
+  "mechanic": "Arc adv total",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:arc:drain",
+  "mechanic": "bag 2◆ − 1 drain + 1 income",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:brand:dmg",
+  "mechanic": "Doombrand adv total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:brand:fuse",
+  "mechanic": "adv fuse = end of next round (round 2)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:brand:fuse",
+  "mechanic": "base fuse = round 3",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:consec:dmg",
+  "mechanic": "Consecration adv total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:consec:self",
+  "mechanic": "own quadrant hallowed",
+  "expected": "hall at SW",
+  "observed": "hall",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:consec:target",
+  "mechanic": "target quadrant hallowed",
+  "expected": "hall at NE",
+  "observed": "hall",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:censure:dmg",
+  "mechanic": "Censure adv total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:censure:deny",
+  "mechanic": "bag income denied",
+  "expected": "gains no ◆ line",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:censure:noDeny",
+  "mechanic": "trade does not deny ◆",
+  "expected": "no denial line",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:mount:dmg",
+  "mechanic": "Mountainfall adv total",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:mount:convert",
+  "mechanic": "target quadrant becomes Dominion",
+  "expected": "dom at NE",
+  "observed": "dom",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:mount:dom",
+  "mechanic": "Mountainfall vs foe on Dominion (trade)",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:chainX:dmg",
+  "mechanic": "Arsenal Chain adv total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:chainX:flow",
+  "mechanic": "caster holds Flow after",
+  "expected": "flow=true",
+  "observed": "true",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:pyre:dmg",
+  "mechanic": "Pyre adv primary total",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "adv:pyre:burn",
+  "mechanic": "bag gains Burn from adv",
+  "expected": "burn ≥ 1",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:pyre:scorch",
+  "mechanic": "target + adjacents scorched (frost purged)",
+  "expected": "scorch NE/NW/SE",
+  "observed": "scorch/scorch/scorch",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:frenzy:low",
+  "mechanic": "Blood Frenzy at ≤6 HP (trade)",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:heart:homing",
+  "mechanic": "mis-aimed Heartseeker retargets a poisoned foe",
+  "expected": "venom sings + hit",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:heart:detonate",
+  "mechanic": "1 + 2×2 poison",
+  "expected": "5",
+  "observed": "5",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:heart:consumed",
+  "mechanic": "poison consumed",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:comb:detonate",
+  "mechanic": "2 + 2×2 burn (trade)",
+  "expected": "6",
+  "observed": "6",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:comb:consumed",
+  "mechanic": "burn consumed",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:comb:noTick",
+  "mechanic": "no burn tick after detonation",
+  "expected": "no Burning line",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:sorrow:3curse",
+  "mechanic": "2 + 1 at 3 curse (trade)",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:sorrow:6curse",
+  "mechanic": "2 + 2 at 6 curse (trade)",
+  "expected": "4",
+  "observed": "4",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:sorrow:kept",
+  "mechanic": "curse not consumed",
+  "expected": "6",
+  "observed": "6",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:llance:hall",
+  "mechanic": "Lightlance vs Sanctuary-stander (trade)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:dawn:heal",
+  "mechanic": "heal 2 from sanctity",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:dark:heal",
+  "mechanic": "Devouring Dark heals 2",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:sunder:splash",
+  "mechanic": "splash hits for 1 (secondary)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:twin:dmg",
+  "mechanic": "primary 1 (trade)",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:twin:poison",
+  "mechanic": "poison on contact",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:twin:ground",
+  "mechanic": "third dagger poisons a quadrant",
+  "expected": "env at NW",
+  "observed": "env",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:quake:shatter",
+  "mechanic": "frost destroyed at target",
+  "expected": "no terrain",
+  "observed": "none",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:quake:domSafe",
+  "mechanic": "Dominion survives Quake (warding bag can't demolish)",
+  "expected": "dom",
+  "observed": "dom",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:toll:reveal",
+  "mechanic": "committed-move line shown while planning round 2",
+  "expected": "the foe has committed to",
+  "observed": "",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:sky:dmg",
+  "mechanic": "Skyfall direct (guard break) 2+1",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:sky:kess",
+  "mechanic": "Kess wing prompt fired",
+  "expected": "kess prompt",
+  "observed": "fired",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:sky:timing",
+  "mechanic": "strikes remaining after the cast round (per v0.73: 2)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": "card text: 'for the NEXT TWO rounds' — a strike in the cast round violates v0.73"
+ },
+ {
+  "id": "base:grind:convert",
+  "mechanic": "enemy frost paved to Dominion",
+  "expected": "dom at SE",
+  "observed": "dom",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:cres:pivotDmg",
+  "mechanic": "pivoted Crescent breaks the guard 1+1",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "base:cres:pivotCost",
+  "mechanic": "pivot paid 1◆ (3 − 1 = 2, spent so no income)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ }
+]

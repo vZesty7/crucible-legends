@@ -2388,7 +2388,7 @@ export default function App() {
     if (plan.ab === "toll") { tgt._tolled = true; L.push({ t: `👁 ${nm(tgt)}'s next movement will be revealed.` }); }
     if (plan.ab === "twin") { const opts = QUADS.filter((qq) => qq !== plan.target && qq !== plan.secondary); if (opts.length) G.current.prompts.push({ kind: "enpoison", who: src.fk, opts, label: "Three Fangs: the third dagger — poison a quadrant" }); }
     if (plan.ab === "pin") { tgt._rootNext = true; L.push({ t: `📌 Pinned — ${nm(tgt)} is Rooted next round.` }); }
-    if (plan.ab === "cadence") { src.flow = true; L.push({ t: `✦ Blade Cadence — ${nm(src)} banks Flow.` }); }
+    if (plan.ab === "cadence") { src._flowBank = true; L.push({ t: `✦ Blade Cadence — ${nm(src)} banks Flow.` }); }
   };
   const advRider = (src, tgt, plan, L, followups) => {
     if (G.current.stats) G.current.stats.adv[src === G.current.P ? "P" : "A"] += 1;
@@ -2438,7 +2438,7 @@ export default function App() {
     if (plan.ab === "current") healUp(warder, 1, L, "Renewing Current");
     if (plan.ab === "whirlA") G.current.prompts.push({ kind: "terr", tkind: "whirl", who: warder.fk, opts: QUADS, label: "Whirlpool: churn a quadrant" });
     if (plan.ab === "hawk") G.current.prompts.push({ kind: "kess", who: warder.fk, opts: ADJ[G.current.kessQ] || QUADS, label: "Hawk's Eye: wing Kess (adjacent)" });
-    if (plan.ab === "riposte") { warder.flow = true; L.push({ t: `✦ ${nm(warder)} draws into stance — Flow.` }); }
+    if (plan.ab === "riposte") { warder._flowBank = true; L.push({ t: `✦ ${nm(warder)} draws into stance — Flow.` }); }
     if (plan.ab === "tap" && warder.hp > 1) {
       warder.hp -= 1;
       if (warder.pass === "knock") { warder.knocks = (warder.knocks || 0) + 1; if (warder.knocks === 3) L.push({ t: `🚪 Knock, knock.` }); }
@@ -2757,7 +2757,7 @@ export default function App() {
     // Kess marks
     if (g.kessQ && !(g.kessStun >= g.roundJustPlayed)) {
       [g.P, g.A].forEach((s) => {
-        if ((s._skyBarrage || 0) > 0) {
+        if ((s._skyBarrage || 0) > 0 && g.roundJustPlayed !== s._skyCast) {
           s._skyBarrage--;
           const bq = rnd(QUADS); const bfoe = other(s);
           L.push({ t: `☄ Skyfall lands on ${bq}.` }); g.skyHit = { q: bq, r: g.roundJustPlayed };
@@ -2854,6 +2854,7 @@ export default function App() {
       s.usedBreak = false;
       s.rooted = !!s._rootNext; s._rootNext = false;
       s.kbLast = !!s._kbThis;
+      if (s._flowBank) { s.flow = true; delete s._flowBank; } // banked Flow arms for the NEXT ability, never the same exchange
       delete s._kbThis; delete s._spent; delete s._ironActive; delete s._noKB; delete s._warding; delete s._powered; delete s._aegisHeld; delete s._nova; delete s._powSpent;
     });
     playLines(L, processPrompts);
@@ -3043,7 +3044,7 @@ export default function App() {
         winner = atk; loser = wrd; winPlan = atkPlan;
       }
     } else { verdict = "DOUBLE GUARD"; L.push({ t: "Both fighters guard. The crowd howls for blood." }); }
-    [[P, pPlan], [A, aPlan]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(loser === src && winPlan && (winPlan.form || ABILITIES[winPlan.ab].type) === "rush")) { src._skyBarrage = 2; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); G.current.prompts.push({ kind: "kess", who: src.fk, opts: ADJ[G.current.kessQ] || QUADS, label: "Skyfall: wing Kess (adjacent)" }); } });
+    [[P, pPlan], [A, aPlan]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(loser === src && winPlan && (winPlan.form || ABILITIES[winPlan.ab].type) === "rush")) { src._skyBarrage = 2; src._skyCast = g.roundJustPlayed; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); G.current.prompts.push({ kind: "kess", who: src.fk, opts: ADJ[G.current.kessQ] || QUADS, label: "Skyfall: wing Kess (adjacent)" }); } });
     g.vs = { p: { n: abP.name, ty: tP, tq: pPlan.target }, a: { n: abA.name, ty: tA, tq: aPlan.target }, note: verdict, r: g.round };
 
     G.current._colNow = false;
@@ -3220,7 +3221,7 @@ export default function App() {
       if (plan.ab === "mireA") setTerrain(tgt.pos, "mire", L, "🧷 Sorrow Mire");
       if (plan.ab === "storm") setTerrain(tgt.pos, "whirl", L, "🌀 Whirlpool");
       if (plan.ab === "undine") G.current.prompts.push({ kind: "undine", who: src.fk, opts: QUADS, label: "Place the Undine" });
-      if (plan.ab === "cadence") src.flow = true;
+      if (plan.ab === "cadence") src._flowBank = true;
       if (plan.ab === "pin") { tgt._rootNext = true; L.push({ t: `📌 Pinned — ${nm(tgt)} is Rooted next round.` }); }
       if (plan.ab === "quake" && G.current.terrain[tgt.pos] && G.current.terrain[tgt.pos].kind !== "dom") { delete G.current.terrain[tgt.pos]; L.push({ t: `⛰ Quake Fist shatters the ground at ${tgt.pos}.` }); }
       if (plan.ab === "bwater") setTerrain(tgt.pos, "surf", L, "🌊 Crashing Surf");
@@ -3228,7 +3229,7 @@ export default function App() {
     let winner = null, tie = tP === tA;
     if (!tie) winner = BEATS[tP] === tA ? P : A;
     [P, A].forEach((s) => { if (tie && s.fk === "G" && s.pass === "warmonger") { winner = s; tie = false; L.push({ t: "🏳 Warmonger — the tie is his." }); } });
-    [[P, pPlan, tP], [A, aPlan, tA]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(!tie && winner !== src && (winner === P ? tP : tA) === "rush")) { src._skyBarrage = 2; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); } });
+    [[P, pPlan, tP], [A, aPlan, tA]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(!tie && winner !== src && (winner === P ? tP : tA) === "rush")) { src._skyBarrage = 2; src._skyCast = g.roundJustPlayed; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); } });
     if (tie) {
       L.push({ t: "⚔ Clash TIE — a bloody trade." });
       if (tP !== "ward") clashBase(P, A, pPlan); else wardBase(P, pPlan, L);
