@@ -1,0 +1,138 @@
+{
+ "complexity": {
+  "G": 3.7,
+  "M": 6.4,
+  "V": 3.6,
+  "C": 3.5,
+  "K": 4.3,
+  "Z": 4.1,
+  "L": 5.3,
+  "D": 5.3,
+  "Y": 5.7,
+  "W": 6.7,
+  "X": 5.6,
+  "O": 3.5
+ },
+ "health": {
+  "G": {
+   "avgRounds": 9.05,
+   "blowoutShare": 16.7,
+   "comebackShare": 28.9,
+   "topAbility": "Skullsplitter",
+   "topAbilityShare": 36.1,
+   "topWinType": "ko",
+   "topWinTypeShare": 54.9,
+   "usedAbilities": 4
+  },
+  "M": {
+   "avgRounds": 9.03,
+   "blowoutShare": 32.1,
+   "comebackShare": 50.8,
+   "topAbility": "Viper Fang",
+   "topAbilityShare": 41.6,
+   "topWinType": "ko",
+   "topWinTypeShare": 52.7,
+   "usedAbilities": 4
+  },
+  "V": {
+   "avgRounds": 9.16,
+   "blowoutShare": 21.6,
+   "comebackShare": 20.7,
+   "topAbility": "Hoarfrost Field",
+   "topAbilityShare": 36.5,
+   "topWinType": "bell",
+   "topWinTypeShare": 49.7,
+   "usedAbilities": 4
+  },
+  "C": {
+   "avgRounds": 8.69,
+   "blowoutShare": 29.9,
+   "comebackShare": 26.8,
+   "topAbility": "Smokeveil",
+   "topAbilityShare": 40.9,
+   "topWinType": "ko",
+   "topWinTypeShare": 70.9,
+   "usedAbilities": 4
+  },
+  "K": {
+   "avgRounds": 9.32,
+   "blowoutShare": 12.8,
+   "comebackShare": 19.7,
+   "topAbility": "Cannonarm",
+   "topAbilityShare": 35,
+   "topWinType": "bell",
+   "topWinTypeShare": 59.3,
+   "usedAbilities": 4
+  },
+  "Z": {
+   "avgRounds": 8.48,
+   "blowoutShare": 32.3,
+   "comebackShare": 17.2,
+   "topAbility": "Life Tap",
+   "topAbilityShare": 50.4,
+   "topWinType": "ko",
+   "topWinTypeShare": 65.7,
+   "usedAbilities": 4
+  },
+  "L": {
+   "avgRounds": 8.54,
+   "blowoutShare": 15.5,
+   "comebackShare": 12,
+   "topAbility": "Bulwark Oath",
+   "topAbilityShare": 48.7,
+   "topWinType": "alt",
+   "topWinTypeShare": 74.5,
+   "usedAbilities": 4
+  },
+  "D": {
+   "avgRounds": 9.1,
+   "blowoutShare": 32.6,
+   "comebackShare": 12.3,
+   "topAbility": "Continental Grind",
+   "topAbilityShare": 37.3,
+   "topWinType": "ko",
+   "topWinTypeShare": 46,
+   "usedAbilities": 4
+  },
+  "Y": {
+   "avgRounds": 9.43,
+   "blowoutShare": 24.6,
+   "comebackShare": 19.5,
+   "topAbility": "Renewing Current",
+   "topAbilityShare": 46.1,
+   "topWinType": "bell",
+   "topWinTypeShare": 65.6,
+   "usedAbilities": 4
+  },
+  "W": {
+   "avgRounds": 9.13,
+   "blowoutShare": 18.9,
+   "comebackShare": 24.3,
+   "topAbility": "Hawk's Eye",
+   "topAbilityShare": 40.3,
+   "topWinType": "bell",
+   "topWinTypeShare": 50.3,
+   "usedAbilities": 4
+  },
+  "X": {
+   "avgRounds": 8.96,
+   "blowoutShare": 33.2,
+   "comebackShare": 16.9,
+   "topAbility": "Edgeguard",
+   "topAbilityShare": 47.7,
+   "topWinType": "ko",
+   "topWinTypeShare": 57.3,
+   "usedAbilities": 4
+  },
+  "O": {
+   "avgRounds": 9.52,
+   "blowoutShare": 23.3,
+   "comebackShare": 22.3,
+   "topAbility": "Pinstick",
+   "topAbilityShare": 53.7,
+   "topWinType": "bell",
+   "topWinTypeShare": 66.1,
+   "usedAbilities": 4
+  }
+ }
+}
