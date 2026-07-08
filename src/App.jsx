@@ -2704,6 +2704,7 @@ export default function App() {
       else L.push({ t: `👹 The Door answers — the claw rakes empty stone at ${rq}.` });
       G.current._clawStrike = false;
       g.clawHit = { q: rq, r: g.roundJustPlayed };
+    }
     [g.P, g.A].forEach((s) => {
       if (s._spent) {
         if (s.fk === "D" && g.terrain[s.pos]?.kind === "dom") gainPow(s, 1, L, "Dominion — the ground provides");
@@ -2829,7 +2830,6 @@ export default function App() {
         }
         return false;
       });
-    }
     }
     // burn ticks
     [g.P, g.A].forEach((s) => {
