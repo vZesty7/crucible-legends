@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 
 const QUADS = ["NW", "NE", "SW", "SE"];
 const ADJ = { NW: ["NE", "SW"], NE: ["NW", "SE"], SW: ["NW", "SE"], SE: ["NE", "SW"] };
-const BUILD = "v0.82.5";
+const BUILD = "v0.82.6";
 const BEATS = { break: "ward", rush: "break", ward: "rush" };
 const TYPE_LABEL = { break: "BREAK", rush: "RUSH", ward: "WARD" };
 const TYPE_HEX = { break: "#ef4444", rush: "#f59e0b", ward: "#38bdf8" };
@@ -2110,6 +2110,7 @@ export default function App() {
   const rerender = () => setTick((x) => x + 1);
   const timers = useRef([]);
   const pendingRef = useRef(null);
+  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G };
 
   const [screen, setScreen] = useState("title");
   const [diff, setDiff] = useState("proving");
