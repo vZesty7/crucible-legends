@@ -1,0 +1,254 @@
+{
+ "G": {
+  "rails": 8,
+  "completions": "20/20",
+  "storyProvides": 1,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "shove/placement",
+    "shown": true
+   },
+   {
+    "name": "clash win",
+    "shown": true
+   },
+   {
+    "name": "advantage rider",
+    "shown": true
+   }
+  ]
+ },
+ "M": {
+  "rails": 6,
+  "completions": "20/20",
+  "storyProvides": 1,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "poison application",
+    "shown": true
+   },
+   {
+    "name": "rupture or detonation",
+    "shown": true
+   },
+   {
+    "name": "blood tithe",
+    "shown": true
+   }
+  ]
+ },
+ "V": {
+  "rails": 6,
+  "completions": "20/20",
+  "storyProvides": 1,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "chill",
+    "shown": true
+   },
+   {
+    "name": "frost ground",
+    "shown": true
+   },
+   {
+    "name": "shatter",
+    "shown": true
+   }
+  ]
+ },
+ "C": {
+  "rails": 6,
+  "completions": "20/20",
+  "storyProvides": 0,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "burn application",
+    "shown": true
+   },
+   {
+    "name": "burn tick",
+    "shown": true
+   },
+   {
+    "name": "detonation or pyre",
+    "shown": true
+   }
+  ]
+ },
+ "K": {
+  "rails": 6,
+  "completions": "20/20",
+  "storyProvides": 0,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "powered swing or armor",
+    "shown": true
+   },
+   {
+    "name": "overcharge",
+    "shown": true
+   },
+   {
+    "name": "big cast",
+    "shown": true
+   }
+  ]
+ },
+ "Z": {
+  "rails": 6,
+  "completions": "20/20",
+  "storyProvides": 2,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "blood price",
+    "shown": true
+   },
+   {
+    "name": "life tap economy",
+    "shown": true
+   },
+   {
+    "name": "doombrand clock",
+    "shown": false
+   }
+  ]
+ },
+ "L": {
+  "rails": 6,
+  "completions": "20/20",
+  "storyProvides": 2,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "sanctuary",
+    "shown": true
+   },
+   {
+    "name": "relic",
+    "shown": true
+   },
+   {
+    "name": "censure denial",
+    "shown": true
+   }
+  ]
+ },
+ "O": {
+  "rails": 6,
+  "completions": "20/20",
+  "storyProvides": 3,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "curse application",
+    "shown": true
+   },
+   {
+    "name": "curse collection",
+    "shown": false
+   },
+   {
+    "name": "heal denial (juju)",
+    "shown": false
+   }
+  ]
+ },
+ "D": {
+  "rails": 6,
+  "completions": "20/20",
+  "storyProvides": 1,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "dominion conversion",
+    "shown": true
+   },
+   {
+    "name": "demolition or seal",
+    "shown": true
+   },
+   {
+    "name": "quake",
+    "shown": true
+   }
+  ]
+ },
+ "Y": {
+  "rails": 6,
+  "completions": "20/20",
+  "storyProvides": 2,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "whirlpool",
+    "shown": true
+   },
+   {
+    "name": "surf",
+    "shown": true
+   },
+   {
+    "name": "undine or maelstrom",
+    "shown": true
+   }
+  ]
+ },
+ "W": {
+  "rails": 6,
+  "completions": "20/20",
+  "storyProvides": 1,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "kess mark",
+    "shown": true
+   },
+   {
+    "name": "skyfall",
+    "shown": true
+   },
+   {
+    "name": "pin/root",
+    "shown": true
+   }
+  ]
+ },
+ "X": {
+  "rails": 6,
+  "completions": "20/20",
+  "storyProvides": 3,
+  "exchangeLossRounds": [],
+  "issues": [],
+  "coverage": [
+   {
+    "name": "flow",
+    "shown": true
+   },
+   {
+    "name": "pivot",
+    "shown": false
+   },
+   {
+    "name": "cadence or arsenal",
+    "shown": true
+   }
+  ]
+ }
+}

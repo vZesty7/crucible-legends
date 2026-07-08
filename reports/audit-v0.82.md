@@ -28,6 +28,7 @@ by both-seat aggregation. Mirrors are excluded (impossible in the real game).
 | 2 | **Berserker's Pact drew invisible blood** — the first-clash "both take 1" damage was dealt but its log lines were wiped a statement later; HP dropped with no record. | Rules-integrity | v0.76.2 "LEDGER PERFECT" standard |
 | 3 | **Blade Cadence ate its own Flow** — the Flow it banks "for the next ability" was consumed by the same swing's Advantage instance (hidden +1, or +2 under Perfect Edge). Riposte Draw's stance Flow had the same flaw on its own catch. | Rules-integrity | Flow kit rule ("next ability +1"); card text ("bank a new one") |
 | 4 | **Skyfall's storm struck a round early** — first volley fired at the end of the cast round; the ruling and the card both say "the NEXT TWO rounds". | Rules-integrity | v0.73 Skyfall v2 spec |
+| 5 | **The AI's Doombrand instinct never fired** — the v0.78 combo-intent table referenced ability id `doom`; the real id is `brand`. AI Zhal has never deliberately branded anyone. | AI quality | v0.78 combo-intent spec |
 
 Earlier in this same engagement: the **misplaced end-of-round brace** (v0.82.5) that disabled
 income, Doombrand, relic claims, and the Dominion seal in non-Zhal games.
@@ -64,17 +65,17 @@ math "Core from full 4+1").
 
 | Fighter | MIN (naive) | MID (standard) | MAX (expert) |
 |---|---|---|---|
-| Kastor | 55.9 | **79.7** | **71.6** |
-| Dhoram | 69.2 | 63.8 | 58.9 |
+| Kastor | 55.9 | **79.7** | **71.3** |
+| Dhoram | 69.2 | 63.8 | 58.7 |
 | Dregan | **72.6** | 59.1 | 60.0 |
-| Maelis | 39.9 | 54.0 | 40.4 |
-| Ashkarra | 38.9 | 52.9 | 55.0 |
-| Marrow | 62.8 | 49.5 | 56.0 |
-| Maleth | 50.5 | 46.7 | 41.7 |
-| Vessk | 39.3 | 43.4 | 33.0 |
-| Gharzul | 40.6 | 42.1 | 61.4 |
-| Zhal | 17.5 | 39.3 | 21.2 |
-| Wrenna | 49.2 | 36.1 | 33.6 |
+| Maelis | 39.9 | 54.0 | 39.8 |
+| Ashkarra | 38.9 | 52.9 | 54.9 |
+| Marrow | 62.8 | 49.5 | 55.7 |
+| Maleth | 50.5 | 46.7 | 41.5 |
+| Vessk | 39.3 | 43.4 | 32.6 |
+| Gharzul | 40.6 | 42.1 | 61.0 |
+| Zhal | 17.5 | 39.3 | 23.9 |
+| Wrenna | 49.2 | 36.1 | 33.4 |
 | Koros | 63.5 | 33.4 | 67.2 |
 
 *(MIN/MAX use different builds and policies per tier — compare within a column, not across.)*
@@ -176,8 +177,8 @@ king), Ashkarra, Maelis, Dregan, Koros · B Dhoram, Marrow · C Zhal (one-abilit
 - **Koros — broken-mechanically (as shipped).** Not the kit — the default draft. 33.4% with the
   standard load vs 73.4% with the bunker build is the game's widest gap; his shipped AI loadout
   actively fights his own Capacitor. Also: his current kit has no design-doc entry.
-- **Zhal — one-dimensional + skill-gated.** Life Tap is 50% of his winning play; 17-21% floor at
-  naive/expert tiers; only economy discipline (MID 39.3) keeps him breathing. The Triarch's
+- **Zhal — one-dimensional + skill-gated.** Life Tap is 50% of his winning play; 17.5% floor at
+  the naive tier and 23.9 at expert (after the brand-instinct fix below); only economy discipline (MID 39.3) keeps him breathing. The Triarch's
   "lowest floor, real ceiling" still true — but the ceiling needs a live human.
 - **Kastor — overtuned; the strongest, unfairly.** 79.7% MID, 74.5% of wins by relic, 42/45
   builds over the fence, 9 of 14 extreme matchups. Even discounting the AI's failure to contest
@@ -206,4 +207,27 @@ king), Ashkarra, Maelis, Dregan, Koros · B Dhoram, Marrow · C Zhal (one-abilit
 - **Widest min-to-max gap (draft skill ceiling):** Koros, 62.5 points.
 - **Matchups beyond 75/25 at MID:** 14 (list above); 9 involve Kastor.
 
-*Phase E (tutorial audit) reported separately below.*
+## 6. Phase E — tutorial audit
+
+**Function: 12/12 lessons pass.** Each lesson was played through its rails 20 times (240
+playthroughs, RNG live): every run ended in the promised "Lesson Complete", zero softlocks, zero
+rounds in which the student loses an exchange (Vessk's round-4 Avalanche-into-ward catch is the
+one deliberate showcase, and its coach text announces it). The v0.72 "story provides" affordability
+top-ups fired 0–3 times per lesson, exactly as designed. The rails legally reference abilities
+outside the launch loadout — the storybook ▶ control sets plans directly, so this is by design,
+not a break.
+
+**Rule compliance:** the Pact fix made Gharzul's round-3 coach text honest — it always claimed
+"the Pact just took 1 blood from each of you," but until this audit that blood was invisible in
+the record. No other false mechanical claims found in the say-texts against Phase A ground truth.
+
+**Teaching coverage gaps (doc signature list vs what the rails demonstrate):**
+
+| Lesson | Gap |
+|---|---|
+| Zhal | **Doombrand never taught** — his signature clock is absent from the rails (and until this audit, from the AI's instincts too). |
+| Marrow | **Curse collection never shown** — structurally impossible: the lesson is 6 rounds, curses pay from round 7. Bad Juju (the lesson's own passive) also never triggers. |
+| Dregan | **The pivot never fires** — Nine Edges is described but never demonstrated in his own lesson. |
+
+Full per-lesson data: `reports/data/phaseE-tutorials.json`.
+

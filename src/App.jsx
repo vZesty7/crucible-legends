@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 
 const QUADS = ["NW", "NE", "SW", "SE"];
 const ADJ = { NW: ["NE", "SW"], NE: ["NW", "SE"], SW: ["NW", "SE"], SE: ["NE", "SW"] };
-const BUILD = "v0.82.6";
+const BUILD = "v0.83";
 const BEATS = { break: "ward", rush: "break", ward: "rush" };
 const TYPE_LABEL = { break: "BREAK", rush: "RUSH", ward: "WARD" };
 const TYPE_HEX = { break: "#ef4444", rush: "#f59e0b", ward: "#38bdf8" };
@@ -2472,7 +2472,7 @@ export default function App() {
       if (f === "M" && id === "heart" && hpn.poison >= 2) return 8;
       if (f === "M" && id === "viper" && hpn.poison === 0) return 3;
       if (f === "Z" && id === "tap" && ai.pow <= 1 && ai.hp > 4) return 6;
-      if (f === "Z" && id === "doom" && !hpn.brandRound) return 5;
+      if (f === "Z" && id === "brand" && !hpn.brandRound) return 5;
       if (f === "Z" && id === "dark" && ai.hp <= ai.maxHp - 3) return 4;
       if (f === "Y" && id === "storm" && ai.pow >= 3) return 6;
       if (f === "Y" && (id === "lash" || id === "bwater") && ["whirl", "surf"].includes(T(hpn.pos))) return 5;
@@ -3378,7 +3378,7 @@ export default function App() {
 
   // Dormant test hook: exposes engine internals to the automated test/audit
   // harness only when a test runner sets window.__CL_TEST_HOOK__. Inert in play.
-  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G, api: { startGame, beginBout, aiMakePlan, aiPivot, applyToll, resolveRound, confirmClash, confirmPlan, useCraven, answerPrompt, processPrompts, throwSudden, skipPlay, clearTimers, confirmUmbralMove, confirmFeint, confirmFeintClash, afterCutin, railPromptPick, aiPickOpt, runClash }, defs: { FIGHTERS, ABILITIES, PASSIVES, TUTS, QUADS, ADJ, BEATS, CLASH_ROUNDS } };
+  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G, api: { startGame, beginBout, aiMakePlan, aiPivot, applyToll, resolveRound, confirmClash, confirmPlan, useCraven, answerPrompt, processPrompts, throwSudden, skipPlay, clearTimers, confirmUmbralMove, confirmFeint, confirmFeintClash, afterCutin, railPromptPick, aiPickOpt, runClash, resolveRail }, defs: { FIGHTERS, ABILITIES, PASSIVES, TUTS, QUADS, ADJ, BEATS, CLASH_ROUNDS } };
   // Headless lab mode: the engine runs, nothing renders. Test-harness only.
   if (typeof window !== "undefined" && window.__CL_LAB__) return null;
 
