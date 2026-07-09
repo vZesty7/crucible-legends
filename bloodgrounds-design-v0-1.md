@@ -145,14 +145,15 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 ## 7. The Roster — Twelve Fighters
 
 ### GHARZUL REDHAND — Orc Berserker
-**Ravager · 13 HP** — A scar-mapped warlord who files his axe on the bones of the last duel. Gets *worse* to fight as he bleeds.
+**Ravager · 12 HP** *(corrected v0.83.1 — the v0.34 half-threshold math was always built on 12)* — A scar-mapped warlord who files his axe on the bones of the last duel. Gets *worse* to fight as he bleeds.
+**Kit rule — Wrecking Throw** *(v0.12)*: his knockbacks aim — slamming the enemy into terrain destroys it for +1 damage; into a companion, and it's stunned a round.
 **Gameplan:** force exchanges, feast on clash rounds, bank ◆ for a Red Harvest kill window.
 
 **Abilities (pick 4 of 6):**
 - **Skullsplitter** — Break · 0◆ — 1 dmg *(v0.12 — damage tiers by cost)*. *Adv:* +1 dmg.
-- **Bloodhowl** — Rush · 0◆ — 1 dmg. *Adv:* gain +1◆.
+- **Bloodhowl** — Rush · 0◆ — 1 dmg. *Adv:* +1 dmg *(the ◆-gain rider died in the v0.9.1 flatten)*.
 - **Bone Grinder** *(v0.27 — renamed from Sunder; verdict on the AOE question: it already works)* — Break · 1◆ — 2 dmg + 1 splash to an adjacent quadrant of your choice. In a 1v1, AOE is *coverage*, not multi-hit — one swing threatening half the board is whiff insurance priced right; widening it would undercut Pyre's premium. *Adv:* +1 dmg.
-- **Blood Frenzy** — Rush · 2◆ — 2 dmg; 3 dmg if Gharzul is at 6 HP or less. *Adv:* knockback may hurl the enemy to ANY quadrant.
+- **Blood Frenzy** — Rush · 2◆ — 2 dmg; 3 dmg if Gharzul is at 6 HP or less. *Adv:* +1 dmg *(the anywhere-throw rider is Red Harvest's alone post-v0.9.1)*.
 - **Iron Hide** — Ward · **1◆** *(v0.27 — doctrine violation found: free universal −1 mitigation had survived since wave one, blunting guard-breaks against him at no cost; Stonewall establishes that armor may be BOUGHT, never inherent)* — Counter stance; take −1 from ALL damage this round, even Breaks and chip. *Adv:* +1 counter.
 - **Red Harvest** — Break · **3◆ — 4 dmg** *(v0.28 — the nuke, finally tier-correct beside Overload Core)*. *Adv:* +1 dmg; knockback anywhere.
 
@@ -170,12 +171,12 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 **Gameplan:** paint the map in Frost, herd the enemy into it with knockback, cash the shatter.
 
 **Abilities (pick 4 of 6):**
-- **Ice Lance** — Rush · 0◆ — 1 dmg; Chill on contact. *Adv:* their quadrant also becomes Frost.
-- **Hoarfrost Field** — Ward · 0◆ — Block; your quadrant becomes Frost. *Adv:* Chill the attacker.
+- **Ice Lance** — Rush · 0◆ — 1 dmg; Chill on any contact. *Adv:* +1 dmg.
+- **Hoarfrost Field** — Ward · 0◆ — Counter stance; your quadrant becomes Frost. *Adv:* +1 counter.
 - **Glacial Spike** — Break · 1◆ *(v0.30.1 — self-chill REVERTED per designer: a self-sufficient loop made his frost irrelevant; without it, THE ZONE IS THE RE-CHILLER and the two paths interlock)* — 2 dmg; Chilled targets SHATTER (+1, +2 with Shatterpoint).
-- **Flash Freeze** — Rush · 2◆ — 1 dmg; target quadrant becomes Frost. *Adv:* enemy is Rooted (cannot move next round).
-- **Winter's Mantle** — Ward · 1◆ — Block; heal 1. *Adv:* counter 1 and Chill the attacker.
-- **Avalanche** — Rush · 3◆ — 2 dmg to TWO quadrants of your choice. *Adv:* +1 dmg per Frost quadrant on the board (max +2).
+- **Flash Freeze** — Rush · 2◆ — 1 dmg; target quadrant becomes Frost. *Adv (signature):* +1 dmg AND the enemy is Rooted (cannot move next round).
+- **Winter's Mantle** — Ward · 1◆ — Counter stance; heal 1. *Adv:* +1 counter.
+- **Avalanche** — Rush · 3◆ — 2 dmg to TWO quadrants of your choice. *Adv (signature):* +1 dmg, plus +1 more per Frost quadrant on the board (max +2).
 
 **Passives (pick 1):**
 - **Permafrost** — your Frost never melts.
@@ -190,17 +191,17 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 **Gameplan:** stack Burn through Advantage wins, punish whiffs with wide coverage, detonate with Combustion.
 
 **Abilities (pick 4 of 6):**
-- **Cinder Jab** — Rush · 0◆ — 1 dmg; Burn on contact. *Adv:* +1 Burn.
-- **Magma Haymaker** — Break · 0◆ — 2 dmg; Burn on contact. *Adv:* +1 dmg.
+- **Cinder Jab** — Rush · 0◆ — 1 dmg; Burn on any contact. *Adv:* +1 dmg.
+- **Magma Haymaker** — Break · 0◆ — 1 dmg *(v0.12 — all plain 0◆ attacks are 1)*; Burn on any contact. *Adv:* +1 dmg.
 - **Flashfire Step** — Rush · 1◆ — 1 dmg; after resolution, step to an adjacent quadrant, **leaving Scorched ground behind** *(v0.12 — scorch restored as base; her ◆ pays for it)*. *Adv:* +1 dmg.
-- **Smokeveil** — Ward · 0◆ — Block. *Adv:* counter 1 and Burn the attacker.
-- **Combustion** — Break · 2◆ — 2 dmg, +1 per Burn stack on the enemy (consumes them). *Adv:* +1 dmg.
+- **Smokeveil** — Ward · 0◆ — Counter stance. *Adv:* +1 counter.
+- **Combustion** — Break · 2◆ — 2 dmg, +2 per Burn stack consumed *(v0.78.2 — double value; detonated stacks never get their end-of-round tick)*. *Adv:* +1 dmg.
 - **Pyre of the Pit** — Break · 3◆ — 2 dmg to a target quadrant AND both adjacent quadrants; **every quadrant hit becomes Scorched, burning away any other terrain there** *(v0.12 — the anti-Shaper tech: fire eats Frost, Mire, Whirlpools, even Dominion)*. *Adv:* +1 dmg; everything hit gains Burn.
 
 **Passives (pick 1):**
 - **Everburn** — your Burn cap becomes 3 stacks.
 - **Heat Rising** — whenever the enemy takes Burn damage, gain +1◆.
-- **Killing Heat** — +1 damage in clash rounds while the enemy is Burning.
+- **Killing Heat** — +1 damage in Clashes and Collisions while the enemy is Burning.
 
 ---
 
@@ -209,23 +210,23 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 
 **RELIQUARY (alternate win condition):** At the start of rounds **2, 4, 6, and 8** (all normal rounds — clashes stay pure), a Holy Relic manifests in a random quadrant no fighter occupies (announced openly). Relics **persist until claimed** — multiple can litter the field at once. A fighter who **ends a round standing on a relic** claims it. If both fighters end there, only an exchange winner may claim; otherwise the relic stays put.
 - Kastor claims **3 relics → immediate victory.**
-- The **enemy** claims one → they choose *heal 2* or *gain 1◆*, and that relic is destroyed. Four spawn per match, so a single steal is survivable — the second kills the win-con and forces Kastor to fight it out.
+- The **enemy** claims one → the relic is destroyed and the thief heals 1 *(v0.59 — the ◆ option removed; denial is the real prize)*. Four spawn per match, so a single steal is survivable — the second kills the win-con and forces Kastor to fight it out.
 - Knockback resolves before claims: shoving Kastor off a relic square at the last second is the intended counterplay.
 
 **Gameplan:** consecrate ground near relic spawns, plant, refuse to move, heal through the siege.
 
 **Abilities (pick 4 of 6):**
 - **Censure** — Break · 0◆ *(v0.30.1 — denial moved to Advantage after one version of contact-denial; the every-round ◆-starve vs economy fighters was the oppressive case, and adv-gating means the Light disapproves only when it JUDGES you)* — 1 dmg. *Adv (keep-list signature):* +1 dmg **and the enemy gains no ◆ this round.**
-- **Lightlance** — Rush · 0◆ — 1 dmg; **+1 if the target stands on Hallowed ground** *(v0.30 — the Light punishes trespass; consecration turns offensive)*. *Adv:* +1 dmg.
+- **Lightlance** — Rush · 0◆ — 1 dmg; **+1 if the target stands on Sanctuary ground** *(v0.30 — the Light punishes trespass; v0.59 rename)*. *Adv:* +1 dmg.
 - **Bulwark Oath** — Ward · 0◆ — Counter stance; blank base by design. *Adv (v0.30.1):* +1 counter, **and NOTHING can move him this round** — shove, surf, yank, Puppet Pull, all of it. The vow, load-bearing.
 - **Aegis of the Vigil** — Ward · 1◆ *(v0.30.1)* — Counter stance; heal 1; no knockback; **on a CONTESTED relic (both fighters standing on it), the Vigil outlasts — Kastor claims it anyway.** Counterplay is the triangle itself: a Break through the ward clears the claim flag. *Adv:* +1 counter.
-- **Consecration** — Rush · 2◆ — 1 dmg; target quadrant becomes Hallowed for 3 rounds (Kastor ending a round there heals 1; enemies ending there take 1). *Adv:* also Hallow your current quadrant.
-- **Dawnhammer** — Break · 3◆ — 3 dmg; **heal 2 if swung from Hallowed ground** *(v0.30 — sanctity fuels the sunrise)*. *Adv:* +1 dmg.
+- **Consecration** — Rush · 2◆ — 1 dmg; target quadrant becomes a Sanctuary for 3 rounds (Kastor ending a round there heals 1; enemies ending there take 1). *Adv (signature):* +1 dmg AND your own quadrant becomes a Sanctuary too.
+- **Dawnhammer** — Break · 3◆ — 3 dmg; **heal 2 if swung from Sanctuary ground** *(v0.30 — sanctity fuels the sunrise)*. *Adv:* +1 dmg.
 
 **Passives (pick 1):**
 - **Pilgrim's Stride** — when a relic spawns, immediately step to an adjacent quadrant.
-- **Undying Vigil** — the first time you'd hit 0 HP, survive at 1 (once per match).
-- **Sanctified Ground** — while in a Hallowed quadrant, you cannot be knocked back.
+- **Undying Vigil** *(upgraded v0.81.1)* — the first time you'd hit 0 HP: survive at 1, ALL afflictions cleansed, and your bank fills to 3◆ (once per match).
+- **Hammer of Justice** *(v0.64 — replaced Sanctified Ground; the anchor is retired, his CHOSEN tools anchor him now)* — Dawnhammer's contact ROOTS the target: next round they cannot move.
 
 ---
 
@@ -235,12 +236,12 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 **Gameplan:** stack Poison off reads, dodge with after-reveal movement, execute the wounded.
 
 **Abilities (pick 4 of 6):**
-- **Viper Fang** — Rush · 0◆ — 1 dmg; apply 1 Poison on connect. *Adv:* apply 2 Poison instead.
+- **Viper Fang** — Rush · 0◆ — 1 dmg; apply 1 Poison on any contact. *Adv:* +1 dmg.
 - **Blackout** — Ward · 1◆ *(v0.30 — the paid venom engine)* — Counter stance; riposte adds +1 Poison on any catch. *Adv:* +1 counter **and +1 MORE Poison** — a perfect catch is two stacks. Contrast Gloomveil: pay for stacks, or go free for the slip.
 - **Umbral Step** — Rush · 1◆ — 1 dmg; you declare your movement AFTER seeing the enemy's revealed plan (your attack target stays as declared). *(Tuning flag: possibly the strongest 1◆ in the game.)*
 - **Gloomveil** — Ward · 0◆ — Block. *Adv:* counter 1 and apply 1 Poison, then step to an adjacent quadrant.
 - **Three Fangs** *(v0.29.1 — renamed; it was always three)* — Rush · 2◆ — 1 dmg to TWO quadrants, Poison on contact, **and a third dagger sticks Poisoned ground into an unhit quadrant** (end a round there: +1 Poison; two tick windows — its round and the next) *(v0.29 — Envenomed terrain had been UNREACHABLE since the v0.9.1 flatten deleted its only placer; handler, skin, tick, and AI targeting all existed for ten versions with no way to fire)*. Three of four quadrants threatened for 2◆. *Adv:* +1 dmg.
-- **Heartseeker** — Rush · 3◆ *(v0.29.1 — the poison-gated homing finisher)* — **1 dmg, +2 per Poison stack consumed; against a Poisoned target it CANNOT WHIFF** — the venom sings to the blade, and it retargets to wherever they stand. Certainty is earned: no stacks, no tracking. The counter-read survives — homing guarantees contact, not victory; a Rush still interrupts and breaks the whole detonation. Blood Tithe pays on detonations. *Adv:* +1 dmg.
+- **Heartseeker** — Break · 3◆ *(v0.29.1 — the poison-gated homing finisher; retyped Rush→Break in v0.62 per the class rule)* — **1 dmg, +2 per Poison stack consumed; against a Poisoned target it CANNOT WHIFF** — the venom sings to the blade, and it retargets to wherever they stand. Certainty is earned: no stacks, no tracking. The counter-read survives — homing guarantees contact, not victory; a Rush still interrupts and breaks the whole detonation. Blood Tithe pays on detonations. *Adv:* +1 dmg.
 
 **Passives (pick 1):**
 - **Twist the Knife** — +1 damage against enemies knocked back last round.
@@ -255,36 +256,36 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 **Gameplan:** two builds hide in one pool — *Ruin* (burn life for overwhelming damage) or *Affliction* (debuff attrition) — or blend them.
 
 **Abilities (pick 4 of 6):**
-- **Ruinfire** — Break · 0◆ + 1 HP — 2 dmg. *Adv:* +2 dmg.
-- **Umbral Chains** — Rush · 1◆ — 1 dmg; enemy deals −1 damage next round. *Adv:* they also lose 1◆.
-- **Life Tap** — Ward · 0◆ — Block; you may pay 1 HP to gain +1◆. *Adv:* counter 1 and heal 1.
+- **Ruinfire** — Break · 0◆ + 1 HP — 2 dmg. *Adv:* +1 dmg *(the +2 rider died in the v0.9.1 flatten)*.
+- **Umbral Chains** — Rush · 1◆ — 1 dmg; enemy deals −1 damage next round. *Adv:* +1 dmg.
+- **Life Tap** — Ward · 0◆ — Counter stance; pay 1 HP to gain +1◆. *Adv:* +1 counter *(the heal rider is a named, unpulled lever — v0.76.3)*.
 - **Doombrand** — Rush · 2◆ — 1 dmg; brand the enemy: at the end of the round after next, the brand detonates for 3. *Adv:* the fuse shortens to end of next round.
-- **Devouring Dark** — Break · 3◆ — 2 dmg and heal 2. *Adv:* +1 dmg, +1 heal.
+- **Devouring Dark** — Break · 3◆ — 2 dmg and heal 2. *Adv:* +1 dmg.
 - **Oblivion Pact** — Break · 2◆ + 2 HP — 4 dmg. *Adv:* +1 dmg. *(Highest base hit in the game. If it whiffs or eats a Rush, he paid everything for nothing.)*
 
 **Passives (pick 1):**
 - **Blood Surplus** — whenever you pay HP, gain +1◆.
 - **Agonist** — enemies under your debuffs (Chains, Doombrand) take +1 damage from you.
-- **Borrowed Time** — the first time you'd be KO'd, drop to 1 HP instead and gain 3◆ (once per match).
+- **The Third Knock** *(v0.82 — replaced Borrowed Time)* — every 3rd wound you take (your own blood counts; one knock per payment): at round's end a nether claw lashes a RANDOM quadrant for 2, striking anyone there — even Zhal. Claw wounds never knock; the count resets forever.
 
 ---
 
 ### WRENNA VAIL & KESS — Ranger
 **Duelist · 11 HP** — A border-war sharpshooter and the red-tailed hawk that never stopped following her home. Kess watches. Wrenna finishes.
-**Kit rule — Kess:** a companion token (see Shared Rules). Kess starts in Wrenna's quadrant. Enemies ending a round in Kess's quadrant become **Marked** — they take +1 damage from Wrenna until the end of her next round.
+**Kit rule — Kess:** a companion token (see Shared Rules). Kess starts in Wrenna's quadrant and **flies adjacent-only** *(v0.71 — a steered resource, not a teleport turret)*. Enemies ending a round in Kess's quadrant become **Marked** — Marks stack to 2, each +1 damage from Wrenna until the end of her next round. Only the hawk's POSITION marks *(v0.73)*.
 **Gameplan:** kite, put the hawk where they'll run, and make every correct read hit harder.
 
 **Abilities (pick 4 of 6):**
-- **Broadhead** — Rush · 0◆ — 1 dmg. *Adv:* Mark the enemy.
-- **Hawk's Eye** — Ward · 0◆ — Block; move Kess to any quadrant. *Adv:* Mark the attacker.
-- **Pinning Shot** — Break · 1◆ — 2 dmg. *Adv:* enemy is Rooted.
-- **Longstride** — Ward · 1◆ — Block; after resolution, step to an adjacent quadrant. *Adv:* counter 1, and Kess moves to your previous quadrant (covering the retreat).
-- **Watcher's Toll** — Rush · 2◆ — 1 dmg; next round the enemy must declare their movement openly before planning. *Adv:* Mark them. *(Tuning flag: the information edge may need a nerf.)*
-- **Skyfall Volley** — Rush · 3◆ — 2 dmg to the primary target quadrant AND 2 dmg to Kess's quadrant if different (secondary hit). *Adv:* the primary deals +1.
+- **Broadhead** — Rush · 0◆ — 1 dmg. *Adv:* +1 dmg.
+- **Hawk's Eye** — Ward · 0◆ — Counter stance; wing Kess to an ADJACENT quadrant. *Adv:* +1 counter *(the Advantage-mark was abolished v0.73 — position is the only marker)*.
+- **Pinning Shot** — Break · 1◆ — 1 dmg; the arrow pins — Rooted next round on any contact. *Adv:* +1 dmg.
+- **Longstride** — Ward · 1◆ — Counter stance; after resolution, step to an adjacent quadrant. *Adv:* +1 counter.
+- **Watcher's Toll** — Rush · 2◆ — 1 dmg; next round the enemy's movement is COMMITTED and revealed to you before you plan. *Adv:* +1 dmg. *(Tuning flag: the information edge may need a nerf.)*
+- **Skyfall Volley** — Break · 3◆ *(v0.71/v0.73 rework)* — 2 dmg aimed, and Kess takes wing (adjacent). Then for the NEXT TWO rounds a volley falls on a RANDOM quadrant: 2 dmg and a Mark if it finds them. Only a Rush interrupts the launch. *Adv:* +1 dmg.
 
 **Passives (pick 1):**
 - **Deadeye** — attacks targeting the quadrant diagonal from you deal +1. *(The only fighter rewarded for shooting across the arena.)*
-- **Talon Harass** — enemies in Kess's quadrant deal −1 damage.
+- **Talon Harass** *(v0.71 — the dive chip)* — when Hawk's Eye wings Kess INTO the enemy's quadrant, the dive CHIPS them for 1.
 - **Parting Shot** — when you lose a clash, deal 1 damage to the winner anyway.
 
 ---
@@ -296,11 +297,11 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 
 **Abilities (pick 4 of 6):**
 - **Riptide Lash** — Rush · 0◆ — 1 dmg. Her honest jab and clash floor *(v0.23 — the v0.22 vortex bonus and carry were too much on a free action; the chips belong to the ground now)*. *Adv:* +1 dmg.
-- **Renewing Current** — Ward · 0◆ — Block; heal 1. *Adv:* counter 1 and gain Flow (your next ability deals +1).
+- **Renewing Current** — Ward · 0◆ — Counter stance; heal 1. *Adv:* +1 counter.
 - **Crushing Wave** *(v0.23 — was Breakwater, made redundant by the universal Shove)* — Break · 1◆ — **1 dmg; the target's quadrant becomes Crashing Surf**: end a round in it (non-Maelis) and take 1, then the wave THROWS you to an adjacent quadrant (anchors hold). *Adv:* +1 dmg.
 - **Whirlpool** — Ward · 1◆ *(v0.22 — the trap, not the toss)* — Counter stance; open a Whirlpool in any quadrant. **It yanks an adjacent foe in as it opens**, and **grinds whoever stands in it: 1 damage at round's end** (Maelis is immune; water expires naturally — outlasting it is counterplay). *Adv:* +1 counter.
-- **Summon Undine** — Rush · 2◆ — 1 dmg; place the Undine anywhere for 3 rounds. *Adv:* while it stands, ending a round in its quadrant also heals YOU 1.
-- **Maelstrom** — Rush · 3◆ — 2 dmg; both quadrants adjacent to the target become Whirlpools. *Adv:* +1 dmg and the target quadrant churns too.
+- **Summon Undine** — Rush · 2◆ — 1 dmg; place the Undine anywhere for 3 rounds (it lashes co-occupants 1 at round's end). *Adv:* +1 dmg.
+- **Maelstrom** — Rush · 3◆ — 2 dmg; both quadrants adjacent to the target become Whirlpools (each yanks an adjacent foe in as it opens). *Adv:* +1 dmg.
 
 **Passives (pick 1):**
 - **Undertow** *(v0.24 — water-gated)* — your shoves and throws that send the enemy **into your water** (Whirlpool or Surf) deal +1. *(Was: any knockback — which, post-Shove, meant every direct win and deleted her hold option.)*
@@ -322,7 +323,7 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 - **Bedrock Claim** — Ward · **1◆** *(v0.26 — was free; four free claims won by Round 5, see note 21)* — Counter stance; your quadrant becomes Dominion. *Adv:* counter +1 and one adjacent quadrant converts too.
 - **Quake Fist** — Break · 1◆ — 2 dmg; **shatters any non-Dominion terrain in the target quadrant** *(v0.13 — demolition restored as base; his stone respects his stone)*. *Adv:* +1 dmg.
 - **Continental Grind** — Rush · **0◆** *(v0.26.1 — his free floor; the v0.26 Claim reprice left him with zero 0◆ abilities, violating the draft invariant: undraftable player, deadlocked AI)* — 1 dmg; convert one enemy terrain into Dominion — or claim an empty quadrant if there is none. **Conversion is direct-gated: the free tile is an earned read.** *Adv:* +1 dmg.
-- **Stonewall** — Ward · 1◆ — Block; you cannot be knocked back this round; take −1 from everything if on Dominion. *Adv:* counter 2.
+- **Stonewall** — Ward · 1◆ — Counter stance; you cannot be knocked back this round; take −1 from everything while on Dominion. *Adv:* +1 counter.
 - **Fissure** — Rush · 2◆ *(v0.26 — was strictly dominated by Grind at half the cost)* — 1 dmg; **the crack runs: the target quadrant AND one adjacent of your choice become Dominion.** The paid acceleration — speed costs now. *Adv:* +1 dmg.
 - **Mountainfall** — Break · 3◆ — 3 dmg; +1 if the enemy stands on your Dominion. *Adv:* +1 dmg and their quadrant converts after the hit.
 
@@ -339,12 +340,12 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 **Gameplan:** trade politely for seven rounds while the debt compounds. Then collect.
 
 **Abilities (pick 4 of 6):**
-- **Pinstick** — Rush · 0◆ — 1 dmg; apply 1 Curse on connect. *Adv:* apply 2 instead.
+- **Pinstick** — Rush · 0◆ — 1 dmg; apply 1 Curse on any contact. *Adv:* +1 dmg.
 - **Witch Brew** *(v0.33 — was Gristle-Knit; priced 0◆→1◆)* — Ward · 1◆ — Counter stance; heal 1; **your riposte carries +1 Curse on any catch** (the Blackout pattern — the slower status is what buys the heal at the same price). *Adv:* +1 counter.
 - **Shrunken Head** *(v0.33 — renamed for the hex)* — Break · 1◆ — 1 dmg; enemy deals −1 next round; +1 Curse on contact. *Adv:* +1 dmg. *"Somebody's opinion, permanently reduced."*
-- **Sorrow Mire** — Rush · 1◆ — 1 dmg; target quadrant becomes Mire for 2 rounds (enemies ending a round there gain +1 Curse). *Adv:* +1 Curse immediately as well.
+- **Sorrow Mire** — Rush · 1◆ — 1 dmg; target quadrant becomes Mire for 2 rounds (enemies ending a round there gain +1 Curse). *Adv:* +1 dmg.
 - **Puppet Pull** — Ward · **1◆** *(v0.16 — was 2◆)* — Counter stance; after knockback resolves, you may drag the enemy one adjacent quadrant. *Adv:* counter +1 and +1 Curse.
-- **Harvest of Sorrows** — Rush · 3◆ — 2 dmg, +1 per 3 Curse on the enemy (doesn't consume stacks). *Adv:* +2 Curse.
+- **Harvest of Sorrows** — Rush · 3◆ — 2 dmg, +1 per 3 Curse on the enemy (doesn't consume stacks). *Adv:* +1 dmg.
 
 **Passives (pick 1):**
 - **Marrow-Deep** — Curse ticks begin at the end of Round 7.

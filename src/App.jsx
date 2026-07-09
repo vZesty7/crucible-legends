@@ -33,7 +33,7 @@ const STATUS_INFO = {
   scorch: "🔥 SCORCHED — end a round on this ground and you gain a Burn stack.",
   env: "🧪 POISONED — end a round here and you gain +1 Poison.",
   mire: "🧷 MIRE — the swamp keeps a doll for everyone: end a round here and you gain +1 Curse. Marrow's ground.",
-  hall: "✦ SANCTUARY — consecrated ground: Kastor heals 1 ending a round here; anyone else is SEARED for 1. Sanctified Ground anchors him on it, and his Light hits harder against trespassers.",
+  hall: "✦ SANCTUARY — consecrated ground: Kastor heals 1 ending a round here; anyone else is SEARED for 1. His Lightlance hits harder against anyone standing on it, and his chosen wards anchor him to it.",
   whirl: "🌀 WHIRLPOOL — the vortex YANKS an adjacent foe in as it opens, and GRINDS: end a round in it (unless you're Maelis) and take 1.",
   surf: "🌊 CRASHING SURF — breakers pound this ground: end a round here (unless you're Maelis) and take 1, then the wave THROWS you to an adjacent quadrant. Anchored fighters take the hit but hold.",
   dom: "⛰ DOMINION — Dhoram's claimed stone. Hold all FOUR and the arena kneels: he wins unless a tile is broken within one round. To demolish one: land a BREAK while standing on it (Pyre and Wrecking Throws also destroy tiles).",
