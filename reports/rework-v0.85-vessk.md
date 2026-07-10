@@ -160,6 +160,11 @@ levers, which only the designer may touch: Glacial Spike 2 → 3 damage, or Ice 
 gaining a rider. Honest forecast: ① + ④ likely buys 2–4 points; the last mile to 52
 probably lives in a printed number.
 
+**FINAL RULING (designer):** ship as is. The 52–62 band is waived for this rework — a
+~46–50 field with the serious builds clustered near 50 is accepted as healthy, the depth
+is the point, and the human pilot plus the ongoing AI-strengthening project are expected
+to close the remainder. Deployed live as v0.85.1.
+
 ## 7. Method notes
 
 Sweep: 42 legal builds × 11 foes × 40 games (18,480). Round-robins: 11 pairings × 2 seats ×
