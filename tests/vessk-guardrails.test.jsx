@@ -91,32 +91,45 @@ describe("SHATTER — the global rule", () => {
   });
 });
 
-describe("Winter's Mantle (v0.85.3) — base heals 2; the Advantage catch freezes the ground", () => {
+describe("Winter's Mantle (v0.85.4) — heal 1 base; the Advantage catch heals 1 MORE and freezes the ground", () => {
   const MANTLE = (set = {}) => VESSK(set, "permafrost", ["lance", "spike", "mantle", "iceage"]);
-  test("idle: heal 2 (base utility fires regardless of contact) — no frost without a catch", () => {
+  test("idle: heal exactly 1 (base utility fires regardless of contact) — no frost without a catch", () => {
     const d = duel({
       p: MANTLE({ hp: 10 }), a: BAGY(), seed: 6,
       rounds: [{ p: { ab: "mantle" }, a: { ab: "lash", target: "NW" } }], // whiffs elsewhere
     });
-    expect(healBy(d.rounds[0].lines, "Winter's Mantle", "Vessk")).toBe(2);
+    expect(healBy(d.rounds[0].lines, "Winter's Mantle", "Vessk")).toBe(1);
     expect(d.g.terrain.SW).toBeUndefined();
   });
-  test("guard break: the base heal still pays (ward utility law); no frost", () => {
+  test("guard break: the base heal 1 still pays (ward utility law); no catch bonus, no frost", () => {
     const d = duel({
       p: MANTLE({ hp: 10 }), a: BAGY(), seed: 7,
       rounds: [{ p: { ab: "mantle" }, a: { ab: "bwater", target: "SW" } }], // break through the ward
     });
-    expect(healBy(d.rounds[0].lines, "Winter's Mantle", "Vessk")).toBe(2);
+    expect(healBy(d.rounds[0].lines, "Winter's Mantle", "Vessk")).toBe(1);
     expect(d.g.terrain.SW?.kind).not.toBe("frost");
   });
-  test("Advantage catch: +1 counter AND the quadrant freezes (heal is base, exactly 2)", () => {
+  test("Advantage catch: +1 counter, +1 MORE heal (2 total), and the quadrant freezes", () => {
     const d = duel({
       p: MANTLE({ hp: 10 }), a: BAGY(), seed: 8,
       rounds: [{ p: { ab: "mantle" }, a: { ab: "lash", target: "SW" } }], // rush into the ward
     });
     expect(dmgBy(d.rounds[0].lines, "Riposte", "Maelis")).toBe(1);
     expect(dmgBy(d.rounds[0].lines, "Mantle counter", "Maelis")).toBe(1);
-    expect(healBy(d.rounds[0].lines, "Winter's Mantle", "Vessk")).toBe(2); // once — base only, no double heal
+    expect(healBy(d.rounds[0].lines, "Winter's Mantle", "Vessk")).toBe(2); // 1 base + 1 catch
+    expect(d.g.terrain.SW?.kind).toBe("frost");
+  });
+  test("clash catch (round 3): same law — riposte + counter, 2 total heal, frost underfoot", () => {
+    const d = duel({
+      p: MANTLE({ hp: 10 }), a: BAGY({ hp: 40, maxHp: 40 }), seed: 9,
+      rounds: [
+        { p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" } },
+        { p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" } },
+        { p: { ab: "mantle" }, a: { ab: "lash" } }, // round-3 clash: ward catches rush
+      ],
+    });
+    const L = d.rounds[2].lines;
+    expect(healBy(L, "Winter's Mantle", "Vessk")).toBe(2);
     expect(d.g.terrain.SW?.kind).toBe("frost");
   });
 });

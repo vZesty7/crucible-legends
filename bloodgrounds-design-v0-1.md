@@ -179,7 +179,7 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 - **Hoarfrost Field** — Ward · 0◆ — Counter stance; your quadrant becomes a frost zone. *Adv:* +1 counter.
 - **Glacial Spike** — Break · 1◆ *(v0.85 — the private shatter text and the retired Shatterpoint '+2' line are gone; it rides the global rule)* — 2 dmg. The zone is the re-chiller: herd them onto it and let the SHATTER pay. *Adv:* +1 dmg.
 - **Flash Freeze** — Rush · 2◆ *(v0.85 — the root moved from the Advantage line to BASE)* — 1 dmg; the target quadrant becomes a frost zone, and every landed Flash Freeze ROOTS the target next round. *Adv:* +1 dmg.
-- **Winter's Mantle** — Ward · 1◆ *(v0.85.3 — designer ruling: the heal is base again, at 2; the catch keeps the ice)* — Counter stance; heal 2 (ward base utility — fires regardless of contact; the roster's strongest flat heal per cast, on watch). *Adv (signature):* +1 counter AND his quadrant becomes a frost zone.
+- **Winter's Mantle** — Ward · 1◆ *(v0.85.4 — designer ruling: heal split across the stance and the catch)* — Counter stance; heal 1 (ward base utility — fires regardless of contact). *Adv (signature):* +1 counter, heal 1 MORE (2 total), AND his quadrant becomes a frost zone.
 - **Ice Age** — Ward · 3◆ *(v0.85 — replaces Avalanche)* — Counter stance; on cast, every current frost zone births an ICE ELEMENTAL (see kit rule). *Adv:* +1 counter.
 
 **Passives (pick 1):**
