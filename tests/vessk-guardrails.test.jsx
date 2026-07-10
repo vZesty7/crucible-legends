@@ -147,18 +147,20 @@ describe("Flash Freeze — the root is base", () => {
   });
 });
 
-describe("frost zone clock — exactly 2 round-ends", () => {
+describe("frost zone clock — exactly 3 round-ends (v0.85.1 ruling)", () => {
   const IDLE_V = { p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" } }; // mutual whiffs
-  test("painted zone survives its first bell, melts at its second (announced)", () => {
+  test("painted zone survives two bells, melts at its third (announced)", () => {
     const d = duel({
       p: VESSK({}, "blizzard"), a: BAGY(), seed: 11,
       rounds: [
         { p: { ab: "freeze", target: "NE" }, a: { ab: "bR", target: "SW" } }, // paint at round 1
-        { ...IDLE_V }, // bell 2 → melt
+        { ...IDLE_V }, // bell 2 — stands
+        { ...IDLE_V }, // bell 3 → melt
       ],
     });
     expect(d.rounds[0].lines.some((t) => t.includes("Frost claims NE"))).toBe(true);
-    expect(d.rounds[1].lines.some((t) => t.includes("The frost at NE melts away"))).toBe(true);
+    expect(d.rounds[1].lines.some((t) => t.includes("melts away"))).toBe(false);
+    expect(d.rounds[2].lines.some((t) => t.includes("The frost at NE melts away"))).toBe(true);
     expect(d.g.terrain.NE).toBeUndefined();
   });
   test("Permafrost: time never melts it (destruction still can)", () => {
@@ -166,7 +168,7 @@ describe("frost zone clock — exactly 2 round-ends", () => {
       p: VESSK({}, "permafrost"), a: BAGY(), seed: 12,
       rounds: [
         { p: { ab: "freeze", target: "NE" }, a: { ab: "bR", target: "SW" } },
-        { ...IDLE_V }, { ...IDLE_V }, { ...IDLE_V },
+        { ...IDLE_V }, { ...IDLE_V }, { ...IDLE_V }, { ...IDLE_V },
       ],
     });
     expect(d.g.terrain.NE?.kind).toBe("frost");
@@ -176,13 +178,22 @@ describe("frost zone clock — exactly 2 round-ends", () => {
       p: VESSK({}, "blizzard"), a: BAGY(), seed: 13,
       rounds: [
         { p: { ab: "freeze", target: "NE" }, a: { ab: "bR", target: "SW" } }, // paint (bell 1)
-        { p: { ab: "iceage" }, a: { ab: "lash", target: "SE" } }, // anchor before bell 2
-        { ...IDLE_V }, { ...IDLE_V },
+        { p: { ab: "iceage" }, a: { ab: "lash", target: "SE" } }, // anchor (also self-paints SW)
+        { ...IDLE_V }, { ...IDLE_V }, { ...IDLE_V },
       ],
     });
-    expect(Object.keys(d.g.icels)).toEqual(["NE"]);
-    expect(d.rounds[1].lines.some((t) => t.includes("holds the frost at NE"))).toBe(true);
+    expect(Object.keys(d.g.icels).sort()).toEqual(["NE", "SW"]); // self-paint births one under Vessk too
+    expect(d.rounds[2].lines.some((t) => t.includes("holds the frost at NE"))).toBe(true);
     expect(d.g.terrain.NE?.kind).toBe("frost");
+    expect(d.g.terrain.SW?.kind).toBe("frost");
+  });
+  test("Ice Age on a bare board freezes the caster's quadrant and births its guardian there", () => {
+    const d = duel({
+      p: VESSK({}, "blizzard"), a: BAGY(), seed: 34,
+      rounds: [{ p: { ab: "iceage" }, a: { ab: "lash", target: "SE" } }],
+    });
+    expect(d.g.terrain.SW?.kind).toBe("frost");
+    expect(Object.keys(d.g.icels)).toEqual(["SW"]);
   });
 });
 
@@ -231,15 +242,17 @@ describe("Ice Elemental — full lifecycle law", () => {
           before: (gm) => { gm.terrain.NE = { kind: "frost", until: 99 }; gm.icels.NE = { stun: 0, bornR: 1 }; },
           p: { ab: "lance", target: "NE" }, a: { ab: "current" }, // ward catches the rush
         },
-        { p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" } }, // idle: bell 2 of the fresh clock
+        { p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" } }, // bell 2 of the fresh clock
+        { p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" } }, // bell 3 → melt
       ],
     });
     const L = d.rounds[0].lines;
     expect(L.some((t) => t.includes("COUNTERED — the Ice Elemental"))).toBe(true);
     expect(dmgBy(L, "Ice Elemental — mirrored Ice Lance", "Maelis")).toBe(0);
     expect(d.g.icels.NE).toBeUndefined();
-    // fresh 2-round clock: survives the removal round's bell, melts the next
-    expect(d.rounds[1].lines.some((t) => t.includes("The frost at NE melts away"))).toBe(true);
+    // fresh full clock: survives two bells from the removal round, melts at the third
+    expect(d.rounds[1].lines.some((t) => t.includes("melts away"))).toBe(false);
+    expect(d.rounds[2].lines.some((t) => t.includes("The frost at NE melts away"))).toBe(true);
     expect(d.g.terrain.NE).toBeUndefined();
   });
 
@@ -416,7 +429,7 @@ describe("FLAT-FINAL LAW — round 10 belongs to nobody's riders", () => {
 });
 
 describe("AI discipline", () => {
-  test("AI Vessk never casts Ice Age onto a bare board (crucible)", () => {
+  test("AI Vessk prefers Ice Age with standing zones over a bare board (v0.85.1: a bare cast self-paints, so it is legal but less loved)", () => {
     duel({
       p: BAGY({ pow: 0 }), a: { fk: "V", load: ["lance", "hoar", "spike", "iceage"], pass: "blizzard", set: { pow: 3, hp: 20, maxHp: 20 } },
       seed: 30, diff: "crucible",
@@ -424,12 +437,14 @@ describe("AI discipline", () => {
     });
     const { aiMakePlan } = window.__CL_TEST__.api;
     const gm = g();
-    let iceagePicks = 0;
+    let barePicks = 0, zonePicks = 0;
     for (let i = 0; i < 80; i++) {
       gm.A.pow = 3; gm.terrain = {}; gm.icels = {};
-      const plan = aiMakePlan(gm.A, gm.P, false, null);
-      if (plan.ab === "iceage") iceagePicks++;
+      if (aiMakePlan(gm.A, gm.P, false, null).ab === "iceage") barePicks++;
+      gm.A.pow = 3; gm.terrain = { NW: { kind: "frost", until: 99 }, SE: { kind: "frost", until: 99 } }; gm.icels = {};
+      if (aiMakePlan(gm.A, gm.P, false, null).ab === "iceage") zonePicks++;
     }
-    expect(iceagePicks).toBe(0);
+    expect(zonePicks).toBeGreaterThan(barePicks);
+    expect(zonePicks).toBeGreaterThan(10); // it genuinely pursues the two-zone Age
   });
 });

@@ -109,12 +109,13 @@ describe("ward base utilities fire regardless of contact", () => {
     rowEq("ward:mantle:catchHeal", "heal exactly 2 on the catch", 2, healsTo(d.rounds[0].lines, "Vessk"));
     row("ward:mantle:catchFrost", "own quadrant becomes a frost zone", "frost at SW", d.g.terrain.SW?.kind, d.g.terrain.SW?.kind === "frost");
   });
-  test("Ice Age: every frost zone births an elemental; a bare board births nothing (idle ward)", () => {
+  test("Ice Age (v0.85.1): self-paints the caster's quadrant, then every frost zone births an elemental", () => {
     boot();
     const two = wardIdle("V", "iceage", { before: (gm) => { gm.terrain.NW = { kind: "frost", until: 99 }; gm.terrain.SE = { kind: "frost", until: 99 }; } });
-    rowEq("ward:iceage:births", "two zones → two elementals", 2, Object.keys(two.g.icels || {}).length);
+    rowEq("ward:iceage:births", "two zones + the self-painted one → three elementals", 3, Object.keys(two.g.icels || {}).length);
     const bare = wardIdle("V", "iceage", { seed: 58 });
-    rowEq("ward:iceage:bare", "no zones → no elementals", 0, Object.keys(bare.g.icels || {}).length);
+    rowEq("ward:iceage:bare", "bare board → own quadrant freezes, one elemental", 1, Object.keys(bare.g.icels || {}).length);
+    row("ward:iceage:selfpaint", "caster's quadrant is a frost zone", "frost at SW", bare.g.terrain.SW?.kind, bare.g.terrain.SW?.kind === "frost");
   });
   test("Renewing Current heals 1 (idle)", () => {
     boot();

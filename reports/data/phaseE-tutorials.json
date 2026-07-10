@@ -44,7 +44,7 @@
  "V": {
   "rails": 8,
   "completions": "20/20",
-  "storyProvides": 7,
+  "storyProvides": 5,
   "exchangeLossRounds": [],
   "issues": [],
   "coverage": [

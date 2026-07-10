@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 
 const QUADS = ["NW", "NE", "SW", "SE"];
 const ADJ = { NW: ["NE", "SW"], NE: ["NW", "SE"], SW: ["NW", "SE"], SE: ["NE", "SW"] };
-const BUILD = "v0.85";
+const BUILD = "v0.85.1";
 const BEATS = { break: "ward", rush: "break", ward: "rush" };
 const TYPE_LABEL = { break: "BREAK", rush: "RUSH", ward: "WARD" };
 const TYPE_HEX = { break: "#ef4444", rush: "#f59e0b", ward: "#38bdf8" };
@@ -29,7 +29,7 @@ const TERRA_META = {
   dom: { icon: "⛰", name: "DOMINION", hex: "#f59e0b" },
 };
 const STATUS_INFO = {
-  frost: "❄ FROST ZONE — end a round here (unless you're Vessk) and you're CHILLED. A zone lasts exactly 2 round-ends, then melts — unless an Ice Elemental anchors it, or Vessk carries Permafrost.",
+  frost: "❄ FROST ZONE — end a round here (unless you're Vessk) and you're CHILLED. A zone lasts exactly 3 round-ends, then melts — unless an Ice Elemental anchors it, or Vessk carries Permafrost.",
   scorch: "🔥 SCORCHED — end a round on this ground and you gain a Burn stack.",
   env: "🧪 POISONED — end a round here and you gain +1 Poison.",
   mire: "🧷 MIRE — the swamp keeps a doll for everyone: end a round here and you gain +1 Curse. Marrow's ground.",
@@ -40,7 +40,7 @@ const STATUS_INFO = {
   poison: "🧪 POISON — inert venom; the 3rd stack RUPTURES for 3 and clears. Heartseeker detonates stacks EARLY at double value — consumed stacks never rupture.",
   burn: "🔥 BURN — smoldering fuel. At round's end: take 1, then a stack fades (cap 2). Combustion detonates stacks EARLY at double value — consumed stacks never tick.",
   chill: "❄ CHILLED — Vessk's SHATTER rule: any Break he lands on you, or any Advantage exchange he wins against you, breaks the chill for +1 damage — then the chill is SPENT and must be reapplied. At most once per exchange per source; his Ice Elementals shatter separately.",
-  icel: "🧊 ICE ELEMENTAL — born of ICE AGE, one per frost zone. Untargetable, never blocks movement, never acts on its own. It ANCHORS its zone (no melting while it stands) and MIRRORS Vessk's Ice Lance or Glacial Spike cast into its zone — base damage on neutral or winning exchanges, the Advantage rider on wins, its own SHATTER — then it is spent. The countering type breaks it for nothing. When it leaves (spent, countered, or its ground destroyed), the zone melts on a fresh 2-round clock.",
+  icel: "🧊 ICE ELEMENTAL — born of ICE AGE, one per frost zone. Untargetable, never blocks movement, never acts on its own. It ANCHORS its zone (no melting while it stands) and MIRRORS Vessk's Ice Lance or Glacial Spike cast into its zone — base damage on neutral or winning exchanges, the Advantage rider on wins, its own SHATTER — then it is spent. The countering type breaks it for nothing. When it leaves (spent, countered, or its ground destroyed), the zone melts on a fresh 3-round clock.",
   tolleye: "👁 WATCHER'S TOLL — the hawk's gaze has locked the foe's path: they WILL move to (or hold) the marked quadrant this round. You know where they'll be. Aim.",
   dfield: "🛰 DISCHARGE FIELD — Koros's quadrant is permanently electrified: an enemy FIGHTER who starts a round there, ends a round there, or collides there takes 1 — at most once per round, always exactly 1, never modified. Companions are never harmed. Installed by Arc Discharge; it follows him wherever he stands.",
   siege: "⚙ SIEGE CANNON — the converted Cannonarm shells ALL THREE quadrants Koros does not occupy, every cast. It cannot be denied by losing the triangle, and wards mean nothing to it: no catch, no riposte, no guard-break, no Advantage riders in either direction. The only shelter is standing beside the barrels.",
@@ -103,7 +103,7 @@ const ABILITIES = {
   spike: { f: "V", name: "Glacial Spike", type: "break", cost: 1, dmg: 2, needsTarget: true, text: "2 dmg. The frost is your re-chiller: herd them onto it and let the SHATTER pay", adv: "+1 dmg", lore: "For what the frost has already claimed." },
   freeze: { f: "V", name: "Flash Freeze", type: "rush", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; the target quadrant becomes a frost zone, and the frozen boots ROOT them — no moving next round", adv: "+1 dmg", lore: "Stillness, delivered." },
   mantle: { f: "V", name: "Winter's Mantle", type: "ward", cost: 1, text: "Counter stance", adv: "+1 counter — and the catch feeds the winter: heal 2, and your quadrant becomes a frost zone", lore: "The cold keeps its own." },
-  iceage: { f: "V", name: "Ice Age", type: "ward", cost: 3, text: "Counter stance; every frost zone births an ICE ELEMENTAL — it anchors its zone against melting and MIRRORS your Ice Lance or Glacial Spike cast into its zone", adv: "+1 counter", lore: "The world was ice once. It remembers." },
+  iceage: { f: "V", name: "Ice Age", type: "ward", cost: 3, text: "Counter stance; your quadrant becomes a frost zone, then EVERY frost zone births an ICE ELEMENTAL — it anchors its zone against melting and MIRRORS your Ice Lance or Glacial Spike cast into its zone", adv: "+1 counter", lore: "The world was ice once. It remembers." },
   // Ashkarra
   cinder: { f: "C", name: "Cinder Jab", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; Burn on any contact", adv: "+1 dmg", lore: "A handshake you'll feel tomorrow." },
   magma: { f: "C", name: "Magma Haymaker", type: "break", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; Burn on any contact", adv: "+1 dmg", lore: "Thrown with the whole furnace behind it." },
@@ -1732,13 +1732,13 @@ const TUTS = {
   ]},
   V: { foe: "C", pass: "blizzard", load: ["lance", "freeze", "spike", "iceage"], rails: [
     { you: { move: "T", ab: "lance", tgt: "F" }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "She jabs the square you're LEAVING — step out and lance her. Ice Lance CHILLS on any contact. Learn the law first: the chill is a debt, and YOU collect it — any Break you land, or any exchange you win with Advantage, SHATTERS the chill for +1. Then it's SPENT, and must be laid again. One rule, one payout, never twice from the same hand." },
-    { you: { move: "A", ab: "freeze", tgt: "F" }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "2◆ (the story keeps your bank filled — in a real bout these casts ARE the budget): FLASH FREEZE where she stands. Three things land at once: damage, her square becomes a FROST ZONE, and the frozen boots ROOT her — no moving next round. The zone's clock is law too: exactly TWO round-ends, then it melts. Hold her on the ice and let the bell chill her." },
-    { clash: true, you: { ab: "iceage" }, foe: { ab: "cinder" }, say: "CLASH — 3◆: ICE AGE, a WARD. She lunges; the stance CATCHES her — and she's Chilled from your ice, so the riposte SHATTERS the chill: even a ward's answer collects the debt. And the cast itself: every frost zone births an ICE ELEMENTAL. It ANCHORS its ground — that zone's second bell is tonight, and it will NOT melt while the guardian stands. Keep her on the frost." },
-    { you: { move: "H", ab: "spike", tgt: "F" }, foe: { ab: "smoke", move: "H", tgt: null }, say: "Now the masterstroke. She shells up on the anchored ice — GLACIAL SPIKE straight through the guard: your shatter collects her chill... and the elemental MIRRORS you. Same attack, same exchange, Advantage and all — and its OWN shatter, because it is its OWN source cashing the same spent chill once. Then it spends itself and the zone's clock starts running again. Spike + shatter + mirror + its shatter: the tallest line winter builds." },
-    { you: { move: "T", ab: "freeze", tgt: "F" }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "The guardian is spent, so the ice under her is mortal again. REFREEZE it: fresh damage, fresh clock, fresh ROOT. A rooted fighter cannot step — which means next round you KNOW her square. The kit's oldest sentence: root into Spike. Set it up." },
-    { you: { move: "H", ab: "spike", tgt: "F" }, foe: { ab: "smoke", move: "H", tgt: null }, say: "She's nailed to the ice and shelled up — Spike the square she CANNOT leave. The guard breaks, the chill SHATTERS, and she never had a read to win because you removed the guessing. Root into Spike: the line that pays the rent. And count the bells — that refrozen zone's second one rings tonight. Watch it melt." },
-    { clash: true, you: { ab: "freeze" }, foe: { ab: "comb" }, say: "SECOND CLASH — the ice melted at the bell; two rounds, always. She loads a Break; FLASH FREEZE is a RUSH and interrupts it. Clash riders live on rounds 3 and 7: the win SHATTERS her chill, the ice spreads under her feet, and the boots ROOT her. Winter rebuilds mid-fight — that is the whole art." },
-    { you: { move: "H", ab: "iceage", tgt: null }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "Raise the winter one more time: ICE AGE behind the stance — her jab dies on the guard, the catch shatters the chill, and a new ELEMENTAL stands its zone. Look at the board: frozen ground that will not melt, a guardian that mirrors your Spike, a foe who cannot stand anywhere safe. You don't chase. You make the ground disloyal. Class dismissed — the cold keeps its own." },
+    { you: { move: "A", ab: "freeze", tgt: "F" }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "2◆ (the story keeps your bank filled — in a real bout these casts ARE the budget): FLASH FREEZE where she stands. Three things land at once: damage, her square becomes a FROST ZONE, and the frozen boots ROOT her — no moving next round. The zone's clock is law too: exactly THREE round-ends, then it melts. Hold her on the ice and let the bell chill her." },
+    { clash: true, you: { ab: "iceage" }, foe: { ab: "cinder" }, say: "CLASH — 3◆: ICE AGE, a WARD. She lunges; the stance CATCHES her — and she's Chilled from your ice, so the riposte SHATTERS the chill: even a ward's answer collects the debt. And the cast itself: YOUR square freezes too, and every frost zone births an ICE ELEMENTAL — two of them stand up. Each ANCHORS its ground: anchored ice does not melt while its guardian stands. Keep her on the frost." },
+    { you: { move: "H", ab: "spike", tgt: "F" }, foe: { ab: "smoke", move: "H", tgt: null }, say: "Hear last bell's storm-line? BLIZZARD: two zones and a chilled foe hand you FLOW every bell. Now the masterstroke — she was hurled onto your own guarded ice, point-blank: GLACIAL SPIKE straight through her guard. Your shatter collects her chill... and the zone's elemental MIRRORS you — same attack, same exchange, Advantage and all, and its OWN shatter, its own source cashing the same spent chill once. Then it spends itself, and that zone's clock starts running again: three bells. Spike + shatter + mirror + its shatter: the tallest line winter builds." },
+    { you: { move: "T", ab: "lance", tgt: "F" }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "Step out and lance — the chill is laid BY HAND when the ground hasn't done it, and Blizzard's Flow rides the strike. Then listen at the bell: across the arena the OTHER guardian still stands, and the frost that was due to melt HOLDS. The spent zone under her is mortal again and counting. Anchored ice keeps; spent ice dies on schedule." },
+    { you: { move: "H", ab: "spike", tgt: "F" }, foe: { ab: "smoke", move: "H", tgt: null }, say: "Collect again — Spike through the shell, SHATTER the chill. And count her zone's bells: the third one rings TONIGHT. Watch the old ice die on schedule while your anchored ground doesn't even flinch. That is the difference a guardian makes." },
+    { clash: true, you: { ab: "freeze" }, foe: { ab: "comb" }, say: "SECOND CLASH — she loads a Break; FLASH FREEZE is a RUSH and interrupts it. Clash riders live on rounds 3 and 7: the win SHATTERS her chill, fresh ice spreads under her feet, and the frozen boots ROOT her — a pin that outlasts the bell. Next round she cannot step. You know exactly where she'll be." },
+    { you: { move: "H", ab: "spike", tgt: "F" }, foe: { ab: "smoke", move: "H", tgt: null }, say: "She's nailed to the ice and shelled up — Spike the square she CANNOT leave. The guard breaks, the chill SHATTERS, and she never had a read to win because you removed the guessing. Root into Spike: the line that pays the rent. Look at the board as the bell rings: frozen ground, a guardian that will not let its ice die, a foe with nowhere safe to stand. You don't chase. You make the ground disloyal. Class dismissed — the cold keeps its own." },
   ]},
   C: { foe: "G", pass: "heatrise", rails: [
     { you: { move: "T", ab: "cinder", tgt: "F" }, foe: { ab: "skull", move: "H", tgt: "Y" }, say: "Step out of his swing and tag him. Burn sticks on ANY contact — each stack ticks 1 at round's end, and Heat Rising pays YOU ◆ while he burns." },
@@ -2230,11 +2230,14 @@ export default function App() {
      Untargetable tokens, one per frost zone. They ANCHOR their zone (no
      decay), MIRROR Vessk's Lance/Spike into their zone, and leave when
      spent, countered, or their ground is destroyed. Kess precedent. */
-  const birthElementals = (L) => {
+  const birthElementals = (caster, L) => {
     const g = G.current;
     g.icels = g.icels || {};
+    // v0.85.1 ruling: the Age brings its own winter — the caster's quadrant
+    // freezes first, then every frost zone births.
+    setTerrain(caster.pos, "frost", L, "❄ Frost");
     const qs = frostQs().filter((q) => !g.icels[q]);
-    if (!qs.length) { L.push({ t: `🧊 ICE AGE — no bare frost to wake; nothing rises.` }); return; }
+    if (!qs.length) { L.push({ t: `🧊 ICE AGE — every zone already stands guarded; nothing new rises.` }); return; }
     qs.forEach((q) => { g.icels[q] = { stun: 0, bornR: g.round }; if (g.stats?.icel) g.stats.icel.born += 1; });
     g.icelBorn = { qs, r: g.roundJustPlayed };
     L.push({ t: `🧊 ICE AGE — the winter stands up: an Ice Elemental rises in ${qs.join(" and ")}.`, fx: { kind: "combo", text: "ICE AGE" } });
@@ -2248,7 +2251,7 @@ export default function App() {
     delete g.icels[q];
     if (g.stats?.icel) { g.stats.icel[why] += 1; g.stats.icel.lifeSum += Math.max(0, (g.roundJustPlayed || g.round) - el.bornR); }
     g.icelBursts = [...(g.icelBursts || []).slice(-7), { q, r: g.roundJustPlayed }];
-    if (why !== "zonelost" && g.terrain[q]?.kind === "frost") g.terrain[q].until = g.roundJustPlayed + 1;
+    if (why !== "zonelost" && g.terrain[q]?.kind === "frost") g.terrain[q].until = g.roundJustPlayed + 2; // fresh full clock
     L.push({ t: why === "countered" ? `🧊 COUNTERED — the Ice Elemental at ${q} breaks apart for nothing.` : why === "spent" ? `🧊 The Ice Elemental at ${q} spends itself in the strike and shatters.` : `🧊 The Ice Elemental at ${q} collapses with its ground.`, fx: { kind: "combo", text: why === "spent" ? "ELEMENTAL SPENT" : "ELEMENTAL LOST" } });
   };
   const railFor = (g) => (g?.tut && TUTS[g.P.fk]?.rails?.[g.round - 1]) || null;
@@ -2392,8 +2395,8 @@ export default function App() {
   const setTerrain = (q, kind, L, label) => {
     const g = G.current;
     const vF = [g.P, g.A].find((f) => f.fk === "V"), yF = [g.P, g.A].find((f) => f.fk === "Y");
-    // frost zones last exactly 2 round-ends (paint round + one more), unified
-    let dur = kind === "frost" ? 1 : 2;
+    // frost zones last exactly 3 round-ends, unified (v0.85.1 ruling — was 2)
+    let dur = 2;
     if (kind === "frost" && vF?.pass === "permafrost") dur = 999;
     if (kind === "dom") dur = 999;
     if (kind === "hall") dur = 3;
@@ -2518,7 +2521,7 @@ export default function App() {
   };
   const wardBase = (warder, plan, L) => {
     if (plan.ab === "hoar") setTerrain(warder.pos, "frost", L, "❄ Frost");
-    if (plan.ab === "iceage") birthElementals(L);
+    if (plan.ab === "iceage") birthElementals(warder, L);
     if (plan.ab === "frame" && warder._frameFull) healUp(warder, 2, L, "Bulwark Frame vents the full bank");
     if (plan.ab === "arc" && !warder.dischargeField) { warder.dischargeField = true; L.push({ t: `🛰 DISCHARGE FIELD INSTALLED — ${nm(warder)}'s ground is electrified for the rest of the bout.`, fx: { kind: "combo", text: "DISCHARGE FIELD" } }); }
     if (plan.ab === "gyro") warder._noKB = true;
@@ -2579,7 +2582,7 @@ export default function App() {
       if (f === "C" && id === "pyre" && (hpn.burn || 0) >= 2) return 5;
       if (f === "V" && ["spike", "lance"].includes(id) && gT?.icels?.[hpn.pos] && !(gT.icels[hpn.pos].stun >= gT.round)) return id === "spike" ? 8 : 6; // the mirror line
       if (f === "V" && id === "spike" && hpn.chill) return 5;
-      if (f === "V" && id === "iceage") { const fresh = QUADS.filter((q) => T(q) === "frost" && !gT?.icels?.[q]).length; return fresh >= 2 ? 7 : fresh === 1 ? 3 : 0; }
+      if (f === "V" && id === "iceage") { const fresh = QUADS.filter((q) => T(q) === "frost" && !gT?.icels?.[q]).length; return fresh >= 2 ? 7 : fresh === 1 ? 4 : 2; } // self-paints since v0.85.1 — never a dead cast
       if (f === "V" && id === "freeze" && !hpn.rooted) return 3;
       if (f === "K" && id === "arc" && !ai.dischargeField && ai.pow >= 2) return 6;
       if (f === "K" && id === "core" && ai.pow >= 3) return 6;
@@ -2632,7 +2635,6 @@ export default function App() {
       w += Math.round(comboBias(o.ab) * comboScale);
       if (gT?.aiPrev && gT.aiPrev[0] === o.ab && gT.aiPrev[1] === o.ab) w = Math.max(1, w - 3);
       if (wantHold) { if (ab.cost > 0) w = Math.max(1, w - 3); else w += 2; }
-      if (o.ab === "iceage" && !QUADS.some((q) => T(q) === "frost" && !gT?.icels?.[q])) w = 0; // HARD veto: never wake a bare board
       for (let i = 0; i < w; i++) weighted.push(o);
     });
     let pick = null;
@@ -4292,7 +4294,7 @@ export default function App() {
             <p className="mb-2"><b className="text-violet-300">POWER ◆.</b> +1 at end of round unless you spent. Cap 3. Whiffed spenders still pay.</p>
             <p className="mb-2"><b className="text-stone-200">YOUR FOUR ARE ALL YOU HAVE.</b> No basic fallbacks — the draft is the fighter. Classes shape the pools: <b className="text-red-400">RAVAGERS</b> lean Rush/Break (kill first), <b className="text-amber-300">DUELISTS</b> lean Rush/Ward (strike, counter, trick, repeat), <b className="text-yellow-400">CHAMPIONS</b> lean Break/Ward (the hammer and the wall), <b className="text-sky-300">SHAPERS</b> lean Rush/Ward spent on the board (aggressive control). Class also tells you the FINISHER: Ravager and Champion ultimates are BREAKS (Rush the nuke turn); Duelist and Shaper ultimates are RUSHES (Ward it).</p>
             <p className="mb-1 text-stone-400 font-black uppercase tracking-widest">Keywords</p>
-            <p className="mb-1">🧪 <b>Poison</b> — inert; at 3 stacks it RUPTURES for 3 and clears. 🔥 <b>Burn</b> — at round's end take 1, then a stack fades (cap 2); Combustion detonates stacks mid-round at double value, and detonated stacks never tick. ❄ <b>Chill</b> — Vessk's SHATTER: any Break he lands on you, or any Advantage exchange he wins against you, breaks the chill for +1 — then it's spent. His frost zones melt after exactly 2 round-ends; his Ice Elementals anchor a zone and mirror his Lance or Spike into it. ⛓ <b>Rooted</b> — can't choose to move next round.</p>
+            <p className="mb-1">🧪 <b>Poison</b> — inert; at 3 stacks it RUPTURES for 3 and clears. 🔥 <b>Burn</b> — at round's end take 1, then a stack fades (cap 2); Combustion detonates stacks mid-round at double value, and detonated stacks never tick. ❄ <b>Chill</b> — Vessk's SHATTER: any Break he lands on you, or any Advantage exchange he wins against you, breaks the chill for +1 — then it's spent. His frost zones melt after exactly 3 round-ends; his Ice Elementals anchor a zone and mirror his Lance or Spike into it. ⛓ <b>Rooted</b> — can't choose to move next round.</p>
             <p className="mb-1"><CurseDoll size={13} /> <b>Curse</b> — inert until Round 8, then 1 dmg per 3 stacks each round (never expires). ⏳ <b>Doombrand</b> — detonates for 3 on its round. ↓ <b>Weakened</b> — your hits deal −1. 🩸 <b>Blood Price</b> — HP paid as a cost (never below 1).</p>
             <p className="mb-1">✦ <b>Relics</b> (vs Kastor) — spawn rounds 2/4/6/8; end a round on one to claim. Kastor wins at 3; anyone else destroys it for heal/◆.</p>
             <p className="mb-1">⛰ <b>Dominion</b> (vs Dhoram) — his converted ground; all 4 quadrants = his win. Land a BREAK while standing on a tile to demolish it. 🌀 <b>Whirlpools</b> yank an adjacent foe in as they open and grind occupants 1/round; <b>Crashing Surf</b> batters and throws; her <b>Undine</b> chips its square. 🎯 <b>Marked</b> (Kess's quadrant) — +1 dmg from Wrenna. Dregan runs on <b>Flow</b> (bank +1 via wards, Cadence, and Advantages) and <b>Pivots</b> — Crescent and Chain can switch grip after the reveal for 1◆; sometimes the pivot only buys a trade, and that's the point.</p>
