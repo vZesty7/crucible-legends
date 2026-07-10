@@ -95,18 +95,18 @@ describe("ward base utilities fire regardless of contact", () => {
     const d = wardIdle("V", "hoar");
     row("ward:hoar:frost", "own quadrant frosted", "frost at SW", d.g.terrain.SW?.kind, d.g.terrain.SW?.kind === "frost");
   });
-  test("Winter's Mantle (v0.85.3): base heals 2 regardless of contact", () => {
+  test("Winter's Mantle (v0.85.4): base heals 1 regardless of contact", () => {
     boot();
     const d = wardIdle("V", "mantle", { set: { hp: 10 } });
-    rowEq("ward:mantle:idleHeal", "heal 2 idle (base utility)", 2, healsTo(d.rounds[0].lines, "Vessk"));
+    rowEq("ward:mantle:idleHeal", "heal 1 idle (base utility)", 1, healsTo(d.rounds[0].lines, "Vessk"));
     row("ward:mantle:idleFrost", "no frost without a catch", "none", d.g.terrain.SW?.kind ?? "none", !d.g.terrain.SW);
   });
-  test("Winter's Mantle (v0.85.3): the Advantage catch pays +1 counter and frost underfoot", () => {
+  test("Winter's Mantle (v0.85.4): the Advantage catch pays +1 counter, +1 more heal (2 total), and frost underfoot", () => {
     boot();
     const d = wardCatch("V", "mantle", { set: { hp: 10 } });
     rowEq("ward:mantle:catchDmg", "riposte 1 + Mantle counter 1", 2,
       dmgBy(d.rounds[0].lines, "Riposte", "Maelis") + dmgBy(d.rounds[0].lines, "Mantle counter", "Maelis"));
-    rowEq("ward:mantle:catchHeal", "heal stays exactly 2 (base, not doubled by the catch)", 2, healsTo(d.rounds[0].lines, "Vessk"));
+    rowEq("ward:mantle:catchHeal", "heal totals exactly 2 on the catch (1 base + 1 catch)", 2, healsTo(d.rounds[0].lines, "Vessk"));
     row("ward:mantle:catchFrost", "own quadrant becomes a frost zone", "frost at SW", d.g.terrain.SW?.kind, d.g.terrain.SW?.kind === "frost");
   });
   test("Ice Age (v0.85.1): self-paints the caster's quadrant, then every frost zone births an elemental", () => {

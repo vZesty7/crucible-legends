@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 
 const QUADS = ["NW", "NE", "SW", "SE"];
 const ADJ = { NW: ["NE", "SW"], NE: ["NW", "SE"], SW: ["NW", "SE"], SE: ["NE", "SW"] };
-const BUILD = "v0.85.3";
+const BUILD = "v0.85.4";
 const BEATS = { break: "ward", rush: "break", ward: "rush" };
 const TYPE_LABEL = { break: "BREAK", rush: "RUSH", ward: "WARD" };
 const TYPE_HEX = { break: "#ef4444", rush: "#f59e0b", ward: "#38bdf8" };
@@ -102,7 +102,7 @@ const ABILITIES = {
   hoar: { f: "V", name: "Hoarfrost Field", type: "ward", cost: 0, text: "Counter stance; your quadrant becomes a frost zone", adv: "+1 counter", lore: "The floor takes his side." },
   spike: { f: "V", name: "Glacial Spike", type: "break", cost: 1, dmg: 2, needsTarget: true, text: "2 dmg. The frost is your re-chiller: herd them onto it and let the SHATTER pay", adv: "+1 dmg", lore: "For what the frost has already claimed." },
   freeze: { f: "V", name: "Flash Freeze", type: "rush", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; the target quadrant becomes a frost zone, and the frozen boots ROOT them — no moving next round", adv: "+1 dmg", lore: "Stillness, delivered." },
-  mantle: { f: "V", name: "Winter's Mantle", type: "ward", cost: 1, text: "Counter stance; heal 2", adv: "+1 counter — and the catch freezes the ground: your quadrant becomes a frost zone", lore: "The cold keeps its own." },
+  mantle: { f: "V", name: "Winter's Mantle", type: "ward", cost: 1, text: "Counter stance; heal 1", adv: "+1 counter — the catch heals 1 MORE (2 total) and freezes the ground: your quadrant becomes a frost zone", lore: "The cold keeps its own." },
   iceage: { f: "V", name: "Ice Age", type: "ward", cost: 3, text: "Counter stance; your quadrant becomes a frost zone, then EVERY frost zone births an ICE ELEMENTAL — it anchors its zone against melting and MIRRORS your Ice Lance or Glacial Spike cast into its zone", adv: "+1 counter", lore: "The world was ice once. It remembers." },
   // Ashkarra
   cinder: { f: "C", name: "Cinder Jab", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; Burn on any contact", adv: "+1 dmg", lore: "A handshake you'll feel tomorrow." },
@@ -2514,14 +2514,14 @@ export default function App() {
       case "hawk": plus1("Hawk's Eye counter"); break;
       case "eguard": plus1("Edgeguard counter"); warder.flow = true; L.push({ t: `✦ ${nm(warder)} gains Flow.` }); break;
       case "oath": plus1("Bulwark Oath counter"); warder._noKB = true; L.push({ t: `⚓ The Oath holds — nothing moves him this round.` }); break;
-      case "mantle": plus1("Mantle counter"); setTerrain(warder.pos, "frost", L, "❄ Frost"); break;
+      case "mantle": plus1("Mantle counter"); healUp(warder, 1, L, "Winter's Mantle — the catch"); setTerrain(warder.pos, "frost", L, "❄ Frost"); break;
       // everything else: the sharper riposte
       default: plus1(); break;
     }
   };
   const wardBase = (warder, plan, L) => {
     if (plan.ab === "hoar") setTerrain(warder.pos, "frost", L, "❄ Frost");
-    if (plan.ab === "mantle") healUp(warder, 2, L, "Winter's Mantle");
+    if (plan.ab === "mantle") healUp(warder, 1, L, "Winter's Mantle");
     if (plan.ab === "iceage") birthElementals(warder, L);
     if (plan.ab === "frame" && warder._frameFull) healUp(warder, 2, L, "Bulwark Frame vents the full bank");
     if (plan.ab === "arc" && !warder.dischargeField) { warder.dischargeField = true; L.push({ t: `🛰 DISCHARGE FIELD INSTALLED — ${nm(warder)}'s ground is electrified for the rest of the bout.`, fx: { kind: "combo", text: "DISCHARGE FIELD" } }); }
@@ -3574,7 +3574,7 @@ export default function App() {
       case "hawk": dd2(1, "Hawk's Eye counter"); L.push({ t: `🎯 ${nm(atk)} is MARKED.` }); break;
       case "eguard": dd2(1, "Edgeguard counter"); warder.flow = true; break;
       case "oath": dd2(1, "Bulwark Oath counter"); warder._noKB = true; break;
-      case "mantle": dd2(1, "Mantle counter"); setTerrain(warder.pos, "frost", L, "❄ Frost"); break;
+      case "mantle": dd2(1, "Mantle counter"); healUp(warder, 1, L, "Winter's Mantle — the catch"); setTerrain(warder.pos, "frost", L, "❄ Frost"); break;
       default: dd2(1, "Sharpened riposte"); break;
     }
   };

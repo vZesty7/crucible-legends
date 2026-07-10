@@ -57,9 +57,9 @@
  },
  {
   "id": "ward:mantle:idleHeal",
-  "mechanic": "heal 2 idle (base utility)",
-  "expected": "2",
-  "observed": "2",
+  "mechanic": "heal 1 idle (base utility)",
+  "expected": "1",
+  "observed": "1",
   "pass": true,
   "note": ""
  },
@@ -81,7 +81,7 @@
  },
  {
   "id": "ward:mantle:catchHeal",
-  "mechanic": "heal stays exactly 2 (base, not doubled by the catch)",
+  "mechanic": "heal totals exactly 2 on the catch (1 base + 1 catch)",
   "expected": "2",
   "observed": "2",
   "pass": true,
