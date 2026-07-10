@@ -1,62 +1,62 @@
 {
  "mid": {
-  "winrate": 46.1,
+  "winrate": 45.9,
   "games": 11000,
   "crashed": 0,
   "violations": [],
-  "avgRounds": 9.4,
+  "avgRounds": 9.42,
   "winTypes": {
-   "ko": 2339,
-   "bell": 2491,
-   "sudden": 245,
+   "ko": 2177,
+   "bell": 2611,
+   "sudden": 265,
    "alt": 0
   },
   "shattersPerGame": 0.8,
-  "mirrorsPerGame": 0.002,
+  "mirrorsPerGame": 0.008,
   "blizzPerGame": 0,
   "icel": {
-   "bornPerGame": 0.303,
+   "bornPerGame": 0.774,
    "removalShare": {
-    "spent": 2.9,
-    "countered": 0.7,
-    "zonelost": 96.4
+    "spent": 5.9,
+    "countered": 2.5,
+    "zonelost": 91.6
    },
-   "avgLifespanRounds": 1.93,
-   "survivorsPerGame": 0.25
+   "avgLifespanRounds": 1.96,
+   "survivorsPerGame": 0.641
   },
   "maxLine": {
-   "corePerGame": 0.0007,
-   "withFlowPerGame": 0.0002
+   "corePerGame": 0.0025,
+   "withFlowPerGame": 0.0003
   },
   "matchups": {
-   "G": 46.1,
-   "M": 52.3,
-   "C": 40.8,
-   "K": 38.5,
-   "Z": 72,
-   "L": 38.2,
-   "D": 32.8,
-   "Y": 43.2,
-   "W": 57.8,
-   "X": 32,
-   "O": 53.8
+   "G": 45.7,
+   "M": 49.2,
+   "C": 39.3,
+   "K": 34,
+   "Z": 72.3,
+   "L": 40.3,
+   "D": 37.4,
+   "Y": 42.9,
+   "W": 59.4,
+   "X": 31.3,
+   "O": 53.5
   }
  },
  "max": {
-  "winrate": 45.8,
+  "winrate": 46.6,
   "games": 11000,
   "crashed": 0,
   "violations": [],
-  "avgRounds": 9.48,
+  "avgRounds": 9.43,
   "winTypes": {
-   "ko": 2019,
-   "bell": 2731,
-   "sudden": 287,
+   "ko": 2124,
+   "bell": 2695,
+   "sudden": 302,
    "alt": 0
   },
-  "shattersPerGame": 0.58,
+  "shattersPerGame": 0.62,
   "mirrorsPerGame": 0,
-  "blizzPerGame": 0.18,
+  "blizzPerGame": 0.39,
   "icel": {
    "bornPerGame": 0,
    "removalShare": null,
@@ -68,17 +68,17 @@
    "withFlowPerGame": 0
   },
   "matchups": {
-   "G": 46.1,
-   "M": 58.4,
-   "C": 38.6,
-   "K": 38.4,
-   "Z": 70.9,
-   "L": 43.3,
-   "D": 37.4,
+   "G": 44.6,
+   "M": 62.6,
+   "C": 38.7,
+   "K": 39.9,
+   "Z": 69.9,
+   "L": 44.5,
+   "D": 39.2,
    "Y": 39.3,
-   "W": 47.7,
-   "X": 28.7,
-   "O": 54.9
+   "W": 48.3,
+   "X": 29.9,
+   "O": 55.2
   }
  },
  "maxBuild": {
@@ -94,25 +94,25 @@
   "blizzard": {
    "pass": "blizzard",
    "games": 1650,
-   "winrate": 46,
-   "flowUptimePct": 6.5,
-   "avgFrostZones": 0.38,
+   "winrate": 47.8,
+   "flowUptimePct": 16.4,
+   "avgFrostZones": 0.69,
    "zoneUptimePct": {
-    "atLeast1": 35.6,
-    "atLeast2": 2.5,
-    "atLeast3": 0
+    "atLeast1": 51.1,
+    "atLeast2": 15.5,
+    "atLeast3": 2.4
    }
   },
   "permafrost": {
    "pass": "permafrost",
    "games": 1650,
-   "winrate": 43.2,
+   "winrate": 42.9,
    "flowUptimePct": 0,
-   "avgFrostZones": 1.02,
+   "avgFrostZones": 1.12,
    "zoneUptimePct": {
-    "atLeast1": 68.2,
-    "atLeast2": 29.2,
-    "atLeast3": 4.2
+    "atLeast1": 69.7,
+    "atLeast2": 34.1,
+    "atLeast3": 7.5
    }
   }
  }

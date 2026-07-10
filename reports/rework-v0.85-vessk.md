@@ -126,7 +126,41 @@ the new architecture (Ice Age / elementals / Blizzard) is priced out of AI-visib
    herd with shoves onto zones before Spiking. Honest, but unlikely to bridge six points
    alone when the field AI actively refuses the ice.
 
-## 6. Method notes
+## 6. v0.85.1 — THE RULING APPLIED (levers ② + ③), re-measured — STILL OUTSIDE
+
+The design table ruled for **② Ice Age self-paints the caster's quadrant** and **③ the
+3-round-end zone clock**. Both shipped exactly (guardrails updated and extended to 56;
+tutorial re-choreographed and re-validated 20/20 with story-funded casts down 7 → 5 and
+Blizzard now demonstrated live). Fresh sweep + full re-measure (same method, fresh seeds):
+
+| Measure | v0.84 | v0.85 | **v0.85.1** | Band |
+|---|---|---|---|---|
+| MID | 45.5 | 46.1 | **45.9** | **OUTSIDE 52–62 — STOPPED AGAIN** |
+| MAX | 41.7 | 45.8 | **46.6** | — |
+
+**The levers did exactly what they promised structurally — and the winrate did not care:**
+- Elementals born/game 0.30 → **0.77**; mirror fires 4× more often (once per ~125 games,
+  from ~500); the max line assembles once per ~400 games (from ~1,400). Still theater-rare.
+- Blizzard build: Flow-uptime **6.5% → 16.4%**, 2+ zones standing 2.5% → 15.5%, and it is
+  now his **best measured configuration at 47.8%**. Permafrost: 1.12 zones average,
+  2+ zones 34.1%.
+- 91.6% of elementals still die to zone-loss — the field razes and paves relentlessly.
+- No matchup beyond 75/25 (Zhal 72.3 worst-for-them; Dregan 31.3, Koros 34.0 worst-for-him).
+
+**The finding under the finding:** across the old kit (45.5), two tunings of the new kit
+(46.1, 45.9), and 84 sweep builds, Vessk's ceiling against this field is ~46–50. The depth
+architecture is winrate-neutral; his gap to the 52 floor is **rate, not texture** — the
+1-damage pokes and the 2-damage Spike simply convert his control into damage too slowly
+against the kits that out-tempo him (Dregan 31, Koros 34, Dhoram 37, Ashkarra 39).
+
+**Remaining levers, named not pulled:** ① Ice Age 3◆ → 2◆ (his strongest new piece is
+still priced out of most games) · ④ Blizzard thresholds down (1 zone + chill / 2 zones
+regardless — its uptime tripled and it still feeds only one round in six) · printed-rate
+levers, which only the designer may touch: Glacial Spike 2 → 3 damage, or Ice Lance
+gaining a rider. Honest forecast: ① + ④ likely buys 2–4 points; the last mile to 52
+probably lives in a printed number.
+
+## 7. Method notes
 
 Sweep: 42 legal builds × 11 foes × 40 games (18,480). Round-robins: 11 pairings × 2 seats ×
 500 (11,000 per tier), ledger-audited. Build-split: 11 × 150 × 2 passes. Baselines:
