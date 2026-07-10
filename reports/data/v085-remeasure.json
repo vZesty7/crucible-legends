@@ -43,15 +43,15 @@
   }
  },
  "max": {
-  "winrate": 52.3,
+  "winrate": 50.1,
   "games": 11000,
   "crashed": 0,
   "violations": [],
-  "avgRounds": 9.52,
+  "avgRounds": 9.49,
   "winTypes": {
-   "ko": 2184,
-   "bell": 3255,
-   "sudden": 319,
+   "ko": 2199,
+   "bell": 3017,
+   "sudden": 293,
    "alt": 0
   },
   "shattersPerGame": 0.62,
@@ -68,17 +68,17 @@
    "withFlowPerGame": 0
   },
   "matchups": {
-   "G": 53.6,
-   "M": 66.1,
-   "C": 45,
-   "K": 44.6,
-   "Z": 74.4,
-   "L": 46.1,
-   "D": 43.5,
-   "Y": 48,
-   "W": 57.1,
-   "X": 36.1,
-   "O": 61.3
+   "G": 51.9,
+   "M": 64.1,
+   "C": 41.5,
+   "K": 42.1,
+   "Z": 73.1,
+   "L": 45.9,
+   "D": 41.5,
+   "Y": 44.1,
+   "W": 54.5,
+   "X": 33,
+   "O": 59.2
   }
  },
  "maxBuild": {
@@ -89,31 +89,5 @@
    "mantle"
   ],
   "pass": "blizzard"
- },
- "uptime": {
-  "blizzard": {
-   "pass": "blizzard",
-   "games": 1650,
-   "winrate": 48.2,
-   "flowUptimePct": 16.3,
-   "avgFrostZones": 0.69,
-   "zoneUptimePct": {
-    "atLeast1": 50.9,
-    "atLeast2": 15.3,
-    "atLeast3": 2.3
-   }
-  },
-  "permafrost": {
-   "pass": "permafrost",
-   "games": 1650,
-   "winrate": 43.2,
-   "flowUptimePct": 0,
-   "avgFrostZones": 1.11,
-   "zoneUptimePct": {
-    "atLeast1": 69.6,
-    "atLeast2": 33.9,
-    "atLeast3": 7.4
-   }
-  }
  }
 }

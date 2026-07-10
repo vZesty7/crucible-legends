@@ -204,3 +204,13 @@ first measured build above 52 — and **MAX lands 52.3, inside the original band
 them and AI Vessk never summons an elemental against a human player. The trade is the
 designer's to flip; the mantle-default MID would track the sweep's ~52–54. Suite 58/58.
 Deployed live as v0.85.3.
+
+## Post-ship ruling — v0.85.4: the Mantle splits
+
+Designer ruling: heal 1 base (ward utility, contact-independent), and the Advantage catch
+pays +1 counter, 1 MORE heal (2 total), and the zone freeze — normal rounds and clashes
+alike. Re-measured (~40,000 games, ledger clean): sweep best 50.7 (`lance/hoar/spike/
+mantle` + Blizzard, down from the flat-2's 53.9 as intended), MAX 50.1, MID 46.1
+(unchanged — the standard loadout keeps Ice Age by the identity ruling). The serious field
+now clusters 46–51. The v0.85.3 strongest-flat-heal watch-flag is retired. Suite 59/59.
+Deployed live as v0.85.4.
