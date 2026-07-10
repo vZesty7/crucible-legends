@@ -130,7 +130,7 @@ Each character has a **pool of 6 abilities (pick 4)** and **3 passives (pick 1)*
 
 ## 6. Classes *(reworked v0.10 — four classes, type-pair leans)*
 
-With basics removed, **class shapes the pool** — each 6-ability pool leans on a type pair (target: 5 of 6 in the pair, 1 off-type escape hatch), and every pool still contains all three types so no matchup deletes a leg of the triangle. Duelists and Shapers share the Rush/Ward pair; the difference is *where the power goes*.
+With basics removed, **class shapes the pool** — each 6-ability pool leans on a type pair (target: 5 of 6 in the pair, 1 off-type escape hatch), and every pool still contains all three types so no matchup deletes a leg of the triangle. Duelists and Shapers share the Rush/Ward pair; the difference is *where the power goes*: **Duelists spend the pair on the self; Shapers spend it on the board** *(clarifying line added v0.85, reaffirmed at the design table — Vessk's Glacial Spike is the sanctioned off-type break)*.
 
 - **RAVAGER** *(Rush/Break — aggression)* — the two attack types; one grudging Ward. Damage amplifiers, ◆-hungry finishers, clash appetite, little sustain. Kill first. — *Gharzul, Zhal-Meraq, Ashkarra*
 - **DUELIST** *(Rush/Ward — personal tempo)* — strike, counter, trick, repeat. Power spent on the self: Flow, Marks, tricks, poisoned ripostes. — *Maleth, Wrenna, Dregan* *(Maleth reclassed v0.19 — the fighter who "declines the fight until it's already lost" was always a Duelist; roster now 3/3/3/3 across classes)*
@@ -164,24 +164,28 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 
 ---
 
-### VESSK, THE RIMEBOUND — Cryomancer
-*(v0.38 visual redesign — Sub-Zero × D&D-cryomancer synthesis: hooded void face with glowing ice eyes, crystal antler-crown breaking the hood, segmented teal chest plating over fur belt, and a massive faceted ICE GAUNTLET right arm conjuring a snowflake. Portrait, board figure, and pixel sprite all rebuilt; sprite blinks between frames.)*
-**Shaper · 12 HP** — Not a robed scholar: an executioner fused to a glacier heart, breath steaming through a frost-split jaw. Freezes the ground, then shatters what stands on it.
-**Statuses:** **Frost** *(quadrant, lasts 2 rounds)* — enemies ending a round in Frost become Chilled. **Chilled** — takes +1 damage from Break abilities; clears after triggering or at the end of the enemy's next round.
-**Gameplan:** paint the map in Frost, herd the enemy into it with knockback, cash the shatter.
+### VESSK, THE RIMEBOUND — Cryomancer *(full rework v0.85 — THE ICE ARCHITECT; depth rework on a healthy mid-table kit)*
+*(v0.38 visual redesign — Sub-Zero × D&D-cryomancer synthesis: hooded void face with glowing ice eyes, crystal antler-crown breaking the hood, segmented teal chest plating over fur belt, and a massive faceted ICE GAUNTLET right arm conjuring a snowflake. Portrait, board figure, and pixel sprite all rebuilt; sprite blinks between frames. v0.85 adds the ICE ELEMENTAL board token — one solid crystalline silhouette under the v0.82.3 silhouette doctrine.)*
+**Shaper · 12 HP** — Not a robed scholar: an executioner fused to a glacier heart, breath steaming through a frost-split jaw. He freezes the ground, then builds a winter that fights back.
+**Class law (§6, standing):** Shaper = Rush/Ward lean with one off-type slot — **Glacial Spike is the sanctioned break**. Pool census 2 Rush / 1 Break / 3 Ward. Duelists spend the pair on the self; Shapers spend it on the board.
 
-**Abilities (pick 4 of 6):**
+**Kit rule — SHATTER (his global rule, v0.85):** whenever Vessk **lands any BREAK attack**, OR **wins any Advantage exchange** (triangle win, guard break, or ward catch — the riposte counts), against a **CHILLED** target: the chill SHATTERS — **+1 damage and the chill is CONSUMED** (must be reapplied). Fires at most **once per exchange per source**. Only a chill standing when the exchange *began* can be shattered — a chill applied mid-exchange pays next exchange (**no double-dipping, ever**). A consumed chill leaves an *echo* for that exchange: his Ice Elemental — a separate source — may cash the same chill once. Suppressed entirely in the round-10 final clash (flat-final law, v0.79).
+**Kit rule — FROST ZONES (unified v0.85):** a frost zone lasts **exactly 2 round-ends**, then melts (announced in the feed). Enemies ending a round in one are Chilled. Zones die early to razing or repainting; they do NOT decay while an Ice Elemental anchors them, or under Permafrost.
+**Kit rule — ICE ELEMENTALS (Ice Age):** untargetable tokens (Kess precedent), one per frost zone, never block movement, never act on their own. **(i) ANCHOR** — while one stands, its zone does not decay. **(ii) MIRROR** — when Vessk casts Ice Lance or Glacial Spike aimed at (or colliding in) its zone, it mimics the same attack against enemies there in the same exchange: base damage on neutral or winning exchanges, the Advantage rider on wins, its OWN shatter (separate source, once per exchange); ZERO damage and REMOVED if the enemy's type counters it. Only the aimed/collided zone's elemental acts. Scheduled clashes have no aim: no mirror — the final clash is structurally flat. **(iii) REMOVAL** — after successfully dealing damage, when countered, or when its zone is destroyed/overwritten; on spend/counter the zone resumes decay on a fresh 2-round clock. **(iv) STUN** — the Finality Beam stuns it (skips its next mirror-turn only); the anchored zone holds against the raze; the elemental persists.
+**Gameplan:** paint zones, herd the enemy onto the ice, cash the SHATTER — then cast ICE AGE and let the winter hold its own ground and mirror your kill line.
+
+**Abilities (pick 4 of 6) — pool census 2R/1B/3W:**
 - **Ice Lance** — Rush · 0◆ — 1 dmg; Chill on any contact. *Adv:* +1 dmg.
-- **Hoarfrost Field** — Ward · 0◆ — Counter stance; your quadrant becomes Frost. *Adv:* +1 counter.
-- **Glacial Spike** — Break · 1◆ *(v0.30.1 — self-chill REVERTED per designer: a self-sufficient loop made his frost irrelevant; without it, THE ZONE IS THE RE-CHILLER and the two paths interlock)* — 2 dmg; Chilled targets SHATTER (+1, +2 with Shatterpoint).
-- **Flash Freeze** — Rush · 2◆ — 1 dmg; target quadrant becomes Frost. *Adv (signature):* +1 dmg AND the enemy is Rooted (cannot move next round).
-- **Winter's Mantle** — Ward · 1◆ — Counter stance; heal 1. *Adv:* +1 counter.
-- **Avalanche** — Rush · 3◆ — 2 dmg to TWO quadrants of your choice. *Adv (signature):* +1 dmg, plus +1 more per Frost quadrant on the board (max +2).
+- **Hoarfrost Field** — Ward · 0◆ — Counter stance; your quadrant becomes a frost zone. *Adv:* +1 counter.
+- **Glacial Spike** — Break · 1◆ *(v0.85 — the private shatter text and the retired Shatterpoint '+2' line are gone; it rides the global rule)* — 2 dmg. The zone is the re-chiller: herd them onto it and let the SHATTER pay. *Adv:* +1 dmg.
+- **Flash Freeze** — Rush · 2◆ *(v0.85 — the root moved from the Advantage line to BASE)* — 1 dmg; the target quadrant becomes a frost zone, and every landed Flash Freeze ROOTS the target next round. *Adv:* +1 dmg.
+- **Winter's Mantle** — Ward · 1◆ *(v0.85 — the base heal moved into the catch)* — Counter stance. *Adv (signature):* +1 counter AND Vessk heals 2 AND his quadrant becomes a frost zone.
+- **Ice Age** — Ward · 3◆ *(v0.85 — replaces Avalanche)* — Counter stance; on cast, every current frost zone births an ICE ELEMENTAL (see kit rule). *Adv:* +1 counter.
 
 **Passives (pick 1):**
-- **Permafrost** — your Frost never melts.
-- **Shatterpoint** — Chilled enemies take +2 from your Breaks instead of +1.
-- **Numbing Aura** — enemies sharing your quadrant at end of round are Chilled.
+- **Permafrost** *(text updated v0.85)* — your frost zones never melt from time; razing and repainting still remove them.
+- **Blizzard** *(v0.85 — replaces Shatterpoint)* — at the round's end: with 2+ frost zones AND a chilled enemy — or with 3+ frost zones regardless — gain Flow (standard Flow law: never stacks, only refreshes; elemental-anchored zones count).
+- **Numbing Aura** — enemies sharing your quadrant at end of round are Chilled. *(Unchanged.)*
 
 ---
 
@@ -450,7 +454,7 @@ Stages add terrain rules and, rarely, their own win conditions:
 
 **MALETH** — min 1 + Poison · mid the rupture clock: 3 free damage per 3 contacts, Tithe compounding max HP · ceiling 2-stack homing Heartseeker: 1+4+1(adv) = **6, unwhiffable**.
 
-**VESSK** — two interlocking paths: **zone** ceiling = adv Avalanche on 2+ Frost ≈ **7** across two squares; **spike** sustain = **4 per 1◆** (2+2 Shatterpoint) but only while they stand on his frost — the ground is the re-chiller.
+**VESSK** *(v0.85 numbers)* — min 1 + Chill (Ice Lance) · mid root-into-Spike: Flash Freeze locks the square, Spike collects 2+1 shatter (+1 on Advantage) per 1◆ · ceiling **the mirror line**: Spike + shatter + elemental mirror + its shatter = **6–7 on a neutral exchange** (with Flow), up to **9** when the guard breaks — needs a chilled foe standing on an anchored zone, and spends the elemental to do it.
 
 **ASHKARRA** — min 1 + Burn · burn ticks ~1/round ambient · ceiling 2-stack Combustion 2+4+1 = **7** (Everburn 3-stack: **9** — the roster's tallest number, and it needs three banked stacks to exist).
 

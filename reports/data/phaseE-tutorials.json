@@ -42,9 +42,9 @@
   ]
  },
  "V": {
-  "rails": 6,
+  "rails": 8,
   "completions": "20/20",
-  "storyProvides": 1,
+  "storyProvides": 7,
   "exchangeLossRounds": [],
   "issues": [],
   "coverage": [
@@ -57,7 +57,31 @@
     "shown": true
    },
    {
-    "name": "shatter",
+    "name": "shatter + consume",
+    "shown": true
+   },
+   {
+    "name": "zone expiry (melt)",
+    "shown": true
+   },
+   {
+    "name": "flash freeze base root",
+    "shown": true
+   },
+   {
+    "name": "ice age birth",
+    "shown": true
+   },
+   {
+    "name": "elemental anchor",
+    "shown": true
+   },
+   {
+    "name": "elemental mirror",
+    "shown": true
+   },
+   {
+    "name": "elemental spent",
     "shown": true
    }
   ]
