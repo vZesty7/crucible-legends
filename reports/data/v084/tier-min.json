@@ -1,0 +1,375 @@
+{
+ "table": {
+  "G": {
+   "winrate": 40.6,
+   "games": 11000,
+   "winTypes": {
+    "ko": 2188,
+    "bell": 2086,
+    "sudden": 195,
+    "alt": 0
+   },
+   "avgRounds": 9.43,
+   "blowoutShare": 28.9,
+   "comebackShare": 29.9,
+   "usage": {
+    "Skullsplitter": 59129,
+    "Bone Grinder": 21587,
+    "Iron Hide": 21526,
+    "Red Harvest": 1501
+   },
+   "winUsage": {
+    "Bone Grinder": 8037,
+    "Iron Hide": 9599,
+    "Skullsplitter": 23222,
+    "Red Harvest": 532
+   }
+  },
+  "M": {
+   "winrate": 50.5,
+   "games": 11000,
+   "winTypes": {
+    "ko": 3811,
+    "bell": 1517,
+    "sudden": 224,
+    "alt": 0
+   },
+   "avgRounds": 9.19,
+   "blowoutShare": 20,
+   "comebackShare": 39,
+   "usage": {
+    "Viper Fang": 69908,
+    "Three Fangs": 8292,
+    "Umbral Step": 21042,
+    "Heartseeker": 1850
+   },
+   "winUsage": {
+    "Viper Fang": 34789,
+    "Three Fangs": 4526,
+    "Umbral Step": 10130,
+    "Heartseeker": 904
+   }
+  },
+  "V": {
+   "winrate": 39.3,
+   "games": 11000,
+   "winTypes": {
+    "ko": 2144,
+    "bell": 1934,
+    "sudden": 245,
+    "alt": 0
+   },
+   "avgRounds": 9.43,
+   "blowoutShare": 26.3,
+   "comebackShare": 16.4,
+   "usage": {
+    "Ice Lance": 64858,
+    "Glacial Spike": 28714,
+    "Flash Freeze": 8410,
+    "Avalanche": 1794
+   },
+   "winUsage": {
+    "Flash Freeze": 3170,
+    "Ice Lance": 24769,
+    "Glacial Spike": 10776,
+    "Avalanche": 730
+   }
+  },
+  "C": {
+   "winrate": 38.9,
+   "games": 11000,
+   "winTypes": {
+    "ko": 2713,
+    "bell": 1394,
+    "sudden": 175,
+    "alt": 0
+   },
+   "avgRounds": 9.11,
+   "blowoutShare": 28.3,
+   "comebackShare": 31.2,
+   "usage": {
+    "Smokeveil": 39199,
+    "Magma Haymaker": 38096,
+    "Combustion": 15156,
+    "Pyre of the Pit": 7761
+   },
+   "winUsage": {
+    "Pyre of the Pit": 3368,
+    "Smokeveil": 16075,
+    "Magma Haymaker": 13319,
+    "Combustion": 5364
+   }
+  },
+  "K": {
+   "winrate": 63.5,
+   "games": 11000,
+   "winTypes": {
+    "ko": 3011,
+    "bell": 3672,
+    "sudden": 302,
+    "alt": 0
+   },
+   "avgRounds": 9.59,
+   "blowoutShare": 27,
+   "comebackShare": 10.2,
+   "usage": {
+    "Gyro Anchor": 29272,
+    "Flux Jab": 65805,
+    "Arc Discharge": 8505,
+    "Overload Core": 1885
+   },
+   "winUsage": {
+    "Flux Jab": 41618,
+    "Gyro Anchor": 18376,
+    "Arc Discharge": 5670,
+    "Overload Core": 1042
+   }
+  },
+  "Z": {
+   "winrate": 17.5,
+   "games": 11000,
+   "winTypes": {
+    "ko": 1808,
+    "bell": 70,
+    "sudden": 52,
+    "alt": 0
+   },
+   "avgRounds": 7.52,
+   "blowoutShare": 26.4,
+   "comebackShare": 30.8,
+   "usage": {
+    "Life Tap": 31677,
+    "Oblivion Pact": 12603,
+    "Ruinfire": 31388,
+    "Devouring Dark": 7004
+   },
+   "winUsage": {
+    "Devouring Dark": 1389,
+    "Ruinfire": 5153,
+    "Oblivion Pact": 2284,
+    "Life Tap": 6363
+   }
+  },
+  "L": {
+   "winrate": 55.9,
+   "games": 11000,
+   "winTypes": {
+    "ko": 1452,
+    "bell": 2639,
+    "sudden": 245,
+    "alt": 1816
+   },
+   "avgRounds": 9.42,
+   "blowoutShare": 26.1,
+   "comebackShare": 12.1,
+   "usage": {
+    "Dawnhammer": 6489,
+    "Lightlance": 40676,
+    "Censure": 41442,
+    "Consecration": 15064
+   },
+   "winUsage": {
+    "Dawnhammer": 3201,
+    "Lightlance": 22413,
+    "Censure": 21514,
+    "Consecration": 8692
+   }
+  },
+  "D": {
+   "winrate": 69.2,
+   "games": 11000,
+   "winTypes": {
+    "ko": 1559,
+    "bell": 4931,
+    "sudden": 286,
+    "alt": 838
+   },
+   "avgRounds": 9.65,
+   "blowoutShare": 26,
+   "comebackShare": 6.7,
+   "usage": {
+    "Stonewall": 31458,
+    "Continental Grind": 62144,
+    "Fissure": 10112,
+    "Mountainfall": 2450
+   },
+   "winUsage": {
+    "Stonewall": 21721,
+    "Continental Grind": 42509,
+    "Fissure": 7217,
+    "Mountainfall": 1613
+   }
+  },
+  "Y": {
+   "winrate": 39.9,
+   "games": 11000,
+   "winTypes": {
+    "ko": 2260,
+    "bell": 1868,
+    "sudden": 257,
+    "alt": 0
+   },
+   "avgRounds": 9.42,
+   "blowoutShare": 28.1,
+   "comebackShare": 16.1,
+   "usage": {
+    "Maelstrom": 1844,
+    "Riptide Lash": 64828,
+    "Crushing Wave": 28656,
+    "Summon Undine": 8263
+   },
+   "winUsage": {
+    "Maelstrom": 843,
+    "Riptide Lash": 25263,
+    "Crushing Wave": 10409,
+    "Summon Undine": 3326
+   }
+  },
+  "W": {
+   "winrate": 49.2,
+   "games": 11000,
+   "winTypes": {
+    "ko": 2342,
+    "bell": 2793,
+    "sudden": 277,
+    "alt": 0
+   },
+   "avgRounds": 9.55,
+   "blowoutShare": 18.1,
+   "comebackShare": 23.6,
+   "usage": {
+    "Broadhead": 65792,
+    "Longstride": 28792,
+    "Watcher's Toll": 8580,
+    "Skyfall Volley": 1864
+   },
+   "winUsage": {
+    "Broadhead": 32235,
+    "Longstride": 14305,
+    "Watcher's Toll": 4099,
+    "Skyfall Volley": 924
+   }
+  },
+  "X": {
+   "winrate": 72.6,
+   "games": 11000,
+   "winTypes": {
+    "ko": 4289,
+    "bell": 3441,
+    "sudden": 261,
+    "alt": 0
+   },
+   "avgRounds": 9.39,
+   "blowoutShare": 30.3,
+   "comebackShare": 12.1,
+   "usage": {
+    "Crescent Cut": 66000,
+    "Riposte Draw": 28356,
+    "Full Arsenal": 1451,
+    "Blade Cadence": 7523
+   },
+   "winUsage": {
+    "Crescent Cut": 48047,
+    "Riposte Draw": 20426,
+    "Full Arsenal": 1018,
+    "Blade Cadence": 5354
+   }
+  },
+  "O": {
+   "winrate": 62.8,
+   "games": 11000,
+   "winTypes": {
+    "ko": 3726,
+    "bell": 2918,
+    "sudden": 261,
+    "alt": 0
+   },
+   "avgRounds": 9.59,
+   "blowoutShare": 30.8,
+   "comebackShare": 13,
+   "usage": {
+    "Sorrow Mire": 21904,
+    "Pinstick": 59867,
+    "Shrunken Head": 22185,
+    "Harvest of Sorrows": 1510
+   },
+   "winUsage": {
+    "Sorrow Mire": 13855,
+    "Pinstick": 37547,
+    "Shrunken Head": 13390,
+    "Harvest of Sorrows": 980
+   }
+  }
+ },
+ "matchups": {
+  "G>M": 174,
+  "G>V": 268,
+  "G>C": 936,
+  "G>K": 374,
+  "G>Z": 971,
+  "G>L": 240,
+  "G>D": 387,
+  "G>Y": 264,
+  "G>W": 466,
+  "G>X": 261,
+  "G>O": 128,
+  "M>V": 852,
+  "M>C": 571,
+  "M>K": 153,
+  "M>Z": 786,
+  "M>L": 586,
+  "M>D": 83,
+  "M>Y": 813,
+  "M>W": 269,
+  "M>X": 96,
+  "M>O": 517,
+  "V>C": 720,
+  "V>K": 198,
+  "V>Z": 881,
+  "V>L": 388,
+  "V>D": 177,
+  "V>Y": 485,
+  "V>W": 281,
+  "V>X": 148,
+  "V>O": 165,
+  "C>K": 567,
+  "C>Z": 668,
+  "C>L": 203,
+  "C>D": 527,
+  "C>Y": 275,
+  "C>W": 621,
+  "C>X": 450,
+  "C>O": 198,
+  "K>Z": 741,
+  "K>L": 598,
+  "K>D": 414,
+  "K>Y": 826,
+  "K>W": 701,
+  "K>X": 337,
+  "K>O": 660,
+  "Z>L": 51,
+  "Z>D": 212,
+  "Z>Y": 101,
+  "Z>W": 339,
+  "Z>X": 229,
+  "Z>O": 45,
+  "L>D": 394,
+  "L>Y": 589,
+  "L>W": 525,
+  "L>X": 381,
+  "L>O": 329,
+  "D>Y": 855,
+  "D>W": 761,
+  "D>X": 480,
+  "D>O": 712,
+  "Y>W": 301,
+  "Y>X": 126,
+  "Y>O": 166,
+  "W>X": 208,
+  "W>O": 468,
+  "X>O": 707
+ },
+ "violations": [],
+ "crashed": 0,
+ "games": 66000
+}

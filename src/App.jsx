@@ -227,6 +227,563 @@ const FIGHTERS = {
   O: { key: "O", name: "OLD MARROW", short: "Marrow", sub: "Witch Doctor · Shaper", hp: 13, pool: ["stick", "knit", "eye", "mireA", "puppet", "sorrow"], passives: ["mdeep", "stitch", "juju"], aiLoad: ["stick", "knit", "eye", "sorrow"], aiPass: "mdeep", hex: "#a3e635", tone: "text-lime-400", ring: "ring-lime-500", bar: "bg-lime-500", blurb: "Every favor accrues interest.", lore: "Nobody remembers Marrow young. The swamp taught him its oldest trade: lend a little misfortune now, collect it all back with interest later.", style: "Playstyle: patient attrition. Trade politely for seven rounds while the Curses compound. Then collect.", mech: "CURSE — inert until Round 8, then the enemy takes 1 damage per 3 stacks at the end of every round. Weaken and Puppet Pull control the meantime." },
 };
 
+/* ============ AI v3 — THE MIND (v0.87) ============
+   One brain, three pillars. The v2 doctrines (objectives, positional play,
+   DoT clocks, combo intents, staleness) stop being competing weight hacks
+   and become INPUT FEATURES of a single expected-value planner:
+   - PROFILE: recency-weighted opponent modeling (types, wounded habits,
+     full-bank habits, movement, aim) feeding a predicted action distribution.
+   - PLANNER: every candidate plan is simulated one round forward against
+     that distribution and scored by expected HP swing + status/objective
+     value + war-plan alignment; selection is temperature-mixed softmax —
+     never deterministic argmax (an exploitable robot is a worse opponent
+     than a noisy one). Low temperature at Crucible, high at Proving, and
+     Proving keeps the rubber-band matchmaking framing (temperature eases
+     when far ahead, sharpens when far behind — sophistication, never mercy).
+   - WAR PLAN: a win condition chosen at match start from the fighter's
+     doctrine (burn clock, venom execute, relic march, the seal, siege,
+     winter architecture, kite-and-mark, tempo, blood race, the debt,
+     the rent, the red line), scored as an EV multiplier and allowed to
+     SWITCH when the position demands — every switch logged and auditable.
+   - ENDGAME SOLVER: clashes are small closed games — the Mind builds the
+     actual payoff matrix over both players' affordable picks and plays a
+     fictitious-play mixed strategy; round 10 uses the flat-final law and
+     P(win) payoffs exactly; round 9 folds the projected round-10 value
+     into planning. Crucible plays the solution; Proving plays it noisily.
+   All reasoning is written to g.mind.log for the sparring transcripts.
+   Self-play/evolutionary tuning: explicitly out of scope (designer's law). */
+const MIND = (() => {
+  const TYPES = ["rush", "break", "ward"];
+  const capOf = (s) => (s.pass === "reserves" ? 4 : 3);
+  const woundedOf = (s) => s.hp <= Math.ceil(s.maxHp * 0.4);
+
+  /* ---------- the profile ---------- */
+  const blankProf = () => ({
+    types: { rush: 1, break: 1, ward: 1 },
+    wardWounded: 0.8, nWounded: 2,
+    rushAfterHit: 0.9, nAfterHit: 2,
+    fullBank: { rush: 0.7, break: 0.7, ward: 0.7 },
+    moveY: 0.45, moveN: 1,
+    fleePostCol: 0.7, nPostCol: 1,
+    aimSelf: 1.4, nAim: 2,
+    n: 0,
+  });
+  const DEC = 0.88; // recency decay per observation
+  const initState = (g) => {
+    g.mind = {
+      prof: { P: blankProf(), A: blankProf() },
+      war: { P: null, A: null },
+      log: [],
+      prev: { P: [null, null], A: [null, null] },
+      tookHit: { P: false, A: false },
+      colPrev: false,
+      perf: { n: 0, ms: 0, maxMs: 0 },
+    };
+  };
+  // observe one seat's revealed plan (called at reveal time, both paths)
+  const observe = (g, seatKey, s, foe, plan, ctx) => {
+    const m = g.mind; if (!m) return;
+    const pr = m.prof[seatKey];
+    const ty = plan.form || ABILITIES[plan.ab].type;
+    pr.n += 1;
+    TYPES.forEach((t) => { pr.types[t] *= DEC; });
+    pr.types[ty] += 1;
+    if (ctx.wounded) { pr.wardWounded = pr.wardWounded * DEC + (ty === "ward" ? 1 : 0); pr.nWounded = pr.nWounded * DEC + 1; }
+    if (m.tookHit[seatKey]) { pr.rushAfterHit = pr.rushAfterHit * DEC + (ty === "rush" ? 1 : 0); pr.nAfterHit = pr.nAfterHit * DEC + 1; }
+    if (ctx.fullBank) { TYPES.forEach((t) => { pr.fullBank[t] *= DEC; }); pr.fullBank[ty] += 1; }
+    if (!ctx.clash) {
+      const moved = plan.moveTo !== s.pos;
+      pr.moveY = pr.moveY * DEC + (moved ? 1 : 0); pr.moveN = pr.moveN * DEC + 1;
+      if (m.colPrev) { pr.fleePostCol = pr.fleePostCol * DEC + (moved ? 1 : 0); pr.nPostCol = pr.nPostCol * DEC + 1; }
+      if (plan.target) { pr.aimSelf = pr.aimSelf * DEC + (plan.target === foe.pos ? 1 : 0); pr.nAim = pr.nAim * DEC + 1; }
+    }
+  };
+
+  /* ---------- shared value tables ---------- */
+  const statusVal = (g, key, owner) => ({
+    poison: 0.9, burn: 0.85, chill: 0.55, mark: 0.5, weak: 0.7, root: 0.7,
+    curse: (g.round || 1) >= 6 ? 0.7 : 0.45, flow: owner?.pass === "pedge" ? 1.3 : 0.8,
+  }[key] || 0);
+  const HEAL_W = 0.9;
+
+  /* ---------- forward damage model (mirrors the engine's laws) ---------- */
+  const abilityBase = (g, src, tgt, id, tgtPos) => {
+    const ab = ABILITIES[id];
+    let d = ab.dmg || 0;
+    if (id === "frenzy" && src.hp <= 6) d = 3;
+    if (id === "heart") d += (tgt.poison || 0) * 2;
+    if (id === "comb") d += (tgt.burn || 0) * 2;
+    if (id === "sorrow" && (tgt.curse || 0) >= 3) d += Math.floor(tgt.curse / 3);
+    if (id === "llance" && g.terrain[tgtPos]?.kind === "hall") d += 1;
+    if (id === "mount" && g.terrain[tgtPos]?.kind === "dom") d += 1;
+    return d;
+  };
+  const atkMods = (g, src, tgt, ty, ctx) => {
+    let n = 0;
+    if (src.fk === "G" && src.pass === "pact" && src.hp <= 6) n += 1;
+    if (src.fk === "M" && src.pass === "twist" && tgt.kbLast) n += 1;
+    if (src.fk === "Z" && src.pass === "agonist" && ((tgt.weak || 0) > 0 || tgt.brandRound)) n += 1;
+    if (src.fk === "W" && (tgt.mark || 0) > 0) n += Math.min(2, tgt.mark);
+    if (src.fk === "G" && src.pass === "scent" && ctx.shared) n += 1;
+    if (src.fk === "C" && src.pass === "killheat" && (tgt.burn || 0) > 0 && ctx.collision) n += 1;
+    if (src.fk === "W" && src.pass === "deadeye" && ctx.diagonal) n += 1;
+    if (src.flow) n += src.pass === "pedge" ? 2 : 1;
+    if ((src.weak || 0) > 0) n -= 1;
+    if (src.fk === "V" && (ty === "break" || ctx.advWin) && tgt.chill) n += 1; // the global shatter (pre-chill law approximated)
+    return n;
+  };
+  const ironSoak = (plan) => plan && (plan.ab === "iron" || plan.ab === "wall"); // -1 per instance (wall only on dom, approximated)
+  // on-contact status value an attack plants (design: statuses apply on contact unless warded vs rush)
+  const contactVal = (g, src, tgt, id) => {
+    let v = 0;
+    if (id === "viper" || id === "twin") v += statusVal(g, "poison") * ((tgt.poison || 0) === 2 ? 2.4 : 1);
+    if (id === "lance") v += tgt.chill ? 0.1 : statusVal(g, "chill");
+    if (id === "cinder" || id === "magma") v += statusVal(g, "burn");
+    if (id === "stick" || id === "eye") v += statusVal(g, "curse");
+    if (id === "eye" || id === "chains") v += statusVal(g, "weak");
+    if (id === "pin" || id === "freeze") v += tgt.rooted ? 0 : statusVal(g, "root");
+    if (id === "brand" && !tgt.brandRound) v += 2.2;
+    if (id === "toll") v += 0.8;
+    return v;
+  };
+  // utility value of the plan itself (ward bases, paints, summons, heals)
+  const planUtil = (g, me, foe, plan, warMult) => {
+    const id = plan.ab;
+    let v = 0;
+    const heal = (n) => Math.min(n, me.maxHp - me.hp) * HEAL_W;
+    if (id === "mantle" || id === "current" || id === "knit" || id === "aegis") v += heal(1);
+    if (id === "frame" && me.pow >= capOf(me)) v += heal(2);
+    if (id === "dark") v += heal(2) * 0.8; // pays only on contact
+    if (id === "dawn" && g.terrain[me.pos]?.kind === "hall") v += heal(2) * 0.8;
+    if (id === "hoar") v += (warMult.frost || 1) * 0.5;
+    if (id === "iceage") { const fresh = QUADS.filter((q) => (g.terrain[q]?.kind === "frost" || q === me.pos) && !g.icels?.[q]).length; v += fresh * 0.7 * (warMult.frost || 1); }
+    if (id === "freeze") v += (warMult.frost || 1) * 0.45;
+    if (id === "consec") v += (me.fk === "L" ? 0.9 : 0.2) * (warMult.hall || 1);
+    if (id === "claim") v += 1.2 * (warMult.dom || 1);
+    if (id === "fissure") v += 2.1 * (warMult.dom || 1);
+    if (id === "grind") v += 1.0 * (warMult.dom || 1);
+    if (id === "whirlA" || id === "bwater") v += 0.6 * (warMult.water || 1);
+    if (id === "storm") v += 1.2 * (warMult.water || 1);
+    if (id === "undine") v += 0.9 * (warMult.water || 1);
+    if (id === "arc" && !me.dischargeField) v += 1.6;
+    if (id === "gyro") v += 0.25;
+    if (id === "tap" && me.hp > 3) v += 0.7; // 1 blood -> 1-2 pow
+    if (id === "riposte" && !me.flow) v += statusVal(g, "flow", me);
+    if (id === "sky") v += 1.3; // two loaded volleys, expected ~1 hit
+    if (id === "hawk") v += 0.5;
+    if (id === "core") v -= 0.5; // the recoil root
+    return v;
+  };
+  // expected round-end tick damage for fighter s standing at pos (positive = s bleeds)
+  const tickOn = (g, s, foe, pos, sharedFoePos) => {
+    let dmg = 0, val = 0;
+    const t = g.terrain[pos]?.kind;
+    if ((s.burn || 0) > 0) dmg += 1;
+    if (s.brandRound && g.round >= s.brandRound) dmg += 3;
+    if (foe.fk === "O" && (s.curse || 0) >= 3 && g.round >= (foe.pass === "mdeep" ? 7 : 8)) dmg += Math.min(2, Math.floor(s.curse / 3));
+    if (t === "frost" && s.fk !== "V") val += statusVal(g, "chill");
+    if (t === "scorch" && s.fk !== "C") val += statusVal(g, "burn");
+    if (t === "env" && s.fk !== "M") val += statusVal(g, "poison") * ((s.poison || 0) === 2 ? 2.4 : 1);
+    if (t === "mire" && s.fk !== "O") val += statusVal(g, "curse");
+    if (t === "hall") { if (s.fk === "L") dmg -= 1; else dmg += 1; }
+    if (t === "dom" && s.fk !== "D" && foe.fk === "D" && foe.pass === "home") dmg += 1;
+    if (t === "whirl" && s.fk !== "Y") dmg += 1;
+    if (t === "surf" && s.fk !== "Y") dmg += 1;
+    if (g.undineQ === pos && s.fk !== "Y" && !(g.undineStun >= g.round)) dmg += 1;
+    if (g.kessQ === pos && s.fk !== "W" && (s.mark || 0) === 0) val += statusVal(g, "mark");
+    if (foe.dischargeField && pos === sharedFoePos) dmg += 1;
+    if (foe.fk === "V" && foe.pass === "numb" && pos === sharedFoePos) val += statusVal(g, "chill");
+    if ((foe._skyBarrage || 0) > 0) dmg += 0.5; // 2 dmg x 1/4 quadrant
+    return dmg + val;
+  };
+  // relic value of ending the round at pos
+  const relicVal = (g, s, foe, pos) => {
+    if (!g.relics?.board?.length || !g.relics.board.includes(pos)) return 0;
+    if (s.fk === "L") return 2.5 + (g.relics.claims || 0) * 2.5;
+    return foe.fk === "L" ? 2 + (g.relics.claims || 0) * 1.5 : 1.2;
+  };
+
+  /* ---------- one-exchange forward simulation (normal rounds) ---------- */
+  // myPlan: {ab, type, moveTo, target} · foeAct: {ab, type, moveTo, pHitMe}
+  // returns expected value of the exchange from me's perspective
+  const evalExchange = (g, me, foe, myPlan, foeAct, warMult) => {
+    const myT = myPlan.type, foT = foeAct.type;
+    const myEnd = myPlan.moveTo, foeEnd = foeAct.moveTo;
+    const collision = myEnd === foeEnd || (myEnd === foe.pos && foeEnd === me.pos && me.pos !== foe.pos);
+    const myAtk = myT !== "ward", foeAtk = foT !== "ward";
+    const myHit = myAtk && (collision || myPlan.target === foeEnd);
+    const pFoeHit = foeAtk ? (collision ? 1 : foeAct.pHitMe(myEnd)) : 0;
+    const shared = myEnd === foeEnd;
+    const diagonal = myPlan.target && myPlan.target !== myEnd && !ADJ[myEnd].includes(myPlan.target);
+    let ev = 0;
+
+    const resolveBranch = (foeHit) => {
+      let v = 0;
+      let dTo = 0, dFrom = 0;
+      const ctxMe = { shared, collision, diagonal, advWin: false };
+      const ctxFoe = { shared, collision, diagonal: false, advWin: false };
+      const foeIron = ironSoak(foeAct), myIron = ironSoak(myPlan);
+      const hit = (n, iron) => Math.max(0, n - (iron ? 1 : 0));
+      if (myAtk && foeAtk) {
+        if (myHit && foeHit) {
+          if (myT === foT) { // trade
+            dTo += hit(abilityBase(g, me, foe, myPlan.ab, foeEnd) + atkMods(g, me, foe, myT, ctxMe), foeIron);
+            dFrom += hit(abilityBase(g, foe, me, foeAct.ab, myEnd) + atkMods(g, foe, me, foT, ctxFoe), myIron);
+            v += contactVal(g, me, foe, myPlan.ab) - contactVal(g, foe, me, foeAct.ab);
+          } else if (BEATS[myT] === foT) { // I win the triangle
+            ctxMe.advWin = true;
+            dTo += hit(abilityBase(g, me, foe, myPlan.ab, foeEnd) + atkMods(g, me, foe, myT, ctxMe) + 1, foeIron);
+            v += contactVal(g, me, foe, myPlan.ab) + 0.35; // knockback rights
+          } else { // countered
+            ctxFoe.advWin = true;
+            dFrom += hit(abilityBase(g, foe, me, foeAct.ab, myEnd) + atkMods(g, foe, me, foT, ctxFoe) + 1, myIron);
+            v -= contactVal(g, foe, me, foeAct.ab) + 0.35;
+          }
+        } else if (myHit) { // clean read
+          dTo += hit(abilityBase(g, me, foe, myPlan.ab, foeEnd) + atkMods(g, me, foe, myT, ctxMe), foeIron);
+          v += contactVal(g, me, foe, myPlan.ab) + 0.35;
+        } else if (foeHit) {
+          dFrom += hit(abilityBase(g, foe, me, foeAct.ab, myEnd) + atkMods(g, foe, me, foT, ctxFoe), myIron);
+          v -= contactVal(g, foe, me, foeAct.ab) + 0.35;
+        }
+      } else if (myAtk) { // foe wards
+        if (myHit) {
+          if (myT === "break") {
+            ctxMe.advWin = true;
+            dTo += hit(abilityBase(g, me, foe, myPlan.ab, foeEnd) + atkMods(g, me, foe, myT, ctxMe) + 1, foeIron);
+            v += contactVal(g, me, foe, myPlan.ab) + 0.35;
+          } else { // caught
+            const riposte = foeAct.ab === "arc" ? 2 : 1;
+            dFrom += hit(riposte + 1, myIron); // riposte + sharpened counter
+            v -= 0.6; // signature catch extras, roughly
+          }
+        }
+      } else if (foeAtk) { // I ward
+        if (foeHit) {
+          if (foT === "break") {
+            ctxFoe.advWin = true;
+            dFrom += hit(abilityBase(g, foe, me, foeAct.ab, myEnd) + atkMods(g, foe, me, foT, ctxFoe) + 1, myIron);
+            v -= contactVal(g, foe, me, foeAct.ab) + 0.35;
+          } else {
+            const riposte = myPlan.ab === "arc" ? 2 : 1;
+            dTo += hit(riposte + 1 + (me.fk === "V" && foe.chill ? 1 : 0), foeIron);
+            v += myPlan.ab === "mantle" ? Math.min(1, me.maxHp - me.hp) * HEAL_W + 0.5 : 0.5;
+          }
+        }
+      }
+      // Vessk's elemental mirror: lance/spike into an anchored zone with the foe there
+      if (me.fk === "V" && ["lance", "spike"].includes(myPlan.ab) && myHit) {
+        const zone = collision ? foeEnd : myPlan.target;
+        if (g.icels?.[zone] && !(g.icels[zone].stun >= g.round) && foeEnd === zone && !(myT !== "break" && !myAtk)) {
+          const won = ctxMe.advWin;
+          const countered = myAtk && foeAtk && BEATS[foT] === myT || (!foeAtk && myT === "rush" && myHit);
+          if (!countered) dTo += (ABILITIES[myPlan.ab].dmg || 0) + (won ? 1 : 0) + (foe.chill ? 1 : 0);
+        }
+      }
+      const kill = foe.hp - dTo <= 0 ? 3 : 0;
+      const death = me.hp - dFrom <= 0 ? -6 : 0;
+      return (dTo * (warMult.dmg || 1) - dFrom * (warMult.selfHp || 1)) + v + kill + death;
+    };
+
+    ev += pFoeHit * resolveBranch(true) + (1 - pFoeHit) * resolveBranch(false);
+    // ability cost friction: spending denies income (unless at 0 anyway)
+    const cost = ABILITIES[myPlan.ab].cost || 0;
+    if (cost > 0) ev -= 0.55 + cost * 0.12;
+    if (ABILITIES[myPlan.ab].hpCost) ev -= ABILITIES[myPlan.ab].hpCost * 0.6 * (warMult.selfHp || 1);
+    // round-end board state from where both fighters stand
+    ev -= tickOn(g, me, foe, myEnd, foeEnd);
+    ev += tickOn(g, foe, me, foeEnd, myEnd) * 0.9;
+    ev += relicVal(g, me, foe, myEnd) - relicVal(g, foe, me, foeEnd) * 0.9;
+    return ev;
+  };
+
+  /* ---------- the war plan ---------- */
+  const WAR_MENU = {
+    G: { id: "the-red-line", mult: { dmg: 1.15 }, note: "force exchanges, feast on clashes" },
+    M: { id: "venom-execute", mult: { dmg: 1, poison: 1.5, selfHp: 1.15 }, note: "stack venom, execute the wounded" },
+    V: { id: "winter-architecture", mult: { frost: 1.5 }, note: "paint, chill, cash the shatter" },
+    C: { id: "burn-clock", mult: { burn: 1.5 }, note: "stay ahead of the burn schedule" },
+    K: { id: "the-siege", mult: { dmg: 1.05 }, note: "install the Field, bank to the Beam" },
+    Z: { id: "blood-race", mult: { dmg: 1.2, selfHp: 0.85 }, note: "spend blood faster than it spends you" },
+    L: { id: "relic-march", mult: { relic: 1.6, hall: 1.3 }, note: "claims by rounds 4/7/9" },
+    O: { id: "the-debt", mult: { curse: 1.6 }, note: "six curses banked by round 7" },
+    D: { id: "the-seal", mult: { dom: 1.5 }, note: "tiles on pace for the round-8 seal" },
+    Y: { id: "the-rent", mult: { water: 1.5 }, note: "keep the water collecting" },
+    W: { id: "kite-and-mark", mult: { dmg: 1.05 }, note: "distance, marks, pins" },
+    X: { id: "tempo", mult: { flow: 1.3, dmg: 1.1 }, note: "flow uptime, cash through the chains" },
+  };
+  const FALLBACK = { id: "the-race", mult: { dmg: 1.3, selfHp: 0.9 }, note: "the plan collapsed — race for the bell" };
+  const warPlanFor = (g, s, foe, seatKey) => {
+    const m = g.mind;
+    if (!m.war[seatKey]) {
+      m.war[seatKey] = { ...(WAR_MENU[s.fk] || FALLBACK), since: 1 };
+      m.log.push({ r: g.round, seat: seatKey, kind: "war", note: `war plan: ${m.war[seatKey].id} — ${m.war[seatKey].note}` });
+    }
+    const w = m.war[seatKey];
+    // switch check: a collapsed plan becomes the race
+    if (w.id !== "the-race" && g.round >= 6) {
+      const losing = s.hp - foe.hp <= -4;
+      const paceDead =
+        (w.id === "relic-march" && (g.relics?.claims || 0) === 0 && g.round >= 7) ||
+        (w.id === "the-seal" && QUADS.filter((q) => g.terrain[q]?.kind === "dom").length < 2 && g.round >= 7) ||
+        (w.id === "the-debt" && (foe.curse || 0) < 3 && g.round >= 7) ||
+        (w.id === "burn-clock" && (foe.burn || 0) === 0 && g.round >= 7 && losing);
+      if (losing || paceDead) {
+        m.war[seatKey] = { ...FALLBACK, since: g.round };
+        m.log.push({ r: g.round, seat: seatKey, kind: "war-switch", note: `${w.id} collapsed (${losing ? "HP deficit" : "pace dead"}) → the-race` });
+      }
+    }
+    return m.war[seatKey];
+  };
+
+  /* ---------- opponent action distribution ---------- */
+  const foeScenarios = (g, me, foe, prof, soph, known) => {
+    if (known) { // umbral certainty: the reveal is in hand
+      const ty = known.form || ABILITIES[known.ab].type;
+      return [{ ab: known.ab, type: ty, moveTo: known.moveTo ?? foe.pos, w: 1, pHitMe: (myEnd) => (known.target ? (known.target === myEnd ? 1 : 0) : 0) }];
+    }
+    const wounded = woundedOf(foe);
+    const full = foe.pow >= capOf(foe);
+    const base = { ...prof.types };
+    if (wounded && prof.nWounded > 2.5) { const wr = prof.wardWounded / prof.nWounded; base.ward *= 1 + wr * 1.5 * soph; }
+    if (g.mind.tookHit[me === g.P ? "A" : "P"] && prof.nAfterHit > 2.5) { const rr = prof.rushAfterHit / prof.nAfterHit; base.rush *= 1 + rr * soph; }
+    if (full) TYPES.forEach((t) => { base[t] *= 1 + (prof.fullBank[t] / (prof.fullBank.rush + prof.fullBank.break + prof.fullBank.ward)) * soph; });
+    const abs = foe.load.filter((id) => foe.pow >= ABILITIES[id].cost && !(id === "heart" && (me.poison || 0) === 0));
+    const pool = abs.length ? abs : foe.load.filter((id) => ABILITIES[id].cost === 0);
+    let tot = 0;
+    const weights = pool.map((id) => {
+      const ab = ABILITIES[id];
+      let w = (base[ab.type] || 1) * (1 + (ab.dmg || 0) * 0.35);
+      if (id === "heart" && (me.poison || 0) >= 2) w *= 2.2;
+      if (id === "comb" && (me.burn || 0) >= 2) w *= 1.8;
+      if (id === "sorrow" && (me.curse || 0) >= 3) w *= 1.8;
+      tot += w; return w;
+    });
+    const moveP = foe.rooted ? 0 : Math.min(0.85, Math.max(0.12, prof.moveY / prof.moveN));
+    const moves = foe.rooted ? [{ q: foe.pos, p: 1 }] : [{ q: foe.pos, p: 1 - moveP }, ...ADJ[foe.pos].map((q) => ({ q, p: moveP / 2 }))];
+    const aimSelf = Math.min(0.95, Math.max(0.3, prof.aimSelf / prof.nAim + (1 - soph) * 0.05));
+    const out = [];
+    pool.forEach((id, i) => {
+      const ab = ABILITIES[id];
+      moves.forEach((mv) => {
+        if (mv.p <= 0.01) return;
+        out.push({
+          ab: id, type: ab.type, moveTo: mv.q, w: (weights[i] / tot) * mv.p,
+          pHitMe: (myEnd) => ab.type === "ward" ? 0 : (myEnd === me.pos ? aimSelf : ADJ[me.pos].includes(myEnd) ? (1 - aimSelf) / 2 : 0),
+        });
+      });
+    });
+    return out;
+  };
+
+  /* ---------- the endgame solver ---------- */
+  const clashDmg = (g, atk, dfn, id, dfnId, won, final) => {
+    // winner/trade damage under clash law; flat-final suppresses the bonus stack
+    let d = abilityBase(g, atk, dfn, id, dfn.pos);
+    if (!final) d += atkMods(g, atk, dfn, ABILITIES[id].type, { shared: true, collision: false, advWin: won });
+    if ((atk.weak || 0) > 0 && final) d -= 1; // reductions still apply under the law
+    if (won) d += 1 + (final ? 2 : 0);
+    if (ironSoak({ ab: dfnId })) d -= won ? 2 : 1;
+    return Math.max(0, d);
+  };
+  const clashPay = (g, me, foe, myId, foeId, final) => {
+    const myT = ABILITIES[myId].type, foT = ABILITIES[foeId].type;
+    let dTo = 0, dFrom = 0, util = 0;
+    const warmongerMe = me.fk === "G" && me.pass === "warmonger";
+    const warmongerFoe = foe.fk === "G" && foe.pass === "warmonger";
+    let winner = null;
+    if (myT !== foT) winner = BEATS[myT] === foT ? "me" : "foe";
+    else if (warmongerMe) winner = "me";
+    else if (warmongerFoe) winner = "foe";
+    if (!winner) { // trade
+      if (myT !== "ward") dTo = clashDmg(g, me, foe, myId, foeId, false, final);
+      if (foT !== "ward") dFrom = clashDmg(g, foe, me, foeId, myId, false, final);
+      util += planUtil(g, me, foe, { ab: myId }, {}) * 0.5;
+    } else if (winner === "me") {
+      if (myT !== "ward") dTo = clashDmg(g, me, foe, myId, foeId, true, final);
+      else { dTo = (myId === "arc" ? 2 : 1) + 1 + (final ? 2 : 0); util += planUtil(g, me, foe, { ab: myId }, {}) * 0.5; }
+    } else {
+      if (foT !== "ward") dFrom = clashDmg(g, foe, me, foeId, myId, true, final);
+      else dFrom = (foeId === "arc" ? 2 : 1) + 1 + (final ? 2 : 0);
+    }
+    if (final) {
+      // terminal payoff: P(win) after the bell
+      const hm = me.hp - dFrom, hf = foe.hp - dTo;
+      if (hf <= 0 && hm > 0) return 1;
+      if (hm <= 0 && hf > 0) return 0;
+      if (hm <= 0 && hf <= 0) return 0.5;
+      return hm > hf ? 1 : hm < hf ? 0 : 0.5;
+    }
+    return dTo - dFrom + util * 0.4 + (foe.hp - dTo <= 0 ? 4 : 0) - (me.hp - dFrom <= 0 ? 6 : 0);
+  };
+  const solveMatrix = (pay, iters = 220) => {
+    // fictitious play on a bimatrix treated as zero-sum-ish (payoff = row's value)
+    const R = pay.length, C = pay[0].length;
+    const rCount = new Array(R).fill(1), cCount = new Array(C).fill(1);
+    for (let it = 0; it < iters; it++) {
+      let bestR = 0, bestRv = -Infinity;
+      for (let r = 0; r < R; r++) { let v = 0; for (let c = 0; c < C; c++) v += pay[r][c] * cCount[c]; if (v > bestRv) { bestRv = v; bestR = r; } }
+      rCount[bestR] += 1;
+      let bestC = 0, bestCv = Infinity;
+      for (let c = 0; c < C; c++) { let v = 0; for (let r = 0; r < R; r++) v += pay[r][c] * rCount[r]; if (v < bestCv) { bestCv = v; bestC = c; } }
+      cCount[bestC] += 1;
+    }
+    const rSum = rCount.reduce((a, b) => a + b, 0), cSum = cCount.reduce((a, b) => a + b, 0);
+    const rowMix = rCount.map((x) => x / rSum), colMix = cCount.map((x) => x / cSum);
+    let value = 0;
+    for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) value += pay[r][c] * rowMix[r] * colMix[c];
+    return { rowMix, colMix, value };
+  };
+  const affordable = (g, s, foeOfS) => {
+    const abs = s.load.filter((id) => s.pow >= ABILITIES[id].cost && !(id === "heart" && (foeOfS.poison || 0) === 0));
+    return abs.length ? abs : s.load.filter((id) => ABILITIES[id].cost === 0);
+  };
+  // projected round-10 value for round-9 planning (tiny matrix, cheap iterations)
+  const finalValue = (g, me, foe, hpMe, hpFoe, powMe, powFoe) => {
+    const meS = { ...me, hp: Math.max(0, hpMe), pow: powMe };
+    const foeS = { ...foe, hp: Math.max(0, hpFoe), pow: powFoe };
+    if (meS.hp <= 0) return 0;
+    if (foeS.hp <= 0) return 1;
+    const mine = affordable(g, meS, foeS), theirs = affordable(g, foeS, meS);
+    const pay = mine.map((mid) => theirs.map((fid) => clashPay(g, meS, foeS, mid, fid, true)));
+    return solveMatrix(pay, 70).value;
+  };
+
+  /* ---------- clash planning (rounds 3/7/10) ---------- */
+  const planClash = (g, me, foe, opts) => {
+    const { diff, rng } = opts;
+    const t0 = typeof performance !== "undefined" ? performance.now() : Date.now();
+    const seatKey = me === g.P ? "P" : "A";
+    const foeSeat = seatKey === "P" ? "A" : "P";
+    const prof = g.mind?.prof?.[foeSeat] || blankProf();
+    const soph = diff === "crucible" ? 1 : 0.45;
+    const final = g.round === 10;
+    const mine = affordable(g, me, foe), theirs = affordable(g, foe, me);
+    const pay = mine.map((mid) => theirs.map((fid) => clashPay(g, me, foe, mid, fid, final)));
+    const sol = solveMatrix(pay);
+    // the foe is not a perfect equilibrium player: blend with their profile
+    const tSum = prof.types.rush + prof.types.break + prof.types.ward;
+    const prior = theirs.map((fid) => (prof.types[ABILITIES[fid].type] || 1) / tSum);
+    const pSum = prior.reduce((a, b) => a + b, 0);
+    const foeMix = theirs.map((_, c) => (sol.colMix[c] * (0.4 + 0.6 * soph) + (prior[c] / pSum) * (0.6 - 0.6 * soph + 0.6 * (1 - soph))));
+    const fSum = foeMix.reduce((a, b) => a + b, 0);
+    const evs = mine.map((mid, r) => theirs.reduce((acc, _, c) => acc + pay[r][c] * (foeMix[c] / fSum), 0));
+    // temperature selection over the EVs (never argmax)
+    const tau = diff === "crucible" ? (final ? 0.06 : 0.22) : 0.8;
+    const idx = softPick(evs, tau, rng, diff, g, me, foe);
+    logPlan(g, seatKey, {
+      r: g.round, kind: final ? "final-clash" : "clash",
+      note: `${final ? "FINAL solver" : "clash matrix"}: ${mine.map((m, i) => `${ABILITIES[m].name} ${final ? (evs[i] * 100).toFixed(0) + "%" : "EV " + evs[i].toFixed(2)}`).join(" · ")} → ${ABILITIES[mine[idx]].name}`,
+    });
+    perfMark(g, t0);
+    return { ab: mine[idx], soft: false, form: null };
+  };
+
+  const softPick = (evs, tau, rng, diff, g, me, foe) => {
+    let ranked = evs.map((v, i) => ({ v, i })).sort((a, b) => b.v - a.v);
+    // pattern-breaking (Crucible only): sometimes discard the very best line —
+    // the Mind knows it too is being watched
+    if (diff === "crucible" && ranked.length > 1 && rng() < 0.12 && ranked[0].v - ranked[1].v < 1.5) ranked = ranked.slice(1);
+    const top = ranked.slice(0, 4);
+    const mx = top[0].v;
+    const ws = top.map((x) => Math.exp((x.v - mx) / Math.max(0.03, tau)));
+    const sum = ws.reduce((a, b) => a + b, 0);
+    let roll = rng() * sum;
+    for (let k = 0; k < top.length; k++) { roll -= ws[k]; if (roll <= 0) return top[k].i; }
+    return top[0].i;
+  };
+  const perfMark = (g, t0) => {
+    if (!g.mind) return;
+    const now = typeof performance !== "undefined" ? performance.now() : Date.now();
+    const ms = now - t0;
+    g.mind.perf.n += 1; g.mind.perf.ms += ms; if (ms > g.mind.perf.maxMs) g.mind.perf.maxMs = ms;
+  };
+  const logPlan = (g, seat, entry) => {
+    if (!g.mind) return;
+    g.mind.log.push({ seat, ...entry });
+    if (g.mind.log.length > 400) g.mind.log.splice(0, 100);
+  };
+
+  /* ---------- normal-round planning ---------- */
+  const plan = (g, me, foe, opts) => {
+    const { diff, rng, isClash, umbralFoePlan, forcedMove } = opts;
+    if (isClash) return planClash(g, me, foe, opts);
+    const t0 = typeof performance !== "undefined" ? performance.now() : Date.now();
+    const seatKey = me === g.P ? "P" : "A";
+    const foeSeat = seatKey === "P" ? "A" : "P";
+    const prof = g.mind?.prof?.[foeSeat] || blankProf();
+    const soph = diff === "crucible" ? 1 : 0.45;
+    const war = g.mind ? warPlanFor(g, me, foe, seatKey) : { ...WAR_MENU[me.fk] };
+    const warMult = war.mult || {};
+    const scen = foeScenarios(g, me, foe, prof, soph, null); // the umbral reveal steers only the dodge (v2 honesty law)
+    // movement options
+    let moves;
+    if (forcedMove) moves = [forcedMove];
+    else if (me.rooted) moves = [me.pos];
+    else {
+      moves = [me.pos, ...ADJ[me.pos]];
+      if (me.pass === "rider") QUADS.forEach((q) => { if (["whirl", "surf"].includes(g.terrain[q]?.kind) && !moves.includes(q)) moves.push(q); });
+    }
+    const mine = affordable(g, me, foe);
+    // likely foe positions for aiming (ranked by scenario mass)
+    const posMass = {};
+    scen.forEach((s) => { posMass[s.moveTo] = (posMass[s.moveTo] || 0) + s.w; });
+    const aimSpots = Object.entries(posMass).sort((a, b) => b[1] - a[1]).map(([q]) => q).slice(0, 3);
+    const candidates = [];
+    mine.forEach((id) => {
+      const ab = ABILITIES[id];
+      const targets = ab.needsTarget ? aimSpots : [null];
+      const moveSet = ab.umbral && umbralFoePlan
+        ? [(() => { const dodge = [me.pos, ...ADJ[me.pos]].filter((q) => q !== umbralFoePlan.target); return dodge.length ? dodge[Math.floor(rng() * dodge.length)] : me.pos; })()]
+        : moves;
+      moveSet.forEach((mv) => targets.forEach((tq) => candidates.push({ ab: id, type: ab.type, moveTo: mv, target: tq })));
+    });
+    // EV per candidate against the predicted distribution
+    const evs = candidates.map((c) => {
+      let ev = 0;
+      scen.forEach((s) => { ev += s.w * evalExchange(g, me, foe, c, s, warMult); });
+      ev += planUtil(g, me, foe, c, warMult);
+      // staleness: the third consecutive identical pick feeds reads
+      const prev = g.mind?.prev?.[seatKey] || [null, null];
+      if (prev[0] === c.ab && prev[1] === c.ab) ev -= 0.8;
+      // round-9 folds the projected final-clash value in
+      if (g.round === 9) {
+        const swing = ev; // rough expected swing proxy
+        const pWin = finalValue(g, me, foe, me.hp + Math.min(0, -0), foe.hp - Math.max(0, Math.min(3, swing)), Math.max(0, me.pow - (ABILITIES[c.ab].cost || 0)) + 1, Math.min(capOf(foe), foe.pow + 1));
+        ev += pWin * 2.5;
+      }
+      return ev;
+    });
+    // rubber-band lives in the temperature (Proving only — matchmaking, never mercy)
+    let tau = diff === "crucible" ? 0.3 : 0.95;
+    if (diff !== "crucible") {
+      const lead = me.hp - foe.hp;
+      if (lead >= 5) tau += 0.5; else if (lead <= -5) tau = Math.max(0.55, tau - 0.25);
+    }
+    const idx = softPick(evs, tau, rng, diff, g, me, foe);
+    const chosen = candidates[idx];
+    const ab = ABILITIES[chosen.ab];
+    const planOut = { ab: chosen.ab, soft: false, form: null, moveTo: chosen.moveTo, target: chosen.target, splash: null, secondary: null };
+    if (ab.dual) planOut.form = Object.keys(ab.dual)[Math.floor(rng() * Object.keys(ab.dual).length)];
+    if (ab.needsSplash && planOut.target) planOut.splash = ADJ[planOut.target][Math.floor(rng() * 2)];
+    if (ab.needsSecondary && planOut.target) { const sq = QUADS.filter((q) => q !== planOut.target); planOut.secondary = sq[Math.floor(rng() * sq.length)]; }
+    if (g.mind) g.mind.prev[seatKey] = [g.mind.prev[seatKey][1], chosen.ab];
+    // the transcript line: prediction, top lines, the war plan
+    const tSum = prof.types.rush + prof.types.break + prof.types.ward;
+    const ranked = evs.map((v, i) => ({ v, i })).sort((a, b) => b.v - a.v).slice(0, 3);
+    logPlan(g, seatKey, {
+      r: g.round, kind: "plan",
+      note: `predict ${TYPES.map((t) => `${t} ${(100 * prof.types[t] / tSum).toFixed(0)}%`).join("/")}${woundedOf(foe) ? " (wounded profile)" : ""} · ` +
+        `${ranked.map((x) => `${ABILITIES[candidates[x.i].ab].name}@${candidates[x.i].moveTo}${candidates[x.i].target ? "→" + candidates[x.i].target : ""} EV ${x.v.toFixed(2)}`).join(" · ")} · ` +
+        `war ${war.id} → ${ab.name}`,
+    });
+    perfMark(g, t0);
+    return planOut;
+  };
+
+  return { initState, observe, plan, tickOn, blankProf };
+})();
+
 /* ============ PORTRAITS ============ */
 function PortraitG({ size = 120 }) {
   return (
@@ -2544,56 +3101,10 @@ export default function App() {
     }
   };
 
-  /* ---- AI ---- */
+  /* ---- AI (v3 — THE MIND drives; the rails still own the lessons) ---- */
   const aiMakePlan = (ai, human, isClash, humanPlanForUmbral) => {
     const gT = G.current;
     const diffMode = gT?.diff || "proving";
-    const hist = (ai === gT?.P ? gT?.aHist : gT?.pHist) || [];
-    const predictType = () => {
-      if (!hist.length) return null;
-      const freq = {}; hist.forEach((t, i) => { freq[t] = (freq[t] || 0) + (diffMode === "crucible" && i >= hist.length - 3 ? 2 : 1); });
-      const last = hist[hist.length - 1];
-      if (hist.length >= 3) {
-        const trans = {};
-        for (let i = 0; i + 1 < hist.length; i++) if (hist[i] === last) trans[hist[i + 1]] = (trans[hist[i + 1]] || 0) + 1;
-        const top = Object.entries(trans).sort((a, b) => b[1] - a[1])[0];
-        if (top && top[1] >= 2) return top[0];
-      }
-      return Object.entries(freq).sort((a, b) => b[1] - a[1])[0][0];
-    };
-    const predT = predictType(); // both trials read the revealed-type history now
-    const T = (q) => gT?.terrain?.[q]?.kind;
-    const comboBias = (id) => {
-      const f = ai.fk, hpn = human;
-      if (f === "M" && id === "heart" && hpn.poison >= 2) return 8;
-      if (f === "M" && id === "viper" && hpn.poison === 0) return 3;
-      if (f === "Z" && id === "tap" && ai.pow <= 1 && ai.hp > 4) return 6;
-      if (f === "Z" && id === "brand" && !hpn.brandRound) return 5;
-      if (f === "Z" && id === "dark" && ai.hp <= ai.maxHp - 3) return 4;
-      if (f === "Y" && id === "storm" && ai.pow >= 3) return 6;
-      if (f === "Y" && (id === "lash" || id === "bwater") && ["whirl", "surf"].includes(T(hpn.pos))) return 5;
-      if (f === "W" && id === "pin" && !hpn.rooted) return 4;
-      if (f === "W" && (id === "sky" || id === "broad") && (hpn.rooted || (hpn.mark || 0) > 0)) return 6;
-      if (f === "L" && id === "consec" && T(ai.pos) !== "hall") return 5; // a ward now: sanctify the ground he stands on
-      if (f === "L" && id === "dawn" && ai.pow >= 3) return 6;
-      if (f === "L" && id === "llance" && T(hpn.pos) === "hall") return 5;
-      if (f === "O" && id === "sorrow" && (hpn.curse || 0) >= 3) return 8;
-      if (f === "O" && (id === "stick" || id === "eye") && (hpn.curse || 0) < 3) return 3;
-      if (f === "X" && ["arsenal", "cadence", "chainX"].includes(id) && ai.flow) return 5;
-      if (f === "X" && (id === "eguard" || id === "riposte") && !ai.flow) return 3;
-      if (f === "C" && id === "pyre" && (hpn.burn || 0) >= 2) return 5;
-      if (f === "V" && ["spike", "lance"].includes(id) && gT?.icels?.[hpn.pos] && !(gT.icels[hpn.pos].stun >= gT.round)) return id === "spike" ? 8 : 6; // the mirror line
-      if (f === "V" && id === "spike" && hpn.chill) return 5;
-      if (f === "V" && id === "iceage") { const fresh = QUADS.filter((q) => T(q) === "frost" && !gT?.icels?.[q]).length; return fresh >= 2 ? 7 : fresh === 1 ? 4 : 2; } // self-paints since v0.85.1 — never a dead cast
-      if (f === "V" && id === "freeze" && !hpn.rooted) return 3;
-      if (f === "K" && id === "arc" && !ai.dischargeField && ai.pow >= 2) return 6;
-      if (f === "K" && id === "core" && ai.pow >= 3) return 6;
-      if (f === "K" && id === "frame" && ai.pow >= 3 && ai.hp <= ai.maxHp - 2) return 5;
-      if (f === "G" && id === "harvest" && ai.pow >= 3) return 5;
-      return 0;
-    };
-    const comboScale = diffMode === "crucible" ? 1 : 0.7;
-    const wantHold = diffMode === "crucible" && [...ai.load].some((id) => ABILITIES[id].cost === ai.pow + 1 && comboBias(id) >= 5);
     if (gT?.tut) {
       const R = resolveRail(gT);
       if (R && R.foe.ab) {
@@ -2601,112 +3112,12 @@ export default function App() {
         return { ab: R.foe.ab, soft: false, moveTo: isClash ? ai.pos : R.foe.moveTo, target: fab.needsTarget ? (isClash ? human.pos : R.foe.target || human.pos) : null, splash: fab.needsSplash ? rnd(ADJ[human.pos]) : null, secondary: fab.needsSecondary ? rnd(QUADS.filter((q) => q !== human.pos)) : null };
       }
     }
-    const opts = [];
-    [...ai.load].forEach((id) => {
-      if (id === "heart" && human.poison === 0) return;
-      const ab = ABILITIES[id];
-      let cost = ab.cost;
-      if (ai.pow >= cost) opts.push({ ab: id, soft: false });
+    if (!gT.mind) MIND.initState(gT);
+    return MIND.plan(gT, ai, human, {
+      diff: diffMode, isClash, rng: Math.random,
+      umbralFoePlan: humanPlanForUmbral, // honesty law: steers only the umbral dodge, never the scoring
+      forcedMove: !isClash ? gT.aiForcedMove : null,
     });
-    const weighted = [];
-    opts.forEach((o) => {
-      const ab = ABILITIES[o.ab];
-      let w = 2;
-      if (ab.dmg >= 2) w = 4;
-      if ((ab.cost >= 3 || o.ab === "pyre") && ai.pow >= 3) w = 7;
-      if (o.ab === "viper" || o.ab === "cinder" || o.ab === "lance") w = 5;
-      if (predT) {
-        if (BEATS[ab.type] === predT) w += diffMode === "crucible" ? 6 : 4;
-        else if (ab.type === predT) w += 1;
-        else if (BEATS[predT] === ab.type) w = Math.max(1, w - 2);
-      }
-      if (human.pow >= 3) {
-        const humanNuke = human.load.some((x) => ABILITIES[x].cost >= 3);
-        const humanBreakNuke = humanNuke && human.load.some((x) => ABILITIES[x].cost >= 3 && ABILITIES[x].type === "break");
-        if (humanBreakNuke) { if (ab.type === "rush") w += diffMode === "crucible" ? 5 : 3; }
-        else if (humanNuke && ab.type === "ward") w += diffMode === "crucible" ? 5 : 3;
-      }
-      {
-        // DoT-clock awareness: never waste a round warding unwardable round-end damage
-        const tickIn = ((ai.burn || 0) > 0 ? 1 : 0)
-          + (ai.brandRound === gT?.round ? 3 : 0)
-          + (human.fk === "O" && (ai.curse || 0) >= 3 && (gT?.round || 0) >= (human.pass === "mdeep" ? 7 : 8) ? Math.min(2, Math.floor(ai.curse / 3)) : 0);
-        if (tickIn > 0 && ab.type === "ward" && ai.hp <= tickIn) w = 1; // the clock kills regardless — never ward it
-        if (tickIn > 0 && ai.hp <= tickIn + 2 && ["dark", "mantle", "current", "knit", "frame", "aegis"].includes(o.ab)) w += 4;
-      }
-      w += Math.round(comboBias(o.ab) * comboScale);
-      if (gT?.aiPrev && gT.aiPrev[0] === o.ab && gT.aiPrev[1] === o.ab) w = Math.max(1, w - 3);
-      if (wantHold) { if (ab.cost > 0) w = Math.max(1, w - 3); else w += 2; }
-      for (let i = 0; i < w; i++) weighted.push(o);
-    });
-    let pick = null;
-    if (isClash && diffMode === "crucible") {
-      const loadTypes = [...new Set(human.load.map((x) => ABILITIES[x].type))];
-      const safe = ["break", "rush", "ward"].filter((t) => loadTypes.every((x) => BEATS[x] !== t));
-      const want = safe.find((t) => loadTypes.includes(BEATS[t])) || safe[0] || (predT ? Object.keys(BEATS).find((t) => BEATS[t] === predT) : null);
-      if (want) pick = opts.find((o) => ABILITIES[o.ab].type === want) || null;
-    }
-    if (!pick && isClash && predT) {
-      pick = opts.find((o) => BEATS[ABILITIES[o.ab].type] === predT) || null;
-    }
-    if (!pick) pick = rnd(weighted);
-    const ab = ABILITIES[pick.ab];
-    const plan = { ab: pick.ab, soft: pick.soft, moveTo: ai.pos, target: null, splash: null, secondary: null };
-    if (ab.dual) plan.form = rnd(Object.keys(ab.dual));
-    if (!isClash) {
-      if (ai.rooted) plan.moveTo = ai.pos;
-      else if (ab.umbral && humanPlanForUmbral) {
-        const dodge = [ai.pos, ...ADJ[ai.pos]].filter((q) => q !== humanPlanForUmbral.target);
-        plan.moveTo = dodge.length ? rnd(dodge) : ai.pos;
-      } else if (G.current.aiForcedMove) {
-        plan.moveTo = G.current.aiForcedMove;
-      } else {
-        // WORLD DOCTRINE: everyone fights to thrive. Relics are salvation,
-        // a rival's progress exists to be desecrated, ground is there to take.
-        const soph = diffMode === "crucible" ? 1 : 0.6;
-        const relics = gT?.relics?.board || [];
-        const behind = ai.hp - human.hp <= -3;
-        const scoreQ = (q) => {
-          let v = 0;
-          const t = T(q);
-          if (relics.includes(q) && q !== human.pos) v += (ai.fk === "L" ? 5 : behind || (human.fk === "L" && (gT?.relics?.claims || 0) >= 1) ? 4 : 2) * soph;
-          if (human.fk === "L" && (gT?.relics?.claims || 0) >= 2 && relics.includes(q)) v += 4;
-          if (ai.fk === "L" && relics.some((r) => ADJ[q].includes(r))) v += 1.5;
-          if (human.fk === "D" && t === "dom" && [...ai.load].some((x) => ABILITIES[x].type === "break" && ai.pow >= ABILITIES[x].cost)) v += (human.pass === "home" ? 1.5 : 3) * soph;
-          if (["frost", "scorch", "env", "mire"].includes(t) && !(ai.fk === "V" && t === "frost") && !(ai.fk === "C" && t === "scorch") && !(ai.fk === "O" && t === "mire")) v -= 2;
-          if (["whirl", "surf"].includes(t) && ai.fk !== "Y") v -= 3;
-          if (t === "hall") v += ai.fk === "L" ? 3 : -2;
-          if (t === "dom" && ai.fk === "D") v += 2;
-          if (["whirl", "surf"].includes(t) && ai.fk === "Y" && ai.pass === "rider") v += 2;
-          if (ai.fk === "W") v += q === human.pos ? -4 : ADJ[human.pos].includes(q) ? -1.5 : 2;
-          if (ai.fk === "M") v += q === human.pos ? (human.hp <= 3 ? 4 : -4) : 0;
-          if ((ai.fk === "G" || (ai.fk === "C" && ai.pass === "killheat" && (human.burn || 0) > 0) || (ai.fk === "D" && T(ai.pos) === "dom")) && q === human.pos) v += 2 * soph;
-          if (ai.fk === "K" && ai.dischargeField && q === ai.pos) v += 3;
-          if (gT?.kessQ === q && ai.fk !== "W") v -= 1.5;
-          if (gT?.icels?.[q] && ai.fk !== "V") v -= 2; // an anchored zone mirrors back — the field learns fear
-          return v + Math.random() * (diffMode === "crucible" ? 1.2 : 1.6);
-        };
-        const cand = [ai.pos, ...ADJ[ai.pos]];
-        if (ai.pass === "rider") QUADS.forEach((q) => { if (["whirl", "surf"].includes(T(q)) && !cand.includes(q)) cand.push(q); });
-        let best = cand[0], bestV = -Infinity;
-        cand.forEach((q) => { const v = scoreQ(q); if (v > bestV) { bestV = v; best = q; } });
-        plan.moveTo = best;
-      }
-      if (ab.needsTarget) {
-        const aimP = diffMode === "crucible" ? 0.9 : 0.8 + ((ai.hp - human.hp) >= 5 ? -0.1 : (ai.hp - human.hp) <= -5 ? 0.08 : 0);
-        // aim where they'll BE: the movement-frequency model (Crucible, and the kiting ranger at both tiers)
-        const mHist = (ai === gT?.P ? gT?.amHist : gT?.mHist) || [];
-        const moveRate = mHist.length ? mHist.filter(Boolean).length / mHist.length : 0.4;
-        const predictMove = (diffMode === "crucible" || ai.fk === "W") && mHist.length >= 3;
-        if (human.rooted) plan.target = human.pos;
-        else if (Math.random() < aimP) plan.target = predictMove && Math.random() < moveRate ? rnd(ADJ[human.pos]) : human.pos;
-        else plan.target = rnd(ADJ[human.pos]);
-        if (ab.needsSplash) plan.splash = rnd(ADJ[plan.target]);
-        if (ab.needsSecondary) plan.secondary = rnd(QUADS.filter((q) => q !== plan.target));
-      }
-    }
-    gT.aiPrev = [gT?.aiPrev?.[1], plan.ab];
-    return plan;
   };
 
   /* ---- playback ---- */
@@ -2748,14 +3159,32 @@ export default function App() {
   };
   const aiPickOpt = (p) => {
     const g = G.current;
+    const crucible = g.diff === "crucible";
     if (p.kind === "terr" && p.tkind === "hall") return p.opts.includes(g.A.pos) ? g.A.pos : p.opts[0]; // Kastor sanctifies his own ground
     if (p.kind === "kb" || p.kind === "placeFoe") {
       const A = g.A, v = g.P;
       if (A.fk === "G" && A.pass === "scent" && p.opts.includes(v.pos) && A.pos === v.pos) return v.pos;
+      if (crucible) {
+        // THE MIND places: maximize the victim's round-end bleeding (round-10
+        // placement after a clash win decides the bell — solved, not guessed)
+        let best = p.opts[0], bestV = -Infinity;
+        p.opts.forEach((q) => { const val = MIND.tickOn(g, v, A, q, A.pos); if (val > bestV) { bestV = val; best = q; } });
+        if (bestV > 0.01) return best;
+      }
       const hazard = p.opts.find((q) => q !== v.pos && ["frost", "scorch", "env", "mire", "whirl", "surf"].includes(g.terrain[q]?.kind));
       if (hazard) return hazard;
       const moves = p.opts.filter((q) => q !== v.pos);
       return moves.length ? rnd(moves) : rnd(p.opts);
+    }
+    if (p.kind === "placeSelf" && crucible) {
+      // stand where the bell is kindest (relics counted)
+      let best = p.opts[0], bestV = -Infinity;
+      p.opts.forEach((q) => {
+        let val = -MIND.tickOn(g, g.A, g.P, q, g.P.pos);
+        if (g.relics?.board?.includes(q)) val += g.A.fk === "L" ? 3 : g.P.fk === "L" ? 2 : 1;
+        if (val > bestV) { bestV = val; best = q; }
+      });
+      return best;
     }
     return rnd(p.opts);
   };
@@ -3068,6 +3497,13 @@ export default function App() {
     g.feed = [];
     const L = [];
     const P = g.P, A = g.A;
+    // THE MIND watches every reveal (profile learning, both seats)
+    if (g.mind) {
+      const hp0 = { P: P.hp, A: A.hp };
+      MIND.observe(g, "P", P, A, pPlan, { wounded: P.hp <= Math.ceil(P.maxHp * 0.4), fullBank: P.pow >= powCap(P), clash: false });
+      MIND.observe(g, "A", A, P, aPlan, { wounded: A.hp <= Math.ceil(A.maxHp * 0.4), fullBank: A.pow >= powCap(A), clash: false });
+      g.mind._hp0 = hp0;
+    }
     dfTrigger(L, "the round opens on his ground");
     [[P, pPlan], [A, aPlan]].forEach(([s, pl]) => {
       delete s._shatterUsed; delete s._advNow; delete s._chillEcho; s._chillPre = !!s.chill; // fresh exchange
@@ -3299,6 +3735,10 @@ export default function App() {
         followups.push({ kind: "placeFoe", who: s.fk, opts: ADJ[foe.pos], label: "Puppet Pull: drag them one quadrant" });
       }
     });
+    if (g.mind && g.mind._hp0) {
+      g.mind.tookHit = { P: P.hp < g.mind._hp0.P, A: A.hp < g.mind._hp0.A };
+      g.mind.colPrev = collided;
+    }
     g.after = "finish";
     playLines(L, processPrompts);
   };
@@ -3386,6 +3826,12 @@ export default function App() {
     const tP = pPlan.form || abP.type, tA = aPlan.form || abA.type;
     G.current.pHist = (G.current.pHist || []).concat(tP).slice(-8);
     G.current.aHist = (G.current.aHist || []).concat(tA).slice(-8);
+    if (g.mind) {
+      const hp0 = { P: P.hp, A: A.hp };
+      MIND.observe(g, "P", P, A, pPlan, { wounded: P.hp <= Math.ceil(P.maxHp * 0.4), fullBank: P.pow + (pPlan.pivoted ? 1 : 0) + (ABILITIES[pPlan.ab].cost || 0) >= powCap(P), clash: true });
+      MIND.observe(g, "A", A, P, aPlan, { wounded: A.hp <= Math.ceil(A.maxHp * 0.4), fullBank: A.pow + (aPlan.pivoted ? 1 : 0) + (ABILITIES[aPlan.ab].cost || 0) >= powCap(A), clash: true });
+      g.mind._hp0 = hp0;
+    }
     L.push({ t: `⚔ CLASH${g.round === 10 ? " — FINAL: winner +2" : ""} — you: ${abP.name} [${TYPE_LABEL[tP]}] · foe: ${abA.name} [${TYPE_LABEL[tA]}]` });
     g.vs = { p: { n: abP.name, ty: tP }, a: { n: abA.name, ty: tA }, note: `CLASH${g.round === 10 ? " · FINAL" : ""}`, r: g.round };
     const followups = g.prompts;
@@ -3548,6 +3994,10 @@ export default function App() {
         }
       }
     }
+    if (g.mind && g.mind._hp0) {
+      g.mind.tookHit = { P: P.hp < g.mind._hp0.P, A: A.hp < g.mind._hp0.A };
+      g.mind.colPrev = false;
+    }
     g.after = "finish";
     playLines(L, processPrompts);
   };
@@ -3662,6 +4112,7 @@ export default function App() {
     P.pos = "SW"; A.pos = "NE";
     G.current = { round: 1, diff: opts.diff || diff, pHist: [], P, A, terrain: {}, phase: "plan", prompts: [], feed: [], history: [], winner: null, planSel: null, aiPlan: null, roundJustPlayed: 1, relics: { board: [], claims: 0, spawned: 0 }, altWin: null, after: "finish", curseHealed: false, kessQ: null, undineQ: null, undineUntil: 0, undineHeals: false, aiForcedMove: null, pendClash: null, kessStun: 0, undineStun: 0, domPending: null, icels: {}, icelBorn: null, icelBursts: [], stats: { dir: { P: 0, A: 0 }, whiff: { P: 0, A: 0 }, col: 0, clashes: 0, adv: { P: 0, A: 0 }, dmg: { P: 0, A: 0 }, shatter: { P: 0, A: 0 }, blizz: 0, icel: { born: 0, spent: 0, countered: 0, zonelost: 0, lifeSum: 0, mirrors: 0, shatters: 0 } } };
     if (P.fk === "W") G.current.kessQ = P.pos; if (A.fk === "W") G.current.kessQ = A.pos;
+    MIND.initState(G.current);
     if (opts.tut) G.current.tut = true;
     G.current.phase = "vs";
     setScreen("game");
@@ -3671,7 +4122,7 @@ export default function App() {
 
   // Dormant test hook: exposes engine internals to the automated test/audit
   // harness only when a test runner sets window.__CL_TEST_HOOK__. Inert in play.
-  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G, api: { startGame, beginBout, aiMakePlan, aiPivot, applyToll, resolveRound, confirmClash, confirmPlan, useCraven, answerPrompt, processPrompts, throwSudden, skipPlay, clearTimers, confirmUmbralMove, confirmFeint, confirmFeintClash, afterCutin, railPromptPick, aiPickOpt, runClash, resolveRail }, defs: { FIGHTERS, ABILITIES, PASSIVES, TUTS, QUADS, ADJ, BEATS, CLASH_ROUNDS } };
+  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G, api: { startGame, beginBout, aiMakePlan, aiPivot, applyToll, resolveRound, confirmClash, confirmPlan, useCraven, answerPrompt, processPrompts, throwSudden, skipPlay, clearTimers, confirmUmbralMove, confirmFeint, confirmFeintClash, afterCutin, railPromptPick, aiPickOpt, runClash, resolveRail }, defs: { FIGHTERS, ABILITIES, PASSIVES, TUTS, QUADS, ADJ, BEATS, CLASH_ROUNDS }, mind: MIND };
   // Headless lab mode: the engine runs, nothing renders. Test-harness only.
   if (typeof window !== "undefined" && window.__CL_LAB__) return null;
 

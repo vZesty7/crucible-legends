@@ -52,8 +52,10 @@ describe("final clash deals flat printed damage", () => {
     P.hp = 12; A.hp = 12;
     P.pow = 3; A.pow = 3;
 
-    // The AI picks Ice Lance (RUSH) on this seed. We answer with Bloodhowl
-    // (RUSH, printed 1): a tie — which Warmonger converts into our win.
+    // Pin the AI's menu to Ice Lance alone (the brain is free to outplay a
+    // seed; the LAW is what we test). We answer with Bloodhowl (RUSH,
+    // printed 1): a tie — which Warmonger converts into our win.
+    g().A.load = ["lance"];
     clickText("Bloodhowl"); // confirms immediately
     ph = stepUntilDecision(Math.random);
     harvest(store);
