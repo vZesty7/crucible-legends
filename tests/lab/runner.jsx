@@ -188,7 +188,7 @@ function playGameInner({ pFk, pLoad, pPass, aFk, aLoad, aPass, diff = "proving",
     const gmc = gm();
     switch (gmc.phase) {
       case "plan": {
-        if (collectRounds) rounds.push({ r: gmc.round, hpP: gmc.P.hp, hpA: gmc.A.hp, powP: gmc.P.pow, powA: gmc.A.pow });
+        if (collectRounds) rounds.push({ r: gmc.round, hpP: gmc.P.hp, hpA: gmc.A.hp, powP: gmc.P.pow, powA: gmc.A.pow, flowP: !!gmc.P.flow, flowA: !!gmc.A.flow, fz: ["NW", "NE", "SW", "SE"].filter((q) => gmc.terrain[q]?.kind === "frost").length, els: Object.keys(gmc.icels || {}).length });
         const [pPlan, aPlan] = buildPlans();
         api().resolveRound(pPlan, aPlan);
         flush();
@@ -206,7 +206,7 @@ function playGameInner({ pFk, pLoad, pPass, aFk, aLoad, aPass, diff = "proving",
         break;
       }
       case "clashPlan": {
-        if (collectRounds) rounds.push({ r: gmc.round, hpP: gmc.P.hp, hpA: gmc.A.hp, powP: gmc.P.pow, powA: gmc.A.pow, clash: true });
+        if (collectRounds) rounds.push({ r: gmc.round, hpP: gmc.P.hp, hpA: gmc.A.hp, powP: gmc.P.pow, powA: gmc.A.pow, clash: true, flowP: !!gmc.P.flow, flowA: !!gmc.A.flow, fz: ["NW", "NE", "SW", "SE"].filter((q) => gmc.terrain[q]?.kind === "frost").length, els: Object.keys(gmc.icels || {}).length });
         const pPick = pPolicy.clash(gmc, gmc.P);
         const aPick = aPolicy.clash(gmc, gmc.A);
         let pPlan = { ab: pPick.ab, soft: !!pPick.soft, form: pPick.form || null };
