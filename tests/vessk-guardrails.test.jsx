@@ -175,11 +175,14 @@ describe("frost zone clock — exactly 3 round-ends (v0.85.1 ruling)", () => {
   });
   test("an elemental-anchored zone does not decay — and says so", () => {
     const d = duel({
-      p: VESSK({}, "blizzard"), a: BAGY(), seed: 13,
+      p: VESSK({}, "blizzard", ["lance", "freeze", "bW", "iceage"]), a: BAGY(), seed: 13,
       rounds: [
         { p: { ab: "freeze", target: "NE" }, a: { ab: "bR", target: "SW" } }, // paint (bell 1)
         { p: { ab: "iceage" }, a: { ab: "lash", target: "SE" } }, // anchor (also self-paints SW)
-        { ...IDLE_V }, { ...IDLE_V }, { ...IDLE_V },
+        // round-3 clash: a WARD pick — since v0.85.2 a lance/spike clash would
+        // mirror off the bag standing on the anchored zone and spend it
+        { p: { ab: "bW" }, a: { ab: "lash" } },
+        { ...IDLE_V }, { ...IDLE_V },
       ],
     });
     expect(Object.keys(d.g.icels).sort()).toEqual(["NE", "SW"]); // self-paint births one under Vessk too
@@ -305,6 +308,55 @@ describe("Ice Elemental — full lifecycle law", () => {
     // shatter it until it has stood through an exchange start (no double-dip).
     expect(dmgBy(L, "Ice Elemental — mirrored Ice Lance", "Maelis")).toBe(2);
     expect(d.g.icels.NE).toBeUndefined();
+  });
+
+  test("CLASH MIRROR (v0.85.2): enemy standing in the zone at a round-3/7 clash — win pays rider and all", () => {
+    const d = duel({
+      p: VESSK(), a: CHILLED({ hp: 40, maxHp: 40 }), seed: 40,
+      rounds: [
+        { p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" } },
+        {
+          before: (gm) => {
+            gm.terrain.NE = { kind: "frost", until: 99 }; gm.icels.NE = { stun: 0, bornR: 1 }; // under the bag
+            gm.A.chill = true; gm.A.chillUntil = 99;
+          },
+          p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" },
+        },
+        { p: { ab: "spike" }, a: { ab: "current" } }, // round-3 clash: break beats ward
+      ],
+    });
+    const L = d.rounds[2].lines;
+    expect(L.join("\n")).toContain("CLASH");
+    // Vessk: 2 + shatter 1 + adv 1 (+ final edge? no — round 3) · mirror: 2 + adv 1 + echo shatter 1
+    expect(dmgBy(L, "Ice Elemental — mirrored Glacial Spike", "Maelis")).toBe(4);
+    expect(L.some((t) => t.includes("MIRRORS Glacial Spike — Advantage and all"))).toBe(true);
+    expect(d.g.icels.NE).toBeUndefined(); // spent
+    expect(d.g.terrain.NE?.kind).toBe("frost"); // zone survives on a fresh clock
+  });
+
+  test("CLASH MIRROR: a clash tie is neutral — base mirror only; a clash loss counters the elemental", () => {
+    const tieCase = duel({
+      p: VESSK(), a: BAGY({ hp: 40, maxHp: 40 }), seed: 41,
+      rounds: [
+        { p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" } },
+        { before: (gm) => { gm.terrain.NE = { kind: "frost", until: 99 }; gm.icels.NE = { stun: 0, bornR: 1 }; }, p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" } },
+        { p: { ab: "lance" }, a: { ab: "lash" } }, // round-3 clash: rush-rush tie
+      ],
+    });
+    expect(dmgBy(tieCase.rounds[2].lines, "Ice Elemental — mirrored Ice Lance", "Maelis")).toBe(1); // base, no rider
+    expect(tieCase.g.icels.NE).toBeUndefined(); // spent
+    const lossCase = duel({
+      p: VESSK(), a: BAGY({ hp: 40, maxHp: 40 }), seed: 42,
+      rounds: [
+        { p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" } },
+        { before: (gm) => { gm.terrain.NE = { kind: "frost", until: 99 }; gm.icels.NE = { stun: 0, bornR: 1 }; }, p: { ab: "lance", target: "NW" }, a: { ab: "lash", target: "SE" } },
+        { p: { ab: "lance" }, a: { ab: "current" } }, // round-3 clash: ward catches the rush — Vessk loses
+      ],
+    });
+    const L = lossCase.rounds[2].lines;
+    expect(L.some((t) => t.includes("COUNTERED — the Ice Elemental"))).toBe(true);
+    expect(dmgBy(L, "Ice Elemental — mirrored Ice Lance", "Maelis")).toBe(0);
+    expect(lossCase.g.icels.NE).toBeUndefined();
   });
 
   test("zone-loss removal: enemy paint (Pyre) collapses zone AND elemental — no decay reset needed", () => {
