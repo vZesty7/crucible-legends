@@ -400,7 +400,7 @@ const MIND = (() => {
   const relicVal = (g, s, foe, pos) => {
     if (!g.relics?.board?.length || !g.relics.board.includes(pos)) return 0;
     if (s.fk === "L") return 2.5 + (g.relics.claims || 0) * 2.5;
-    return foe.fk === "L" ? 2 + (g.relics.claims || 0) * 1.5 : 1.2;
+    return foe.fk === "L" ? 2.5 + (g.relics.claims || 0) * 2 : 1.2; // denial is survival against the reliquary
   };
 
   /* ---------- one-exchange forward simulation (normal rounds) ---------- */
@@ -560,7 +560,24 @@ const MIND = (() => {
       tot += w; return w;
     });
     const moveP = foe.rooted ? 0 : Math.min(0.85, Math.max(0.12, prof.moveY / prof.moveN));
-    const moves = foe.rooted ? [{ q: foe.pos, p: 1 }] : [{ q: foe.pos, p: 1 - moveP }, ...ADJ[foe.pos].map((q) => ({ q, p: moveP / 2 }))];
+    let moves;
+    if (foe.rooted) moves = [{ q: foe.pos, p: 1 }];
+    else {
+      moves = [{ q: foe.pos, p: 1 - moveP }, ...ADJ[foe.pos].map((q) => ({ q, p: moveP / 2 }))];
+      // doctrine-aware movement prior: the World Doctrine is PREDICTABLE —
+      // Kastor marches at relics, Dhoram stands his stone, hazards repel
+      const relics = g.relics?.board || [];
+      moves = moves.map((mv) => {
+        let w = mv.p;
+        if (foe.fk === "L" && relics.includes(mv.q)) w *= 4;
+        if (foe.fk !== "L" && relics.includes(mv.q) && (foe.hp - me.hp) <= -3) w *= 2;
+        if (foe.fk === "D" && g.terrain[mv.q]?.kind === "dom") w *= 1.6;
+        if (["frost", "scorch", "env", "mire", "whirl", "surf"].includes(g.terrain[mv.q]?.kind) && foe.fk !== "Y" && foe.fk !== "V") w *= 0.5;
+        return { q: mv.q, p: w };
+      });
+      const mSum = moves.reduce((a2, m) => a2 + m.p, 0);
+      moves = moves.map((m) => ({ q: m.q, p: m.p / mSum }));
+    }
     const aimSelf = Math.min(0.95, Math.max(0.3, prof.aimSelf / prof.nAim + (1 - soph) * 0.05));
     const out = [];
     pool.forEach((id, i) => {
@@ -683,7 +700,7 @@ const MIND = (() => {
     let ranked = evs.map((v, i) => ({ v, i })).sort((a, b) => b.v - a.v);
     // pattern-breaking (Crucible only): sometimes discard the very best line —
     // the Mind knows it too is being watched
-    if (diff === "crucible" && ranked.length > 1 && rng() < 0.12 && ranked[0].v - ranked[1].v < 1.5) ranked = ranked.slice(1);
+    if (diff === "crucible" && ranked.length > 1 && rng() < 0.12 && ranked[0].v - ranked[1].v < 0.5) ranked = ranked.slice(1); // near-best means NEAR: unpredictability must never buy a blunder
     const top = ranked.slice(0, 4);
     const mx = top[0].v;
     const ws = top.map((x) => Math.exp((x.v - mx) / Math.max(0.03, tau)));
