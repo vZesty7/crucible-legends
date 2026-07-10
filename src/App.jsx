@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 
 const QUADS = ["NW", "NE", "SW", "SE"];
 const ADJ = { NW: ["NE", "SW"], NE: ["NW", "SE"], SW: ["NW", "SE"], SE: ["NE", "SW"] };
-const BUILD = "v0.85.1";
+const BUILD = "v0.85.2";
 const BEATS = { break: "ward", rush: "break", ward: "rush" };
 const TYPE_LABEL = { break: "BREAK", rush: "RUSH", ward: "WARD" };
 const TYPE_HEX = { break: "#ef4444", rush: "#f59e0b", ward: "#38bdf8" };
@@ -3510,6 +3510,41 @@ export default function App() {
         if (g.round === 10) dd(winner, l, 2, "THE FINAL EDGE — the last clash cuts deeper", wty === "ward" ? "ward" : (wp.form || ABILITIES[wp.ab].type));
         followups.push({ kind: "placeSelf", who: winner.fk, opts: QUADS, label: "Clash won — pick YOUR quadrant" });
         followups.push({ kind: "placeFoe", who: winner.fk, opts: QUADS, label: "Now hurl the loser anywhere" });
+      }
+    }
+    // ICE ELEMENTAL MIRROR IN CLASHES (v0.85.2 ruling): when the enemy
+    // already STANDS in an elemental's zone as the clash resolves, the
+    // mirror triggers as normal — Advantage rider on a Vessk win, base on
+    // a tie, countered (removed for nothing) on a Vessk loss. The
+    // FLAT-FINAL law still owns round 10: no elemental damage may modify
+    // the final clash — the mirror stays dark and the elemental persists.
+    {
+      const V = P.fk === "V" ? P : A.fk === "V" ? A : null;
+      const vPlan = V === P ? pPlan : aPlan;
+      if (V && ["lance", "spike"].includes(vPlan?.ab) && g.round !== 10) {
+        const foe = other(V);
+        const zone = foe.pos;
+        const el = g.icels?.[zone];
+        if (el && foe.hp > 0) {
+          if (el.stun >= g.round) L.push({ t: `💫 The Ice Elemental at ${zone} is stunned — its mirror stays dark this round.` });
+          else if (!tie && winner !== V) removeEl(zone, L, "countered");
+          else {
+            const ab = ABILITIES[vPlan.ab];
+            const advWin = !tie && winner === V;
+            let n = ab.dmg + (advWin ? 1 : 0);
+            let sh = false;
+            if ((ab.type === "break" || advWin) && (foe._chillEcho || (foe.chill && foe._chillPre))) {
+              sh = true; n += 1;
+              if (!foe._chillEcho) { foe.chill = false; foe._chillEcho = true; }
+            }
+            if (g.stats?.icel) g.stats.icel.mirrors += 1;
+            L.push({ t: `🧊 The Ice Elemental at ${zone} MIRRORS ${ab.name}${advWin ? " — Advantage and all" : ""}.`, fx: { kind: "combo", text: "MIRROR" } });
+            if (sh) { L.push({ t: `❄ SHATTER — the elemental's blow spends the chill.`, fx: { kind: "combo", text: "SHATTER" } }); if (g.stats?.icel) g.stats.icel.shatters += 1; }
+            dealRaw(foe, n, L, `Ice Elemental — mirrored ${ab.name}`, ab.type, "#7dd3fc");
+            if (vPlan.ab === "lance" && foe.hp > 0 && !foe._warding) addChill(foe, L);
+            removeEl(zone, L, "spent");
+          }
+        }
       }
     }
     g.after = "finish";

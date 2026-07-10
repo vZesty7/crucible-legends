@@ -165,6 +165,25 @@ probably lives in a printed number.
 is the point, and the human pilot plus the ongoing AI-strengthening project are expected
 to close the remainder. Deployed live as v0.85.1.
 
+## Post-ship ruling — v0.85.2: the mirror enters the clash
+
+The designer ruled the "no mirror in clashes" interpretation too strict: when the enemy
+already STANDS in an elemental's zone as a scheduled clash resolves, the mirror triggers
+as normal — Advantage rider and all on a Vessk win, base on a tie, countered (removed for
+nothing) on a loss. **Round 10 keeps the flat-final law**: no elemental damage in the
+final clash; the mirror stays dark and the elemental persists (tested explicitly). Two
+new guardrails pin the clash-mirror outcomes; the suite is 58/58 — and the anchored-zone
+guardrail itself had to change, because its "idle" clash pick of Ice Lance was correctly
+mirrored by the new rule the moment it landed.
+
+Re-measured (22,000 games + 3,300 build-split, ledger clean): MID **46.1**, MAX **46.6** —
+winrate flat, as expected for a rare-but-real line. The texture moved where it should:
+mirrors now fire **once per ~40 MID games** (0.025/game, an order of magnitude up),
+elementals are born 0.78/game and their removals read 15.4% spent / 9.7% countered /
+74.9% zone-lost — the guardians finally get to act. Max-line assembly ~1 in 430 MID games.
+Blizzard-build Flow-uptime 16.3% (2+ zones standing 15.3% of checkpoints); Permafrost
+1.11 zones average. No matchup beyond 75/25. Deployed live as v0.85.2.
+
 ## 7. Method notes
 
 Sweep: 42 legal builds × 11 foes × 40 games (18,480). Round-robins: 11 pairings × 2 seats ×
