@@ -91,32 +91,32 @@ describe("SHATTER — the global rule", () => {
   });
 });
 
-describe("Winter's Mantle — the Advantage catch is the whole payout", () => {
+describe("Winter's Mantle (v0.85.3) — base heals 2; the Advantage catch freezes the ground", () => {
   const MANTLE = (set = {}) => VESSK(set, "permafrost", ["lance", "spike", "mantle", "iceage"]);
-  test("idle: bare counter stance — no heal, no frost", () => {
+  test("idle: heal 2 (base utility fires regardless of contact) — no frost without a catch", () => {
     const d = duel({
       p: MANTLE({ hp: 10 }), a: BAGY(), seed: 6,
       rounds: [{ p: { ab: "mantle" }, a: { ab: "lash", target: "NW" } }], // whiffs elsewhere
     });
-    expect(healsTo(d.rounds[0].lines, "Vessk")).toBe(0);
+    expect(healBy(d.rounds[0].lines, "Winter's Mantle", "Vessk")).toBe(2);
     expect(d.g.terrain.SW).toBeUndefined();
   });
-  test("guard break: no heal, no frost — the vow pays nothing when it breaks", () => {
+  test("guard break: the base heal still pays (ward utility law); no frost", () => {
     const d = duel({
       p: MANTLE({ hp: 10 }), a: BAGY(), seed: 7,
       rounds: [{ p: { ab: "mantle" }, a: { ab: "bwater", target: "SW" } }], // break through the ward
     });
-    expect(healsTo(d.rounds[0].lines, "Vessk")).toBe(0);
+    expect(healBy(d.rounds[0].lines, "Winter's Mantle", "Vessk")).toBe(2);
     expect(d.g.terrain.SW?.kind).not.toBe("frost");
   });
-  test("Advantage catch: +1 counter AND heal 2 AND the quadrant freezes", () => {
+  test("Advantage catch: +1 counter AND the quadrant freezes (heal is base, exactly 2)", () => {
     const d = duel({
       p: MANTLE({ hp: 10 }), a: BAGY(), seed: 8,
       rounds: [{ p: { ab: "mantle" }, a: { ab: "lash", target: "SW" } }], // rush into the ward
     });
     expect(dmgBy(d.rounds[0].lines, "Riposte", "Maelis")).toBe(1);
     expect(dmgBy(d.rounds[0].lines, "Mantle counter", "Maelis")).toBe(1);
-    expect(healBy(d.rounds[0].lines, "Winter's Mantle", "Vessk")).toBe(2);
+    expect(healBy(d.rounds[0].lines, "Winter's Mantle", "Vessk")).toBe(2); // once — base only, no double heal
     expect(d.g.terrain.SW?.kind).toBe("frost");
   });
 });

@@ -131,8 +131,8 @@
   "V": {
    "load": [
     "lance",
+    "spike",
     "freeze",
-    "mantle",
     "iceage"
    ],
    "pass": "permafrost"

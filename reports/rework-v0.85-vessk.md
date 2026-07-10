@@ -192,3 +192,15 @@ Sweep: 42 legal builds × 11 foes × 40 games (18,480). Round-robins: 11 pairing
 `reports/data/v085-remeasure.json`, sweep refreshed in `reports/data/sweep.json`.
 The v0.84 measurements of the other eleven fighters are untouched by this pass; Vessk's
 kit changes cannot move their pairwise numbers against each other.
+
+## Post-ship ruling — v0.85.3: the Mantle warms
+
+Designer ruling: Winter's Mantle heals 2 as BASE (ward utility — fires regardless of
+contact), and the Advantage catch keeps the ice (+1 counter, quadrant freezes). Watch-flag:
+the roster's strongest flat heal per cast. Re-measured (~40,000 games, ledger clean):
+**the sweep's best build is now `lance/hoar/spike/mantle` + Blizzard at 53.9** — Vessk's
+first measured build above 52 — and **MAX lands 52.3, inside the original band**. MID holds
+46.1 because the standard AI loadout keeps Ice Age over Mantle by identity ruling: swap
+them and AI Vessk never summons an elemental against a human player. The trade is the
+designer's to flip; the mantle-default MID would track the sweep's ~52–54. Suite 58/58.
+Deployed live as v0.85.3.

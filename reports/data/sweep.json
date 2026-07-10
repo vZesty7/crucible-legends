@@ -936,18 +936,7 @@
     "mantle"
    ],
    "pass": "blizzard",
-   "winrate": 49.5,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "hoar",
-    "spike",
-    "iceage"
-   ],
-   "pass": "numb",
-   "winrate": 47.7,
+   "winrate": 53.9,
    "n": 440
   },
   {
@@ -958,7 +947,29 @@
     "mantle"
    ],
    "pass": "permafrost",
-   "winrate": 47.3,
+   "winrate": 52,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "mantle"
+   ],
+   "pass": "numb",
+   "winrate": 50,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
+    "iceage"
+   ],
+   "pass": "numb",
+   "winrate": 48.2,
    "n": 440
   },
   {
@@ -977,6 +988,17 @@
     "lance",
     "hoar",
     "spike",
+    "iceage"
+   ],
+   "pass": "permafrost",
+   "winrate": 45.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "spike",
     "freeze"
    ],
    "pass": "numb",
@@ -985,23 +1007,12 @@
   },
   {
    "load": [
-    "lance",
     "hoar",
     "spike",
-    "iceage"
-   ],
-   "pass": "permafrost",
-   "winrate": 45,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "hoar",
-    "spike",
+    "freeze",
     "mantle"
    ],
-   "pass": "numb",
+   "pass": "blizzard",
    "winrate": 43.9,
    "n": 440
   },
@@ -1013,7 +1024,7 @@
     "iceage"
    ],
    "pass": "blizzard",
-   "winrate": 43.4,
+   "winrate": 43.6,
    "n": 440
   },
   {
@@ -1029,35 +1040,24 @@
   },
   {
    "load": [
-    "hoar",
+    "lance",
     "spike",
     "mantle",
     "iceage"
    ],
-   "pass": "permafrost",
-   "winrate": 38.2,
+   "pass": "numb",
+   "winrate": 41.8,
    "n": 440
   },
   {
    "load": [
+    "lance",
     "hoar",
-    "spike",
-    "freeze",
-    "mantle"
-   ],
-   "pass": "blizzard",
-   "winrate": 38,
-   "n": 440
-  },
-  {
-   "load": [
-    "hoar",
-    "spike",
-    "freeze",
+    "mantle",
     "iceage"
    ],
-   "pass": "blizzard",
-   "winrate": 38,
+   "pass": "permafrost",
+   "winrate": 41.6,
    "n": 440
   },
   {
@@ -1068,6 +1068,94 @@
     "iceage"
    ],
    "pass": "numb",
+   "winrate": 41.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "mantle",
+    "iceage"
+   ],
+   "pass": "permafrost",
+   "winrate": 41.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "mantle",
+    "iceage"
+   ],
+   "pass": "blizzard",
+   "winrate": 40.7,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "permafrost",
+   "winrate": 40.5,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "spike",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "numb",
+   "winrate": 39.1,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "mantle",
+    "iceage"
+   ],
+   "pass": "blizzard",
+   "winrate": 38.6,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "spike",
+    "mantle",
+    "iceage"
+   ],
+   "pass": "blizzard",
+   "winrate": 38.2,
+   "n": 440
+  },
+  {
+   "load": [
+    "hoar",
+    "spike",
+    "freeze",
+    "iceage"
+   ],
+   "pass": "blizzard",
+   "winrate": 38,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "permafrost",
    "winrate": 37.7,
    "n": 440
   },
@@ -1078,19 +1166,41 @@
     "freeze",
     "mantle"
    ],
-   "pass": "permafrost",
-   "winrate": 37.5,
+   "pass": "numb",
+   "winrate": 37.7,
    "n": 440
   },
   {
    "load": [
-    "hoar",
+    "lance",
+    "spike",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "permafrost",
+   "winrate": 37.3,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
     "spike",
     "mantle",
     "iceage"
    ],
+   "pass": "permafrost",
+   "winrate": 34.8,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
+    "freeze",
+    "mantle"
+   ],
    "pass": "blizzard",
-   "winrate": 37.5,
+   "winrate": 34.3,
    "n": 440
   },
   {
@@ -1117,189 +1227,123 @@
   },
   {
    "load": [
+    "lance",
     "hoar",
-    "spike",
     "freeze",
     "mantle"
    ],
    "pass": "numb",
-   "winrate": 33.2,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "hoar",
-    "freeze",
-    "mantle"
-   ],
-   "pass": "permafrost",
-   "winrate": 32.7,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "hoar",
-    "mantle",
-    "iceage"
-   ],
-   "pass": "permafrost",
-   "winrate": 32.7,
+   "winrate": 34.1,
    "n": 440
   },
   {
    "load": [
     "lance",
     "spike",
+    "freeze",
+    "mantle"
+   ],
+   "pass": "blizzard",
+   "winrate": 33.4,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
+    "hoar",
     "mantle",
     "iceage"
    ],
    "pass": "numb",
-   "winrate": 31.8,
+   "winrate": 32,
    "n": 440
   },
   {
    "load": [
-    "lance",
     "hoar",
+    "freeze",
     "mantle",
     "iceage"
    ],
    "pass": "blizzard",
-   "winrate": 30.7,
+   "winrate": 31.6,
    "n": 440
   },
   {
    "load": [
-    "lance",
-    "spike",
+    "hoar",
+    "freeze",
     "mantle",
     "iceage"
    ],
    "pass": "permafrost",
-   "winrate": 29.1,
+   "winrate": 28.6,
    "n": 440
   },
   {
    "load": [
-    "lance",
     "hoar",
     "freeze",
-    "mantle"
-   ],
-   "pass": "blizzard",
-   "winrate": 28.4,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "spike",
-    "freeze",
-    "mantle"
-   ],
-   "pass": "numb",
-   "winrate": 28.4,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "spike",
     "mantle",
     "iceage"
    ],
-   "pass": "blizzard",
+   "pass": "numb",
    "winrate": 27.5,
    "n": 440
   },
   {
    "load": [
     "lance",
-    "spike",
     "freeze",
-    "mantle"
+    "mantle",
+    "iceage"
    ],
    "pass": "permafrost",
-   "winrate": 27,
+   "winrate": 26.1,
    "n": 440
   },
   {
    "load": [
-    "hoar",
+    "lance",
+    "freeze",
+    "mantle",
+    "iceage"
+   ],
+   "pass": "numb",
+   "winrate": 25.9,
+   "n": 440
+  },
+  {
+   "load": [
+    "lance",
     "freeze",
     "mantle",
     "iceage"
    ],
    "pass": "blizzard",
-   "winrate": 26.4,
+   "winrate": 25,
    "n": 440
   },
   {
    "load": [
     "lance",
     "hoar",
-    "mantle",
+    "freeze",
     "iceage"
    ],
    "pass": "numb",
-   "winrate": 25.2,
+   "winrate": 24.8,
    "n": 440
   },
   {
    "load": [
     "lance",
-    "spike",
+    "hoar",
     "freeze",
-    "mantle"
+    "iceage"
    ],
    "pass": "blizzard",
    "winrate": 24.5,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "hoar",
-    "freeze",
-    "mantle"
-   ],
-   "pass": "numb",
-   "winrate": 24.3,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "hoar",
-    "freeze",
-    "iceage"
-   ],
-   "pass": "numb",
-   "winrate": 24.1,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "hoar",
-    "freeze",
-    "iceage"
-   ],
-   "pass": "blizzard",
-   "winrate": 23.9,
-   "n": 440
-  },
-  {
-   "load": [
-    "hoar",
-    "freeze",
-    "mantle",
-    "iceage"
-   ],
-   "pass": "permafrost",
-   "winrate": 23.2,
    "n": 440
   },
   {
@@ -1326,13 +1370,13 @@
   },
   {
    "load": [
+    "lance",
     "hoar",
     "freeze",
-    "mantle",
     "iceage"
    ],
-   "pass": "numb",
-   "winrate": 19.8,
+   "pass": "permafrost",
+   "winrate": 17.7,
    "n": 440
   },
   {
@@ -1344,50 +1388,6 @@
    ],
    "pass": "permafrost",
    "winrate": 17.7,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "hoar",
-    "freeze",
-    "iceage"
-   ],
-   "pass": "permafrost",
-   "winrate": 17.5,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "freeze",
-    "mantle",
-    "iceage"
-   ],
-   "pass": "blizzard",
-   "winrate": 13.4,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "freeze",
-    "mantle",
-    "iceage"
-   ],
-   "pass": "numb",
-   "winrate": 13.4,
-   "n": 440
-  },
-  {
-   "load": [
-    "lance",
-    "freeze",
-    "mantle",
-    "iceage"
-   ],
-   "pass": "permafrost",
-   "winrate": 12.7,
    "n": 440
   }
  ],
