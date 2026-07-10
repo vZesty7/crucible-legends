@@ -216,14 +216,6 @@
   "note": ""
  },
  {
-  "id": "base:consec",
-  "mechanic": "Consecration base damage (trade)",
-  "expected": "1",
-  "observed": "1",
-  "pass": true,
-  "note": ""
- },
- {
   "id": "base:dawn",
   "mechanic": "Dawnhammer base damage (trade)",
   "expected": "3",
@@ -792,30 +784,6 @@
   "note": ""
  },
  {
-  "id": "adv:consec:dmg",
-  "mechanic": "Consecration adv total",
-  "expected": "2",
-  "observed": "2",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "adv:consec:self",
-  "mechanic": "own quadrant hallowed",
-  "expected": "hall at SW",
-  "observed": "hall",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "base:consec:target",
-  "mechanic": "target quadrant hallowed",
-  "expected": "hall at NE",
-  "observed": "hall",
-  "pass": true,
-  "note": ""
- },
- {
   "id": "adv:censure:dmg",
   "mechanic": "Censure adv total",
   "expected": "2",
@@ -1065,7 +1033,7 @@
  },
  {
   "id": "base:sky:dmg",
-  "mechanic": "Skyfall direct (guard break) 2+1",
+  "mechanic": "Skyfall direct (rush interrupts break) 2+1",
   "expected": "3",
   "observed": "3",
   "pass": true,

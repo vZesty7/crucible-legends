@@ -122,6 +122,7 @@ export function makeAiPolicy(rng) {
       // mirror of the engine's aiPickOpt, actor-agnostic
       const me = gm.P.fk === p.who ? gm.P : gm.A;
       const v = me === gm.P ? gm.A : gm.P;
+      if (p.kind === "terr" && p.tkind === "hall") return p.opts.includes(me.pos) ? me.pos : pick(rng, p.opts);
       if (p.kind === "kb" || p.kind === "placeFoe") {
         if (me.fk === "G" && me.pass === "scent" && p.opts.includes(v.pos) && me.pos === v.pos) return v.pos;
         const hazard = p.opts.find((q) => q !== v.pos && ["frost", "scorch", "env", "mire", "whirl", "surf"].includes(gm.terrain[q]?.kind));
