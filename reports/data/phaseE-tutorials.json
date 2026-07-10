@@ -113,7 +113,7 @@
   ]
  },
  "Z": {
-  "rails": 6,
+  "rails": 7,
   "completions": "20/20",
   "storyProvides": 2,
   "exchangeLossRounds": [],
@@ -129,7 +129,7 @@
    },
    {
     "name": "doombrand clock",
-    "shown": false
+    "shown": true
    }
   ]
  },
@@ -155,9 +155,9 @@
   ]
  },
  "O": {
-  "rails": 6,
+  "rails": 8,
   "completions": "20/20",
-  "storyProvides": 3,
+  "storyProvides": 2,
   "exchangeLossRounds": [],
   "issues": [],
   "coverage": [
@@ -166,12 +166,8 @@
     "shown": true
    },
    {
-    "name": "curse collection",
-    "shown": false
-   },
-   {
-    "name": "heal denial (juju)",
-    "shown": false
+    "name": "curse collection (Marrow-Deep, live)",
+    "shown": true
    }
   ]
  },
@@ -251,7 +247,7 @@
    },
    {
     "name": "pivot",
-    "shown": false
+    "shown": true
    },
    {
     "name": "cadence or arsenal",

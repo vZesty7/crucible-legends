@@ -44,10 +44,13 @@ function playLesson(fk, seed) {
         if (!R.rail.clash) { report.issues.push(`round ${gm.round}: engine clash but rail is not`); break; }
         if (gm.P.pow < ABILITIES[R.rail.you.ab].cost) report.storyProvides++;
         let aPlan = api().aiMakePlan(gm.A, gm.P, true, null);
-        api().runClash({ ab: R.rail.you.ab, soft: false, form: null }, aPlan);
+        const cPiv = R.rail.pv === "pivot" && ABILITIES[R.rail.you.ab].pivot;
+        aPlan = api().aiPivot(aPlan, ABILITIES[R.rail.you.ab].type);
+        api().runClash({ ab: R.rail.you.ab, soft: false, form: cPiv ? ABILITIES[R.rail.you.ab].pivot : null, pivoted: !!cPiv }, aPlan);
       } else if (gm.phase === "plan") {
         if (R.rail.clash) { report.issues.push(`round ${gm.round}: rail expects clash, engine does not`); break; }
-        const pPlan = { ab: R.you.ab, soft: false, form: null, moveTo: R.you.moveTo, target: R.you.target, splash: R.you.splash, secondary: R.you.secondary };
+        const nPiv = R.rail.pv === "pivot" && ABILITIES[R.you.ab].pivot;
+        const pPlan = { ab: R.you.ab, soft: false, form: nPiv ? ABILITIES[R.you.ab].pivot : null, pivoted: !!nPiv, moveTo: R.you.moveTo, target: R.you.target, splash: R.you.splash, secondary: R.you.secondary };
         if (gm.P.pow < ABILITIES[R.you.ab].cost) report.storyProvides++;
         let aPlan = api().aiMakePlan(gm.A, gm.P, false, null);
         aPlan = api().aiPivot(aPlan, pPlan.form || ABILITIES[pPlan.ab].type);
@@ -83,7 +86,7 @@ const SIGNATURES = {
   K: [["discharge field install", /DISCHARGE FIELD INSTALLED/], ["field bites", /Discharge Field.*takes 1/], ["full-bank payoff", /Bulwark Frame vents the full bank|OVERCLOCK/], ["finality beam", /Finality Beam/], ["beam recoil root", /Rooted/]],
   Z: [["blood price", /pays \d blood|trades 1 blood/], ["life tap economy", /Life Tap/], ["doombrand clock", /BRANDED|DOOMBRAND/]],
   L: [["sanctuary", /Sanctuary/], ["relic", /Relic|relic/], ["censure denial", /gains no ◆/]],
-  O: [["curse application", /gains \d Curse/], ["curse collection", /Curses collect/], ["heal denial (juju)", /refuse the healing/]],
+  O: [["curse application", /gains \d Curse/], ["curse collection (Marrow-Deep, live)", /Curses collect/]],
   D: [["dominion conversion", /Dominion|paved/], ["demolition or seal", /DEMOLISHES|ARENA KNEELS|kneels/], ["quake", /Quake Fist/]],
   Y: [["whirlpool", /Whirlpool|YANKED|vortex/], ["surf", /Surf|surf|wave/], ["undine or maelstrom", /Undine|Maelstrom/]],
   W: [["kess mark", /MARKED|Kess/], ["skyfall", /SKYFALL|Skyfall/], ["pin/root", /Pinned|Rooted/]],
