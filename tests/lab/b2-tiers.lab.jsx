@@ -122,7 +122,7 @@ test("MIN / MID / MAX tier round-robins", () => {
   writeFileSync("reports/data/builds.json", JSON.stringify({ best, worst }, null, 1));
 
   const mid = runTier({
-    name: "MID", diff: "gauntlet", seedBase: 10_000_000,
+    name: "MID", diff: "proving", seedBase: 10_000_000,
     buildFor: (fk) => ({ load: FIGHTERS[fk].aiLoad, pass: FIGHTERS[fk].aiPass }),
     mkPolicy: makeAiPolicy,
   });

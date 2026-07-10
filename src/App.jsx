@@ -2442,7 +2442,7 @@ export default function App() {
       case "blackout": plus1("Blackout counter"); addPoison(atk, 1, L); break;
       case "puppet": plus1("Puppet Pull counter"); addCurse(warder, atk, 1, L); break;
       case "claim": plus1("Bedrock counter"); { const adj = ADJ[warder.pos].filter((q) => G.current.terrain[q]?.kind !== "dom"); if (adj.length) G.current.prompts.push({ kind: "terr", tkind: "dom", who: warder.fk, opts: adj, label: "Bedrock: convert an adjacent quadrant" }); } break;
-      case "hawk": plus1("Hawk's Eye counter"); L.push({ t: `🎯 ${nm(atk)} is MARKED.` }); break;
+      case "hawk": plus1("Hawk's Eye counter"); break;
       case "eguard": plus1("Edgeguard counter"); warder.flow = true; L.push({ t: `✦ ${nm(warder)} gains Flow.` }); break;
       case "oath": plus1("Bulwark Oath counter"); warder._noKB = true; L.push({ t: `⚓ The Oath holds — nothing moves him this round.` }); break;
       // everything else: the sharper riposte
@@ -2476,7 +2476,7 @@ export default function App() {
   const aiMakePlan = (ai, human, isClash, humanPlanForUmbral) => {
     const gT = G.current;
     const diffMode = gT?.diff || "proving";
-    const hist = gT?.pHist || [];
+    const hist = (ai === gT?.P ? gT?.aHist : gT?.pHist) || [];
     const predictType = () => {
       if (!hist.length) return null;
       const freq = {}; hist.forEach((t, i) => { freq[t] = (freq[t] || 0) + (diffMode === "crucible" && i >= hist.length - 3 ? 2 : 1); });
@@ -2489,7 +2489,7 @@ export default function App() {
       }
       return Object.entries(freq).sort((a, b) => b[1] - a[1])[0][0];
     };
-    const predT = diffMode === "proving" ? null : predictType();
+    const predT = predictType(); // both trials read the revealed-type history now
     const T = (q) => gT?.terrain?.[q]?.kind;
     const comboBias = (id) => {
       const f = ai.fk, hpn = human;
@@ -2517,7 +2517,7 @@ export default function App() {
       if (f === "G" && id === "harvest" && ai.pow >= 3) return 5;
       return 0;
     };
-    const comboScale = diffMode === "crucible" ? 1 : diffMode === "gauntlet" ? 0.7 : 0.4;
+    const comboScale = diffMode === "crucible" ? 1 : 0.7;
     const wantHold = diffMode === "crucible" && [...ai.load].some((id) => ABILITIES[id].cost === ai.pow + 1 && comboBias(id) >= 5);
     if (gT?.tut) {
       const R = resolveRail(gT);
@@ -2545,11 +2545,19 @@ export default function App() {
         else if (ab.type === predT) w += 1;
         else if (BEATS[predT] === ab.type) w = Math.max(1, w - 2);
       }
-      if (diffMode !== "proving" && human.pow >= 3) {
+      if (human.pow >= 3) {
         const humanNuke = human.load.some((x) => ABILITIES[x].cost >= 3);
         const humanBreakNuke = humanNuke && human.load.some((x) => ABILITIES[x].cost >= 3 && ABILITIES[x].type === "break");
-        if (diffMode === "crucible" && humanBreakNuke) { if (ab.type === "rush") w += 5; }
+        if (humanBreakNuke) { if (ab.type === "rush") w += diffMode === "crucible" ? 5 : 3; }
         else if (humanNuke && ab.type === "ward") w += diffMode === "crucible" ? 5 : 3;
+      }
+      {
+        // DoT-clock awareness: never waste a round warding unwardable round-end damage
+        const tickIn = ((ai.burn || 0) > 0 ? 1 : 0)
+          + (ai.brandRound === gT?.round ? 3 : 0)
+          + (human.fk === "O" && (ai.curse || 0) >= 3 && (gT?.round || 0) >= (human.pass === "mdeep" ? 7 : 8) ? Math.min(2, Math.floor(ai.curse / 3)) : 0);
+        if (tickIn > 0 && ab.type === "ward" && ai.hp <= tickIn) w = 1; // the clock kills regardless — never ward it
+        if (tickIn > 0 && ai.hp <= tickIn + 2 && ["dark", "mantle", "current", "knit", "frame", "aegis"].includes(o.ab)) w += 4;
       }
       w += Math.round(comboBias(o.ab) * comboScale);
       if (gT?.aiPrev && gT.aiPrev[0] === o.ab && gT.aiPrev[1] === o.ab) w = Math.max(1, w - 3);
@@ -2563,7 +2571,7 @@ export default function App() {
       const want = safe.find((t) => loadTypes.includes(BEATS[t])) || safe[0] || (predT ? Object.keys(BEATS).find((t) => BEATS[t] === predT) : null);
       if (want) pick = opts.find((o) => ABILITIES[o.ab].type === want) || null;
     }
-    if (!pick && isClash && diffMode === "gauntlet" && predT) {
+    if (!pick && isClash && predT) {
       pick = opts.find((o) => BEATS[ABILITIES[o.ab].type] === predT) || null;
     }
     if (!pick) pick = rnd(weighted);
@@ -2577,16 +2585,46 @@ export default function App() {
         plan.moveTo = dodge.length ? rnd(dodge) : ai.pos;
       } else if (G.current.aiForcedMove) {
         plan.moveTo = G.current.aiForcedMove;
-      } else if (ai.pass === "rider" && Math.random() < 0.5 && QUADS.some((q) => ["whirl", "surf"].includes(G.current.terrain[q]?.kind) && q !== ai.pos)) {
-        plan.moveTo = rnd(QUADS.filter((q) => ["whirl", "surf"].includes(G.current.terrain[q]?.kind) && q !== ai.pos));
-      } else if (ai.fk === "L" && G.current.relics?.board.length && Math.random() < 0.7) {
-        const rq = G.current.relics.board[0];
-        plan.moveTo = ai.pos === rq ? rq : ADJ[ai.pos].includes(rq) ? rq : ADJ[ai.pos].find((x) => ADJ[x].includes(rq)) || rnd([ai.pos, ...ADJ[ai.pos]]);
-      } else plan.moveTo = rnd([ai.pos, ai.pos, ...ADJ[ai.pos]]);
-      if (diffMode === "crucible" && predT && BEATS[ABILITIES[plan.ab].type] === predT && ADJ[ai.pos].includes(human.pos) && Math.random() < 0.35 && !ai.rooted) plan.moveTo = human.pos;
+      } else {
+        // WORLD DOCTRINE: everyone fights to thrive. Relics are salvation,
+        // a rival's progress exists to be desecrated, ground is there to take.
+        const soph = diffMode === "crucible" ? 1 : 0.6;
+        const relics = gT?.relics?.board || [];
+        const behind = ai.hp - human.hp <= -3;
+        const scoreQ = (q) => {
+          let v = 0;
+          const t = T(q);
+          if (relics.includes(q) && q !== human.pos) v += (ai.fk === "L" ? 5 : behind || (human.fk === "L" && (gT?.relics?.claims || 0) >= 1) ? 4 : 2) * soph;
+          if (human.fk === "L" && (gT?.relics?.claims || 0) >= 2 && relics.includes(q)) v += 4;
+          if (ai.fk === "L" && relics.some((r) => ADJ[q].includes(r))) v += 1.5;
+          if (human.fk === "D" && t === "dom" && [...ai.load].some((x) => ABILITIES[x].type === "break" && ai.pow >= ABILITIES[x].cost)) v += (human.pass === "home" ? 1.5 : 3) * soph;
+          if (["frost", "scorch", "env", "mire"].includes(t) && !(ai.fk === "V" && t === "frost") && !(ai.fk === "C" && t === "scorch") && !(ai.fk === "O" && t === "mire")) v -= 2;
+          if (["whirl", "surf"].includes(t) && ai.fk !== "Y") v -= 3;
+          if (t === "hall") v += ai.fk === "L" ? 3 : -2;
+          if (t === "dom" && ai.fk === "D") v += 2;
+          if (["whirl", "surf"].includes(t) && ai.fk === "Y" && ai.pass === "rider") v += 2;
+          if (ai.fk === "W") v += q === human.pos ? -4 : ADJ[human.pos].includes(q) ? -1.5 : 2;
+          if (ai.fk === "M") v += q === human.pos ? (human.hp <= 3 ? 4 : -4) : 0;
+          if ((ai.fk === "G" || (ai.fk === "C" && ai.pass === "killheat" && (human.burn || 0) > 0) || (ai.fk === "D" && T(ai.pos) === "dom")) && q === human.pos) v += 2 * soph;
+          if (ai.fk === "K" && ai.dischargeField && q === ai.pos) v += 3;
+          if (gT?.kessQ === q && ai.fk !== "W") v -= 1.5;
+          return v + Math.random() * (diffMode === "crucible" ? 1.2 : 1.6);
+        };
+        const cand = [ai.pos, ...ADJ[ai.pos]];
+        if (ai.pass === "rider") QUADS.forEach((q) => { if (["whirl", "surf"].includes(T(q)) && !cand.includes(q)) cand.push(q); });
+        let best = cand[0], bestV = -Infinity;
+        cand.forEach((q) => { const v = scoreQ(q); if (v > bestV) { bestV = v; best = q; } });
+        plan.moveTo = best;
+      }
       if (ab.needsTarget) {
-        const aimP = diffMode === "crucible" ? 0.9 : diffMode === "gauntlet" ? 0.8 : 0.65 + ((ai.hp - human.hp) >= 5 ? -0.1 : (ai.hp - human.hp) <= -5 ? 0.08 : 0);
-        plan.target = human.rooted ? human.pos : Math.random() < aimP ? human.pos : rnd(ADJ[human.pos]);
+        const aimP = diffMode === "crucible" ? 0.9 : 0.8 + ((ai.hp - human.hp) >= 5 ? -0.1 : (ai.hp - human.hp) <= -5 ? 0.08 : 0);
+        // aim where they'll BE: the movement-frequency model (Crucible, and the kiting ranger at both tiers)
+        const mHist = (ai === gT?.P ? gT?.amHist : gT?.mHist) || [];
+        const moveRate = mHist.length ? mHist.filter(Boolean).length / mHist.length : 0.4;
+        const predictMove = (diffMode === "crucible" || ai.fk === "W") && mHist.length >= 3;
+        if (human.rooted) plan.target = human.pos;
+        else if (Math.random() < aimP) plan.target = predictMove && Math.random() < moveRate ? rnd(ADJ[human.pos]) : human.pos;
+        else plan.target = rnd(ADJ[human.pos]);
         if (ab.needsSplash) plan.splash = rnd(ADJ[plan.target]);
         if (ab.needsSecondary) plan.secondary = rnd(QUADS.filter((q) => q !== plan.target));
       }
@@ -2959,6 +2997,9 @@ export default function App() {
     const abP = ABILITIES[pPlan.ab], abA = ABILITIES[aPlan.ab];
     const tP = pPlan.form || abP.type, tA = aPlan.form || abA.type;
     G.current.pHist = (G.current.pHist || []).concat(tP).slice(-8);
+    G.current.aHist = (G.current.aHist || []).concat(tA).slice(-8);
+    G.current.mHist = (G.current.mHist || []).concat(pPlan.moveTo !== P.roundStart).slice(-8);
+    G.current.amHist = (G.current.amHist || []).concat(aPlan.moveTo !== A.roundStart).slice(-8);
     L.push({ t: `ROUND ${g.round} — you: ${abP.name} [${TYPE_LABEL[tP]}]${pPlan.target ? " → " + pPlan.target : ""} · foe: ${abA.name} [${TYPE_LABEL[tA]}]${aPlan.target ? " → " + aPlan.target : ""}` });
     const pAtk = tP !== "ward", aAtk = tA !== "ward";
     if (pPlan.ab === "heart" && A.poison > 0 && pPlan.target !== A.pos) { pPlan.target = A.pos; L.push({ t: `🗡 The venom sings — Heartseeker turns in the air.` }); }
@@ -3202,6 +3243,7 @@ export default function App() {
     const abP = ABILITIES[pPlan.ab], abA = ABILITIES[aPlan.ab];
     const tP = pPlan.form || abP.type, tA = aPlan.form || abA.type;
     G.current.pHist = (G.current.pHist || []).concat(tP).slice(-8);
+    G.current.aHist = (G.current.aHist || []).concat(tA).slice(-8);
     L.push({ t: `⚔ CLASH${g.round === 10 ? " — FINAL: winner +2" : ""} — you: ${abP.name} [${TYPE_LABEL[tP]}] · foe: ${abA.name} [${TYPE_LABEL[tA]}]` });
     g.vs = { p: { n: abP.name, ty: tP }, a: { n: abA.name, ty: tA }, note: `CLASH${g.round === 10 ? " · FINAL" : ""}`, r: g.round };
     const followups = g.prompts;
@@ -3599,7 +3641,7 @@ export default function App() {
         <div className="mb-3">
           <div className="text-xs text-stone-500 mb-1 tracking-widest">TRIAL</div>
           <div className="flex gap-2">
-            {[["proving", "THE PROVING", "A fair bout \u2014 the arena measures you."], ["gauntlet", "THE GAUNTLET", "It learns your habits \u2014 and answers them."], ["crucible", "THE CRUCIBLE", "It wants you broken."]].map(([k, n, b]) => (
+            {[["proving", "THE PROVING", "Matchmade for the climb \u2014 the arena feeds newcomers survivable rivals. They still fight to kill."], ["crucible", "THE CRUCIBLE", "The world's hunger, unfiltered. It wants you broken."]].map(([k, n, b]) => (
               <button key={k} onClick={() => setDiff(k)} className={`flex-1 rounded-lg border px-2 py-2 text-left ${diff === k ? "border-amber-500 bg-amber-500/10" : "border-stone-700 bg-stone-900/60"}`}>
                 <div className={`text-xs font-black ${diff === k ? "text-amber-300" : "text-stone-300"}`}>{n}</div>
                 <div className="text-stone-500" style={{ fontSize: 10 }}>{b}</div>

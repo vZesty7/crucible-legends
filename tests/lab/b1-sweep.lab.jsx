@@ -47,7 +47,7 @@ test("full draft sweep", () => {
           const res = playGame({
             pFk: fk, pLoad: build.load, pPass: build.pass,
             aFk: foe, aLoad: FIGHTERS[foe].aiLoad, aPass: FIGHTERS[foe].aiPass,
-            diff: "gauntlet",
+            diff: "proving",
             pPolicy: makeAiPolicy(rng), aPolicy: makeAiPolicy(rng),
             seed: seed++,
           });

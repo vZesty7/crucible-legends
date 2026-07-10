@@ -14,7 +14,7 @@ test("30k-game memory/speed stress", () => {
     const res = playGame({
       pFk: "G", pLoad: ["skull", "howl", "sunder", "iron"], pPass: "warmonger",
       aFk: "V", aLoad: ["lance", "hoar", "spike", "aval"], aPass: "shatter",
-      diff: "gauntlet",
+      diff: "proving",
       pPolicy: makeAiPolicy(rng), aPolicy: makeAiPolicy(rng),
       seed: 50000 + i,
     });

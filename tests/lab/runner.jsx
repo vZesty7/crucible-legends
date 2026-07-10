@@ -88,7 +88,7 @@ export function makeRandomPolicy(rng) {
 }
 
 /* The engine's own brain, used for both sides. Match difficulty (set at
-   startGame) controls how sharp it is: proving / gauntlet / crucible —
+   startGame) controls how sharp it is: proving / crucible —
    crucible engages the v0.78 combo-intent table at full strength. */
 export function makeAiPolicy(rng) {
   const { ABILITIES, ADJ, BEATS } = defs();
@@ -150,7 +150,7 @@ export function playGame(opts) {
   return result;
 }
 
-function playGameInner({ pFk, pLoad, pPass, aFk, aLoad, aPass, diff = "gauntlet", pPolicy, aPolicy, seed, collectRounds = false }) {
+function playGameInner({ pFk, pLoad, pPass, aFk, aLoad, aPass, diff = "proving", pPolicy, aPolicy, seed, collectRounds = false }) {
   const { ABILITIES } = defs();
   seedRandom(seed);
   vi.clearAllTimers();
