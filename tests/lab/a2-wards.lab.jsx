@@ -169,6 +169,23 @@ describe("ward base utilities fire regardless of contact", () => {
     row("ward:whirlA:yank", "adjacent foe yanked in", "foe at SE", d.g.A.pos, d.g.A.pos === "SE");
     rowEq("ward:whirlA:grind", "vortex grinds 1 at round end", 1, dmgTo(d.rounds[0].lines, "Koros"));
   });
+  test("Consecration (v0.86 ward): sanctify any quadrant; the catch consecrates home too", () => {
+    boot();
+    const idle = duel({
+      p: wardKit("L", "consec"), a: FOE(), seed: 61,
+      rounds: [{ p: { ab: "consec" }, a: { ab: "bR", target: "NW" }, prompts: ["NE"] }],
+    });
+    row("ward:consec:place", "chosen quadrant hallowed (idle)", "hall at NE", idle.g.terrain.NE?.kind, idle.g.terrain.NE?.kind === "hall");
+    row("ward:consec:noSelf", "own square NOT hallowed without a catch", "none", idle.g.terrain.SW?.kind ?? "none", idle.g.terrain.SW?.kind !== "hall");
+    const caught = duel({
+      p: wardKit("L", "consec"), a: FOE(), seed: 62,
+      rounds: [{ p: { ab: "consec" }, a: { ab: "bR", target: "SW" }, prompts: ["NE"] }], // rush into the ward
+    });
+    rowEq("ward:consec:counter", "riposte 1 + Consecration counter 1 (the round-end sear is the ground's own rent)", 2,
+      dmgBy(caught.rounds[0].lines, "Riposte", "Maelis") + dmgBy(caught.rounds[0].lines, "Consecration counter", "Maelis"));
+    row("ward:consec:self", "own quadrant hallowed on the catch", "hall at SW", caught.g.terrain.SW?.kind, caught.g.terrain.SW?.kind === "hall");
+    row("ward:consec:both", "chosen quadrant hallowed too", "hall at NE", caught.g.terrain.NE?.kind, caught.g.terrain.NE?.kind === "hall");
+  });
   test("Hawk's Eye wings Kess to an ADJACENT square only", () => {
     boot();
     const d = duel({

@@ -224,7 +224,7 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 - **Lightlance** — Rush · 0◆ — 1 dmg; **+1 if the target stands on Sanctuary ground** *(v0.30 — the Light punishes trespass; v0.59 rename)*. *Adv:* +1 dmg.
 - **Bulwark Oath** — Ward · 0◆ — Counter stance; blank base by design. *Adv (v0.30.1):* +1 counter, **and NOTHING can move him this round** — shove, surf, yank, Puppet Pull, all of it. The vow, load-bearing.
 - **Aegis of the Vigil** — Ward · 1◆ *(v0.30.1)* — Counter stance; heal 1; no knockback; **on a CONTESTED relic (both fighters standing on it), the Vigil outlasts — Kastor claims it anyway.** Counterplay is the triangle itself: a Break through the ward clears the claim flag. *Adv:* +1 counter.
-- **Consecration** — Rush · 2◆ — 1 dmg; target quadrant becomes a Sanctuary for 3 rounds (Kastor ending a round there heals 1; enemies ending there take 1). *Adv (signature):* +1 dmg AND your own quadrant becomes a Sanctuary too.
+- **Consecration** — Ward · 1◆ *(v0.86 — retyped Rush→Ward by class conformance, repriced 2◆→1◆ by designer ruling; the chip damage is gone — a ward neither aims nor strikes)* — Counter stance; consecrate ANY quadrant: a Sanctuary for 3 rounds (Kastor ending a round there heals 1; enemies ending there take 1). *Adv (signature):* +1 counter AND your own quadrant becomes a Sanctuary too. The cheaper sanctity feeds the Dawnhammer-from-holy-ground line by design.
 - **Dawnhammer** — Break · 3◆ — 3 dmg; **heal 2 if swung from Sanctuary ground** *(v0.30 — sanctity fuels the sunrise)*. *Adv:* +1 dmg.
 
 **Passives (pick 1):**
@@ -282,7 +282,7 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 **Abilities (pick 4 of 6):**
 - **Broadhead** — Rush · 0◆ — 1 dmg. *Adv:* +1 dmg.
 - **Hawk's Eye** — Ward · 0◆ — Counter stance; wing Kess to an ADJACENT quadrant. *Adv:* +1 counter *(the Advantage-mark was abolished v0.73 — position is the only marker)*.
-- **Pinning Shot** — Break · 1◆ — 1 dmg; the arrow pins — Rooted next round on any contact. *Adv:* +1 dmg.
+- **Pinning Shot** — Rush · 1◆ *(v0.86 — retyped Break→Rush by class conformance: a single fast, precise shot; the root-on-contact pattern is a rush signature, cf. Ice Lance)* — 1 dmg; the arrow pins — Rooted next round on any contact. *Adv:* +1 dmg.
 - **Longstride** — Ward · 1◆ — Counter stance; after resolution, step to an adjacent quadrant. *Adv:* +1 counter.
 - **Watcher's Toll** — Rush · 2◆ — 1 dmg; next round the enemy's movement is COMMITTED and revealed to you before you plan. *Adv:* +1 dmg. *(Tuning flag: the information edge may need a nerf.)*
 - **Skyfall Volley** — Break · 3◆ *(v0.71/v0.73 rework)* — 2 dmg aimed, and Kess takes wing (adjacent). Then for the NEXT TWO rounds a volley falls on a RANDOM quadrant: 2 dmg and a Mark if it finds them. Only a Rush interrupts the launch. *Adv:* +1 dmg.
@@ -328,7 +328,7 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 - **Quake Fist** — Break · 1◆ — 2 dmg; **shatters any non-Dominion terrain in the target quadrant** *(v0.13 — demolition restored as base; his stone respects his stone)*. *Adv:* +1 dmg.
 - **Continental Grind** — Rush · **0◆** *(v0.26.1 — his free floor; the v0.26 Claim reprice left him with zero 0◆ abilities, violating the draft invariant: undraftable player, deadlocked AI)* — 1 dmg; convert one enemy terrain into Dominion — or claim an empty quadrant if there is none. **Conversion is direct-gated: the free tile is an earned read.** *Adv:* +1 dmg.
 - **Stonewall** — Ward · 1◆ — Counter stance; you cannot be knocked back this round; take −1 from everything while on Dominion. *Adv:* +1 counter.
-- **Fissure** — Rush · 2◆ *(v0.26 — was strictly dominated by Grind at half the cost)* — 1 dmg; **the crack runs: the target quadrant AND one adjacent of your choice become Dominion.** The paid acceleration — speed costs now. *Adv:* +1 dmg.
+- **Fissure** — Break · 2◆ *(v0.26 — was strictly dominated by Grind at half the cost; v0.86 — retyped Rush→Break by class conformance: the crack IS ground-breaking, sibling to Quake Fist; type only, nothing else touched)* — 1 dmg; **the crack runs: the target quadrant AND one adjacent of your choice become Dominion.** The paid acceleration — speed costs now. *Adv:* +1 dmg.
 - **Mountainfall** — Break · 3◆ — 3 dmg; +1 if the enemy stands on your Dominion. *Adv:* +1 dmg and their quadrant converts after the hit.
 
 **Passives (pick 1):**

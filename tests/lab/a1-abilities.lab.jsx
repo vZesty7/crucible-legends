@@ -58,7 +58,7 @@ describe("attack abilities — printed base damage in a trade", () => {
     ["cinder", 1], ["magma", 1], ["flash", 1], ["comb", 2], ["pyre", 2],
     ["cannon", 1], ["flux", 1], ["core", 5, "Finality Beam printed 5"],
     ["ruin", 2], ["chains", 1], ["brand", 1], ["dark", 2], ["pact", 4],
-    ["censure", 1], ["llance", 1], ["consec", 1], ["dawn", 3],
+    ["censure", 1], ["llance", 1], ["dawn", 3],
     ["stick", 1], ["eye", 1], ["mireA", 1], ["sorrow", 2],
     ["quake", 2], ["grind", 1], ["fissure", 1], ["mount", 3],
     ["lash", 1], ["bwater", 1], ["undine", 1], ["storm", 2],
@@ -146,14 +146,6 @@ describe("signature advantage riders — +1 AND the effect", () => {
     boot();
     const d = baseTrade("brand", { f: "Z", type: "rush", name: "Doombrand" });
     rowEq("base:brand:fuse", "base fuse = round 3", 3, d.g.A.brandRound);
-  });
-
-  test("Consecration: +1 and own quadrant also becomes Sanctuary", () => {
-    boot();
-    const d = advWin("consec", { f: "L", type: "rush", name: "Consecration" });
-    rowEq("adv:consec:dmg", "Consecration adv total", 2, sigTotal(d, "Consecration", "Consecration flares"));
-    row("adv:consec:self", "own quadrant hallowed", "hall at SW", d.g.terrain.SW?.kind, d.g.terrain.SW?.kind === "hall");
-    row("base:consec:target", "target quadrant hallowed", "hall at NE", d.g.terrain.NE?.kind, d.g.terrain.NE?.kind === "hall");
   });
 
   test("Censure: +1 and enemy gains no ◆ this round (adv only)", () => {

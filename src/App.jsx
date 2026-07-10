@@ -130,7 +130,7 @@ const ABILITIES = {
   llance: { f: "L", name: "Lightlance", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; +1 if the target stands on Sanctuary", adv: "+1 dmg", lore: "Thrown prayer, sharpened." },
   oath: { f: "L", name: "Bulwark Oath", type: "ward", cost: 0, text: "Counter stance", adv: "+1 counter, and NOTHING can move him this round — no shove, surf, yank, or pull", lore: "The last vow of a dead order, still load-bearing." },
   aegis: { f: "L", name: "Aegis of the Vigil", type: "ward", cost: 1, text: "Counter stance; heal 1; you cannot be knocked back this round — and on a CONTESTED relic, the Vigil outlasts: you claim it (a Break through the ward denies this)", adv: "+1 counter", lore: "He plants. The world negotiates." },
-  consec: { f: "L", name: "Consecration", type: "rush", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; target quadrant becomes a Sanctuary for 3 rounds", adv: "+1 dmg; your own quadrant becomes a Sanctuary too", lore: "Ground the enemy will regret standing on." },
+  consec: { f: "L", name: "Consecration", type: "ward", cost: 1, text: "Counter stance; consecrate ANY quadrant — it becomes a Sanctuary for 3 rounds", adv: "+1 counter; your own quadrant becomes a Sanctuary too", lore: "Ground the enemy will regret standing on." },
   dawn: { f: "L", name: "Dawnhammer", type: "break", cost: 3, dmg: 3, needsTarget: true, text: "3 dmg; heal 2 if you swing it from Sanctuary", adv: "+1 dmg", lore: "Sunrise, administered directly." },
   // Old Marrow (Witch Doctor)
   stick: { f: "O", name: "Pinstick", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; +1 Curse on any contact", adv: "+1 dmg", lore: "A little needle for a little debt." },
@@ -144,7 +144,7 @@ const ABILITIES = {
   quake: { f: "D", name: "Quake Fist", type: "break", cost: 1, dmg: 2, needsTarget: true, text: "2 dmg; shatters any non-Dominion terrain in the target quadrant", adv: "+1 dmg", lore: "An argument the architecture loses." },
   grind: { f: "D", name: "Continental Grind", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; convert one enemy terrain into Dominion — or claim an empty quadrant if there is none", adv: "+1 dmg", lore: "He paves over your best ideas." },
   wall: { f: "D", name: "Stonewall", type: "ward", cost: 1, text: "Counter stance; cannot be knocked back; −1 from everything while on Dominion", adv: "+1 counter", lore: "The Unmoved, being unmoved." },
-  fissure: { f: "D", name: "Fissure", type: "rush", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; the crack runs — the target quadrant AND one adjacent of your choice become Dominion", adv: "+1 dmg", lore: "The ground opens a branch office." },
+  fissure: { f: "D", name: "Fissure", type: "break", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; the crack runs — the target quadrant AND one adjacent of your choice become Dominion", adv: "+1 dmg", lore: "The ground opens a branch office." },
   mount: { f: "D", name: "Mountainfall", type: "break", cost: 3, dmg: 3, needsTarget: true, text: "3 dmg; +1 if the enemy stands on Dominion", adv: "+1 dmg and their quadrant converts after the hit", lore: "The mountain's final ruling." },
   // Maelis (Hydromancer)
   lash: { f: "Y", name: "Riptide Lash", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg", adv: "+1 dmg", lore: "The tide takes what it touches." },
@@ -156,7 +156,7 @@ const ABILITIES = {
   // Wrenna (Ranger)
   broad: { f: "W", name: "Broadhead", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg", adv: "+1 dmg", lore: "A letter, hand-delivered." },
   hawk: { f: "W", name: "Hawk's Eye", type: "ward", cost: 0, text: "Counter stance; wing Kess to an ADJACENT quadrant", adv: "counter +1", lore: "Kess watches. Wrenna finishes." },
-  pin: { f: "W", name: "Pinning Shot", type: "break", cost: 1, dmg: 1, needsTarget: true, text: "1 dmg; the arrow pins — Rooted next round on any contact", adv: "+1 dmg", lore: "An arrow through the boot settles arguments." },
+  pin: { f: "W", name: "Pinning Shot", type: "rush", cost: 1, dmg: 1, needsTarget: true, text: "1 dmg; the arrow pins — Rooted next round on any contact", adv: "+1 dmg", lore: "An arrow through the boot settles arguments." },
   strideW: { f: "W", name: "Longstride", type: "ward", cost: 1, text: "Counter stance; step to an adjacent quadrant after resolution", adv: "+1 counter", lore: "She was leaving anyway." },
   toll: { f: "W", name: "Watcher's Toll", type: "rush", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; next round the enemy's movement is revealed to you", adv: "+1 dmg", lore: "The hawk collects in information." },
   sky: { f: "W", name: "Skyfall Volley", type: "break", cost: 3, dmg: 2, needsTarget: true, text: "BREAK — 2 dmg, and Kess takes wing (adjacent). Then for the NEXT TWO rounds a volley falls on a RANDOM quadrant — 2 dmg and a MARK if it finds them. Only a Rush interrupts the storm.", adv: "+1 dmg", lore: "Rain, fletched." },
@@ -1771,8 +1771,8 @@ const TUTS = {
     { you: { move: "T", ab: "llance", tgt: "F" }, foe: { ab: "ruin", move: "H", tgt: "Y" }, say: "He burns his own blood to swing at your old square. Step out, lance him, and remember: you don't chase — you HOLD." },
     { you: { move: "R", ab: "oath", tgt: null }, foe: { ab: "ruin", move: "H", tgt: "Y" }, say: "A RELIC has manifested — Pilgrim's Stride already stepped you toward it. Stand ON it at round's end to claim: three claims wins outright. Oath up and plant." },
     { clash: true, you: { ab: "censure" }, foe: { ab: "tap" }, say: "CLASH — He hides behind the Tap \u2014 CENSURE breaks it, and its rider's Advantage denies his ◆ when it wins. The Light disapproves of a warlock's economy." },
-    { you: { move: "H", ab: "dawn", tgt: "F" }, foe: { ab: "tap", move: "H", tgt: null }, say: "3◆: DAWNHAMMER — 3 damage, and if you swing it from Sanctuary it heals you 2. Sunrise, administered directly." },
-    { you: { move: "H", ab: "consec", tgt: "F" }, foe: { ab: "ruin", move: "T", tgt: "N" }, say: "CONSECRATE his square: the Sanctuary heals YOU 1 and SEARS him 1 every round he stands there. Your Lightlance hits +1 on it. Make the arena holy; make trespass expensive." },
+    { you: { move: "H", ab: "consec", tgt: null }, foe: { ab: "chains", move: "T", tgt: "N" }, say: "1◆: CONSECRATION — a WARD: plant in stance and SANCTIFY. He's brawling point-blank on YOUR ground — so bless the very square you both contest. His lunge dies on the stance, the counter answers, and watch the bell do the rest: holy ground HEALS you 1 and SEARS him 1, every round he insists on standing there. Your Lightlance hits +1 on it too. Make trespass expensive." },
+    { you: { move: "H", ab: "dawn", tgt: "F" }, foe: { ab: "tap", move: "H", tgt: null }, say: "Now the combo the sanctity was for — 3◆: DAWNHAMMER swung FROM holy ground: 3 damage straight through his ward, and the sunrise heals you 2. Consecrate, stand, swing. Sunrise, administered directly." },
     { you: { move: "H", ab: "aegis", tgt: null }, foe: { ab: "chains", move: "H", tgt: "N" }, say: "AEGIS on the contested relic: heal, anchor \u2014 he lunges and the ward CATCHES him cold; the riposte answers and the Vigil holds the claim. (Stepping off was the safe road. Vigils don't take it.)" },
   ]},
   O: { foe: "L", pass: "mdeep", rails: [
@@ -1796,7 +1796,7 @@ const TUTS = {
   Y: { foe: "W", pass: "rider", rails: [
     { you: { move: "T", ab: "lash", tgt: "F" }, foe: { ab: "broad", move: "H", tgt: "Y" }, say: "Her arrow wants the square you're leaving. Step, lash, and start thinking in WATER: your damage will come from the ground, not the swing." },
     { you: { move: "H", ab: "whirlA", tgt: null }, foe: { ab: "broad", move: "T", tgt: "N" }, say: "We HOLD and ward: she's diving your square, and WHIRLPOOL catches the Rush. Then the scripted call: the vortex opens UNDER HER — it yanks adjacent foes in as it opens and grinds 1 every round she stays. The catch is the lesson; the water is the sentence." },
-    { clash: true, you: { ab: "lash" }, foe: { ab: "pin" }, say: "CLASH — her Break beats your Rush; the pin will Root you. Feel it once. Rooted fighters can't move — but knockbacks still move them. Remember that." },
+    { clash: true, you: { ab: "lash" }, foe: { ab: "pin" }, say: "CLASH — rush meets rush: a bloody TRADE, both land — and her pin still ROOTS you, because the root rides ANY contact. Feel it once. Rooted fighters can't move — but knockbacks still move them. Remember that." },
     { you: { move: "H", ab: "storm", tgt: "F" }, foe: { ab: "broad", move: "H", tgt: "Y" }, say: "3◆: MAELSTROM — TWO vortexes open beside her, each yanking, each grinding. And Wave Rider means YOUR movement can surf to any of your water. She wades; you ride." },
     { you: { move: "H", ab: "bwater", tgt: "F" }, foe: { ab: "hawk", move: "H", tgt: null }, say: "CRUSHING WAVE leaves SURF: end a round in it — take 1 and get THROWN out. Two waters, opposite physics: the trap that holds, the surf that expels." },
     { you: { move: "T", ab: "lash", tgt: "F" }, foe: { ab: "broad", move: "T", tgt: "N" }, say: "Ebb & Flow: any round your water drew blood, the tide hands you Flow (+1 next hit). The arena collects rent. You collect the arena." },
@@ -1804,10 +1804,10 @@ const TUTS = {
   W: { foe: "Y", pass: "deadeye", rails: [
     { you: { move: "T", ab: "broad", tgt: "F" }, foe: { ab: "lash", move: "H", tgt: "Y" }, say: "She lashes your old square. Step out, loose a Broadhead. Your whole kit is INFORMATION: know where they'll be, and the arrow does the rest." },
     { you: { move: "H", ab: "hawk", tgt: null }, foe: { ab: "lash", move: "T", tgt: "N" }, say: "We HOLD this round — on purpose: she's diving at your square, and a ward wants exactly that. HAWK'S EYE catches her Rush — riposte answers, Advantage sharpens it. And know the law: KESS IS THE MARKER — end a round in the hawk's square and you are Marked. Kess wings one square over (ADJACENT only, a real bird): park her where the hydromancer will stand. Your shove HOLDS her. Bait, catch, herd." },
-    { clash: true, you: { ab: "pin" }, foe: { ab: "current" }, say: "CLASH — PINNING SHOT: Break beats her Ward, and the pin ROOTS her. A rooted target can't move: next round you KNOW her square. The pin manufactures the read." },
+    { clash: true, you: { ab: "pin" }, foe: { ab: "bwater" }, say: "CLASH — she loads the heavy wave; PINNING SHOT is a RUSH: it outruns her Break, the whole wave is ERASED, and the pin ROOTS her. A rooted target can't move: next round you KNOW her square. The pin manufactures the read." },
     { you: { move: "R", ab: "sky", tgt: "F" }, foe: { ab: "current", move: "H", tgt: null }, say: "3\u25c6: SKYFALL VOLLEY \u2014 a BREAK: 2 dmg where you AIM, and Kess TAKES WING (adjacent). Then for TWO rounds the sky keeps falling on a RANDOM square \u2014 2 dmg and a MARK when it finds her. Two mark symbols happen only when the volley catches her IN Kess's square. She wards \u2014 the Break shatters through. Let the dice hunt." },
     { you: { move: "H", ab: "broad", tgt: "F" }, foe: { ab: "lash", move: "H", tgt: "Y" }, say: "If the sky found her she's Marked; either way you're on the DIAGONAL: Deadeye +1, Mark +1 — a 3-damage free action. Geometry is your damage." },
-    { you: { move: "T", ab: "pin", tgt: "F" }, foe: { ab: "whirlA", move: "H", tgt: null }, say: "She shells up in the current \u2014 doesn't matter: Pin the square, Kess marks the flight, and the next arrow cannot miss. Read, pin, finish. Kess watches. You finish." },
+    { you: { move: "T", ab: "pin", tgt: "F" }, foe: { ab: "bwater", move: "H", tgt: "Y" }, say: "She hurls the wave at the square you're LEAVING \u2014 you're already gone. PIN the square she holds: the arrow lands clean, the root locks her down, and with Kess watching, the next one cannot miss. Read, pin, finish. Kess watches. You finish." },
   ]},
   X: { foe: "G", pass: "pedge", rails: [
     { you: { move: "T", ab: "cres", tgt: "F" }, pv: "keep", foe: { ab: "skull", move: "H", tgt: "Y" }, say: "CRESCENT CUT — and here's your secret: after the reveal, you may PIVOT it to a Break for 1◆. KEEP it this time: your Rush already interrupts his Break, and he's swinging at empty air anyway." },
@@ -2277,6 +2277,7 @@ export default function App() {
     const hazKinds = ["frost", "scorch", "env", "mire", "whirl", "surf"];
     if (p.kind === "kess" || p.kind === "undine") return p.opts.includes(foe0.pos) ? foe0.pos : p.opts[0];
     if (p.kind === "terr" && p.tkind === "whirl") return p.opts.includes(foe0.pos) ? foe0.pos : p.opts[0];
+    if (p.kind === "terr" && p.tkind === "hall") return p.opts.includes(foe0.pos) ? foe0.pos : p.opts[0]; // the lesson sears the trespasser
     if (p.kind === "gift") return "heal";
     if (p.kind === "placeSelf") {
       if (me0.fk === "L" && g.relics?.board?.length && p.opts.includes(g.relics.board[0])) return g.relics.board[0];
@@ -2440,7 +2441,6 @@ export default function App() {
     if (plan.ab === "chains") addWeak(tgt, 1, L);
     if (plan.ab === "brand") { tgt.brandRound = G.current.round + 2; L.push({ t: `⏳ ${nm(tgt)} is BRANDED — detonates at the end of round ${tgt.brandRound}.` }); }
     if (plan.ab === "dark") healUp(src, plan.soft ? 1 : 2, L, "Devouring Dark");
-    if (plan.ab === "consec") setTerrain(plan.target, "hall", L, "✦ Sanctuary");
     if (plan.ab === "dawn" && G.current.terrain[src.pos]?.kind === "hall") healUp(src, 2, L, "Dawnhammer — sunrise from sanctity");
     if (plan.ab === "stick") addCurse(src, tgt, 1, L);
     if (plan.ab === "eye") { addWeak(tgt, 1, L); addCurse(src, tgt, 1, L); }
@@ -2494,7 +2494,6 @@ export default function App() {
       case "pyre": plus1("Pyre flare"); if (plan._pyreHit) addBurn(src, tgt, L); break;
       case "arc": plus1("Arc Discharge grounds out"); if (tgt.pow > 0) { tgt.pow -= 1; L.push({ t: `⚡ ${nm(tgt)} loses 1◆.` }); } break;
       case "brand": plus1("Doombrand sears"); tgt.brandRound = G.current.round + 1; L.push({ t: `⏳ The fuse shortens — detonation end of round ${tgt.brandRound}.` }); break;
-      case "consec": plus1("Consecration flares"); setTerrain(src.pos, "hall", L, "✦ Sanctuary"); break;
       case "censure": plus1("Censure"); tgt.noGain = true; L.push({ t: `⚖ The Light disapproves — ${nm(tgt)} gains no ◆ this round.` }); break;
       case "mount": plus1("Mountainfall aftershock"); setTerrain(tgt.pos, "dom", L, "⛰ Dominion"); break;
       case "chainX": plus1("Chain follow-through"); src.flow = true; L.push({ t: `✦ ${nm(src)} keeps the Flow.` }); break;
@@ -2515,6 +2514,7 @@ export default function App() {
       case "eguard": plus1("Edgeguard counter"); warder.flow = true; L.push({ t: `✦ ${nm(warder)} gains Flow.` }); break;
       case "oath": plus1("Bulwark Oath counter"); warder._noKB = true; L.push({ t: `⚓ The Oath holds — nothing moves him this round.` }); break;
       case "mantle": plus1("Mantle counter"); healUp(warder, 1, L, "Winter's Mantle — the catch"); setTerrain(warder.pos, "frost", L, "❄ Frost"); break;
+      case "consec": plus1("Consecration counter"); setTerrain(warder.pos, "hall", L, "✦ Sanctuary"); break;
       // everything else: the sharper riposte
       default: plus1(); break;
     }
@@ -2532,6 +2532,7 @@ export default function App() {
     if (plan.ab === "wall") { warder._noKB = true; if (G.current.terrain[warder.pos]?.kind === "dom") warder._ironActive = true; }
     if (plan.ab === "current") healUp(warder, 1, L, "Renewing Current");
     if (plan.ab === "whirlA") G.current.prompts.push({ kind: "terr", tkind: "whirl", who: warder.fk, opts: QUADS, label: "Whirlpool: churn a quadrant" });
+    if (plan.ab === "consec") G.current.prompts.push({ kind: "terr", tkind: "hall", who: warder.fk, opts: QUADS, label: "Consecration: sanctify a quadrant" });
     if (plan.ab === "hawk") G.current.prompts.push({ kind: "kess", who: warder.fk, opts: ADJ[G.current.kessQ] || QUADS, label: "Hawk's Eye: wing Kess (adjacent)" });
     if (plan.ab === "riposte") { warder._flowBank = true; L.push({ t: `✦ ${nm(warder)} draws into stance — Flow.` }); }
     if (plan.ab === "tap" && warder.hp > 1) {
@@ -2573,7 +2574,7 @@ export default function App() {
       if (f === "Y" && (id === "lash" || id === "bwater") && ["whirl", "surf"].includes(T(hpn.pos))) return 5;
       if (f === "W" && id === "pin" && !hpn.rooted) return 4;
       if (f === "W" && (id === "sky" || id === "broad") && (hpn.rooted || (hpn.mark || 0) > 0)) return 6;
-      if (f === "L" && id === "consec" && T(hpn.pos) !== "hall") return 5;
+      if (f === "L" && id === "consec" && T(ai.pos) !== "hall") return 5; // a ward now: sanctify the ground he stands on
       if (f === "L" && id === "dawn" && ai.pow >= 3) return 6;
       if (f === "L" && id === "llance" && T(hpn.pos) === "hall") return 5;
       if (f === "O" && id === "sorrow" && (hpn.curse || 0) >= 3) return 8;
@@ -2747,6 +2748,7 @@ export default function App() {
   };
   const aiPickOpt = (p) => {
     const g = G.current;
+    if (p.kind === "terr" && p.tkind === "hall") return p.opts.includes(g.A.pos) ? g.A.pos : p.opts[0]; // Kastor sanctifies his own ground
     if (p.kind === "kb" || p.kind === "placeFoe") {
       const A = g.A, v = g.P;
       if (A.fk === "G" && A.pass === "scent" && p.opts.includes(v.pos) && A.pos === v.pos) return v.pos;
@@ -2776,7 +2778,7 @@ export default function App() {
     const actor = g.P.fk === p.who ? g.P : g.A;
     if (p.kind === "grind") { const L2 = []; removeEl(q, L2, "zonelost"); g.terrain[q] = { kind: "dom", until: 9999 }; L2.forEach((l) => g.feed.push(l)); g.feed.push({ t: `⛰ ${q} is paved into Dominion.` }); }
     else if (p.kind === "terr") {
-      const L2 = []; setTerrain(q, p.tkind, L2, p.tkind === "whirl" ? "🌀 Whirlpool" : "⛰ Dominion");
+      const L2 = []; setTerrain(q, p.tkind, L2, p.tkind === "whirl" ? "🌀 Whirlpool" : p.tkind === "hall" ? "✦ Sanctuary" : "⛰ Dominion");
       if (p.tkind === "whirl") { const foe = [g.P, g.A].find((f) => f.fk !== "Y" && f.hp > 0 && ADJ[q].includes(f.pos) && !held(f)); if (foe) { foe.pos = q; L2.push({ t: `🌀 The vortex opens — ${nm(foe)} is YANKED in.` }); } }
       L2.forEach((l) => g.feed.push(l));
     }
@@ -3433,7 +3435,6 @@ export default function App() {
       if (plan.ab === "eye") addWeak(tgt, 1, L);
       if (plan.ab === "brand") { tgt.brandRound = g.round + 2; L.push({ t: `⏳ ${nm(tgt)} is BRANDED — end of round ${tgt.brandRound}.` }); }
       if (plan.ab === "dark") healUp(src, plan.soft ? 1 : 2, L, "Devouring Dark");
-      if (plan.ab === "consec") setTerrain(tgt.pos, "hall", L, "✦ Sanctuary");
       if (plan.ab === "dawn" && G.current.terrain[src.pos]?.kind === "hall") healUp(src, 2, L, "Dawnhammer — sunrise from sanctity");
       if (plan.ab === "freeze") { setTerrain(tgt.pos, "frost", L, "❄ Frost"); tgt._rootNext = true; L.push({ t: `⛓ The frozen boots take hold — ${nm(tgt)} is Rooted next round.` }); }
       if (plan.ab === "fissure") { setTerrain(tgt.pos, "dom", L, "⛰ Dominion"); G.current.prompts.push({ kind: "terr", tkind: "dom", who: src.fk, opts: ADJ[tgt.pos], label: "Fissure: the crack runs — convert one adjacent quadrant" }); }
@@ -3499,7 +3500,6 @@ export default function App() {
           case "pyre": dd(winner, l, 1, "Pyre flare", "break"); addBurn(winner, l, L); break;
           case "arc": dd(winner, l, 1, "Arc grounds out", "rush"); if (l.pow > 0) { l.pow -= 1; L.push({ t: `⚡ ${nm(l)} loses 1◆.` }); } break;
           case "brand": dd(winner, l, 1, "Doombrand sears", "rush"); l.brandRound = g.round + 1; L.push({ t: `⏳ Fuse shortened — end of round ${l.brandRound}.` }); break;
-          case "consec": dd(winner, l, 1, "Consecration flares", "rush"); setTerrain(winner.pos, "hall", L, "✦ Sanctuary"); break;
           case "censure": dd(winner, l, 1, "Censure", "break"); l.noGain = true; L.push({ t: `⚖ The Light disapproves — ${nm(l)} gains no ◆ this round.` }); break;
           case "mount": dd(winner, l, 1, "Mountainfall aftershock", "break"); break;
           case "chainX": dd(winner, l, 1, "Chain follow-through", "break"); winner.flow = true; break;
@@ -3575,6 +3575,7 @@ export default function App() {
       case "eguard": dd2(1, "Edgeguard counter"); warder.flow = true; break;
       case "oath": dd2(1, "Bulwark Oath counter"); warder._noKB = true; break;
       case "mantle": dd2(1, "Mantle counter"); healUp(warder, 1, L, "Winter's Mantle — the catch"); setTerrain(warder.pos, "frost", L, "❄ Frost"); break;
+      case "consec": dd2(1, "Consecration counter"); setTerrain(warder.pos, "hall", L, "✦ Sanctuary"); break;
       default: dd2(1, "Sharpened riposte"); break;
     }
   };
