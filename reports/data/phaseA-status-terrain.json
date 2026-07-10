@@ -48,10 +48,18 @@
   "note": ""
  },
  {
-  "id": "st:chill:shatterpoint",
-  "mechanic": "spike 2 + shatterpoint 2",
-  "expected": "4",
-  "observed": "4",
+  "id": "st:chill:advShatter",
+  "mechanic": "lance advantage win vs chilled = 3",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "st:chill:advReapplied",
+  "mechanic": "lance re-chills after the spend",
+  "expected": "true",
+  "observed": "true",
   "pass": true,
   "note": ""
  },

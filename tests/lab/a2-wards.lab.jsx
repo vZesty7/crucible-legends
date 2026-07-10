@@ -95,10 +95,26 @@ describe("ward base utilities fire regardless of contact", () => {
     const d = wardIdle("V", "hoar");
     row("ward:hoar:frost", "own quadrant frosted", "frost at SW", d.g.terrain.SW?.kind, d.g.terrain.SW?.kind === "frost");
   });
-  test("Winter's Mantle heals 1 (idle)", () => {
+  test("Winter's Mantle (v0.85): idle base is a bare stance — no heal, no frost", () => {
     boot();
     const d = wardIdle("V", "mantle", { set: { hp: 10 } });
-    rowEq("ward:mantle:heal", "heal 1", 1, healsTo(d.rounds[0].lines, "Vessk"));
+    rowEq("ward:mantle:idleHeal", "no heal without a catch", 0, healsTo(d.rounds[0].lines, "Vessk"));
+    row("ward:mantle:idleFrost", "no frost without a catch", "none", d.g.terrain.SW?.kind ?? "none", !d.g.terrain.SW);
+  });
+  test("Winter's Mantle (v0.85): the Advantage catch pays +1 counter, heal 2, and frost underfoot", () => {
+    boot();
+    const d = wardCatch("V", "mantle", { set: { hp: 10 } });
+    rowEq("ward:mantle:catchDmg", "riposte 1 + Mantle counter 1", 2,
+      dmgBy(d.rounds[0].lines, "Riposte", "Maelis") + dmgBy(d.rounds[0].lines, "Mantle counter", "Maelis"));
+    rowEq("ward:mantle:catchHeal", "heal exactly 2 on the catch", 2, healsTo(d.rounds[0].lines, "Vessk"));
+    row("ward:mantle:catchFrost", "own quadrant becomes a frost zone", "frost at SW", d.g.terrain.SW?.kind, d.g.terrain.SW?.kind === "frost");
+  });
+  test("Ice Age: every frost zone births an elemental; a bare board births nothing (idle ward)", () => {
+    boot();
+    const two = wardIdle("V", "iceage", { before: (gm) => { gm.terrain.NW = { kind: "frost", until: 99 }; gm.terrain.SE = { kind: "frost", until: 99 }; } });
+    rowEq("ward:iceage:births", "two zones → two elementals", 2, Object.keys(two.g.icels || {}).length);
+    const bare = wardIdle("V", "iceage", { seed: 58 });
+    rowEq("ward:iceage:bare", "no zones → no elementals", 0, Object.keys(bare.g.icels || {}).length);
   });
   test("Renewing Current heals 1 (idle)", () => {
     boot();
