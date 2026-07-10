@@ -4,7 +4,7 @@
    "load": [
     "skull",
     "howl",
-    "sunder",
+    "frenzy",
     "iron"
    ],
    "pass": "warmonger"
@@ -12,8 +12,8 @@
   "M": {
    "load": [
     "viper",
-    "umbral",
     "gloom",
+    "twin",
     "heart"
    ],
    "pass": "tithe"
@@ -25,7 +25,7 @@
     "spike",
     "mantle"
    ],
-   "pass": "permafrost"
+   "pass": "numb"
   },
   "C": {
    "load": [
@@ -40,26 +40,26 @@
    "load": [
     "cannon",
     "flux",
-    "frame",
-    "gyro"
+    "gyro",
+    "core"
    ],
    "pass": "overclock"
   },
   "Z": {
    "load": [
     "ruin",
+    "chains",
     "tap",
-    "brand",
-    "dark"
+    "brand"
    ],
-   "pass": "surplus"
+   "pass": "agonist"
   },
   "L": {
    "load": [
     "censure",
     "llance",
     "aegis",
-    "dawn"
+    "consec"
    ],
    "pass": "pilgrim"
   },
@@ -68,7 +68,7 @@
     "claim",
     "quake",
     "grind",
-    "mount"
+    "fissure"
    ],
    "pass": "home"
   },
@@ -77,18 +77,18 @@
     "lash",
     "current",
     "bwater",
-    "undine"
+    "whirlA"
    ],
-   "pass": "ebb"
+   "pass": "undertow"
   },
   "W": {
    "load": [
     "broad",
     "hawk",
-    "toll",
-    "sky"
+    "pin",
+    "strideW"
    ],
-   "pass": "talon"
+   "pass": "deadeye"
   },
   "X": {
    "load": [
@@ -97,7 +97,7 @@
     "chainX",
     "cadence"
    ],
-   "pass": "pedge"
+   "pass": "momentum"
   },
   "O": {
    "load": [
@@ -114,10 +114,10 @@
    "load": [
     "skull",
     "sunder",
-    "iron",
+    "frenzy",
     "harvest"
    ],
-   "pass": "warmonger"
+   "pass": "scent"
   },
   "M": {
    "load": [
@@ -131,8 +131,8 @@
   "V": {
    "load": [
     "lance",
-    "spike",
     "freeze",
+    "mantle",
     "aval"
    ],
    "pass": "numb"
@@ -140,25 +140,25 @@
   "C": {
    "load": [
     "magma",
-    "smoke",
+    "flash",
     "comb",
     "pyre"
    ],
-   "pass": "heatrise"
+   "pass": "everburn"
   },
   "K": {
    "load": [
-    "flux",
-    "gyro",
+    "cannon",
+    "frame",
     "arc",
     "core"
    ],
-   "pass": "nova"
+   "pass": "overclock"
   },
   "Z": {
    "load": [
     "ruin",
-    "tap",
+    "brand",
     "dark",
     "pact"
    ],
@@ -171,16 +171,16 @@
     "consec",
     "dawn"
    ],
-   "pass": "sanct"
+   "pass": "vigil"
   },
   "D": {
    "load": [
+    "quake",
     "grind",
-    "wall",
     "fissure",
     "mount"
    ],
-   "pass": "reserves"
+   "pass": "roots"
   },
   "Y": {
    "load": [
@@ -189,7 +189,7 @@
     "undine",
     "storm"
    ],
-   "pass": "undertow"
+   "pass": "ebb"
   },
   "W": {
    "load": [
@@ -198,7 +198,7 @@
     "toll",
     "sky"
    ],
-   "pass": "talon"
+   "pass": "deadeye"
   },
   "X": {
    "load": [
@@ -212,8 +212,8 @@
   "O": {
    "load": [
     "stick",
-    "eye",
     "mireA",
+    "puppet",
     "sorrow"
    ],
    "pass": "juju"

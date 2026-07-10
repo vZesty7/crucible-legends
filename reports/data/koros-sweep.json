@@ -1,0 +1,452 @@
+[
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "gyro",
+   "core"
+  ],
+  "pass": "overclock",
+  "winrate": 58.6
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "frame",
+   "gyro"
+  ],
+  "pass": "overclock",
+  "winrate": 56.4
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "gyro",
+   "arc"
+  ],
+  "pass": "overclock",
+  "winrate": 55.2
+ },
+ {
+  "load": [
+   "flux",
+   "gyro",
+   "arc",
+   "core"
+  ],
+  "pass": "overclock",
+  "winrate": 55
+ },
+ {
+  "load": [
+   "flux",
+   "frame",
+   "gyro",
+   "core"
+  ],
+  "pass": "vent",
+  "winrate": 53.9
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "gyro",
+   "core"
+  ],
+  "pass": "siege",
+  "winrate": 53.2
+ },
+ {
+  "load": [
+   "flux",
+   "gyro",
+   "arc",
+   "core"
+  ],
+  "pass": "siege",
+  "winrate": 52.1
+ },
+ {
+  "load": [
+   "cannon",
+   "gyro",
+   "arc",
+   "core"
+  ],
+  "pass": "overclock",
+  "winrate": 51.5
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "arc",
+   "core"
+  ],
+  "pass": "vent",
+  "winrate": 51.4
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "arc",
+   "core"
+  ],
+  "pass": "overclock",
+  "winrate": 51.4
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "gyro",
+   "arc"
+  ],
+  "pass": "vent",
+  "winrate": 50.6
+ },
+ {
+  "load": [
+   "flux",
+   "gyro",
+   "arc",
+   "core"
+  ],
+  "pass": "vent",
+  "winrate": 50
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "frame",
+   "gyro"
+  ],
+  "pass": "siege",
+  "winrate": 48.8
+ },
+ {
+  "load": [
+   "cannon",
+   "gyro",
+   "arc",
+   "core"
+  ],
+  "pass": "vent",
+  "winrate": 48.6
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "frame",
+   "arc"
+  ],
+  "pass": "overclock",
+  "winrate": 48.3
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "frame",
+   "gyro"
+  ],
+  "pass": "vent",
+  "winrate": 48.2
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "gyro",
+   "arc"
+  ],
+  "pass": "siege",
+  "winrate": 47.7
+ },
+ {
+  "load": [
+   "flux",
+   "frame",
+   "gyro",
+   "arc"
+  ],
+  "pass": "siege",
+  "winrate": 47.6
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "frame",
+   "arc"
+  ],
+  "pass": "vent",
+  "winrate": 47.1
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "arc",
+   "core"
+  ],
+  "pass": "siege",
+  "winrate": 46.8
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "gyro",
+   "core"
+  ],
+  "pass": "vent",
+  "winrate": 46.1
+ },
+ {
+  "load": [
+   "cannon",
+   "gyro",
+   "arc",
+   "core"
+  ],
+  "pass": "siege",
+  "winrate": 45.8
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "frame",
+   "core"
+  ],
+  "pass": "overclock",
+  "winrate": 45.2
+ },
+ {
+  "load": [
+   "cannon",
+   "frame",
+   "gyro",
+   "arc"
+  ],
+  "pass": "siege",
+  "winrate": 45.2
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "frame",
+   "arc"
+  ],
+  "pass": "siege",
+  "winrate": 44.7
+ },
+ {
+  "load": [
+   "flux",
+   "frame",
+   "gyro",
+   "core"
+  ],
+  "pass": "siege",
+  "winrate": 44.5
+ },
+ {
+  "load": [
+   "cannon",
+   "frame",
+   "gyro",
+   "core"
+  ],
+  "pass": "vent",
+  "winrate": 43.5
+ },
+ {
+  "load": [
+   "flux",
+   "frame",
+   "gyro",
+   "core"
+  ],
+  "pass": "overclock",
+  "winrate": 42.6
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "frame",
+   "core"
+  ],
+  "pass": "vent",
+  "winrate": 42.4
+ },
+ {
+  "load": [
+   "cannon",
+   "frame",
+   "gyro",
+   "core"
+  ],
+  "pass": "overclock",
+  "winrate": 41.7
+ },
+ {
+  "load": [
+   "flux",
+   "frame",
+   "gyro",
+   "arc"
+  ],
+  "pass": "overclock",
+  "winrate": 40.8
+ },
+ {
+  "load": [
+   "cannon",
+   "frame",
+   "gyro",
+   "arc"
+  ],
+  "pass": "overclock",
+  "winrate": 40.6
+ },
+ {
+  "load": [
+   "flux",
+   "frame",
+   "gyro",
+   "arc"
+  ],
+  "pass": "vent",
+  "winrate": 40
+ },
+ {
+  "load": [
+   "cannon",
+   "flux",
+   "frame",
+   "core"
+  ],
+  "pass": "siege",
+  "winrate": 39.4
+ },
+ {
+  "load": [
+   "cannon",
+   "frame",
+   "gyro",
+   "core"
+  ],
+  "pass": "siege",
+  "winrate": 37.3
+ },
+ {
+  "load": [
+   "cannon",
+   "frame",
+   "gyro",
+   "arc"
+  ],
+  "pass": "vent",
+  "winrate": 31.8
+ },
+ {
+  "load": [
+   "frame",
+   "gyro",
+   "arc",
+   "core"
+  ],
+  "pass": "vent",
+  "winrate": 25.9
+ },
+ {
+  "load": [
+   "cannon",
+   "frame",
+   "arc",
+   "core"
+  ],
+  "pass": "vent",
+  "winrate": 23.3
+ },
+ {
+  "load": [
+   "frame",
+   "gyro",
+   "arc",
+   "core"
+  ],
+  "pass": "overclock",
+  "winrate": 23
+ },
+ {
+  "load": [
+   "frame",
+   "gyro",
+   "arc",
+   "core"
+  ],
+  "pass": "siege",
+  "winrate": 22.1
+ },
+ {
+  "load": [
+   "flux",
+   "frame",
+   "arc",
+   "core"
+  ],
+  "pass": "vent",
+  "winrate": 22
+ },
+ {
+  "load": [
+   "cannon",
+   "frame",
+   "arc",
+   "core"
+  ],
+  "pass": "overclock",
+  "winrate": 19.1
+ },
+ {
+  "load": [
+   "flux",
+   "frame",
+   "arc",
+   "core"
+  ],
+  "pass": "siege",
+  "winrate": 17.1
+ },
+ {
+  "load": [
+   "cannon",
+   "frame",
+   "arc",
+   "core"
+  ],
+  "pass": "siege",
+  "winrate": 16.7
+ },
+ {
+  "load": [
+   "flux",
+   "frame",
+   "arc",
+   "core"
+  ],
+  "pass": "overclock",
+  "winrate": 15.8
+ }
+]

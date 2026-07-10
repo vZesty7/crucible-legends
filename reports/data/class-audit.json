@@ -1,0 +1,194 @@
+{
+ "G": {
+  "cls": "Ravager",
+  "rush": [
+   "Bloodhowl 0◆",
+   "Blood Frenzy 2◆"
+  ],
+  "brk": [
+   "Skullsplitter 0◆",
+   "Bone Grinder 1◆",
+   "Red Harvest 3◆"
+  ],
+  "ward": [
+   "Iron Hide 1◆"
+  ],
+  "census": "2R/3B/1W"
+ },
+ "M": {
+  "cls": "Duelist",
+  "rush": [
+   "Viper Fang 0◆",
+   "Umbral Step 1◆",
+   "Three Fangs 2◆"
+  ],
+  "brk": [
+   "Heartseeker 3◆"
+  ],
+  "ward": [
+   "Blackout 1◆",
+   "Gloomveil 0◆"
+  ],
+  "census": "3R/1B/2W"
+ },
+ "V": {
+  "cls": "Shaper",
+  "rush": [
+   "Ice Lance 0◆",
+   "Flash Freeze 2◆",
+   "Avalanche 3◆"
+  ],
+  "brk": [
+   "Glacial Spike 1◆"
+  ],
+  "ward": [
+   "Hoarfrost Field 0◆",
+   "Winter's Mantle 1◆"
+  ],
+  "census": "3R/1B/2W"
+ },
+ "C": {
+  "cls": "Ravager",
+  "rush": [
+   "Cinder Jab 0◆",
+   "Flashfire Step 1◆"
+  ],
+  "brk": [
+   "Magma Haymaker 0◆",
+   "Combustion 2◆",
+   "Pyre of the Pit 3◆"
+  ],
+  "ward": [
+   "Smokeveil 0◆"
+  ],
+  "census": "2R/3B/1W"
+ },
+ "K": {
+  "cls": "Champion",
+  "rush": [
+   "Flux Jab 0◆"
+  ],
+  "brk": [
+   "Cannonarm 0◆",
+   "Finality Beam 3◆"
+  ],
+  "ward": [
+   "Bulwark Frame 1◆",
+   "Gyro Anchor 0◆",
+   "Arc Discharge 2◆"
+  ],
+  "census": "1R/2B/3W"
+ },
+ "Z": {
+  "cls": "Ravager",
+  "rush": [
+   "Umbral Chains 1◆",
+   "Doombrand 2◆"
+  ],
+  "brk": [
+   "Ruinfire 0◆+1hp",
+   "Devouring Dark 3◆",
+   "Oblivion Pact 2◆+2hp"
+  ],
+  "ward": [
+   "Life Tap 0◆"
+  ],
+  "census": "2R/3B/1W"
+ },
+ "L": {
+  "cls": "Champion",
+  "rush": [
+   "Lightlance 0◆",
+   "Consecration 2◆"
+  ],
+  "brk": [
+   "Censure 0◆",
+   "Dawnhammer 3◆"
+  ],
+  "ward": [
+   "Bulwark Oath 0◆",
+   "Aegis of the Vigil 1◆"
+  ],
+  "census": "2R/2B/2W"
+ },
+ "D": {
+  "cls": "Champion",
+  "rush": [
+   "Continental Grind 0◆",
+   "Fissure 2◆"
+  ],
+  "brk": [
+   "Quake Fist 1◆",
+   "Mountainfall 3◆"
+  ],
+  "ward": [
+   "Bedrock Claim 1◆",
+   "Stonewall 1◆"
+  ],
+  "census": "2R/2B/2W"
+ },
+ "Y": {
+  "cls": "Shaper",
+  "rush": [
+   "Riptide Lash 0◆",
+   "Summon Undine 2◆",
+   "Maelstrom 3◆"
+  ],
+  "brk": [
+   "Crushing Wave 1◆"
+  ],
+  "ward": [
+   "Renewing Current 0◆",
+   "Whirlpool 1◆"
+  ],
+  "census": "3R/1B/2W"
+ },
+ "W": {
+  "cls": "Duelist",
+  "rush": [
+   "Broadhead 0◆",
+   "Watcher's Toll 2◆"
+  ],
+  "brk": [
+   "Pinning Shot 1◆",
+   "Skyfall Volley 3◆"
+  ],
+  "ward": [
+   "Hawk's Eye 0◆",
+   "Longstride 1◆"
+  ],
+  "census": "2R/2B/2W"
+ },
+ "X": {
+  "cls": "Duelist",
+  "rush": [
+   "Crescent Cut 0◆",
+   "Blade Cadence 2◆",
+   "Full Arsenal 3◆"
+  ],
+  "brk": [
+   "Arsenal Chain 1◆"
+  ],
+  "ward": [
+   "Edgeguard 0◆",
+   "Riposte Draw 1◆"
+  ],
+  "census": "3R/1B/2W"
+ },
+ "O": {
+  "cls": "Shaper",
+  "rush": [
+   "Pinstick 0◆",
+   "Sorrow Mire 1◆",
+   "Harvest of Sorrows 3◆"
+  ],
+  "brk": [
+   "Shrunken Head 1◆"
+  ],
+  "ward": [
+   "Witch Brew 1◆",
+   "Puppet Pull 1◆"
+  ],
+  "census": "3R/1B/2W"
+ }
+}

@@ -109,7 +109,7 @@ function runTier({ name, buildFor, mkPolicy, diff, seedBase }) {
   return { table, matchups, violations, crashed, games };
 }
 
-test("MIN / MID / MAX tier round-robins", () => {
+test("MID / MAX tier round-robins (v0.84 re-measure)", () => {
   const { FIGHTERS } = defs();
   const sweep = JSON.parse(readFileSync("reports/data/sweep.json", "utf8"));
   const best = {}, worst = {};
@@ -137,11 +137,4 @@ test("MIN / MID / MAX tier round-robins", () => {
   writeFileSync("reports/data/tier-max.json", JSON.stringify(max, null, 1));
   console.log("MAX done. violations:", max.violations.length, "crashed:", max.crashed);
 
-  const min = runTier({
-    name: "MIN", diff: "proving", seedBase: 30_000_000,
-    buildFor: (fk) => worst[fk],
-    mkPolicy: makeRandomPolicy,
-  });
-  writeFileSync("reports/data/tier-min.json", JSON.stringify(min, null, 1));
-  console.log("MIN done. violations:", min.violations.length, "crashed:", min.crashed);
 }, 3600000);
