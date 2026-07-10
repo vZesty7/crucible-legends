@@ -109,7 +109,7 @@ function runTier({ name, buildFor, mkPolicy, diff, seedBase }) {
   return { table, matchups, violations, crashed, games };
 }
 
-test("MID / MAX tier round-robins (v0.84 re-measure)", () => {
+test("MID / MAX tier round-robins (v0.87 Mind re-measure)", () => {
   const { FIGHTERS } = defs();
   const sweep = JSON.parse(readFileSync("reports/data/sweep.json", "utf8"));
   const best = {}, worst = {};
