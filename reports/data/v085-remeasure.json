@@ -1,0 +1,119 @@
+{
+ "mid": {
+  "winrate": 45.9,
+  "games": 11000,
+  "crashed": 0,
+  "violations": [],
+  "avgRounds": 9.42,
+  "winTypes": {
+   "ko": 2177,
+   "bell": 2611,
+   "sudden": 265,
+   "alt": 0
+  },
+  "shattersPerGame": 0.8,
+  "mirrorsPerGame": 0.008,
+  "blizzPerGame": 0,
+  "icel": {
+   "bornPerGame": 0.774,
+   "removalShare": {
+    "spent": 5.9,
+    "countered": 2.5,
+    "zonelost": 91.6
+   },
+   "avgLifespanRounds": 1.96,
+   "survivorsPerGame": 0.641
+  },
+  "maxLine": {
+   "corePerGame": 0.0025,
+   "withFlowPerGame": 0.0003
+  },
+  "matchups": {
+   "G": 45.7,
+   "M": 49.2,
+   "C": 39.3,
+   "K": 34,
+   "Z": 72.3,
+   "L": 40.3,
+   "D": 37.4,
+   "Y": 42.9,
+   "W": 59.4,
+   "X": 31.3,
+   "O": 53.5
+  }
+ },
+ "max": {
+  "winrate": 46.6,
+  "games": 11000,
+  "crashed": 0,
+  "violations": [],
+  "avgRounds": 9.43,
+  "winTypes": {
+   "ko": 2124,
+   "bell": 2695,
+   "sudden": 302,
+   "alt": 0
+  },
+  "shattersPerGame": 0.62,
+  "mirrorsPerGame": 0,
+  "blizzPerGame": 0.39,
+  "icel": {
+   "bornPerGame": 0,
+   "removalShare": null,
+   "avgLifespanRounds": null,
+   "survivorsPerGame": 0
+  },
+  "maxLine": {
+   "corePerGame": 0,
+   "withFlowPerGame": 0
+  },
+  "matchups": {
+   "G": 44.6,
+   "M": 62.6,
+   "C": 38.7,
+   "K": 39.9,
+   "Z": 69.9,
+   "L": 44.5,
+   "D": 39.2,
+   "Y": 39.3,
+   "W": 48.3,
+   "X": 29.9,
+   "O": 55.2
+  }
+ },
+ "maxBuild": {
+  "load": [
+   "lance",
+   "hoar",
+   "spike",
+   "mantle"
+  ],
+  "pass": "blizzard"
+ },
+ "uptime": {
+  "blizzard": {
+   "pass": "blizzard",
+   "games": 1650,
+   "winrate": 47.8,
+   "flowUptimePct": 16.4,
+   "avgFrostZones": 0.69,
+   "zoneUptimePct": {
+    "atLeast1": 51.1,
+    "atLeast2": 15.5,
+    "atLeast3": 2.4
+   }
+  },
+  "permafrost": {
+   "pass": "permafrost",
+   "games": 1650,
+   "winrate": 42.9,
+   "flowUptimePct": 0,
+   "avgFrostZones": 1.12,
+   "zoneUptimePct": {
+    "atLeast1": 69.7,
+    "atLeast2": 34.1,
+    "atLeast3": 7.5
+   }
+  }
+ }
+}

@@ -56,10 +56,66 @@
   "note": ""
  },
  {
-  "id": "ward:mantle:heal",
-  "mechanic": "heal 1",
+  "id": "ward:mantle:idleHeal",
+  "mechanic": "no heal without a catch",
+  "expected": "0",
+  "observed": "0",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:mantle:idleFrost",
+  "mechanic": "no frost without a catch",
+  "expected": "none",
+  "observed": "none",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:mantle:catchDmg",
+  "mechanic": "riposte 1 + Mantle counter 1",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:mantle:catchHeal",
+  "mechanic": "heal exactly 2 on the catch",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:mantle:catchFrost",
+  "mechanic": "own quadrant becomes a frost zone",
+  "expected": "frost at SW",
+  "observed": "frost",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:iceage:births",
+  "mechanic": "two zones + the self-painted one → three elementals",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:iceage:bare",
+  "mechanic": "bare board → own quadrant freezes, one elemental",
   "expected": "1",
   "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:iceage:selfpaint",
+  "mechanic": "caster's quadrant is a frost zone",
+  "expected": "frost at SW",
+  "observed": "frost",
   "pass": true,
   "note": ""
  },

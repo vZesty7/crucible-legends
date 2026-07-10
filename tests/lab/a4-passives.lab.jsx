@@ -296,7 +296,7 @@ describe("remaining passives", () => {
   test("Numbing Aura: sharing Vessk's square chills at round end", () => {
     boot();
     const d = duel({
-      p: { fk: "V", load: ["lance", "hoar", "spike", "aval"], pass: "numb", set: { pow: 0, hp: 20, maxHp: 20 } },
+      p: { fk: "V", load: ["lance", "hoar", "spike", "iceage"], pass: "numb", set: { pow: 0, hp: 20, maxHp: 20 } },
       a: KBAG({ pos: "SW" }), seed: 134,
       rounds: [{
         before: (gm) => { gm.A.pos = "SW"; },

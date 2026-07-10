@@ -54,7 +54,7 @@ describe("attack abilities — printed base damage in a trade", () => {
   const CASES = [
     ["skull", 1], ["howl", 1], ["sunder", 2], ["frenzy", 2], ["harvest", 4],
     ["viper", 1], ["umbral", 1], ["twin", 1], ["heart", 1],
-    ["lance", 1], ["spike", 2], ["freeze", 1], ["aval", 2],
+    ["lance", 1], ["spike", 2], ["freeze", 1],
     ["cinder", 1], ["magma", 1], ["flash", 1], ["comb", 2], ["pyre", 2],
     ["cannon", 1], ["flux", 1], ["core", 5, "Finality Beam printed 5"],
     ["ruin", 2], ["chains", 1], ["brand", 1], ["dark", 2], ["pact", 4],
@@ -81,7 +81,7 @@ describe("attack abilities — advantage adds exactly +1 (plain riders)", () => 
   const PLAIN = [
     ["skull", 1], ["howl", 1], ["sunder", 2], ["frenzy", 2],
     ["viper", 1], ["umbral", 1], ["twin", 1], ["heart", 1],
-    ["lance", 1], ["spike", 2],
+    ["lance", 1], ["spike", 2], ["freeze", 1, "root moved to base in v0.85; rider is the plain +1"],
     ["cinder", 1], ["magma", 1], ["flash", 1], ["comb", 2],
     ["cannon", 1], ["flux", 1], ["core", 5, "Finality Beam printed 5"],
     ["ruin", 2, "engine rider is +1; doc roster's '+2' predates the v0.9.1 flatten"],
@@ -117,35 +117,22 @@ describe("signature advantage riders — +1 AND the effect", () => {
     row("adv:harvest:kbAny", "Red Harvest adv shove offers all 4 quadrants", "4 options", kb ? kb.opts.length : "no prompt", kb && kb.opts.length === 4);
   });
 
-  test("Flash Freeze: +1 and Rooted next round", () => {
+  test("Flash Freeze (v0.85): base roots AND paints even in a trade; adv is the plain +1", () => {
     boot();
     const d = duel({
       p: kit("V", "freeze"),
       a: { ...BAG, set: { hp: 25, maxHp: 25 } },
       seed: 7,
       rounds: [
-        { p: { ab: "freeze", target: "NE" }, a: { ab: "bB", target: "SW" } },
+        { p: { ab: "freeze", target: "NE" }, a: { ab: "bR", target: "SW" } }, // rush-rush TRADE — no advantage
         { p: { ab: "bR", target: "SE" }, a: { ab: "bR", target: "SW", moveTo: "SE" } },
       ],
     });
-    rowEq("adv:freeze:dmg", "Flash Freeze adv total", 2,
-      dmgBy(d.rounds[0].lines, "Flash Freeze lands DIRECT", "Maelis") + dmgBy(d.rounds[0].lines, "Flash Freeze bites", "Maelis"));
-    row("adv:freeze:root", "Rooted bag cannot move next round", "stays NE", d.g.A.pos, d.g.A.pos === "NE");
-    row("adv:freeze:frost", "Flash Freeze frosts the target quadrant", "frost at NE", d.g.terrain.NE?.kind,
+    rowEq("base:freeze:dmg", "Flash Freeze trade damage (base only)", 1,
+      dmgBy(d.rounds[0].lines, "Flash Freeze lands DIRECT", "Maelis"));
+    row("base:freeze:root", "base ROOT: bag cannot move next round despite trading", "stays NE", d.g.A.pos, d.g.A.pos === "NE");
+    row("base:freeze:frost", "Flash Freeze frosts the target quadrant on base", "frost at NE", d.g.terrain.NE?.kind,
       d.g.terrain.NE?.kind === "frost" || d.rounds[0].lines.join().includes("Frost claims NE"));
-  });
-
-  test("Avalanche: +1, +1 per Frost quadrant (max +2)", () => {
-    boot();
-    const mk = (frostCount, seed) => advWin("aval", { f: "V", type: "rush", name: "Avalanche" }, {
-      seed,
-      before: (gm) => { ["SW", "SE", "NW"].slice(0, frostCount).forEach((q) => { gm.terrain[q] = { kind: "frost", until: 99 }; }); },
-      plan: { secondary: "NW" },
-    });
-    const tot = (d) => dmgBy(d.rounds[0].lines, "Avalanche lands DIRECT", "Maelis") + dmgBy(d.rounds[0].lines, "Avalanche surge", "Maelis") + dmgBy(d.rounds[0].lines, "The frost joins in", "Maelis");
-    rowEq("adv:aval:0frost", "Avalanche adv, 0 frost", 3, tot(mk(0, 431)));
-    rowEq("adv:aval:1frost", "Avalanche adv, 1 frost", 4, tot(mk(1, 432)));
-    rowEq("adv:aval:3frost", "Avalanche adv, 3 frost (cap +2)", 5, tot(mk(3, 433)));
   });
 
   test("Doombrand: +1 and the fuse shortens to next round", () => {
