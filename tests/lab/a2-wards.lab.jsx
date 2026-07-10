@@ -110,12 +110,12 @@ describe("ward base utilities fire regardless of contact", () => {
     const d = wardIdle("O", "knit", { set: { hp: 10 } });
     rowEq("ward:knit:heal", "heal 1", 1, healsTo(d.rounds[0].lines, "Marrow"));
   });
-  test("Bulwark Frame heals 1 only at 3◆", () => {
+  test("Bulwark Frame heals 2 only when cast at a full bank", () => {
     boot();
     const rich = wardIdle("K", "frame", { set: { hp: 10, pow: 3 } });
-    rowEq("ward:frame:rich", "heal 1 at 3◆", 1, healsTo(rich.rounds[0].lines, "Koros"));
+    rowEq("ward:frame:rich", "heal 2 at full 3◆ (checked pre-cost)", 2, healsTo(rich.rounds[0].lines, "Koros"));
     const poor = wardIdle("K", "frame", { set: { hp: 10, pow: 2 }, seed: 57 });
-    rowEq("ward:frame:poor", "no heal below 3◆", 0, healsTo(poor.rounds[0].lines, "Koros"));
+    rowEq("ward:frame:poor", "no heal below full", 0, healsTo(poor.rounds[0].lines, "Koros"));
   });
   test("Life Tap: 1 blood → +1◆ (idle, no Surplus)", () => {
     boot();

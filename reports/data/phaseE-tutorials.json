@@ -84,22 +84,30 @@
   ]
  },
  "K": {
-  "rails": 6,
+  "rails": 8,
   "completions": "20/20",
-  "storyProvides": 0,
+  "storyProvides": 2,
   "exchangeLossRounds": [],
   "issues": [],
   "coverage": [
    {
-    "name": "powered swing or armor",
+    "name": "discharge field install",
     "shown": true
    },
    {
-    "name": "overcharge",
+    "name": "field bites",
     "shown": true
    },
    {
-    "name": "big cast",
+    "name": "full-bank payoff",
+    "shown": true
+   },
+   {
+    "name": "finality beam",
+    "shown": true
+   },
+   {
+    "name": "beam recoil root",
     "shown": true
    }
   ]

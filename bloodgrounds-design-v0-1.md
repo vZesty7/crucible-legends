@@ -377,23 +377,25 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 
 ---
 
-### KOROS THE ANVILHEART — Arcane Golem
-**Champion · 13 HP** — One of the great arcane machines that ended the old world; it woke halfway through a siege, finished the shot, and has fought on its own terms ever since. Its heart is a battery; the whole duel is deciding when to spend it.
-**Kit rule — Capacitor:** while holding **2◆ or more**, Koros's attacks and counters deal +1. While at **3◆**, it also takes −1 from all damage. Spending breaks the charge.
-**Gameplan:** charge to full, bully with buffed free attacks, then find the one turn worth going dark for.
+### KOROS, THE WARCASTER — Arcane Golem *(full rework v0.84 — the Capacitor is deleted; the siege engine stands in its place)*
+**Champion · 13 HP** — One of the great arcane machines that ended the old world; it woke halfway through a siege, finished the shot, and has fought on its own terms ever since. Ground taken is ground kept.
+**Kit rule — a full bank is never armor.** Holding 3◆ grants no stat effect of any kind. A full bank is ammunition: it is what Bulwark Frame vents, what the Finality Beam costs, what Overclock arms, and what Siege Protocol converts.
+**Kit rule — DISCHARGE FIELD** *(installed by Arc Discharge, permanent)*: an enemy FIGHTER who starts a round in, ends a round in, or collides in Koros's current quadrant takes 1 — at most once per round, always exactly 1, never modified by any bonus (reductions still apply — the law is never up). Companions are never harmed. The field follows him.
+**Kit rule — STUNNED companions**: inactive on their next turn — no movement, no action, no effects — but duration clocks still tick.
+**Gameplan:** install the Field, choose your ground, and stand on it. The bank climbs while the Field collects rent; spend the summit on repairs or the Beam.
 
-**Abilities (pick 4 of 6):**
-- **Cannonarm** — Break · 0◆ — 2 dmg. *Adv:* +1 and knockback to any quadrant.
-- **Flux Jab** — Rush · 0◆ — 1 dmg. *Adv:* gain +1◆.
-- **Bulwark Frame** — Ward · 0◆ — Block; heal 1 if at 3◆ (vent the excess into repairs). *Adv:* counter 1.
-- **Gyro Anchor** — Ward · 1◆ — Block; you cannot be knocked back this round. *Adv:* counter 1 and gain 1◆.
-- **Arc Discharge** — Rush · 2◆ — 3 dmg. *Adv:* the enemy loses 1◆ (grounded out).
-- **Overload Core** — Break · 3◆ — 4 dmg. *Adv:* +1 dmg. *(Firing it zeroes Capacitor — the swing turn that leaves him naked.)*
+**Abilities (pick 4 of 6) — pool census 3 Ward / 2 Break / 1 Rush, Champion doctrine:**
+- **Cannonarm** — Break · 0◆ — 1 dmg. *Adv:* +1 dmg. *(Siege Protocol's conversion target — see passives.)*
+- **Flux Jab** — Rush · 0◆ — 1 dmg. *Adv:* +1 dmg. *(The kit's lone rush; the bank-builder.)*
+- **Gyro Anchor** — Ward · 0◆ *(repriced from 1◆)* — Counter stance; you cannot be knocked back this round. *Adv:* +1 counter.
+- **Bulwark Frame** — Ward · 1◆ *(repriced from 0◆)* — Counter stance; if cast at a FULL 3◆ bank — checked before the cost is paid — the surplus vents into repairs: **heal 2**. Below full it repairs nothing. *Adv:* +1 counter.
+- **Arc Discharge** — Ward · 2◆ *(retyped from Rush)* — Counter stance with teeth: this ward's **riposte is 2** (Advantage adds its +1 to that riposte only). Casting it permanently installs the **DISCHARGE FIELD**. *Adv:* +1 counter.
+- **Finality Beam** — Break · 3◆ *(was Overload Core)* — **5 dmg, the game's true nuke**: on connect it RAZES all terrain in the target quadrant (any owner's) and STUNS any companion there. After casting — hit or whiff — Koros is **ROOTED the following round**. *Adv:* +1 dmg.
 
 **Passives (pick 1):**
-- **Overclock** — if you start a round at 3◆, your ability this round costs 1◆ less.
-- **Reinforced Chassis** — Capacitor's damage reduction activates at 2◆ instead of 3◆.
 - **Emergency Vent** — the first time you drop to 5 HP or less, gain 3◆ (once per match).
+- **Overclock** *(reworked)* — every time your bank RISES to a full 3◆, the surge arms: gain **Flow** (next connect +1; standard Flow law — never stacks, only refreshes).
+- **Siege Protocol** *(new)* — at a full 3◆ bank you MAY convert it (player's choice; spends the 3◆; once per game; permanent): Cannonarm becomes the **SIEGE CANNON** — every cast shells ALL THREE quadrants Koros does not occupy for its base damage, **cannot be denied by losing the triangle** (always lands base, even on disadvantage), and is **always NEUTRAL to wards**: wards neither catch it nor are broken by it — no riposte against it, no guard-break bonus from it, no Advantage riders in either direction. The only shelter is standing beside the barrels.
 
 ---
 
@@ -452,7 +454,7 @@ Stages add terrain rules and, rarely, their own win conditions:
 
 **ASHKARRA** — min 1 + Burn · burn ticks ~1/round ambient · ceiling 2-stack Combustion 2+4+1 = **7** (Everburn 3-stack: **9** — the roster's tallest number, and it needs three banked stacks to exist).
 
-**KOROS** — min 1 · mid paid Arc from full: 3+1 = **4 per 2◆** · ceiling Core from full 4+1+1(adv) = **6** + Nova aftermath — then 0◆, unarmored, any Overcharge already paid in blood.
+**KOROS** *(v0.84 numbers)* — min 1 + the Field's 1/round rent once installed · mid Arc catch: riposte 2+1(adv) = **3 per 2◆**, plus the permanent Field install · ceiling Finality Beam 5+1(adv) = **6** (8 in the final clash by flat law) — then Rooted, the siege gun cooling.
 
 **ZHAL-MERAQ** — min Ruinfire 2 for 1 HP (best floor in the game, blood-priced) · Tap+Surplus = 2◆ per ward-round (strongest economy, costs action+blood) · ceiling Oblivion Pact 4+1 = **5** for 2◆+2 HP.
 

@@ -19,13 +19,8 @@ const OWNER = {
   Y: { pass: "rider" }, W: { pass: "parting" }, X: { pass: "pedge" },
 };
 
-/* Koros abilities are cast at exactly their cost (below full) so the innate
-   powered-swing doesn't fire — except Overload Core, which can only ever be
-   cast from full: its powered +1 is part of its canonical number. */
-const POW_FOR = { arc: 2 };
-
 function kit(fk, ab) {
-  return { fk, load: [ab, "bB", "bR", "bW"], pass: OWNER[fk].pass, set: { pow: POW_FOR[ab] ?? 3, hp: 20, maxHp: 20 } };
+  return { fk, load: [ab, "bB", "bR", "bW"], pass: OWNER[fk].pass, set: { pow: 3, hp: 20, maxHp: 20 } };
 }
 
 /* Maelis abilities need a non-Maelis victim (name collision + water immunity) */
@@ -61,7 +56,7 @@ describe("attack abilities — printed base damage in a trade", () => {
     ["viper", 1], ["umbral", 1], ["twin", 1], ["heart", 1],
     ["lance", 1], ["spike", 2], ["freeze", 1], ["aval", 2],
     ["cinder", 1], ["magma", 1], ["flash", 1], ["comb", 2], ["pyre", 2],
-    ["cannon", 1], ["flux", 1], ["arc", 3], ["core", 5, "4 printed + 1 powered: Core is only castable from full charge"],
+    ["cannon", 1], ["flux", 1], ["core", 5, "Finality Beam printed 5"],
     ["ruin", 2], ["chains", 1], ["brand", 1], ["dark", 2], ["pact", 4],
     ["censure", 1], ["llance", 1], ["consec", 1], ["dawn", 3],
     ["stick", 1], ["eye", 1], ["mireA", 1], ["sorrow", 2],
@@ -88,7 +83,7 @@ describe("attack abilities — advantage adds exactly +1 (plain riders)", () => 
     ["viper", 1], ["umbral", 1], ["twin", 1], ["heart", 1],
     ["lance", 1], ["spike", 2],
     ["cinder", 1], ["magma", 1], ["flash", 1], ["comb", 2],
-    ["cannon", 1], ["flux", 1], ["core", 5, "printed 4 + powered 1"],
+    ["cannon", 1], ["flux", 1], ["core", 5, "Finality Beam printed 5"],
     ["ruin", 2, "engine rider is +1; doc roster's '+2' predates the v0.9.1 flatten"],
     ["chains", 1], ["dark", 2], ["pact", 4],
     ["llance", 1], ["dawn", 3],
@@ -151,13 +146,6 @@ describe("signature advantage riders — +1 AND the effect", () => {
     rowEq("adv:aval:0frost", "Avalanche adv, 0 frost", 3, tot(mk(0, 431)));
     rowEq("adv:aval:1frost", "Avalanche adv, 1 frost", 4, tot(mk(1, 432)));
     rowEq("adv:aval:3frost", "Avalanche adv, 3 frost (cap +2)", 5, tot(mk(3, 433)));
-  });
-
-  test("Arc Discharge: +1 and the enemy loses 1◆", () => {
-    boot();
-    const d = advWin("arc", { f: "K", type: "rush", name: "Arc Discharge" }, { bagPow: 2 });
-    rowEq("adv:arc:dmg", "Arc adv total", 4, sigTotal(d, "Arc Discharge", "Arc Discharge grounds out"));
-    rowEq("adv:arc:drain", "bag 2◆ − 1 drain + 1 income", 2, d.g.A.pow);
   });
 
   test("Doombrand: +1 and the fuse shortens to next round", () => {

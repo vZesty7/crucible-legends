@@ -48,14 +48,6 @@
   "note": ""
  },
  {
-  "id": "eco:overclock",
-  "mechanic": "Arc at 3◆ costs 1 (3−1=2, no income)",
-  "expected": "2",
-  "observed": "2",
-  "pass": true,
-  "note": ""
- },
- {
   "id": "eco:tempo",
   "mechanic": "broken spender keeps tempo ◆ (1−1+1)",
   "expected": "1",
@@ -88,46 +80,6 @@
   "note": ""
  },
  {
-  "id": "koros:armor",
-  "mechanic": "1-damage hit absorbed at 3◆",
-  "expected": "0",
-  "observed": "0",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "koros:powered",
-  "mechanic": "Arc from full charge (trade)",
-  "expected": "4",
-  "observed": "4",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "koros:chargeBuilt",
-  "mechanic": "overcharge built after full round",
-  "expected": "OVERCHARGE builds",
-  "observed": "",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "koros:vented",
-  "mechanic": "vent damage on the next paid attack",
-  "expected": "1",
-  "observed": "1",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "koros:chargeCleared",
-  "mechanic": "charge cleared after venting",
-  "expected": "0",
-  "observed": "0",
-  "pass": true,
-  "note": ""
- },
- {
   "id": "koros:vent",
   "mechanic": "Emergency Vent surged to 3◆",
   "expected": "3◆",
@@ -136,17 +88,9 @@
   "note": ""
  },
  {
-  "id": "koros:ventLine",
-  "mechanic": "vent narrated",
-  "expected": "Emergency Vent",
-  "observed": "",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "koros:nova",
-  "mechanic": "nova blast 1 to the co-occupant at round end",
-  "expected": "NOVA line + 1 dmg",
+  "id": "koros:noArmor",
+  "mechanic": "Capacitor armor is gone: 1-damage trade lands in full",
+  "expected": "1",
   "observed": "",
   "pass": true,
   "note": ""

@@ -54,17 +54,6 @@ describe("economy laws", () => {
     rowEq("eco:reserves", "3◆ + income = 4 under Deep Reserves", 4, d.g.P.pow);
   });
 
-  test("Overclock: at 3◆ abilities cost 1 less", () => {
-    boot();
-    const d = duel({
-      p: { fk: "K", load: ["arc", "cannon", "flux", "gyro"], pass: "overclock", set: { pow: 3, hp: 20, maxHp: 20 } },
-      a: KBAG(), seed: 104,
-      rounds: [{ p: { ab: "arc", target: "SE" }, a: { ab: "flux", target: "SE" } }],
-    });
-    // arc costs 2 → discounted 1 → 3−1 = 2, spent so no income
-    rowEq("eco:overclock", "Arc at 3◆ costs 1 (3−1=2, no income)", 2, d.g.P.pow);
-  });
-
   test("Steel Tempo: +1◆ when your action is broken", () => {
     boot();
     const d = duel({
@@ -107,45 +96,8 @@ describe("economy laws", () => {
   });
 });
 
-describe("Koros package", () => {
-  test("Capacitor: −1 from everything at 3◆", () => {
-    boot();
-    const d = duel({
-      p: { fk: "G", load: ["skull", "howl", "sunder", "iron"], pass: "warmonger", set: { pow: 3, hp: 20, maxHp: 20 } },
-      a: KBAG({ pow: 3 }), seed: 110,
-      rounds: [{ p: { ab: "skull", target: "NE" }, a: { ab: "cannon", target: "SW" } }],
-    });
-    // trade: skull 1 → armored to absorbed
-    rowEq("koros:armor", "1-damage hit absorbed at 3◆", 0, dmgTo(d.rounds[0].lines, "Koros"));
-  });
-
-  test("powered swing: +1 when cast from full charge, once per exchange", () => {
-    boot();
-    const d = duel({
-      p: { fk: "K", load: ["arc", "cannon", "flux", "gyro"], pass: "vent", set: { pow: 3, hp: 20, maxHp: 20 } },
-      a: { ...BAG, set: { hp: 25, maxHp: 25 } }, seed: 111,
-      rounds: [{ p: { ab: "arc", target: "NE" }, a: { ab: "bR", target: "SW" } }],
-    });
-    // trade: arc 3 + powered 1 = 4
-    rowEq("koros:powered", "Arc from full charge (trade)", 4, dmgTo(d.rounds[0].lines, "Maelis"));
-  });
-
-  test("Overcharge: rounds ended at full build charge; next paid attack vents it into him", () => {
-    boot();
-    const d = duel({
-      p: { fk: "K", load: ["arc", "cannon", "flux", "gyro"], pass: "vent", set: { pow: 3, hp: 20, maxHp: 20 } },
-      a: KBAG(), seed: 112,
-      rounds: [
-        { p: { ab: "flux", target: "SE" }, a: { ab: "flux", target: "SE" } }, // end at 3◆ → charge 1
-        { p: { ab: "arc", target: "SE" }, a: { ab: "flux", target: "SE" } }, // paid attack → vents 1 into him
-      ],
-    });
-    row("koros:chargeBuilt", "overcharge built after full round", "OVERCHARGE builds", "", d.rounds[0].lines.some((t) => t.includes("OVERCHARGE builds")));
-    rowEq("koros:vented", "vent damage on the next paid attack", 1, dmgTo(d.rounds[1].lines, "Koros"));
-    rowEq("koros:chargeCleared", "charge cleared after venting", 0, d.g.P.charge);
-  });
-
-  test("Emergency Vent: first time at ≤5 HP, gain 3◆", () => {
+describe("Koros package (post-rework: Capacitor deleted; new kit guarded in tests/koros-guardrails)", () => {
+  test("Emergency Vent: first time at ≤5 HP, gain 3◆ (unchanged)", () => {
     boot();
     const d = duel({
       p: { fk: "G", load: ["sunder", "skull", "howl", "iron"], pass: "warmonger", set: { pow: 3, hp: 20, maxHp: 20 } },
@@ -153,22 +105,8 @@ describe("Koros package", () => {
       seed: 113,
       rounds: [{ p: { ab: "skull", target: "NE" }, a: { ab: "cannon", target: "SW" } }],
     });
-    // trade: bag drops 6→5 → vent fires → 3◆ (+1 income = 3 capped)
     row("koros:vent", "Emergency Vent surged to 3◆", "3◆", d.g.A.pow, d.g.A.pow === 3);
-    row("koros:ventLine", "vent narrated", "Emergency Vent", "", d.rounds[0].lines.some((t) => t.includes("Emergency Vent")));
-  });
-
-  test("Discharge Nova: paid attack landing at 0◆ blasts the shared square", () => {
-    boot();
-    const d = duel({
-      p: { fk: "K", load: ["arc", "cannon", "flux", "gyro"], pass: "nova", set: { pow: 2, hp: 20, maxHp: 20 } },
-      a: KBAG(), seed: 114,
-      rounds: [{
-        before: (gm) => { gm.A.pos = "SW"; }, // share the square
-        p: { ab: "arc", target: "SW" }, a: { ab: "flux", target: "SW" },
-      }],
-    });
-    row("koros:nova", "nova blast 1 to the co-occupant at round end", "NOVA line + 1 dmg", "", d.rounds[0].lines.some((t) => t.includes("NOVA") || t.includes("Nova blast")));
+    row("koros:noArmor", "Capacitor armor is gone: 1-damage trade lands in full", "1", "", d.rounds[0].lines.some((t) => t.includes("Skullsplitter lands DIRECT — Koros takes 1")));
   });
 });
 

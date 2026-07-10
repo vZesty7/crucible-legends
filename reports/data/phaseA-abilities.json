@@ -160,20 +160,12 @@
   "note": ""
  },
  {
-  "id": "base:arc",
-  "mechanic": "Arc Discharge base damage (trade)",
-  "expected": "3",
-  "observed": "3",
-  "pass": true,
-  "note": ""
- },
- {
   "id": "base:core",
-  "mechanic": "Overload Core base damage (trade)",
+  "mechanic": "Finality Beam base damage (trade)",
   "expected": "5",
   "observed": "5",
   "pass": true,
-  "note": "4 printed + 1 powered: Core is only castable from full charge"
+  "note": "Finality Beam printed 5"
  },
  {
   "id": "base:ruin",
@@ -537,11 +529,11 @@
  },
  {
   "id": "adv:core",
-  "mechanic": "Overload Core advantage total",
+  "mechanic": "Finality Beam advantage total",
   "expected": "6",
   "observed": "6",
   "pass": true,
-  "note": "printed 4 + powered 1"
+  "note": "Finality Beam printed 5"
  },
  {
   "id": "adv:ruin",
@@ -796,22 +788,6 @@
   "mechanic": "Avalanche adv, 3 frost (cap +2)",
   "expected": "5",
   "observed": "5",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "adv:arc:dmg",
-  "mechanic": "Arc adv total",
-  "expected": "4",
-  "observed": "4",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "adv:arc:drain",
-  "mechanic": "bag 2◆ − 1 drain + 1 income",
-  "expected": "2",
-  "observed": "2",
   "pass": true,
   "note": ""
  },

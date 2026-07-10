@@ -80,7 +80,7 @@ const SIGNATURES = {
   M: [["poison application", /gains \d Poison/], ["rupture or detonation", /RUPTURE|HEARTSEEKER/], ["blood tithe", /Blood Tithe/]],
   V: [["chill", /is Chilled/], ["frost ground", /Frost claims/], ["shatter", /SHATTER/]],
   C: [["burn application", /is Burning/], ["burn tick", /Burning —/], ["detonation or pyre", /COMBUSTION|Pyre/]],
-  K: [["powered swing or armor", /Powered swing|absorbed/], ["overcharge", /OVERCHARGE/], ["big cast", /Overload Core lands/]],
+  K: [["discharge field install", /DISCHARGE FIELD INSTALLED/], ["field bites", /Discharge Field.*takes 1/], ["full-bank payoff", /Bulwark Frame vents the full bank|OVERCLOCK/], ["finality beam", /Finality Beam/], ["beam recoil root", /Rooted/]],
   Z: [["blood price", /pays \d blood|trades 1 blood/], ["life tap economy", /Life Tap/], ["doombrand clock", /BRANDED|DOOMBRAND/]],
   L: [["sanctuary", /Sanctuary/], ["relic", /Relic|relic/], ["censure denial", /gains no ◆/]],
   O: [["curse application", /gains \d Curse/], ["curse collection", /Curses collect/], ["heal denial (juju)", /refuse the healing/]],

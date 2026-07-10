@@ -41,7 +41,9 @@ const STATUS_INFO = {
   burn: "🔥 BURN — smoldering fuel. At round's end: take 1, then a stack fades (cap 2). Combustion detonates stacks EARLY at double value — consumed stacks never tick.",
   chill: "❄ CHILLED — the next Break that hits you SHATTERS: +1 damage (+2 if Vessk carries Shatterpoint); then the chill is consumed.",
   tolleye: "👁 WATCHER'S TOLL — the hawk's gaze has locked the foe's path: they WILL move to (or hold) the marked quadrant this round. You know where they'll be. Aim.",
-  overcharge: "⚡ OVERCHARGE — Koros ended a round at full charge; each counter deals 1 to HIM when he next pays ◆ for an attack. Spend rhythmically, or vent into Bulwark Frame repairs.",
+  dfield: "🛰 DISCHARGE FIELD — Koros's quadrant is permanently electrified: an enemy FIGHTER who starts a round there, ends a round there, or collides there takes 1 — at most once per round, always exactly 1, never modified. Companions are never harmed. Installed by Arc Discharge; it follows him wherever he stands.",
+  siege: "⚙ SIEGE CANNON — the converted Cannonarm shells ALL THREE quadrants Koros does not occupy, every cast. It cannot be denied by losing the triangle, and wards mean nothing to it: no catch, no riposte, no guard-break, no Advantage riders in either direction. The only shelter is standing beside the barrels.",
+  stunned: "💫 STUNNED — a stunned companion is inactive on its next turn: it cannot move, act, or produce effects. Its lifespan clock still ticks.",
   rooted: "⛓ ROOTED — you cannot choose to move next round (knockbacks still move you).",
   skyf: "☄ SKYFALL LOADED — for that many more rounds, an arrow storm strikes a RANDOM quadrant at round's end: 2 dmg and a Mark if it finds the enemy.",
   knock: "🚪 THE THIRD KNOCK — every third wound Zhal takes (his own blood counts) makes the Door answer at round's end: a nether claw lashes a RANDOM quadrant for 2, striking everyone standing there — even Zhal. The claw's wound never knocks. The count resets, and the knocking begins again.",
@@ -111,10 +113,10 @@ const ABILITIES = {
   // Koros
   cannon: { f: "K", name: "Cannonarm", type: "break", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg", adv: "+1 dmg", lore: "Original purpose, rediscovered." },
   flux: { f: "K", name: "Flux Jab", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg", adv: "+1 dmg", lore: "A tap that recharges the tapper." },
-  frame: { f: "K", name: "Bulwark Frame", type: "ward", cost: 0, text: "Counter stance; heal 1 if holding 3◆ (vent into repairs)", adv: "+1 counter", lore: "Overfull batteries mend the hull." },
-  gyro: { f: "K", name: "Gyro Anchor", type: "ward", cost: 1, text: "Counter stance; you cannot be knocked back this round", adv: "+1 counter", lore: "You cannot move what refuses arithmetic." },
-  arc: { f: "K", name: "Arc Discharge", type: "rush", cost: 2, dmg: 3, needsTarget: true, text: "3 dmg", adv: "+1 dmg; enemy loses 1◆", lore: "Lightning, itemized." },
-  core: { f: "K", name: "Overload Core", type: "break", cost: 3, dmg: 4, needsTarget: true, text: "4 dmg — firing it drains your whole Capacitor", adv: "+1 dmg", lore: "Everything, all at once, then nothing." },
+  frame: { f: "K", name: "Bulwark Frame", type: "ward", cost: 1, text: "Counter stance; if cast at a FULL 3◆ bank (checked before paying), the surplus vents into repairs: heal 2", adv: "+1 counter", lore: "Overfull batteries mend the hull." },
+  gyro: { f: "K", name: "Gyro Anchor", type: "ward", cost: 0, text: "Counter stance; you cannot be knocked back this round", adv: "+1 counter", lore: "You cannot move what refuses arithmetic." },
+  arc: { f: "K", name: "Arc Discharge", type: "ward", cost: 2, text: "Counter stance; the coils bite — this ward's riposte is 2. Casting it installs the DISCHARGE FIELD for the rest of the game: an enemy fighter starting a round in, ending a round in, or colliding in Koros's quadrant takes 1 (once per round, flat)", adv: "+1 counter", lore: "Lightning, itemized." },
+  core: { f: "K", name: "Finality Beam", type: "break", cost: 3, dmg: 5, needsTarget: true, text: "5 dmg — the true nuke: on connect it RAZES all terrain in the target quadrant and STUNS any companion there. After firing, Koros is ROOTED the following round", adv: "+1 dmg", lore: "Everything, all at once, then nothing." },
   // Zhal-Meraq (Warlock)
   ruin: { f: "Z", name: "Ruinfire", type: "break", cost: 0, hpCost: 1, dmg: 2, needsTarget: true, text: "2 dmg (costs 1 HP)", adv: "+1 dmg", lore: "The pact charges interest in advance." },
   chains: { f: "Z", name: "Umbral Chains", type: "rush", cost: 1, dmg: 1, needsTarget: true, text: "1 dmg; enemy deals −1 next round", adv: "+1 dmg", lore: "Bindings written in someone else's screaming." },
@@ -183,8 +185,8 @@ const PASSIVES = {
   everburn: { name: "Everburn", text: "Your Burn cap becomes 3" },
   heatrise: { name: "Heat Rising", text: "Gain +1◆ when the foe burns" },
   killheat: { name: "Killing Heat", text: "+1 dmg in Clashes and Collisions while the foe Burns" },
-  overclock: { name: "Overclock", text: "At 3◆, abilities cost 1 less" },
-  nova: { name: "Discharge Nova", text: "When a paid attack leaves you at 0◆, the blast vents outward: an enemy in your quadrant takes 1, their companion there is stunned a round, and any zone under you is scoured away" },
+  overclock: { name: "Overclock", text: "Every time your bank RISES to a full 3◆, the surge arms: gain Flow (next connect +1; never stacks, only refreshes)" },
+  siege: { name: "Siege Protocol", text: "At a full 3◆ bank you MAY convert it (spends the 3◆, once per game, permanent): Cannonarm becomes the SIEGE CANNON — every cast shells ALL THREE other quadrants for its base damage, cannot be denied by the triangle, and is NEUTRAL to wards (no catch, no break, no riders either way)" },
   vent: { name: "Emergency Vent", text: "First time ≤5 HP: gain 3◆" },
   surplus: { name: "Blood Surplus", text: "Whenever you pay HP, gain +1◆" },
   agonist: { name: "Agonist", text: "+1 dmg vs enemies you've Weakened or Branded" },
@@ -214,7 +216,7 @@ const FIGHTERS = {
   M: { key: "M", name: "MALETH, THE HOLLOW BLADE", short: "Maleth", sub: "Dark Elf Assassin · Duelist", hp: 10, pool: ["viper", "blackout", "umbral", "gloom", "twin", "heart"], passives: ["twist", "tithe", "craven"], aiLoad: ["viper", "gloom", "umbral", "heart"], aiPass: "tithe", hex: "#10b981", tone: "text-emerald-400", ring: "ring-emerald-500", bar: "bg-emerald-500", blurb: "Denies the fight until the moment it's already lost. Poison does the waiting.", lore: "They say Maleth and Gharzul have killed each other twice already, and neither considers the matter settled. Where the orc demands the fight, Maleth declines it until it's already lost — the poison does the waiting; the blade only signs the work.", style: "Playstyle: evasion and setup. Stack Poison on every contact, dodge with Umbral Step, avoid collisions, execute the wounded.", mech: "POISON — stacks on any contact; the 3rd stack RUPTURES for 3, or Heartseeker detonates stacks early at double and cannot whiff a poisoned target. Umbral Step picks its movement AFTER the reveal." },
   V: { key: "V", name: "VESSK, THE RIMEBOUND", short: "Vessk", sub: "Cryomancer · Shaper", hp: 12, pool: ["lance", "hoar", "spike", "freeze", "mantle", "aval"], passives: ["permafrost", "shatter", "numb"], aiLoad: ["lance", "hoar", "spike", "aval"], aiPass: "shatter", hex: "#38bdf8", tone: "text-sky-300", ring: "ring-sky-500", bar: "bg-sky-500", blurb: "Freezes the ground, then shatters what stands on it. An executioner with a glacier heart.", lore: "The last lord of a winter court that froze rather than kneel — coronet in his hair, runes burning cold on the coat. He doesn't chase — he makes the ground disloyal.", style: "Playstyle: territory control. Paint Frost, herd them onto it with knockback, Chill through chip, then cash the SHATTER with a Break.", mech: "FROST & CHILL — Frost ground Chills anyone ending a round there; Chilled fighters take a SHATTER bonus from the next Break that lands." },
   C: { key: "C", name: "ASHKARRA CINDERFIST", short: "Ashkarra", sub: "Pyromancer · Ravager", hp: 11, pool: ["cinder", "magma", "flash", "smoke", "comb", "pyre"], passives: ["everburn", "heatrise", "killheat"], aiLoad: ["cinder", "smoke", "comb", "pyre"], aiPass: "heatrise", hex: "#f97316", tone: "text-orange-400", ring: "ring-orange-500", bar: "bg-orange-500", blurb: "A pit-fighter with slag-chained fists. Her fire doesn't ask permission — it lingers.", lore: "A pit-fighter with slag-chained fists and a fire-veil where the grin used to show. Her fire doesn't ask permission; it lingers, compounds, and collects.", style: "Playstyle: attrition ravager. Burn on every touch, cover retreats with Pyre, then detonate the stacks with Combustion.", mech: "BURN — sticks on any contact; at round's end each victim takes 1, then a stack fades. Let it smolder for slow value, or COMBUST the stacks early at DOUBLE value. Pyre scorches three quadrants." },
-  K: { key: "K", name: "KOROS, THE WARCASTER", short: "Koros", sub: "Arcane Golem · Champion", hp: 13, pool: ["cannon", "flux", "frame", "gyro", "arc", "core"], passives: ["overclock", "nova", "vent"], aiLoad: ["cannon", "flux", "gyro", "core"], aiPass: "vent", hex: "#a78bfa", tone: "text-violet-300", ring: "ring-violet-500", bar: "bg-violet-500", blurb: "An arcane machine from the old calamities, fighting now by choice. Holding its charge makes it a fortress.", lore: "One of the great arcane machines that helped end the old world — it woke halfway through a siege, finished the shot, and has fought on its own terms ever since. Its heart is a battery; the whole duel is deciding when to spend it. Its maker's mark is Ϟ — koppa, the letter the alphabet retired — and the reactor bears Φ: flux, the current made flesh.", style: "Playstyle: the rhythm engine. Bank to full for armor, but not for long — OVERCHARGE builds each round at cap and vents into HIM on his next paid swing. Spend, recharge, spend.", mech: "CAPACITOR — ONE threshold: at full 3◆ he takes −1 from everything, and any ability cast FROM full charge hits +1. But each round ENDED at full stacks OVERCHARGE — 1 self-damage per stack on his next paid attack. Reach full, strike from it, don't squat on it." },
+  K: { key: "K", name: "KOROS, THE WARCASTER", short: "Koros", sub: "Arcane Golem · Champion", hp: 13, pool: ["cannon", "flux", "frame", "gyro", "arc", "core"], passives: ["vent", "overclock", "siege"], aiLoad: ["cannon", "flux", "gyro", "arc"], aiPass: "overclock", hex: "#a78bfa", tone: "text-violet-300", ring: "ring-violet-500", bar: "bg-violet-500", blurb: "An arcane machine from the old calamities, fighting now by choice. Ground taken is ground kept.", lore: "One of the great arcane machines that helped end the old world — it woke halfway through a siege, finished the shot, and has fought on its own terms ever since. Its heart is a battery; the whole duel is deciding when to spend it. Its maker's mark is Ϟ — koppa, the letter the alphabet retired — and the reactor bears Φ: flux, the current made flesh.", style: "Playstyle: the siege engine. Install the Discharge Field and stand your ground — the field collects rent while the bank climbs to the Finality Beam. A full bank is never armor; it is ammunition.", mech: "DISCHARGE FIELD — Arc Discharge permanently electrifies his square: enemy fighters entering, ending, or colliding there take 1 (once a round, flat). FINALITY BEAM — 5 damage, razes the target quadrant's terrain, stuns companions; Koros is Rooted the round after firing." },
   Z: { key: "Z", name: "ZHAL-MERAQ OF THE OPEN DOOR", short: "Zhal", sub: "Warlock · Ravager", hp: 14, pool: ["ruin", "chains", "tap", "brand", "dark", "pact"], passives: ["surplus", "agonist", "knock"], aiLoad: ["chains", "tap", "dark", "pact"], aiPass: "surplus", hex: "#a855f7", tone: "text-purple-400", ring: "ring-purple-500", bar: "bg-purple-500", blurb: "He signed something, once, in a language made of screaming.", lore: "He signed something, once, in a language made of screaming. Now he pays in blood and collects in ruin. Nobody knows who left the door open — and Zhal-Meraq has never once denied it.", style: "Playstyle: high risk, high reward. Burn HP for above-rate damage on the Ruin half, or Weaken and Brand on the Affliction half — then drain it back.", mech: "BLOOD PRICE — some abilities cost HP (never below 1, and it doesn't stop ◆ generation). Doombrand is a 3-damage time bomb on a fuse." },
   L: { key: "L", name: "SER KASTOR VAEL, THE LAST VIGIL", short: "Kastor", sub: "Paladin · Champion", hp: 15, pool: ["censure", "llance", "oath", "aegis", "consec", "dawn"], passives: ["pilgrim", "vigil", "sanct"], aiLoad: ["llance", "oath", "aegis", "dawn"], aiPass: "vigil", hex: "#eab308", tone: "text-yellow-400", ring: "ring-yellow-500", bar: "bg-yellow-500", blurb: "He does not chase. He holds.", lore: "The last knight of a dead order, armor gilded and gore-crusted in equal measure. He does not chase. He holds.", style: "Playstyle: hold ground and heal through the siege. Consecrate the squares that matter, plant on relics, and refuse to move.", mech: "RELIQUARY — relics spawn rounds 2/4/6/8; end a round on one to claim it; 3 claims = instant win (a rival claiming one destroys it for small spoils — the denial is their prize). SANCTUARY — his consecrated ground heals him 1 and SEARS anyone else 1 at round's end." },
   D: { key: "D", name: "DHORAM THE UNMOVED", short: "Dhoram", sub: "Geomancer · Champion", hp: 14, pool: ["claim", "quake", "grind", "wall", "fissure", "mount"], passives: ["roots", "reserves", "home"], aiLoad: ["grind", "claim", "quake", "mount"], aiPass: "home", hex: "#d97706", tone: "text-amber-500", ring: "ring-amber-600", bar: "bg-amber-600", blurb: "He does not fight for the arena. He replaces it.", lore: "A quarry given a grudge. He doesn't fight for the arena. He replaces it.", style: "Playstyle: plant, hoard, pave. Convert quadrants, punish anyone standing on your ground, and make the map itself the argument.", mech: "DOMINION — convert quadrants to his ground. All four and the arena KNEELS: hold them one more round to win. On Dominion his ◆ income never resets; enemies demolish a tile by landing a BREAK while standing on it." },
@@ -1743,13 +1745,15 @@ const TUTS = {
     { you: { move: "T", ab: "cinder", tgt: "F" }, foe: { ab: "howl", move: "T", tgt: "N" }, say: "He read you — a trade. Fine: trades apply Burn, and he's standing on your Scorched ground now, gaining stacks just by existing." },
     { you: { move: "H", ab: "comb", tgt: "F" }, foe: { ab: "skull", move: "H", tgt: "Y" }, say: "Stacks banked? COMBUSTION: 2 base +2 per stack detonated at DOUBLE — consumed stacks never tick, they explode. That's your kill math. Burn everything." },
   ]},
-  K: { foe: "G", pass: "nova", rails: [
-    { you: { move: "T", ab: "flux", tgt: "F" }, foe: { ab: "skull", move: "H", tgt: "Y" }, say: "Step and jab. Your whole duel is one number: FULL CHARGE. At 3◆ you take −1 from everything and your next paid ability hits +1." },
-    { you: { move: "H", ab: "cannon", tgt: "F" }, foe: { ab: "iron", move: "H", tgt: null }, say: "He wards; Cannonarm is a Break — through the guard, full damage, Advantage. Keep banking: you're building to full." },
-    { clash: true, you: { ab: "cannon" }, foe: { ab: "iron" }, say: "CLASH at full charge — you're armored (−1) and your Break shatters his Iron and trades with his. But careful: rounds ENDED at full stack OVERCHARGE, and it cuts YOU on your next paid swing. Rhythm, not hoarding." },
-    { you: { move: "H", ab: "core", tgt: "F" }, foe: { ab: "skull", move: "H", tgt: "Y" }, say: "OVERLOAD CORE from full: 4 base +1 powered. And you're at 0◆ now — DISCHARGE NOVA blasts your own square: if he shares it, he eats 1 more; zones scour; companions stun. Everything, all at once, then nothing." },
-    { you: { move: "T", ab: "flux", tgt: "F" }, foe: { ab: "howl", move: "T", tgt: "N" }, say: "Empty and unarmored — this is your weak window. Jab, rebuild, survive. Emergency Vent will refuel you once at ≤5 HP if it goes wrong." },
-    { you: { move: "H", ab: "cannon", tgt: "F" }, foe: { ab: "skull", move: "H", tgt: "Y" }, say: "Climbing back toward full. That's the whole machine: reach 3, strike FROM 3, never sit ON 3. Recharge complete." },
+  K: { foe: "C", pass: "overclock", rails: [
+    { you: { move: "T", ab: "flux", tgt: "F" }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "The machine wakes. Your heart is a BATTERY: every quiet round feeds the bank +1\u25c6, and everything this kit does is deciding when to spend it. Step toward her and open with Flux Jab \u2014 the 0\u25c6 poke that keeps the bank climbing. Her jab strikes the square you LEFT: air." },
+    { you: { move: "H", ab: "arc", tgt: null }, foe: { ab: "cinder", move: "H", tgt: "N" }, say: "She lunges \u2014 meet her in stance. ARC DISCHARGE is a WARD with teeth: the coils bite back for 2 when they catch. And the cast just INSTALLED THE DISCHARGE FIELD \u2014 for the rest of the bout, an enemy who starts a round, ends a round, or collides on YOUR square takes 1. Once a round, always exactly 1. Your ground is electric now." },
+    { clash: true, you: { ab: "cannon" }, foe: { ab: "smoke" }, say: "CLASH \u2014 she wards; your Cannonarm is a BREAK and shatters it. Winning places BOTH fighters: the script drags her onto YOUR square \u2014 watch the bell: the Field bills everyone who ends a round on Koros's ground. Rent, collected." },
+    { you: { move: "H", ab: "flux", tgt: "F" }, foe: { ab: "magma", move: "T", tgt: "Y" }, say: "She woke up on the Field \u2014 it bit her at the round's OPEN (starts-here counts too), and that is the whole trigger budget: ONCE per round, never more, never modified. She flees your square swinging; your Flux follows her out. Stand your ground \u2014 the Field pays you to be stubborn." },
+    { you: { move: "H", ab: "gyro", tgt: null }, foe: { ab: "flash", move: "H", tgt: "N" }, say: "GYRO ANCHOR \u2014 the free ward: nothing can shove you off your electric ground. She dives; the anchor catches. And listen \u2014 the bank just hit 3\u25c6: OVERCLOCK arms the surge. FLOW: your next connect strikes +1. A full bank is never armor here. It is ammunition." },
+    { you: { move: "H", ab: "frame", tgt: null }, foe: { ab: "smoke", move: "H", tgt: null }, say: "First way to spend a full bank: BULWARK FRAME. Cast at a FULL 3\u25c6 \u2014 checked before the cost is paid \u2014 the surplus vents into repairs: HEAL 2. Below full it repairs nothing. The machine mends itself only from abundance." },
+    { clash: true, you: { ab: "core" }, foe: { ab: "smoke" }, say: "CLASH \u2014 and the second way to spend a full bank. FINALITY BEAM: 3\u25c6, BREAK, 5 damage \u2014 the game's true nuke. On connect it RAZES the target square's terrain and STUNS any companion standing there. The story fills your bank; in a real bout, the Beam is what the whole battery was for." },
+    { you: { move: "H", ab: "flux", tgt: "F" }, foe: { ab: "cinder", move: "T", tgt: "N" }, say: "The recoil ROOTS you \u2014 the round after the Beam you fight where you stand; only shoves can move you. That is the rhythm of the siege engine: install the Field, choose your ground, bank to full, fire \u2014 then hold through the recoil. Ground taken is ground kept. Lesson complete." },
   ]},
   Z: { foe: "L", pass: "surplus", rails: [
     { you: { move: "T", ab: "ruin", tgt: "F" }, foe: { ab: "censure", move: "H", tgt: "Y" }, say: "RUINFIRE: 2 damage for 1 HP at zero ◆ — the best floor in the game, paid in blood. Step out of his Censure and collect." },
@@ -2222,6 +2226,7 @@ export default function App() {
       return own || (p.opts.includes(me0.pos) ? me0.pos : p.opts[0]);
     }
     if (p.kind === "kb" || p.kind === "placeFoe") {
+      if (me0.dischargeField && p.opts.includes(me0.pos)) return me0.pos;
       const haz = p.opts.find((q) => q !== foe0.pos && hazKinds.includes(g.terrain[q]?.kind));
       if (haz) return haz;
       if (me0.fk === "G" && p.opts.includes(me0.pos)) return me0.pos;
@@ -2231,12 +2236,24 @@ export default function App() {
     return p.opts[0];
   };
   const held = (f) => { const g = G.current; return (f.pass === "roots" && g.terrain[f.pos]?.kind === "dom") || !!f._noKB; };
+  // Discharge Field: an enemy FIGHTER starting a round in, ending a round in,
+  // or colliding in Koros's quadrant takes exactly 1 — at most once per round,
+  // flat, never modified by any bonus; companions are never touched.
+  const dfTrigger = (L, moment) => {
+    const g = G.current;
+    [g.P, g.A].forEach((k) => {
+      if (!k.dischargeField || k._dfUsed) return;
+      const foe = other(k);
+      if (foe.hp > 0 && k.hp > 0 && foe.pos === k.pos) {
+        k._dfUsed = true;
+        dealRaw(foe, 1, L, `Discharge Field${moment ? " — " + moment : ""}`, "ward", elOf(k), true);
+      }
+    });
+  };
 
   const dealRaw = (target, amt, L, label, ty, el, glance) => {
     let n = amt;
     if (target._ironActive && n > 0) n = Math.max(0, n - 1);
-    const thr = 3;
-    if (target.fk === "K" && target.pow >= thr && n > 0) n = Math.max(0, n - 1);
     if (n <= 0) { L.push({ t: `${label}: absorbed.` }); return; }
     target.hp -= n;
     if (G.current.stats) G.current.stats.dmg[target === G.current.P ? "A" : "P"] += n;
@@ -2260,7 +2277,6 @@ export default function App() {
     let n = base;
     if (src.fk === "G" && src.pass === "pact" && src.hp <= 6) n += 1;
     if (src.fk === "M" && src.pass === "twist" && tgt.kbLast) n += 1;
-    if (src.fk === "K" && src._powered && !src._powSpent) { n += 1; src._powSpent = true; L.push({ t: `⚡ Powered swing — the charge vents into the blow.` }); }
     if ((src.weak || 0) > 0) n = Math.max(0, n - 1);
     if (src.fk === "Z" && src.pass === "agonist" && ((tgt.weak || 0) > 0 || tgt.brandRound)) n += 1;
     if (src.fk === "W" && (tgt.mark || 0) > 0) n += Math.min(2, tgt.mark);
@@ -2327,6 +2343,7 @@ export default function App() {
     if (s.noGain) { L.push({ t: `✖ ${nm(s)} gains no ◆ (${why} denied).` }); return; }
     const b = s.pow; s.pow = Math.min(powCap(s), s.pow + n);
     if (s.pow > b) L.push({ t: `${nm(s)} +${s.pow - b}◆ (${why}).`, fx: { kind: "pow", side: sideKeyOf(s) } });
+    if (s.fk === "K" && s.pass === "overclock" && b < powCap(s) && s.pow >= powCap(s)) { s.flow = true; L.push({ t: `⚙ OVERCLOCK — the bank tops out and the surge arms: Flow.` }); }
   };
 
   /* ---- ability effects ---- */
@@ -2389,6 +2406,12 @@ export default function App() {
     if (plan.ab === "twin") { const opts = QUADS.filter((qq) => qq !== plan.target && qq !== plan.secondary); if (opts.length) G.current.prompts.push({ kind: "enpoison", who: src.fk, opts, label: "Three Fangs: the third dagger — poison a quadrant" }); }
     if (plan.ab === "pin") { tgt._rootNext = true; L.push({ t: `📌 Pinned — ${nm(tgt)} is Rooted next round.` }); }
     if (plan.ab === "cadence") { src._flowBank = true; L.push({ t: `✦ Blade Cadence — ${nm(src)} banks Flow.` }); }
+    if (plan.ab === "core") {
+      const q = plan.target || tgt.pos;
+      if (G.current.terrain[q]) { const k = TERRA_META[G.current.terrain[q].kind]?.name || "ground"; delete G.current.terrain[q]; L.push({ t: `☄ FINALITY — the ${k} at ${q} is razed to bare stone.` }); }
+      if (G.current.kessQ === q) { G.current.kessStun = G.current.round + 1; L.push({ t: `💫 Kess is blasted senseless — stunned.` }); }
+      if (G.current.undineQ === q) { G.current.undineStun = G.current.round + 1; L.push({ t: `💫 The Undine is blasted apart — stunned.` }); }
+    }
   };
   const advRider = (src, tgt, plan, L, followups) => {
     if (G.current.stats) G.current.stats.adv[src === G.current.P ? "P" : "A"] += 1;
@@ -2429,7 +2452,8 @@ export default function App() {
   const wardBase = (warder, plan, L) => {
     if (plan.ab === "hoar") setTerrain(warder.pos, "frost", L, "❄ Frost");
     if (plan.ab === "mantle") healUp(warder, 1, L, "Winter's Mantle");
-    if (plan.ab === "frame" && warder.pow >= 3) healUp(warder, 1, L, "Bulwark Frame vents");
+    if (plan.ab === "frame" && warder._frameFull) healUp(warder, 2, L, "Bulwark Frame vents the full bank");
+    if (plan.ab === "arc" && !warder.dischargeField) { warder.dischargeField = true; L.push({ t: `🛰 DISCHARGE FIELD INSTALLED — ${nm(warder)}'s ground is electrified for the rest of the bout.`, fx: { kind: "combo", text: "DISCHARGE FIELD" } }); }
     if (plan.ab === "gyro") warder._noKB = true;
     if (plan.ab === "aegis") { healUp(warder, 1, L, "Aegis of the Vigil"); warder._noKB = true; warder._aegisHeld = true; }
     if (plan.ab === "knit") healUp(warder, 1, L, "Gristle-Knit");
@@ -2487,7 +2511,9 @@ export default function App() {
       if (f === "X" && (id === "eguard" || id === "riposte") && !ai.flow) return 3;
       if (f === "C" && id === "pyre" && (hpn.burn || 0) >= 2) return 5;
       if (f === "V" && id === "spike" && hpn.chill) return 5;
-      if (f === "K" && ai.pow === 3 && ABILITIES[id].cost > 0) return 4;
+      if (f === "K" && id === "arc" && !ai.dischargeField && ai.pow >= 2) return 6;
+      if (f === "K" && id === "core" && ai.pow >= 3) return 6;
+      if (f === "K" && id === "frame" && ai.pow >= 3 && ai.hp <= ai.maxHp - 2) return 5;
       if (f === "G" && id === "harvest" && ai.pow >= 3) return 5;
       return 0;
     };
@@ -2505,7 +2531,6 @@ export default function App() {
       if (id === "heart" && human.poison === 0) return;
       const ab = ABILITIES[id];
       let cost = ab.cost;
-      if (ai.fk === "K" && ai.pass === "overclock" && ai.pow === 3) cost = Math.max(0, cost - 1);
       if (ai.pow >= cost) opts.push({ ab: id, soft: false });
     });
     const weighted = [];
@@ -2683,16 +2708,6 @@ export default function App() {
   const finishRound = () => {
     const g = G.current;
     const L = [];
-    [g.P, g.A].forEach((s) => {
-      if (!s._nova) return;
-      s._nova = false;
-      const foe = other(s);
-      L.push({ t: `⚡ DISCHARGE NOVA — the last of the charge blasts outward.`, fx: { kind: "combo", text: "NOVA" } });
-      if (foe.pos === s.pos && foe.hp > 0) dealRaw(foe, 1, L, "Nova blast", "break", "#a78bfa");
-      if (g.kessQ === s.pos && foe.fk === "W") { g.kessStun = g.round + 1; L.push({ t: `🦅 Kess is blasted from the air — stunned.` }); }
-      if (g.undineQ === s.pos && foe.fk === "Y") { g.undineStun = g.round + 1; L.push({ t: `🌊 The Undine is scattered — stunned.` }); }
-      if (g.terrain[s.pos]) { const k = TERRA_META[g.terrain[s.pos].kind]?.name || "ground"; delete g.terrain[s.pos]; L.push({ t: `⚡ The ${k} beneath him is scoured away.` }); }
-    });
     const knocker = [g.P, g.A].find((f) => f.pass === "knock");
     if (knocker && (knocker.knocks || 0) >= 3) {
       knocker.knocks = 0;
@@ -2710,9 +2725,9 @@ export default function App() {
         if (s.fk === "D" && g.terrain[s.pos]?.kind === "dom") gainPow(s, 1, L, "Dominion — the ground provides");
         else L.push({ t: `${nm(s)} spent this round — no ◆.` });
       } else gainPow(s, 1, L, "end of round");
-      if (s.fk === "K" && s.pow >= powCap(s)) { s.charge = Math.min(3, (s.charge || 0) + 1); L.push({ t: `⚡ OVERCHARGE builds — ${nm(s)} holds full charge (${s.charge}).` }); }
       s.noGain = false;
     });
+    dfTrigger(L, "the ground bites at the bell");
     // terrain effects on occupants
     [g.P, g.A].forEach((s) => {
       const t = g.terrain[s.pos];
@@ -2855,7 +2870,7 @@ export default function App() {
       s.rooted = !!s._rootNext; s._rootNext = false;
       s.kbLast = !!s._kbThis;
       if (s._flowBank) { s.flow = true; delete s._flowBank; } // banked Flow arms for the NEXT ability, never the same exchange
-      delete s._kbThis; delete s._spent; delete s._ironActive; delete s._noKB; delete s._warding; delete s._powered; delete s._aegisHeld; delete s._nova; delete s._powSpent;
+      delete s._kbThis; delete s._spent; delete s._ironActive; delete s._noKB; delete s._warding; delete s._aegisHeld; delete s._frameFull; delete s._dfUsed;
     });
     playLines(L, processPrompts);
   };
@@ -2898,6 +2913,10 @@ export default function App() {
           }
         }
       }
+      if (g.A.fk === "K" && g.A.pass === "siege" && !g.A.sieged && g.A.pow >= 3) {
+        g.A.pow -= 3; g.A._spent = true; g.A.sieged = true;
+        g.feed.push({ t: "⚙ SIEGE PROTOCOL — the foe's Cannonarm reconfigures: the SIEGE CANNON is live." });
+      }
       if (CLASH_ROUNDS.includes(g.round)) { g.phase = "clashIntro"; setCutin(true); later(() => { setCutin(false); afterCutin(); }, REDUCED ? 500 : 1700); }
       else { g.phase = "plan"; showBanner(`ROUND ${g.round}`, "plan in secret"); resetSel(g); }
     }
@@ -2911,20 +2930,16 @@ export default function App() {
     g.feed = [];
     const L = [];
     const P = g.P, A = g.A;
+    dfTrigger(L, "the round opens on his ground");
     [[P, pPlan], [A, aPlan]].forEach(([s, pl]) => {
       const ab = ABILITIES[pl.ab];
       let c = pl.soft && ab.soft ? ab.soft.cost : ab.cost;
       if (pl.string) c = ab.cost + (s.pass === "flowing" ? 0 : 1);
       if (pl.pivoted) { c += 1; L.push({ t: `⇄ ${nm(s)} pays 1◆ to pivot.` }); }
-      if (s.fk === "K" && s.pass === "overclock" && s.pow === 3 && c > 0) { c -= 1; L.push({ t: "⚙ Overclock discounts the cost." }); }
+      if (pl.ab === "frame") s._frameFull = s.pow >= powCap(s);
+      if (pl.ab === "core") { s._rootNext = true; L.push({ t: `☄ ${nm(s)} plants for the Beam — the recoil will ROOT him next round.` }); }
       if (c > 0) {
-        const wasFull = s.pow >= powCap(s);
         if (G.current.tut && s.pow < c) s.pow = c; s.pow -= c; s._spent = true;
-        if (s.fk === "K") {
-          if (wasFull) s._powered = true;
-          if ((s.charge || 0) > 0 && ab.type !== "ward") { const burn = s.charge; s.charge = 0; dealRaw(s, burn, L, "OVERCHARGE vents through him", "break", "#a78bfa"); }
-          if (s.pass === "nova" && s.pow === 0 && ab.type !== "ward") s._nova = true;
-        }
       }
       const hc = ab.hpCost || 0;
       if (hc > 0) {
@@ -2957,6 +2972,7 @@ export default function App() {
       L.push({ t: swapped ? "💥 They crash together mid-charge — COLLISION." : `💥 Point-blank in ${P.pos} — COLLISION.`, fx: { kind: "combo", text: "COLLISION" } });
       pHit = pAtk; aHit = aAtk;
       g.stats.col += 1;
+      dfTrigger(L, "point-blank arcing");
     }
     if (pAtk) g.stats[pHit ? "dir" : "whiff"].P += 1;
     if (aAtk) g.stats[aHit ? "dir" : "whiff"].A += 1;
@@ -2997,7 +3013,28 @@ export default function App() {
     };
 
     let winner = null, loser = null, winPlan = null, verdict = "NO CONTACT";
-    if (pAtk && aAtk) {
+    const pSiege = pPlan.ab === "cannon" && P.sieged;
+    const aSiege = aPlan.ab === "cannon" && A.sieged;
+    if (pSiege || aSiege) {
+      const S = pSiege ? P : A, F = pSiege ? A : P;
+      const fPlan = pSiege ? aPlan : pPlan;
+      const fT = fPlan.form || ABILITIES[fPlan.ab].type;
+      const fAtk = fT !== "ward";
+      const fHit = fAtk && (collided || fPlan.target === S.pos);
+      verdict = "SIEGE BARRAGE";
+      L.push({ t: `⚙ SIEGE CANNON — the barrage walks every quadrant but ${nm(S)}'s own. The triangle means nothing to artillery.` });
+      if (!fAtk) L.push({ t: `🛡 ${nm(F)}'s guard catches nothing — there is nothing to catch.` });
+      else if (fHit) {
+        L.push({ t: `🎯 ${nm(F)} strikes clean through the barrage.`, fx: { kind: "combo", text: "CLEAN HIT" } });
+        baseEffect(F, S, fPlan, L);
+        winner = F; loser = S; winPlan = fPlan;
+      } else contactCheck(F, fPlan);
+      if (F.hp > 0) {
+        if (F.pos !== S.pos) dealRaw(F, ABILITIES.cannon.dmg, L, "Siege Cannon barrage", "break", elOf(S), true);
+        else L.push({ t: `✊ Point-blank under the barrels — the barrage screams over ${nm(F)}'s head.` });
+      }
+      g.stats[F.pos !== S.pos ? "dir" : "whiff"][pSiege ? "P" : "A"] += 1;
+    } else if (pAtk && aAtk) {
       if (pHit && aHit) {
         if (tP === tA) {
           verdict = "TRADE";
@@ -3030,7 +3067,7 @@ export default function App() {
       else if ((atkPlan.form || ABILITIES[atkPlan.ab].type) === "rush") {
         verdict = "WARD CATCH";
         L.push({ t: `🛡 WARD catches the RUSH — and answers.`, fx: { kind: "adv", text: `ADVANTAGE — ${nm(wrd).toUpperCase()}`, tone: FIGHTERS[wrd.fk].hex } });
-        attackDamage(wrd, atk, 1, L, "Riposte", "ward");
+        attackDamage(wrd, atk, wrdPlan.ab === "arc" ? 2 : 1, L, "Riposte", "ward");
         if (wrdPlan.ab === "blackout") addPoison(atk, 1, L);
         if (wrdPlan.ab === "knit") addCurse(wrd, atk, 1, L);
         wardAdv(wrd, atk, wrdPlan, L, followups);
@@ -3142,20 +3179,16 @@ export default function App() {
     }
     const mult = 1;
     const P = g.P, A = g.A;
+    dfTrigger(L, "the clash opens on his ground");
     [[P, pPlan], [A, aPlan]].forEach(([s, pl]) => {
       const ab = ABILITIES[pl.ab];
       let c = pl.soft && ab.soft ? ab.soft.cost : ab.cost;
       if (pl.string) c = ab.cost + (s.pass === "flowing" ? 0 : 1);
       if (pl.pivoted) { c += 1; L.push({ t: `⇄ ${nm(s)} pays 1◆ to pivot.` }); }
-      if (s.fk === "K" && s.pass === "overclock" && s.pow === 3 && c > 0) c -= 1;
+      if (pl.ab === "frame") s._frameFull = s.pow >= powCap(s);
+      if (pl.ab === "core") { s._rootNext = true; L.push({ t: `☄ ${nm(s)} plants for the Beam — the recoil will ROOT him next round.` }); }
       if (c > 0) {
-        const wasFull = s.pow >= powCap(s);
         if (G.current.tut && s.pow < c) s.pow = c; s.pow -= c; s._spent = true;
-        if (s.fk === "K") {
-          if (wasFull) s._powered = true;
-          if ((s.charge || 0) > 0 && ab.type !== "ward") { const burn = s.charge; s.charge = 0; dealRaw(s, burn, L, "OVERCHARGE vents through him", "break", "#a78bfa"); }
-          if (s.pass === "nova" && s.pow === 0 && ab.type !== "ward") s._nova = true;
-        }
       }
       const hc = ab.hpCost || 0;
       if (hc > 0) {
@@ -3178,7 +3211,6 @@ export default function App() {
       if (!flatFinal) {
       if (src.fk === "G" && src.pass === "pact" && src.hp <= 6) n += 1;
       if (src.fk === "M" && src.pass === "twist" && tgt.kbLast) n += 1;
-      if (src.fk === "K" && src._powered && !src._powSpent) { n += 1; src._powSpent = true; }
       if (src.fk === "C" && src.pass === "killheat" && tgt.burn > 0) n += 1;
       }
       if ((src.weak || 0) > 0) n = Math.max(0, n - 1);
@@ -3223,7 +3255,31 @@ export default function App() {
       if (plan.ab === "pin") { tgt._rootNext = true; L.push({ t: `📌 Pinned — ${nm(tgt)} is Rooted next round.` }); }
       if (plan.ab === "quake" && G.current.terrain[tgt.pos] && G.current.terrain[tgt.pos].kind !== "dom") { delete G.current.terrain[tgt.pos]; L.push({ t: `⛰ Quake Fist shatters the ground at ${tgt.pos}.` }); }
       if (plan.ab === "bwater") setTerrain(tgt.pos, "surf", L, "🌊 Crashing Surf");
+      if (plan.ab === "core") {
+        const q = tgt.pos;
+        if (G.current.terrain[q]) { const k = TERRA_META[G.current.terrain[q].kind]?.name || "ground"; delete G.current.terrain[q]; L.push({ t: `☄ FINALITY — the ${k} at ${q} is razed to bare stone.` }); }
+        if (G.current.kessQ === q) { G.current.kessStun = G.current.round + 1; L.push({ t: `💫 Kess is blasted senseless — stunned.` }); }
+        if (G.current.undineQ === q) { G.current.undineStun = G.current.round + 1; L.push({ t: `💫 The Undine is blasted apart — stunned.` }); }
+      }
     };
+    const pSiegeC = pPlan.ab === "cannon" && P.sieged;
+    const aSiegeC = aPlan.ab === "cannon" && A.sieged;
+    if (pSiegeC || aSiegeC) {
+      const S = pSiegeC ? P : A, F = pSiegeC ? A : P;
+      const sPl = pSiegeC ? pPlan : aPlan, fPlan = pSiegeC ? aPlan : pPlan;
+      const fT = fPlan.form || ABILITIES[fPlan.ab].type;
+      L.push({ t: `⚙ SIEGE CANNON — artillery does not clash. Both fires resolve at base, no placement, no edge.` });
+      [[S, sPl], [F, fPlan]].forEach(([src, pl]) => { if (pl.ab === "sky") { src._skyBarrage = 2; src._skyCast = g.roundJustPlayed; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); } });
+      if (fT === "ward") { wardBase(F, fPlan, L); L.push({ t: `🛡 ${nm(F)}'s guard catches nothing — there is nothing to catch.` }); }
+      else clashBase(F, S, fPlan);
+      if (F.hp > 0) {
+        if (F.pos !== S.pos) dealRaw(F, ABILITIES.cannon.dmg, L, "Siege Cannon barrage", "break", elOf(S), true);
+        else L.push({ t: `✊ Point-blank under the barrels — the barrage screams over ${nm(F)}'s head.` });
+      }
+      g.after = "finish";
+      playLines(L, processPrompts);
+      return;
+    }
     let winner = null, tie = tP === tA;
     if (!tie) winner = BEATS[tP] === tA ? P : A;
     [P, A].forEach((s) => { if (tie && s.fk === "G" && s.pass === "warmonger") { winner = s; tie = false; L.push({ t: "🏳 Warmonger — the tie is his." }); } });
@@ -3272,7 +3328,7 @@ export default function App() {
   const wardAdvClash = (warder, atk, wp, L, mult) => {
     if (G.current.stats) G.current.stats.adv[warder === G.current.P ? "P" : "A"] += 1;
     const dd2 = (amt, label) => dealRaw(atk, amt * mult, L, label, "ward", elOf(warder));
-    dd2(1, "Riposte");
+    dd2(wp.ab === "arc" ? 2 : 1, "Riposte");
     if (wp.ab === "blackout") addPoison(atk, 1, L);
     if (wp.ab === "knit") addCurse(warder, atk, 1, L);
     switch (wp.ab) {
@@ -3363,7 +3419,7 @@ export default function App() {
   const startGame = (opts = {}) => {
     const pFk = opts.pFk || side, pLoad = opts.pLoad || pickAb, pPass = opts.pPass || pickPass;
     const aiFk = opts.aiFk || rnd(Object.keys(FIGHTERS).filter((k) => k !== pFk));
-    const mk = (fk, load, pass) => ({ fk, hp: FIGHTERS[fk].hp, maxHp: FIGHTERS[fk].hp, pow: 0, load, pass, poison: 0, burn: 0, chill: false, chillUntil: 0, rooted: false, noGain: false, kbLast: false, cravenUsed: false, ventUsed: false, vigilUsed: false, borrowedUsed: false, curse: 0, weak: 0, brandRound: 0, mark: 0, markUntil: 0, flow: false, usedBreak: false, charge: 0, _tolled: false, knocks: 0, pos: null });
+    const mk = (fk, load, pass) => ({ fk, hp: FIGHTERS[fk].hp, maxHp: FIGHTERS[fk].hp, pow: 0, load, pass, poison: 0, burn: 0, chill: false, chillUntil: 0, rooted: false, noGain: false, kbLast: false, cravenUsed: false, ventUsed: false, vigilUsed: false, borrowedUsed: false, curse: 0, weak: 0, brandRound: 0, mark: 0, markUntil: 0, flow: false, usedBreak: false, sieged: false, dischargeField: false, _tolled: false, knocks: 0, pos: null });
     const P = mk(pFk, pLoad, pPass);
     const A = mk(aiFk, opts.aiLoad || FIGHTERS[aiFk].aiLoad, opts.aiPass || FIGHTERS[aiFk].aiPass);
     P.pos = "SW"; A.pos = "NE";
@@ -3569,7 +3625,7 @@ export default function App() {
   const readyToConfirm = sel.ab && (selTy === "ward" || (sel.target && (!abSel.needsSplash || sel.splash) && (!abSel.needsSecondary || sel.secondary || (sel.soft && abSel.soft?.single))));
   const affordActions = () => {
     const out = [];
-    const oc = (c) => (me.fk === "K" && me.pass === "overclock" && me.pow === 3 ? Math.max(0, c - 1) : c);
+    const oc = (c) => c;
     [...me.load].forEach((id) => {
       const ab = ABILITIES[id];
       if (ab.dual) {
@@ -3643,7 +3699,8 @@ export default function App() {
                 {s.fk === "L" && g?.relics ? <button onClick={() => setTip("relic")} className="text-yellow-300 font-bold">✦{g.relics.claims}/3</button> : null}
                 {s.poison > 0 && <button onClick={() => setTip("poison")} className="text-lime-400">🧪{s.poison}</button>}
                 {s.burn > 0 && <button onClick={() => setTip("burn")} className="text-orange-400">🔥{s.burn}</button>}
-                {(s.charge || 0) > 0 && <button onClick={() => setTip("overcharge")} className="text-violet-300">⚡{s.charge}</button>}
+                {s.dischargeField && <button onClick={() => setTip("dfield")} className="text-violet-300">🛰</button>}
+                {s.sieged && <button onClick={() => setTip("siege")} className="text-violet-300">⚙</button>}
                 {s.chill && <button onClick={() => setTip("chill")} className="text-sky-300">❄</button>}
                 {s.rooted && <button onClick={() => setTip("rooted")} className="text-stone-400">⛓</button>}
                 {(s.mark || 0) > 0 && <button onClick={() => setTip("mark")} className="text-green-300">🎯{s.mark > 1 ? s.mark : ""}</button>}
@@ -3838,6 +3895,13 @@ export default function App() {
               <p className="text-sm text-stone-300 mb-1.5">Tap a quadrant to move — or hold your ground.</p>
               <BigBtn dim disabled={!!(railNow && railNow.you.moveTo !== me.pos)} onClick={() => setSel({ ...sel, moveTo: me.pos, step: "action" })}>Stay in {me.pos}</BigBtn>
             </div>}
+            {sel.step === "action" && me.fk === "K" && me.pass === "siege" && !me.sieged && me.pow >= 3 && (
+              <button onClick={() => { me.pow -= 3; me._spent = true; me.sieged = true; g.feed.push({ t: "⚙ SIEGE PROTOCOL — the Cannonarm reconfigures: the SIEGE CANNON is live (3◆ spent)." }); rerender(); }}
+                className="w-full mb-1.5 text-left rounded-lg border border-violet-500 bg-violet-950 px-2.5 py-2">
+                <div className="text-xs font-black text-violet-300">⚙ SIEGE PROTOCOL — spend the full 3◆ bank</div>
+                <div className="text-[11px] text-stone-400">Convert Cannonarm into the Siege Cannon, permanently. Once per bout. Counts as spending.</div>
+              </button>
+            )}
             {sel.step === "action" && <div className="grid gap-1.5 max-h-52 overflow-y-auto">
               {affordActions().map(({ id, soft, form, string, extraCost }) => (
                 <AbilityBtn key={id + (form || "") + (string ? "s" : "") + soft} id={id} soft={soft} form={form} string={string} extraCost={extraCost} locked={!!(railNow && id !== railNow.you.ab)} onPick={() => {
