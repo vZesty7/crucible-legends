@@ -320,9 +320,9 @@ describe("special base clauses", () => {
       p: { fk: "W", load: ["sky", "broad", "hawk", "pin"], pass: "parting", set: { pow: 3, hp: 20, maxHp: 20 } },
       a: { ...BAG, set: { hp: 25, maxHp: 25 } },
       seed: 18,
-      rounds: [{ p: { ab: "sky", target: "NE" }, a: { ab: "bW" } }],
+      rounds: [{ p: { ab: "sky", target: "NE" }, a: { ab: "bB", target: "SW" } }], // v0.86: sky is a RUSH — it interrupts the break
     });
-    rowEq("base:sky:dmg", "Skyfall direct (guard break) 2+1", 3,
+    rowEq("base:sky:dmg", "Skyfall direct (rush interrupts break) 2+1", 3,
       dmgBy(d.rounds[0].lines, "Skyfall Volley lands DIRECT", "Maelis") + dmgBy(d.rounds[0].lines, "Advantage — the extra point", "Maelis"));
     const kessPrompt = d.rounds[0].promptsSeen.find((p) => p.kind === "kess");
     row("base:sky:kess", "Kess wing prompt fired", "kess prompt", kessPrompt ? "fired" : "none", !!kessPrompt);

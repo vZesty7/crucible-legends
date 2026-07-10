@@ -282,10 +282,10 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 **Abilities (pick 4 of 6):**
 - **Broadhead** — Rush · 0◆ — 1 dmg. *Adv:* +1 dmg.
 - **Hawk's Eye** — Ward · 0◆ — Counter stance; wing Kess to an ADJACENT quadrant. *Adv:* +1 counter *(the Advantage-mark was abolished v0.73 — position is the only marker)*.
-- **Pinning Shot** — Rush · 1◆ *(v0.86 — retyped Break→Rush by class conformance: a single fast, precise shot; the root-on-contact pattern is a rush signature, cf. Ice Lance)* — 1 dmg; the arrow pins — Rooted next round on any contact. *Adv:* +1 dmg.
+- **Pinning Shot** — Break · 1◆ *(v0.86 ruling: STAYS Break — the measured conformance attempt (pin→Rush) collapsed her to 30.7: the cheap guard-breaker is load-bearing; pin is her sanctioned off-type)* — 1 dmg; the arrow pins — Rooted next round on any contact. *Adv:* +1 dmg.
 - **Longstride** — Ward · 1◆ — Counter stance; after resolution, step to an adjacent quadrant. *Adv:* +1 counter.
 - **Watcher's Toll** — Rush · 2◆ — 1 dmg; next round the enemy's movement is COMMITTED and revealed to you before you plan. *Adv:* +1 dmg. *(Tuning flag: the information edge may need a nerf.)*
-- **Skyfall Volley** — Break · 3◆ *(v0.71/v0.73 rework)* — 2 dmg aimed, and Kess takes wing (adjacent). Then for the NEXT TWO rounds a volley falls on a RANDOM quadrant: 2 dmg and a Mark if it finds them. Only a Rush interrupts the launch. *Adv:* +1 dmg.
+- **Skyfall Volley** — Rush · 3◆ *(v0.71/v0.73 rework; v0.86 — retyped Break→Rush by class conformance per designer: a loosed arrow-storm reads rush, and the Duelist-ultimates-are-Rushes codex line finally holds for her; the interrupt rotates with the triangle)* — 2 dmg aimed, and Kess takes wing (adjacent). Then for the NEXT TWO rounds a volley falls on a RANDOM quadrant: 2 dmg and a Mark if it finds them. Only a ward's CATCH interrupts the launch. *Adv:* +1 dmg.
 
 **Passives (pick 1):**
 - **Deadeye** — attacks targeting the quadrant diagonal from you deal +1. *(The only fighter rewarded for shooting across the arena.)*

@@ -156,10 +156,10 @@ const ABILITIES = {
   // Wrenna (Ranger)
   broad: { f: "W", name: "Broadhead", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg", adv: "+1 dmg", lore: "A letter, hand-delivered." },
   hawk: { f: "W", name: "Hawk's Eye", type: "ward", cost: 0, text: "Counter stance; wing Kess to an ADJACENT quadrant", adv: "counter +1", lore: "Kess watches. Wrenna finishes." },
-  pin: { f: "W", name: "Pinning Shot", type: "rush", cost: 1, dmg: 1, needsTarget: true, text: "1 dmg; the arrow pins — Rooted next round on any contact", adv: "+1 dmg", lore: "An arrow through the boot settles arguments." },
+  pin: { f: "W", name: "Pinning Shot", type: "break", cost: 1, dmg: 1, needsTarget: true, text: "1 dmg; the arrow pins — Rooted next round on any contact", adv: "+1 dmg", lore: "An arrow through the boot settles arguments." },
   strideW: { f: "W", name: "Longstride", type: "ward", cost: 1, text: "Counter stance; step to an adjacent quadrant after resolution", adv: "+1 counter", lore: "She was leaving anyway." },
   toll: { f: "W", name: "Watcher's Toll", type: "rush", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; next round the enemy's movement is revealed to you", adv: "+1 dmg", lore: "The hawk collects in information." },
-  sky: { f: "W", name: "Skyfall Volley", type: "break", cost: 3, dmg: 2, needsTarget: true, text: "BREAK — 2 dmg, and Kess takes wing (adjacent). Then for the NEXT TWO rounds a volley falls on a RANDOM quadrant — 2 dmg and a MARK if it finds them. Only a Rush interrupts the storm.", adv: "+1 dmg", lore: "Rain, fletched." },
+  sky: { f: "W", name: "Skyfall Volley", type: "rush", cost: 3, dmg: 2, needsTarget: true, text: "2 dmg, and Kess takes wing (adjacent). Then for the NEXT TWO rounds a volley falls on a RANDOM quadrant — 2 dmg and a MARK if it finds them. Only a ward's CATCH interrupts the storm.", adv: "+1 dmg", lore: "Rain, fletched." },
   // Dregan (Weapon Master)
   cres: { f: "X", name: "Crescent Cut", type: "rush", cost: 0, dmg: 1, needsTarget: true, pivot: "break", text: "1 dmg. PIVOT (1◆): switch to BREAK after the reveal", adv: "+1 dmg", lore: "Ask which weapon. The answer changes mid-swing." },
   eguard: { f: "X", name: "Edgeguard", type: "ward", cost: 0, text: "Counter stance", adv: "counter +1 and gain Flow", lore: "The shield has a point. Literally." },
@@ -1796,7 +1796,7 @@ const TUTS = {
   Y: { foe: "W", pass: "rider", rails: [
     { you: { move: "T", ab: "lash", tgt: "F" }, foe: { ab: "broad", move: "H", tgt: "Y" }, say: "Her arrow wants the square you're leaving. Step, lash, and start thinking in WATER: your damage will come from the ground, not the swing." },
     { you: { move: "H", ab: "whirlA", tgt: null }, foe: { ab: "broad", move: "T", tgt: "N" }, say: "We HOLD and ward: she's diving your square, and WHIRLPOOL catches the Rush. Then the scripted call: the vortex opens UNDER HER — it yanks adjacent foes in as it opens and grinds 1 every round she stays. The catch is the lesson; the water is the sentence." },
-    { clash: true, you: { ab: "lash" }, foe: { ab: "pin" }, say: "CLASH — rush meets rush: a bloody TRADE, both land — and her pin still ROOTS you, because the root rides ANY contact. Feel it once. Rooted fighters can't move — but knockbacks still move them. Remember that." },
+    { clash: true, you: { ab: "lash" }, foe: { ab: "pin" }, say: "CLASH — her Break beats your Rush; the pin will Root you. Feel it once. Rooted fighters can't move — but knockbacks still move them. Remember that." },
     { you: { move: "H", ab: "storm", tgt: "F" }, foe: { ab: "broad", move: "H", tgt: "Y" }, say: "3◆: MAELSTROM — TWO vortexes open beside her, each yanking, each grinding. And Wave Rider means YOUR movement can surf to any of your water. She wades; you ride." },
     { you: { move: "H", ab: "bwater", tgt: "F" }, foe: { ab: "hawk", move: "H", tgt: null }, say: "CRUSHING WAVE leaves SURF: end a round in it — take 1 and get THROWN out. Two waters, opposite physics: the trap that holds, the surf that expels." },
     { you: { move: "T", ab: "lash", tgt: "F" }, foe: { ab: "broad", move: "T", tgt: "N" }, say: "Ebb & Flow: any round your water drew blood, the tide hands you Flow (+1 next hit). The arena collects rent. You collect the arena." },
@@ -1804,10 +1804,10 @@ const TUTS = {
   W: { foe: "Y", pass: "deadeye", rails: [
     { you: { move: "T", ab: "broad", tgt: "F" }, foe: { ab: "lash", move: "H", tgt: "Y" }, say: "She lashes your old square. Step out, loose a Broadhead. Your whole kit is INFORMATION: know where they'll be, and the arrow does the rest." },
     { you: { move: "H", ab: "hawk", tgt: null }, foe: { ab: "lash", move: "T", tgt: "N" }, say: "We HOLD this round — on purpose: she's diving at your square, and a ward wants exactly that. HAWK'S EYE catches her Rush — riposte answers, Advantage sharpens it. And know the law: KESS IS THE MARKER — end a round in the hawk's square and you are Marked. Kess wings one square over (ADJACENT only, a real bird): park her where the hydromancer will stand. Your shove HOLDS her. Bait, catch, herd." },
-    { clash: true, you: { ab: "pin" }, foe: { ab: "bwater" }, say: "CLASH — she loads the heavy wave; PINNING SHOT is a RUSH: it outruns her Break, the whole wave is ERASED, and the pin ROOTS her. A rooted target can't move: next round you KNOW her square. The pin manufactures the read." },
-    { you: { move: "R", ab: "sky", tgt: "F" }, foe: { ab: "current", move: "H", tgt: null }, say: "3\u25c6: SKYFALL VOLLEY \u2014 a BREAK: 2 dmg where you AIM, and Kess TAKES WING (adjacent). Then for TWO rounds the sky keeps falling on a RANDOM square \u2014 2 dmg and a MARK when it finds her. Two mark symbols happen only when the volley catches her IN Kess's square. She wards \u2014 the Break shatters through. Let the dice hunt." },
+    { clash: true, you: { ab: "pin" }, foe: { ab: "current" }, say: "CLASH — PINNING SHOT: Break beats her Ward, and the pin ROOTS her. A rooted target can't move: next round you KNOW her square. The pin manufactures the read." },
+    { you: { move: "R", ab: "sky", tgt: "F" }, foe: { ab: "lash", move: "H", tgt: "Y" }, say: "3\u25c6: SKYFALL VOLLEY \u2014 2 dmg where you AIM, and Kess TAKES WING (adjacent). Then for TWO rounds the sky keeps falling on a RANDOM square \u2014 2 dmg and a MARK when it finds her. Only a ward's CATCH stops the launch \u2014 and she's swinging at the square you LEFT instead. Let the dice hunt." },
     { you: { move: "H", ab: "broad", tgt: "F" }, foe: { ab: "lash", move: "H", tgt: "Y" }, say: "If the sky found her she's Marked; either way you're on the DIAGONAL: Deadeye +1, Mark +1 — a 3-damage free action. Geometry is your damage." },
-    { you: { move: "T", ab: "pin", tgt: "F" }, foe: { ab: "bwater", move: "H", tgt: "Y" }, say: "She hurls the wave at the square you're LEAVING \u2014 you're already gone. PIN the square she holds: the arrow lands clean, the root locks her down, and with Kess watching, the next one cannot miss. Read, pin, finish. Kess watches. You finish." },
+    { you: { move: "T", ab: "pin", tgt: "F" }, foe: { ab: "whirlA", move: "H", tgt: null }, say: "She shells up in the current \u2014 doesn't matter: Pin the square, Kess marks the flight, and the next arrow cannot miss. Read, pin, finish. Kess watches. You finish." },
   ]},
   X: { foe: "G", pass: "pedge", rails: [
     { you: { move: "T", ab: "cres", tgt: "F" }, pv: "keep", foe: { ab: "skull", move: "H", tgt: "Y" }, say: "CRESCENT CUT — and here's your secret: after the reveal, you may PIVOT it to a Break for 1◆. KEEP it this time: your Rush already interrupts his Break, and he's swinging at empty air anyway." },
@@ -3263,7 +3263,7 @@ export default function App() {
         }
       }
     }
-    [[P, pPlan], [A, aPlan]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(loser === src && winPlan && (winPlan.form || ABILITIES[winPlan.ab].type) === "rush")) { src._skyBarrage = 2; src._skyCast = g.roundJustPlayed; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); G.current.prompts.push({ kind: "kess", who: src.fk, opts: ADJ[G.current.kessQ] || QUADS, label: "Skyfall: wing Kess (adjacent)" }); } });
+    [[P, pPlan], [A, aPlan]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(loser === src && winPlan && (winPlan.form || ABILITIES[winPlan.ab].type) === "ward")) { src._skyBarrage = 2; src._skyCast = g.roundJustPlayed; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); G.current.prompts.push({ kind: "kess", who: src.fk, opts: ADJ[G.current.kessQ] || QUADS, label: "Skyfall: wing Kess (adjacent)" }); } });
     g.vs = { p: { n: abP.name, ty: tP, tq: pPlan.target }, a: { n: abA.name, ty: tA, tq: aPlan.target }, note: verdict, r: g.round };
 
     G.current._colNow = false;
@@ -3476,7 +3476,7 @@ export default function App() {
     let winner = null, tie = tP === tA;
     if (!tie) winner = BEATS[tP] === tA ? P : A;
     [P, A].forEach((s) => { if (tie && s.fk === "G" && s.pass === "warmonger") { winner = s; tie = false; L.push({ t: "🏳 Warmonger — the tie is his." }); } });
-    [[P, pPlan, tP], [A, aPlan, tA]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(!tie && winner !== src && (winner === P ? tP : tA) === "rush")) { src._skyBarrage = 2; src._skyCast = g.roundJustPlayed; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); } });
+    [[P, pPlan, tP], [A, aPlan, tA]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(!tie && winner !== src && (winner === P ? tP : tA) === "ward")) { src._skyBarrage = 2; src._skyCast = g.roundJustPlayed; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); } });
     if (tie) {
       L.push({ t: "⚔ Clash TIE — a bloody trade." });
       if (tP !== "ward") clashBase(P, A, pPlan); else wardBase(P, pPlan, L);

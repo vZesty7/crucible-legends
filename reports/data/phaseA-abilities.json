@@ -1033,7 +1033,7 @@
  },
  {
   "id": "base:sky:dmg",
-  "mechanic": "Skyfall direct (guard break) 2+1",
+  "mechanic": "Skyfall direct (rush interrupts break) 2+1",
   "expected": "3",
   "observed": "3",
   "pass": true,
