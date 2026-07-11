@@ -18,8 +18,8 @@ test("complexity + fun-proxy metrics", () => {
      placement prompts and picks, after-reveal decisions (pivot/umbral),
      dual modes, conditional damage lines, engine dependencies (tokens,
      terrain, resources beyond ◆), and setup chains. Weights are disclosed. */
-  const PROMPT_ABILITIES = { sunder: 1, twin: 2, aval: 1, pyre: 0, whirlA: 1, undine: 1, storm: 1, hawk: 1, sky: 2, fissure: 1, grind: 1, claim: 1, freeze: 0, flash: 1, strideW: 1, gloom: 1, puppet: 1, harvest: 1, frenzy: 1 };
-  const CONDITIONALS = { frenzy: 1, heart: 2, comb: 1, sorrow: 1, llance: 1, dawn: 1, mount: 1, spike: 1, aval: 1, frame: 1, bwater: 1, sky: 1, brand: 1, censure: 1 };
+  const PROMPT_ABILITIES = { sunder: 1, twin: 2, pyre: 0, whirlA: 1, undine: 1, storm: 1, hawk: 1, sky: 2, fissure: 1, grind: 1, claim: 1, freeze: 0, flash: 1, strideW: 1, gloom: 1, puppet: 1, harvest: 1, frenzy: 1 };
+  const CONDITIONALS = { frenzy: 1, heart: 2, comb: 1, sorrow: 1, llance: 1, dawn: 1, mount: 1, spike: 1, iceage: 1, frame: 1, bwater: 1, sky: 1, brand: 1, censure: 1 };
   const AFTER_REVEAL = { umbral: 2, cres: 2, chainX: 2 };
   const ENGINE_DEPS = {
     G: 1, // wrecking throw aiming

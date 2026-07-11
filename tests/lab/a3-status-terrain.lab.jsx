@@ -45,10 +45,10 @@ describe("poison", () => {
 });
 
 describe("chill", () => {
-  test("shatter: next Break +1, chill consumed", () => {
+  test("shatter (v0.85 global rule): a landed Break pays +1 and spends the chill", () => {
     boot();
     const d = duel({
-      p: { fk: "V", load: ["spike", "lance", "hoar", "aval"], pass: "permafrost", set: { pow: 3, hp: 20, maxHp: 20 } },
+      p: { fk: "V", load: ["spike", "lance", "hoar", "iceage"], pass: "permafrost", set: { pow: 3, hp: 20, maxHp: 20 } },
       a: { ...BAG, set: { hp: 25, maxHp: 25, chill: true, chillUntil: 99 } },
       seed: 72,
       rounds: [{ p: { ab: "spike", target: "NE" }, a: { ab: "bB", target: "SW" } }],
@@ -57,24 +57,26 @@ describe("chill", () => {
     row("st:chill:consumed", "chill consumed by the shatter", "false", d.g.A.chill, d.g.A.chill === false);
   });
 
-  test("Shatterpoint: +2 instead of +1", () => {
+  test("shatter (v0.85 global rule): a won Advantage exchange shatters even on a Rush", () => {
     boot();
     const d = duel({
-      p: { fk: "V", load: ["spike", "lance", "hoar", "aval"], pass: "shatter", set: { pow: 3, hp: 20, maxHp: 20 } },
+      p: { fk: "V", load: ["lance", "spike", "hoar", "iceage"], pass: "permafrost", set: { pow: 3, hp: 20, maxHp: 20 } },
       a: { ...BAG, set: { hp: 25, maxHp: 25, chill: true, chillUntil: 99 } },
       seed: 73,
-      rounds: [{ p: { ab: "spike", target: "NE" }, a: { ab: "bB", target: "SW" } }],
+      rounds: [{ p: { ab: "lance", target: "NE" }, a: { ab: "bB", target: "SW" } }], // rush beats break: advantage
     });
-    rowEq("st:chill:shatterpoint", "spike 2 + shatterpoint 2", 4, dmgTo(d.rounds[0].lines, "Maelis"));
+    // lance 1 + shatter 1 + advantage point 1 = 3, then lance re-chills on contact
+    rowEq("st:chill:advShatter", "lance advantage win vs chilled = 3", 3, dmgTo(d.rounds[0].lines, "Maelis"));
+    row("st:chill:advReapplied", "lance re-chills after the spend", "true", d.g.A.chill, d.g.A.chill === true);
   });
 
-  test("rush does not shatter", () => {
+  test("a neutral rush does not shatter (no Break, no Advantage)", () => {
     boot();
     const d = duel({
-      p: { fk: "V", load: ["lance", "spike", "hoar", "aval"], pass: "permafrost", set: { pow: 3, hp: 20, maxHp: 20 } },
+      p: { fk: "V", load: ["lance", "spike", "hoar", "iceage"], pass: "permafrost", set: { pow: 3, hp: 20, maxHp: 20 } },
       a: { ...BAG, set: { hp: 25, maxHp: 25, chill: true, chillUntil: 99 } },
       seed: 74,
-      rounds: [{ p: { ab: "lance", target: "NE" }, a: { ab: "bR", target: "SW" } }],
+      rounds: [{ p: { ab: "lance", target: "NE" }, a: { ab: "bR", target: "SW" } }], // rush-rush trade
     });
     rowEq("st:chill:rushSafe", "Ice Lance trade does not shatter", 1, dmgTo(d.rounds[0].lines, "Maelis"));
     row("st:chill:reapplied", "lance re-chills on contact", "true", d.g.A.chill, d.g.A.chill === true);

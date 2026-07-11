@@ -95,10 +95,27 @@ describe("ward base utilities fire regardless of contact", () => {
     const d = wardIdle("V", "hoar");
     row("ward:hoar:frost", "own quadrant frosted", "frost at SW", d.g.terrain.SW?.kind, d.g.terrain.SW?.kind === "frost");
   });
-  test("Winter's Mantle heals 1 (idle)", () => {
+  test("Winter's Mantle (v0.85.4): base heals 1 regardless of contact", () => {
     boot();
     const d = wardIdle("V", "mantle", { set: { hp: 10 } });
-    rowEq("ward:mantle:heal", "heal 1", 1, healsTo(d.rounds[0].lines, "Vessk"));
+    rowEq("ward:mantle:idleHeal", "heal 1 idle (base utility)", 1, healsTo(d.rounds[0].lines, "Vessk"));
+    row("ward:mantle:idleFrost", "no frost without a catch", "none", d.g.terrain.SW?.kind ?? "none", !d.g.terrain.SW);
+  });
+  test("Winter's Mantle (v0.85.4): the Advantage catch pays +1 counter, +1 more heal (2 total), and frost underfoot", () => {
+    boot();
+    const d = wardCatch("V", "mantle", { set: { hp: 10 } });
+    rowEq("ward:mantle:catchDmg", "riposte 1 + Mantle counter 1", 2,
+      dmgBy(d.rounds[0].lines, "Riposte", "Maelis") + dmgBy(d.rounds[0].lines, "Mantle counter", "Maelis"));
+    rowEq("ward:mantle:catchHeal", "heal totals exactly 2 on the catch (1 base + 1 catch)", 2, healsTo(d.rounds[0].lines, "Vessk"));
+    row("ward:mantle:catchFrost", "own quadrant becomes a frost zone", "frost at SW", d.g.terrain.SW?.kind, d.g.terrain.SW?.kind === "frost");
+  });
+  test("Ice Age (v0.85.1): self-paints the caster's quadrant, then every frost zone births an elemental", () => {
+    boot();
+    const two = wardIdle("V", "iceage", { before: (gm) => { gm.terrain.NW = { kind: "frost", until: 99 }; gm.terrain.SE = { kind: "frost", until: 99 }; } });
+    rowEq("ward:iceage:births", "two zones + the self-painted one → three elementals", 3, Object.keys(two.g.icels || {}).length);
+    const bare = wardIdle("V", "iceage", { seed: 58 });
+    rowEq("ward:iceage:bare", "bare board → own quadrant freezes, one elemental", 1, Object.keys(bare.g.icels || {}).length);
+    row("ward:iceage:selfpaint", "caster's quadrant is a frost zone", "frost at SW", bare.g.terrain.SW?.kind, bare.g.terrain.SW?.kind === "frost");
   });
   test("Renewing Current heals 1 (idle)", () => {
     boot();
@@ -151,6 +168,23 @@ describe("ward base utilities fire regardless of contact", () => {
     row("ward:whirlA:place", "whirlpool placed", "whirl at SE", d.g.terrain.SE?.kind, d.g.terrain.SE?.kind === "whirl");
     row("ward:whirlA:yank", "adjacent foe yanked in", "foe at SE", d.g.A.pos, d.g.A.pos === "SE");
     rowEq("ward:whirlA:grind", "vortex grinds 1 at round end", 1, dmgTo(d.rounds[0].lines, "Koros"));
+  });
+  test("Consecration (v0.86 ward): sanctify any quadrant; the catch consecrates home too", () => {
+    boot();
+    const idle = duel({
+      p: wardKit("L", "consec"), a: FOE(), seed: 61,
+      rounds: [{ p: { ab: "consec" }, a: { ab: "bR", target: "NW" }, prompts: ["NE"] }],
+    });
+    row("ward:consec:place", "chosen quadrant hallowed (idle)", "hall at NE", idle.g.terrain.NE?.kind, idle.g.terrain.NE?.kind === "hall");
+    row("ward:consec:noSelf", "own square NOT hallowed without a catch", "none", idle.g.terrain.SW?.kind ?? "none", idle.g.terrain.SW?.kind !== "hall");
+    const caught = duel({
+      p: wardKit("L", "consec"), a: FOE(), seed: 62,
+      rounds: [{ p: { ab: "consec" }, a: { ab: "bR", target: "SW" }, prompts: ["NE"] }], // rush into the ward
+    });
+    rowEq("ward:consec:counter", "riposte 1 + Consecration counter 1 (the round-end sear is the ground's own rent)", 2,
+      dmgBy(caught.rounds[0].lines, "Riposte", "Maelis") + dmgBy(caught.rounds[0].lines, "Consecration counter", "Maelis"));
+    row("ward:consec:self", "own quadrant hallowed on the catch", "hall at SW", caught.g.terrain.SW?.kind, caught.g.terrain.SW?.kind === "hall");
+    row("ward:consec:both", "chosen quadrant hallowed too", "hall at NE", caught.g.terrain.NE?.kind, caught.g.terrain.NE?.kind === "hall");
   });
   test("Hawk's Eye wings Kess to an ADJACENT square only", () => {
     boot();

@@ -182,7 +182,7 @@ export function exchangeDmgTo(lines, shortName) {
 export const KITS = {
   G: { fk: "G", load: ["skull", "howl", "sunder", "iron"], pass: "warmonger" },
   M: { fk: "M", load: ["viper", "gloom", "umbral", "heart"], pass: "twist" },
-  V: { fk: "V", load: ["lance", "hoar", "spike", "aval"], pass: "shatter" },
+  V: { fk: "V", load: ["lance", "hoar", "spike", "iceage"], pass: "blizzard" },
   C: { fk: "C", load: ["cinder", "smoke", "comb", "pyre"], pass: "heatrise" },
   K: { fk: "K", load: ["cannon", "flux", "gyro", "core"], pass: "vent" },
   Z: { fk: "Z", load: ["ruin", "chains", "tap", "brand"], pass: "surplus" },

@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 
 const QUADS = ["NW", "NE", "SW", "SE"];
 const ADJ = { NW: ["NE", "SW"], NE: ["NW", "SE"], SW: ["NW", "SE"], SE: ["NE", "SW"] };
-const BUILD = "v0.85";
+const BUILD = "v0.88";
 const BEATS = { break: "ward", rush: "break", ward: "rush" };
 const TYPE_LABEL = { break: "BREAK", rush: "RUSH", ward: "WARD" };
 const TYPE_HEX = { break: "#ef4444", rush: "#f59e0b", ward: "#38bdf8" };
@@ -29,7 +29,7 @@ const TERRA_META = {
   dom: { icon: "⛰", name: "DOMINION", hex: "#f59e0b" },
 };
 const STATUS_INFO = {
-  frost: "❄ FROST — end a round here (unless you're Vessk) and you're CHILLED: the next Break that hits you shatters for bonus damage.",
+  frost: "❄ FROST ZONE — end a round here (unless you're Vessk) and you're CHILLED. A zone lasts exactly 3 round-ends, then melts — unless an Ice Elemental anchors it, or Vessk carries Permafrost.",
   scorch: "🔥 SCORCHED — end a round on this ground and you gain a Burn stack.",
   env: "🧪 POISONED — end a round here and you gain +1 Poison.",
   mire: "🧷 MIRE — the swamp keeps a doll for everyone: end a round here and you gain +1 Curse. Marrow's ground.",
@@ -39,7 +39,8 @@ const STATUS_INFO = {
   dom: "⛰ DOMINION — Dhoram's claimed stone. Hold all FOUR and the arena kneels: he wins unless a tile is broken within one round. To demolish one: land a BREAK while standing on it (Pyre and Wrecking Throws also destroy tiles).",
   poison: "🧪 POISON — inert venom; the 3rd stack RUPTURES for 3 and clears. Heartseeker detonates stacks EARLY at double value — consumed stacks never rupture.",
   burn: "🔥 BURN — smoldering fuel. At round's end: take 1, then a stack fades (cap 2). Combustion detonates stacks EARLY at double value — consumed stacks never tick.",
-  chill: "❄ CHILLED — the next Break that hits you SHATTERS: +1 damage (+2 if Vessk carries Shatterpoint); then the chill is consumed.",
+  chill: "❄ CHILLED — Vessk's SHATTER rule: any Break he lands on you, or any Advantage exchange he wins against you, breaks the chill for +1 damage — then the chill is SPENT and must be reapplied. At most once per exchange per source; his Ice Elementals shatter separately.",
+  icel: "🧊 ICE ELEMENTAL — born of ICE AGE, one per frost zone. Untargetable, never blocks movement, never acts on its own. It ANCHORS its zone (no melting while it stands) and MIRRORS Vessk's Ice Lance or Glacial Spike cast into its zone — base damage on neutral or winning exchanges, the Advantage rider on wins, its own SHATTER — then it is spent. The countering type breaks it for nothing. When it leaves (spent, countered, or its ground destroyed), the zone melts on a fresh 3-round clock.",
   tolleye: "👁 WATCHER'S TOLL — the hawk's gaze has locked the foe's path: they WILL move to (or hold) the marked quadrant this round. You know where they'll be. Aim.",
   dfield: "🛰 DISCHARGE FIELD — Koros's quadrant is permanently electrified: an enemy FIGHTER who starts a round there, ends a round there, or collides there takes 1 — at most once per round, always exactly 1, never modified. Companions are never harmed. Installed by Arc Discharge; it follows him wherever he stands.",
   siege: "⚙ SIEGE CANNON — the converted Cannonarm shells ALL THREE quadrants Koros does not occupy, every cast. It cannot be denied by losing the triangle, and wards mean nothing to it: no catch, no riposte, no guard-break, no Advantage riders in either direction. The only shelter is standing beside the barrels.",
@@ -98,11 +99,11 @@ const ABILITIES = {
   heart: { f: "M", name: "Heartseeker", type: "break", cost: 3, dmg: 1, needsTarget: true, text: "1 dmg, +2 per Poison stack consumed; if they carry Poison the blade CANNOT WHIFF — it finds them wherever they stand", adv: "+1 dmg", lore: "Named honestly." },
   // Vessk
   lance: { f: "V", name: "Ice Lance", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; Chill on any contact", adv: "+1 dmg", lore: "Cold travels faster than regret." },
-  hoar: { f: "V", name: "Hoarfrost Field", type: "ward", cost: 0, text: "Counter stance; your quadrant becomes Frost", adv: "+1 counter", lore: "The floor takes his side." },
-  spike: { f: "V", name: "Glacial Spike", type: "break", cost: 1, dmg: 2, needsTarget: true, text: "2 dmg — Chilled targets SHATTER under it (+1, or +2 with Shatterpoint). The frost itself is your re-chiller: herd them onto it", adv: "+1 dmg", lore: "For what the frost has already claimed." },
-  freeze: { f: "V", name: "Flash Freeze", type: "rush", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; the target quadrant becomes Frost", adv: "+1 dmg; enemy is Rooted next round", lore: "Stillness, delivered." },
-  mantle: { f: "V", name: "Winter's Mantle", type: "ward", cost: 1, text: "Counter stance; heal 1", adv: "+1 counter", lore: "The cold keeps its own." },
-  aval: { f: "V", name: "Avalanche", type: "rush", cost: 3, dmg: 2, needsTarget: true, needsSecondary: true, secDmg: 2, text: "2 dmg to TWO quadrants of your choice", adv: "+1 dmg, +1 more per Frost quadrant (max +2)", lore: "The mountain's opinion." },
+  hoar: { f: "V", name: "Hoarfrost Field", type: "ward", cost: 0, text: "Counter stance; your quadrant becomes a frost zone", adv: "+1 counter", lore: "The floor takes his side." },
+  spike: { f: "V", name: "Glacial Spike", type: "break", cost: 1, dmg: 2, needsTarget: true, text: "2 dmg. The frost is your re-chiller: herd them onto it and let the SHATTER pay", adv: "+1 dmg", lore: "For what the frost has already claimed." },
+  freeze: { f: "V", name: "Flash Freeze", type: "rush", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; the target quadrant becomes a frost zone, and the frozen boots ROOT them — no moving next round", adv: "+1 dmg", lore: "Stillness, delivered." },
+  mantle: { f: "V", name: "Winter's Mantle", type: "ward", cost: 1, text: "Counter stance; heal 1", adv: "+1 counter — the catch heals 1 MORE (2 total) and freezes the ground: your quadrant becomes a frost zone", lore: "The cold keeps its own." },
+  iceage: { f: "V", name: "Ice Age", type: "ward", cost: 3, text: "Counter stance; your quadrant becomes a frost zone, then EVERY frost zone births an ICE ELEMENTAL — it anchors its zone against melting and MIRRORS your Ice Lance or Glacial Spike cast into its zone", adv: "+1 counter", lore: "The world was ice once. It remembers." },
   // Ashkarra
   cinder: { f: "C", name: "Cinder Jab", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; Burn on any contact", adv: "+1 dmg", lore: "A handshake you'll feel tomorrow." },
   magma: { f: "C", name: "Magma Haymaker", type: "break", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; Burn on any contact", adv: "+1 dmg", lore: "Thrown with the whole furnace behind it." },
@@ -129,7 +130,7 @@ const ABILITIES = {
   llance: { f: "L", name: "Lightlance", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; +1 if the target stands on Sanctuary", adv: "+1 dmg", lore: "Thrown prayer, sharpened." },
   oath: { f: "L", name: "Bulwark Oath", type: "ward", cost: 0, text: "Counter stance", adv: "+1 counter, and NOTHING can move him this round — no shove, surf, yank, or pull", lore: "The last vow of a dead order, still load-bearing." },
   aegis: { f: "L", name: "Aegis of the Vigil", type: "ward", cost: 1, text: "Counter stance; heal 1; you cannot be knocked back this round — and on a CONTESTED relic, the Vigil outlasts: you claim it (a Break through the ward denies this)", adv: "+1 counter", lore: "He plants. The world negotiates." },
-  consec: { f: "L", name: "Consecration", type: "rush", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; target quadrant becomes a Sanctuary for 3 rounds", adv: "+1 dmg; your own quadrant becomes a Sanctuary too", lore: "Ground the enemy will regret standing on." },
+  consec: { f: "L", name: "Consecration", type: "ward", cost: 1, text: "Counter stance; consecrate ANY quadrant — it becomes a Sanctuary for 3 rounds", adv: "+1 counter; your own quadrant becomes a Sanctuary too", lore: "Ground the enemy will regret standing on." },
   dawn: { f: "L", name: "Dawnhammer", type: "break", cost: 3, dmg: 3, needsTarget: true, text: "3 dmg; heal 2 if you swing it from Sanctuary", adv: "+1 dmg", lore: "Sunrise, administered directly." },
   // Old Marrow (Witch Doctor)
   stick: { f: "O", name: "Pinstick", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; +1 Curse on any contact", adv: "+1 dmg", lore: "A little needle for a little debt." },
@@ -143,7 +144,7 @@ const ABILITIES = {
   quake: { f: "D", name: "Quake Fist", type: "break", cost: 1, dmg: 2, needsTarget: true, text: "2 dmg; shatters any non-Dominion terrain in the target quadrant", adv: "+1 dmg", lore: "An argument the architecture loses." },
   grind: { f: "D", name: "Continental Grind", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg; convert one enemy terrain into Dominion — or claim an empty quadrant if there is none", adv: "+1 dmg", lore: "He paves over your best ideas." },
   wall: { f: "D", name: "Stonewall", type: "ward", cost: 1, text: "Counter stance; cannot be knocked back; −1 from everything while on Dominion", adv: "+1 counter", lore: "The Unmoved, being unmoved." },
-  fissure: { f: "D", name: "Fissure", type: "rush", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; the crack runs — the target quadrant AND one adjacent of your choice become Dominion", adv: "+1 dmg", lore: "The ground opens a branch office." },
+  fissure: { f: "D", name: "Fissure", type: "break", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; the crack runs — the target quadrant AND one adjacent of your choice become Dominion", adv: "+1 dmg", lore: "The ground opens a branch office." },
   mount: { f: "D", name: "Mountainfall", type: "break", cost: 3, dmg: 3, needsTarget: true, text: "3 dmg; +1 if the enemy stands on Dominion", adv: "+1 dmg and their quadrant converts after the hit", lore: "The mountain's final ruling." },
   // Maelis (Hydromancer)
   lash: { f: "Y", name: "Riptide Lash", type: "rush", cost: 0, dmg: 1, needsTarget: true, text: "1 dmg", adv: "+1 dmg", lore: "The tide takes what it touches." },
@@ -158,7 +159,7 @@ const ABILITIES = {
   pin: { f: "W", name: "Pinning Shot", type: "break", cost: 1, dmg: 1, needsTarget: true, text: "1 dmg; the arrow pins — Rooted next round on any contact", adv: "+1 dmg", lore: "An arrow through the boot settles arguments." },
   strideW: { f: "W", name: "Longstride", type: "ward", cost: 1, text: "Counter stance; step to an adjacent quadrant after resolution", adv: "+1 counter", lore: "She was leaving anyway." },
   toll: { f: "W", name: "Watcher's Toll", type: "rush", cost: 2, dmg: 1, needsTarget: true, text: "1 dmg; next round the enemy's movement is revealed to you", adv: "+1 dmg", lore: "The hawk collects in information." },
-  sky: { f: "W", name: "Skyfall Volley", type: "break", cost: 3, dmg: 2, needsTarget: true, text: "BREAK — 2 dmg, and Kess takes wing (adjacent). Then for the NEXT TWO rounds a volley falls on a RANDOM quadrant — 2 dmg and a MARK if it finds them. Only a Rush interrupts the storm.", adv: "+1 dmg", lore: "Rain, fletched." },
+  sky: { f: "W", name: "Skyfall Volley", type: "rush", cost: 3, dmg: 2, needsTarget: true, text: "2 dmg, and Kess takes wing (adjacent). Then for the NEXT TWO rounds a volley falls on a RANDOM quadrant — 2 dmg and a MARK if it finds them. Only a ward's CATCH interrupts the storm.", adv: "+1 dmg", lore: "Rain, fletched." },
   // Dregan (Weapon Master)
   cres: { f: "X", name: "Crescent Cut", type: "rush", cost: 0, dmg: 1, needsTarget: true, pivot: "break", text: "1 dmg. PIVOT (1◆): switch to BREAK after the reveal", adv: "+1 dmg", lore: "Ask which weapon. The answer changes mid-swing." },
   eguard: { f: "X", name: "Edgeguard", type: "ward", cost: 0, text: "Counter stance", adv: "counter +1 and gain Flow", lore: "The shield has a point. Literally." },
@@ -179,8 +180,8 @@ const PASSIVES = {
   twist: { name: "Twist the Knife", text: "+1 dmg vs foes knocked back last round" },
   tithe: { name: "Blood Tithe", text: "On rupture: heal 2, max HP +2" },
   craven: { name: "Craven Shadow", text: "Once: pay 2◆ to slip a clash" },
-  permafrost: { name: "Permafrost", text: "Your Frost never melts" },
-  shatter: { name: "Shatterpoint", text: "Chilled foes take +2 from your Breaks" },
+  permafrost: { name: "Permafrost", text: "Your frost zones never melt from time — only razing or repainting removes them" },
+  blizzard: { name: "Blizzard", text: "At the round's end: with 2+ frost zones AND a chilled foe — or with 3+ frost zones regardless — the storm feeds you: gain Flow (never stacks, only refreshes)" },
   numb: { name: "Numbing Aura", text: "Foes sharing your quadrant get Chilled" },
   everburn: { name: "Everburn", text: "Your Burn cap becomes 3" },
   heatrise: { name: "Heat Rising", text: "Gain +1◆ when the foe burns" },
@@ -214,7 +215,7 @@ const PASSIVES = {
 const FIGHTERS = {
   G: { key: "G", name: "GHARZUL REDHAND", short: "Gharzul", sub: "Orc Berserker · Ravager", hp: 12, pool: ["skull", "howl", "sunder", "frenzy", "iron", "harvest"], passives: ["pact", "warmonger", "scent"], aiLoad: ["skull", "howl", "iron", "harvest"], aiPass: "pact", hex: "#dc2626", tone: "text-red-400", ring: "ring-red-600", bar: "bg-red-600", blurb: "Files his axe on the bones of the last duel. Worse to fight as he bleeds.", lore: "A warband of one since his clan voted him out for excessive enthusiasm. He files his axe on the bones of the last duel and calls it maintenance — one notch stays unfiled, and it has Maleth's name on it.", style: "Playstyle: relentless pressure. Force exchanges, chase collisions, feast on Clashes, and bank ◆ for a Red Harvest kill turn.", mech: "WRECKING THROW — knock the enemy into terrain and the impact destroys it for 1 bonus damage; into a companion, and it's stunned a round. SCENT OF BLOOD makes shared quadrants HIS: point-blank damage +1. Throw them far and LUNGE after — or drop them at your feet." },
   M: { key: "M", name: "MALETH, THE HOLLOW BLADE", short: "Maleth", sub: "Dark Elf Assassin · Duelist", hp: 10, pool: ["viper", "blackout", "umbral", "gloom", "twin", "heart"], passives: ["twist", "tithe", "craven"], aiLoad: ["viper", "gloom", "umbral", "heart"], aiPass: "tithe", hex: "#10b981", tone: "text-emerald-400", ring: "ring-emerald-500", bar: "bg-emerald-500", blurb: "Denies the fight until the moment it's already lost. Poison does the waiting.", lore: "They say Maleth and Gharzul have killed each other twice already, and neither considers the matter settled. Where the orc demands the fight, Maleth declines it until it's already lost — the poison does the waiting; the blade only signs the work.", style: "Playstyle: evasion and setup. Stack Poison on every contact, dodge with Umbral Step, avoid collisions, execute the wounded.", mech: "POISON — stacks on any contact; the 3rd stack RUPTURES for 3, or Heartseeker detonates stacks early at double and cannot whiff a poisoned target. Umbral Step picks its movement AFTER the reveal." },
-  V: { key: "V", name: "VESSK, THE RIMEBOUND", short: "Vessk", sub: "Cryomancer · Shaper", hp: 12, pool: ["lance", "hoar", "spike", "freeze", "mantle", "aval"], passives: ["permafrost", "shatter", "numb"], aiLoad: ["lance", "hoar", "spike", "aval"], aiPass: "shatter", hex: "#38bdf8", tone: "text-sky-300", ring: "ring-sky-500", bar: "bg-sky-500", blurb: "Freezes the ground, then shatters what stands on it. An executioner with a glacier heart.", lore: "The last lord of a winter court that froze rather than kneel — coronet in his hair, runes burning cold on the coat. He doesn't chase — he makes the ground disloyal.", style: "Playstyle: territory control. Paint Frost, herd them onto it with knockback, Chill through chip, then cash the SHATTER with a Break.", mech: "FROST & CHILL — Frost ground Chills anyone ending a round there; Chilled fighters take a SHATTER bonus from the next Break that lands." },
+  V: { key: "V", name: "VESSK, THE RIMEBOUND", short: "Vessk", sub: "Cryomancer · Shaper", hp: 12, pool: ["lance", "hoar", "spike", "freeze", "mantle", "iceage"], passives: ["permafrost", "blizzard", "numb"], aiLoad: ["lance", "hoar", "spike", "iceage"], aiPass: "numb", hex: "#38bdf8", tone: "text-sky-300", ring: "ring-sky-500", bar: "bg-sky-500", blurb: "Freezes the ground, then shatters what stands on it. The Ice Architect builds a winter that fights back.", lore: "The last lord of a winter court that froze rather than kneel — coronet in his hair, runes burning cold on the coat. He doesn't chase — he makes the ground disloyal.", style: "Playstyle: territory architecture. Paint frost zones, herd them onto the ice, cash the SHATTER — then cast ICE AGE and let the elementals hold and mirror your winter.", mech: "SHATTER — his global rule: any Break he lands, or any Advantage exchange he wins, against a CHILLED foe breaks the chill for +1; the chill is spent. ICE ELEMENTALS anchor frost zones and mirror his Lance and Spike." },
   C: { key: "C", name: "ASHKARRA CINDERFIST", short: "Ashkarra", sub: "Pyromancer · Ravager", hp: 11, pool: ["cinder", "magma", "flash", "smoke", "comb", "pyre"], passives: ["everburn", "heatrise", "killheat"], aiLoad: ["cinder", "smoke", "comb", "pyre"], aiPass: "heatrise", hex: "#f97316", tone: "text-orange-400", ring: "ring-orange-500", bar: "bg-orange-500", blurb: "A pit-fighter with slag-chained fists. Her fire doesn't ask permission — it lingers.", lore: "A pit-fighter with slag-chained fists and a fire-veil where the grin used to show. Her fire doesn't ask permission; it lingers, compounds, and collects.", style: "Playstyle: attrition ravager. Burn on every touch, cover retreats with Pyre, then detonate the stacks with Combustion.", mech: "BURN — sticks on any contact; at round's end each victim takes 1, then a stack fades. Let it smolder for slow value, or COMBUST the stacks early at DOUBLE value. Pyre scorches three quadrants." },
   K: { key: "K", name: "KOROS, THE WARCASTER", short: "Koros", sub: "Arcane Golem · Champion", hp: 13, pool: ["cannon", "flux", "frame", "gyro", "arc", "core"], passives: ["vent", "overclock", "siege"], aiLoad: ["cannon", "flux", "gyro", "core"], aiPass: "overclock", hex: "#a78bfa", tone: "text-violet-300", ring: "ring-violet-500", bar: "bg-violet-500", blurb: "An arcane machine from the old calamities, fighting now by choice. Ground taken is ground kept.", lore: "One of the great arcane machines that helped end the old world — it woke halfway through a siege, finished the shot, and has fought on its own terms ever since. Its heart is a battery; the whole duel is deciding when to spend it. Its maker's mark is Ϟ — koppa, the letter the alphabet retired — and the reactor bears Φ: flux, the current made flesh.", style: "Playstyle: the siege engine. Install the Discharge Field and stand your ground — the field collects rent while the bank climbs to the Finality Beam. A full bank is never armor; it is ammunition.", mech: "DISCHARGE FIELD — Arc Discharge permanently electrifies his square: enemy fighters entering, ending, or colliding there take 1 (once a round, flat). FINALITY BEAM — 5 damage, razes the target quadrant's terrain, stuns companions; Koros is Rooted the round after firing." },
   Z: { key: "Z", name: "ZHAL-MERAQ OF THE OPEN DOOR", short: "Zhal", sub: "Warlock · Ravager", hp: 14, pool: ["ruin", "chains", "tap", "brand", "dark", "pact"], passives: ["surplus", "agonist", "knock"], aiLoad: ["chains", "tap", "dark", "pact"], aiPass: "surplus", hex: "#a855f7", tone: "text-purple-400", ring: "ring-purple-500", bar: "bg-purple-500", blurb: "He signed something, once, in a language made of screaming.", lore: "He signed something, once, in a language made of screaming. Now he pays in blood and collects in ruin. Nobody knows who left the door open — and Zhal-Meraq has never once denied it.", style: "Playstyle: high risk, high reward. Burn HP for above-rate damage on the Ruin half, or Weaken and Brand on the Affliction half — then drain it back.", mech: "BLOOD PRICE — some abilities cost HP (never below 1, and it doesn't stop ◆ generation). Doombrand is a 3-damage time bomb on a fuse." },
@@ -225,6 +226,580 @@ const FIGHTERS = {
   X: { key: "X", name: "DREGAN NINE-EDGES", short: "Dregan", sub: "Weapon Master · Duelist", hp: 12, pool: ["cres", "eguard", "riposte", "chainX", "cadence", "arsenal"], passives: ["pedge", "momentum", "tempo"], aiLoad: ["cres", "eguard", "chainX", "arsenal"], aiPass: "momentum", hex: "#94a3b8", tone: "text-slate-300", ring: "ring-slate-400", bar: "bg-slate-400", blurb: "Nine weapons, one argument.", lore: "Nine weapons, one argument. Ask which one he's holding — the answer changes mid-swing.", style: "Playstyle: pressure fencing. Attack relentlessly, pivot out of bad reveals, bank Flow off wards, and cash it through Cadence and Arsenal.", mech: "NINE EDGES — Crescent Cut and Arsenal Chain may PIVOT to their other grip AFTER the reveal for 1◆ (sometimes that only buys a trade — escaping beats losing). FLOW: his wards and Cadence bank +1 for the next strike." },
   O: { key: "O", name: "OLD MARROW", short: "Marrow", sub: "Witch Doctor · Shaper", hp: 13, pool: ["stick", "knit", "eye", "mireA", "puppet", "sorrow"], passives: ["mdeep", "stitch", "juju"], aiLoad: ["stick", "knit", "eye", "sorrow"], aiPass: "mdeep", hex: "#a3e635", tone: "text-lime-400", ring: "ring-lime-500", bar: "bg-lime-500", blurb: "Every favor accrues interest.", lore: "Nobody remembers Marrow young. The swamp taught him its oldest trade: lend a little misfortune now, collect it all back with interest later.", style: "Playstyle: patient attrition. Trade politely for seven rounds while the Curses compound. Then collect.", mech: "CURSE — inert until Round 8, then the enemy takes 1 damage per 3 stacks at the end of every round. Weaken and Puppet Pull control the meantime." },
 };
+
+/* ============ AI v3 — THE MIND (v0.87) ============
+   One brain, three pillars. The v2 doctrines (objectives, positional play,
+   DoT clocks, combo intents, staleness) stop being competing weight hacks
+   and become INPUT FEATURES of a single expected-value planner:
+   - PROFILE: recency-weighted opponent modeling (types, wounded habits,
+     full-bank habits, movement, aim) feeding a predicted action distribution.
+   - PLANNER: every candidate plan is simulated one round forward against
+     that distribution and scored by expected HP swing + status/objective
+     value + war-plan alignment; selection is temperature-mixed softmax —
+     never deterministic argmax (an exploitable robot is a worse opponent
+     than a noisy one). Low temperature at Crucible, high at Proving, and
+     Proving keeps the rubber-band matchmaking framing (temperature eases
+     when far ahead, sharpens when far behind — sophistication, never mercy).
+   - WAR PLAN: a win condition chosen at match start from the fighter's
+     doctrine (burn clock, venom execute, relic march, the seal, siege,
+     winter architecture, kite-and-mark, tempo, blood race, the debt,
+     the rent, the red line), scored as an EV multiplier and allowed to
+     SWITCH when the position demands — every switch logged and auditable.
+   - ENDGAME SOLVER: clashes are small closed games — the Mind builds the
+     actual payoff matrix over both players' affordable picks and plays a
+     fictitious-play mixed strategy; round 10 uses the flat-final law and
+     P(win) payoffs exactly; round 9 folds the projected round-10 value
+     into planning. Crucible plays the solution; Proving plays it noisily.
+   All reasoning is written to g.mind.log for the sparring transcripts.
+   Self-play/evolutionary tuning: explicitly out of scope (designer's law). */
+const MIND = (() => {
+  const TYPES = ["rush", "break", "ward"];
+  const capOf = (s) => (s.pass === "reserves" ? 4 : 3);
+  const woundedOf = (s) => s.hp <= Math.ceil(s.maxHp * 0.4);
+
+  /* ---------- the profile ---------- */
+  const blankProf = () => ({
+    types: { rush: 1, break: 1, ward: 1 },
+    wardWounded: 0.8, nWounded: 2,
+    rushAfterHit: 0.9, nAfterHit: 2,
+    fullBank: { rush: 0.7, break: 0.7, ward: 0.7 },
+    moveY: 0.45, moveN: 1,
+    fleePostCol: 0.7, nPostCol: 1,
+    aimSelf: 1.4, nAim: 2,
+    n: 0,
+  });
+  const DEC = 0.88; // recency decay per observation
+  const initState = (g) => {
+    g.mind = {
+      prof: { P: blankProf(), A: blankProf() },
+      war: { P: null, A: null },
+      log: [],
+      prev: { P: [null, null], A: [null, null] },
+      tookHit: { P: false, A: false },
+      colPrev: false,
+      perf: { n: 0, ms: 0, maxMs: 0 },
+    };
+  };
+  // observe one seat's revealed plan (called at reveal time, both paths)
+  const observe = (g, seatKey, s, foe, plan, ctx) => {
+    const m = g.mind; if (!m) return;
+    const pr = m.prof[seatKey];
+    const ty = plan.form || ABILITIES[plan.ab].type;
+    pr.n += 1;
+    TYPES.forEach((t) => { pr.types[t] *= DEC; });
+    pr.types[ty] += 1;
+    if (ctx.wounded) { pr.wardWounded = pr.wardWounded * DEC + (ty === "ward" ? 1 : 0); pr.nWounded = pr.nWounded * DEC + 1; }
+    if (m.tookHit[seatKey]) { pr.rushAfterHit = pr.rushAfterHit * DEC + (ty === "rush" ? 1 : 0); pr.nAfterHit = pr.nAfterHit * DEC + 1; }
+    if (ctx.fullBank) { TYPES.forEach((t) => { pr.fullBank[t] *= DEC; }); pr.fullBank[ty] += 1; }
+    if (!ctx.clash) {
+      const moved = plan.moveTo !== s.pos;
+      pr.moveY = pr.moveY * DEC + (moved ? 1 : 0); pr.moveN = pr.moveN * DEC + 1;
+      if (m.colPrev) { pr.fleePostCol = pr.fleePostCol * DEC + (moved ? 1 : 0); pr.nPostCol = pr.nPostCol * DEC + 1; }
+      if (plan.target) { pr.aimSelf = pr.aimSelf * DEC + (plan.target === foe.pos ? 1 : 0); pr.nAim = pr.nAim * DEC + 1; }
+    }
+  };
+
+  /* ---------- shared value tables ---------- */
+  const statusVal = (g, key, owner) => ({
+    poison: 0.9, burn: 0.85, chill: 0.55, mark: 0.5, weak: 0.7, root: 0.7,
+    curse: (g.round || 1) >= 6 ? 0.7 : 0.45, flow: owner?.pass === "pedge" ? 1.3 : 0.8,
+  }[key] || 0);
+  const HEAL_W = 0.9;
+
+  /* ---------- forward damage model (mirrors the engine's laws) ---------- */
+  const abilityBase = (g, src, tgt, id, tgtPos) => {
+    const ab = ABILITIES[id];
+    let d = ab.dmg || 0;
+    if (id === "frenzy" && src.hp <= 6) d = 3;
+    if (id === "heart") d += (tgt.poison || 0) * 2;
+    if (id === "comb") d += (tgt.burn || 0) * 2;
+    if (id === "sorrow" && (tgt.curse || 0) >= 3) d += Math.floor(tgt.curse / 3);
+    if (id === "llance" && g.terrain[tgtPos]?.kind === "hall") d += 1;
+    if (id === "mount" && g.terrain[tgtPos]?.kind === "dom") d += 1;
+    return d;
+  };
+  const atkMods = (g, src, tgt, ty, ctx) => {
+    let n = 0;
+    if (src.fk === "G" && src.pass === "pact" && src.hp <= 6) n += 1;
+    if (src.fk === "M" && src.pass === "twist" && tgt.kbLast) n += 1;
+    if (src.fk === "Z" && src.pass === "agonist" && ((tgt.weak || 0) > 0 || tgt.brandRound)) n += 1;
+    if (src.fk === "W" && (tgt.mark || 0) > 0) n += Math.min(2, tgt.mark);
+    if (src.fk === "G" && src.pass === "scent" && ctx.shared) n += 1;
+    if (src.fk === "C" && src.pass === "killheat" && (tgt.burn || 0) > 0 && ctx.collision) n += 1;
+    if (src.fk === "W" && src.pass === "deadeye" && ctx.diagonal) n += 1;
+    if (src.flow) n += src.pass === "pedge" ? 2 : 1;
+    if ((src.weak || 0) > 0) n -= 1;
+    if (src.fk === "V" && (ty === "break" || ctx.advWin) && tgt.chill) n += 1; // the global shatter (pre-chill law approximated)
+    return n;
+  };
+  const ironSoak = (plan) => plan && (plan.ab === "iron" || plan.ab === "wall"); // -1 per instance (wall only on dom, approximated)
+  // on-contact status value an attack plants (design: statuses apply on contact unless warded vs rush)
+  const contactVal = (g, src, tgt, id) => {
+    let v = 0;
+    if (id === "viper" || id === "twin") v += statusVal(g, "poison") * ((tgt.poison || 0) === 2 ? 2.4 : 1);
+    if (id === "lance") v += tgt.chill ? 0.1 : statusVal(g, "chill");
+    if (id === "cinder" || id === "magma") v += statusVal(g, "burn");
+    if (id === "stick" || id === "eye") v += statusVal(g, "curse");
+    if (id === "eye" || id === "chains") v += statusVal(g, "weak");
+    if (id === "pin" || id === "freeze") v += tgt.rooted ? 0 : statusVal(g, "root");
+    if (id === "brand" && !tgt.brandRound) v += 2.2;
+    if (id === "toll") v += 0.8;
+    return v;
+  };
+  // utility value of the plan itself (ward bases, paints, summons, heals)
+  const planUtil = (g, me, foe, plan, warMult) => {
+    const id = plan.ab;
+    let v = 0;
+    const heal = (n) => Math.min(n, me.maxHp - me.hp) * HEAL_W;
+    if (id === "mantle" || id === "current" || id === "knit" || id === "aegis") v += heal(1);
+    if (id === "frame" && me.pow >= capOf(me)) v += heal(2);
+    if (id === "dark") v += heal(2) * 0.8; // pays only on contact
+    if (id === "dawn" && g.terrain[me.pos]?.kind === "hall") v += heal(2) * 0.8;
+    if (id === "hoar") v += (warMult.frost || 1) * 0.5;
+    if (id === "iceage") { const fresh = QUADS.filter((q) => (g.terrain[q]?.kind === "frost" || q === me.pos) && !g.icels?.[q]).length; v += fresh * 0.7 * (warMult.frost || 1); }
+    if (id === "freeze") v += (warMult.frost || 1) * 0.45;
+    if (id === "consec") v += (me.fk === "L" ? 0.9 : 0.2) * (warMult.hall || 1);
+    if (id === "claim") v += 1.2 * (warMult.dom || 1);
+    if (id === "fissure") v += 2.1 * (warMult.dom || 1);
+    if (id === "grind") v += 1.0 * (warMult.dom || 1);
+    if (id === "whirlA" || id === "bwater") v += 0.6 * (warMult.water || 1);
+    if (id === "storm") v += 1.2 * (warMult.water || 1);
+    if (id === "undine") v += 0.9 * (warMult.water || 1);
+    if (id === "arc" && !me.dischargeField) v += 1.6;
+    if (id === "gyro") v += 0.25;
+    if (id === "tap" && me.hp > 3) v += 0.7; // 1 blood -> 1-2 pow
+    if (id === "riposte" && !me.flow) v += statusVal(g, "flow", me);
+    if (id === "sky") v += 1.3; // two loaded volleys, expected ~1 hit
+    if (id === "hawk") v += 0.5;
+    if (id === "core") v -= 0.5; // the recoil root
+    return v;
+  };
+  // expected round-end tick damage for fighter s standing at pos (positive = s bleeds)
+  const tickOn = (g, s, foe, pos, sharedFoePos) => {
+    let dmg = 0, val = 0;
+    const t = g.terrain[pos]?.kind;
+    if ((s.burn || 0) > 0) dmg += 1;
+    if (s.brandRound && g.round >= s.brandRound) dmg += 3;
+    if (foe.fk === "O" && (s.curse || 0) >= 3 && g.round >= (foe.pass === "mdeep" ? 7 : 8)) dmg += Math.min(2, Math.floor(s.curse / 3));
+    if (t === "frost" && s.fk !== "V") val += statusVal(g, "chill");
+    if (t === "scorch" && s.fk !== "C") val += statusVal(g, "burn");
+    if (t === "env" && s.fk !== "M") val += statusVal(g, "poison") * ((s.poison || 0) === 2 ? 2.4 : 1);
+    if (t === "mire" && s.fk !== "O") val += statusVal(g, "curse");
+    if (t === "hall") { if (s.fk === "L") dmg -= 1; else dmg += 1; }
+    if (t === "dom" && s.fk !== "D" && foe.fk === "D" && foe.pass === "home") dmg += 1;
+    if (t === "whirl" && s.fk !== "Y") dmg += 1;
+    if (t === "surf" && s.fk !== "Y") dmg += 1;
+    if (g.undineQ === pos && s.fk !== "Y" && !(g.undineStun >= g.round)) dmg += 1;
+    if (g.kessQ === pos && s.fk !== "W" && (s.mark || 0) === 0) val += statusVal(g, "mark");
+    if (foe.dischargeField && pos === sharedFoePos) dmg += 1;
+    if (foe.fk === "V" && foe.pass === "numb" && pos === sharedFoePos) val += statusVal(g, "chill");
+    if ((foe._skyBarrage || 0) > 0) dmg += 0.5; // 2 dmg x 1/4 quadrant
+    return dmg + val;
+  };
+  // relic value of ending the round at pos
+  const relicVal = (g, s, foe, pos) => {
+    if (!g.relics?.board?.length || !g.relics.board.includes(pos)) return 0;
+    if (s.fk === "L") return 2.5 + (g.relics.claims || 0) * 2.5;
+    return foe.fk === "L" ? 2.5 + (g.relics.claims || 0) * 2 : 1.2; // denial is survival against the reliquary
+  };
+
+  /* ---------- one-exchange forward simulation (normal rounds) ---------- */
+  // myPlan: {ab, type, moveTo, target} · foeAct: {ab, type, moveTo, pHitMe}
+  // returns expected value of the exchange from me's perspective
+  const evalExchange = (g, me, foe, myPlan, foeAct, warMult) => {
+    const myT = myPlan.type, foT = foeAct.type;
+    const myEnd = myPlan.moveTo, foeEnd = foeAct.moveTo;
+    const collision = myEnd === foeEnd || (myEnd === foe.pos && foeEnd === me.pos && me.pos !== foe.pos);
+    const myAtk = myT !== "ward", foeAtk = foT !== "ward";
+    const myHit = myAtk && (collision || myPlan.target === foeEnd);
+    const pFoeHit = foeAtk ? (collision ? 1 : foeAct.pHitMe(myEnd)) : 0;
+    const shared = myEnd === foeEnd;
+    const diagonal = myPlan.target && myPlan.target !== myEnd && !ADJ[myEnd].includes(myPlan.target);
+    let ev = 0;
+
+    const resolveBranch = (foeHit) => {
+      let v = 0;
+      let dTo = 0, dFrom = 0;
+      const ctxMe = { shared, collision, diagonal, advWin: false };
+      const ctxFoe = { shared, collision, diagonal: false, advWin: false };
+      const foeIron = ironSoak(foeAct), myIron = ironSoak(myPlan);
+      const hit = (n, iron) => Math.max(0, n - (iron ? 1 : 0));
+      if (myAtk && foeAtk) {
+        if (myHit && foeHit) {
+          if (myT === foT) { // trade
+            dTo += hit(abilityBase(g, me, foe, myPlan.ab, foeEnd) + atkMods(g, me, foe, myT, ctxMe), foeIron);
+            dFrom += hit(abilityBase(g, foe, me, foeAct.ab, myEnd) + atkMods(g, foe, me, foT, ctxFoe), myIron);
+            v += contactVal(g, me, foe, myPlan.ab) - contactVal(g, foe, me, foeAct.ab);
+          } else if (BEATS[myT] === foT) { // I win the triangle
+            ctxMe.advWin = true;
+            dTo += hit(abilityBase(g, me, foe, myPlan.ab, foeEnd) + atkMods(g, me, foe, myT, ctxMe) + 1, foeIron);
+            v += contactVal(g, me, foe, myPlan.ab) + 0.35; // knockback rights
+          } else { // countered
+            ctxFoe.advWin = true;
+            dFrom += hit(abilityBase(g, foe, me, foeAct.ab, myEnd) + atkMods(g, foe, me, foT, ctxFoe) + 1, myIron);
+            v -= contactVal(g, foe, me, foeAct.ab) + 0.35;
+          }
+        } else if (myHit) { // clean read
+          dTo += hit(abilityBase(g, me, foe, myPlan.ab, foeEnd) + atkMods(g, me, foe, myT, ctxMe), foeIron);
+          v += contactVal(g, me, foe, myPlan.ab) + 0.35;
+        } else if (foeHit) {
+          dFrom += hit(abilityBase(g, foe, me, foeAct.ab, myEnd) + atkMods(g, foe, me, foT, ctxFoe), myIron);
+          v -= contactVal(g, foe, me, foeAct.ab) + 0.35;
+        }
+      } else if (myAtk) { // foe wards
+        if (myHit) {
+          if (myT === "break") {
+            ctxMe.advWin = true;
+            dTo += hit(abilityBase(g, me, foe, myPlan.ab, foeEnd) + atkMods(g, me, foe, myT, ctxMe) + 1, foeIron);
+            v += contactVal(g, me, foe, myPlan.ab) + 0.35;
+          } else { // caught
+            const riposte = foeAct.ab === "arc" ? 2 : 1;
+            dFrom += hit(riposte + 1, myIron); // riposte + sharpened counter
+            v -= 0.6; // signature catch extras, roughly
+          }
+        }
+      } else if (foeAtk) { // I ward
+        if (foeHit) {
+          if (foT === "break") {
+            ctxFoe.advWin = true;
+            dFrom += hit(abilityBase(g, foe, me, foeAct.ab, myEnd) + atkMods(g, foe, me, foT, ctxFoe) + 1, myIron);
+            v -= contactVal(g, foe, me, foeAct.ab) + 0.35;
+          } else {
+            const riposte = myPlan.ab === "arc" ? 2 : 1;
+            dTo += hit(riposte + 1 + (me.fk === "V" && foe.chill ? 1 : 0), foeIron);
+            v += myPlan.ab === "mantle" ? Math.min(1, me.maxHp - me.hp) * HEAL_W + 0.5 : 0.5;
+          }
+        }
+      }
+      // Vessk's elemental mirror: lance/spike into an anchored zone with the foe there
+      if (me.fk === "V" && ["lance", "spike"].includes(myPlan.ab) && myHit) {
+        const zone = collision ? foeEnd : myPlan.target;
+        if (g.icels?.[zone] && !(g.icels[zone].stun >= g.round) && foeEnd === zone && !(myT !== "break" && !myAtk)) {
+          const won = ctxMe.advWin;
+          const countered = myAtk && foeAtk && BEATS[foT] === myT || (!foeAtk && myT === "rush" && myHit);
+          if (!countered) dTo += (ABILITIES[myPlan.ab].dmg || 0) + (won ? 1 : 0) + (foe.chill ? 1 : 0);
+        }
+      }
+      const kill = foe.hp - dTo <= 0 ? 3 : 0;
+      const death = me.hp - dFrom <= 0 ? -6 : 0;
+      return (dTo * (warMult.dmg || 1) - dFrom * (warMult.selfHp || 1)) + v + kill + death;
+    };
+
+    ev += pFoeHit * resolveBranch(true) + (1 - pFoeHit) * resolveBranch(false);
+    // ability cost friction: spending denies income (unless at 0 anyway)
+    const cost = ABILITIES[myPlan.ab].cost || 0;
+    if (cost > 0) ev -= 0.55 + cost * 0.12;
+    if (ABILITIES[myPlan.ab].hpCost) ev -= ABILITIES[myPlan.ab].hpCost * 0.6 * (warMult.selfHp || 1);
+    // round-end board state from where both fighters stand
+    ev -= tickOn(g, me, foe, myEnd, foeEnd);
+    ev += tickOn(g, foe, me, foeEnd, myEnd) * 0.9;
+    ev += relicVal(g, me, foe, myEnd) - relicVal(g, foe, me, foeEnd) * 0.9;
+    return ev;
+  };
+
+  /* ---------- the war plan ---------- */
+  const WAR_MENU = {
+    G: { id: "the-red-line", mult: { dmg: 1.15 }, note: "force exchanges, feast on clashes" },
+    M: { id: "venom-execute", mult: { dmg: 1, poison: 1.5, selfHp: 1.15 }, note: "stack venom, execute the wounded" },
+    V: { id: "winter-architecture", mult: { frost: 1.5 }, note: "paint, chill, cash the shatter" },
+    C: { id: "burn-clock", mult: { burn: 1.5 }, note: "stay ahead of the burn schedule" },
+    K: { id: "the-siege", mult: { dmg: 1.05 }, note: "install the Field, bank to the Beam" },
+    Z: { id: "blood-race", mult: { dmg: 1.2, selfHp: 0.85 }, note: "spend blood faster than it spends you" },
+    L: { id: "relic-march", mult: { relic: 1.6, hall: 1.3 }, note: "claims by rounds 4/7/9" },
+    O: { id: "the-debt", mult: { curse: 1.6 }, note: "six curses banked by round 7" },
+    D: { id: "the-seal", mult: { dom: 1.5 }, note: "tiles on pace for the round-8 seal" },
+    Y: { id: "the-rent", mult: { water: 1.5 }, note: "keep the water collecting" },
+    W: { id: "kite-and-mark", mult: { dmg: 1.05 }, note: "distance, marks, pins" },
+    X: { id: "tempo", mult: { flow: 1.3, dmg: 1.1 }, note: "flow uptime, cash through the chains" },
+  };
+  const FALLBACK = { id: "the-race", mult: { dmg: 1.3, selfHp: 0.9 }, note: "the plan collapsed — race for the bell" };
+  const warPlanFor = (g, s, foe, seatKey) => {
+    const m = g.mind;
+    if (!m.war[seatKey]) {
+      m.war[seatKey] = { ...(WAR_MENU[s.fk] || FALLBACK), since: 1 };
+      m.log.push({ r: g.round, seat: seatKey, kind: "war", note: `war plan: ${m.war[seatKey].id} — ${m.war[seatKey].note}` });
+    }
+    const w = m.war[seatKey];
+    // switch check: a collapsed plan becomes the race
+    if (w.id !== "the-race" && g.round >= 6) {
+      const losing = s.hp - foe.hp <= -4;
+      const paceDead =
+        (w.id === "relic-march" && (g.relics?.claims || 0) === 0 && g.round >= 7) ||
+        (w.id === "the-seal" && QUADS.filter((q) => g.terrain[q]?.kind === "dom").length < 2 && g.round >= 7) ||
+        (w.id === "the-debt" && (foe.curse || 0) < 3 && g.round >= 7) ||
+        (w.id === "burn-clock" && (foe.burn || 0) === 0 && g.round >= 7 && losing);
+      if (losing || paceDead) {
+        m.war[seatKey] = { ...FALLBACK, since: g.round };
+        m.log.push({ r: g.round, seat: seatKey, kind: "war-switch", note: `${w.id} collapsed (${losing ? "HP deficit" : "pace dead"}) → the-race` });
+      }
+    }
+    return m.war[seatKey];
+  };
+
+  /* ---------- opponent action distribution ---------- */
+  const foeScenarios = (g, me, foe, prof, soph, known) => {
+    if (known) { // umbral certainty: the reveal is in hand
+      const ty = known.form || ABILITIES[known.ab].type;
+      return [{ ab: known.ab, type: ty, moveTo: known.moveTo ?? foe.pos, w: 1, pHitMe: (myEnd) => (known.target ? (known.target === myEnd ? 1 : 0) : 0) }];
+    }
+    const wounded = woundedOf(foe);
+    const full = foe.pow >= capOf(foe);
+    const base = { ...prof.types };
+    if (wounded && prof.nWounded > 2.5) { const wr = prof.wardWounded / prof.nWounded; base.ward *= 1 + wr * 1.5 * soph; }
+    if (g.mind.tookHit[me === g.P ? "A" : "P"] && prof.nAfterHit > 2.5) { const rr = prof.rushAfterHit / prof.nAfterHit; base.rush *= 1 + rr * soph; }
+    if (full) TYPES.forEach((t) => { base[t] *= 1 + (prof.fullBank[t] / (prof.fullBank.rush + prof.fullBank.break + prof.fullBank.ward)) * soph; });
+    const abs = foe.load.filter((id) => foe.pow >= ABILITIES[id].cost && !(id === "heart" && (me.poison || 0) === 0));
+    const pool = abs.length ? abs : foe.load.filter((id) => ABILITIES[id].cost === 0);
+    let tot = 0;
+    const weights = pool.map((id) => {
+      const ab = ABILITIES[id];
+      let w = (base[ab.type] || 1) * (1 + (ab.dmg || 0) * 0.35);
+      if (id === "heart" && (me.poison || 0) >= 2) w *= 2.2;
+      if (id === "comb" && (me.burn || 0) >= 2) w *= 1.8;
+      if (id === "sorrow" && (me.curse || 0) >= 3) w *= 1.8;
+      tot += w; return w;
+    });
+    const moveP = foe.rooted ? 0 : Math.min(0.85, Math.max(0.12, prof.moveY / prof.moveN));
+    let moves;
+    if (foe.rooted) moves = [{ q: foe.pos, p: 1 }];
+    else {
+      moves = [{ q: foe.pos, p: 1 - moveP }, ...ADJ[foe.pos].map((q) => ({ q, p: moveP / 2 }))];
+      // doctrine-aware movement prior: the World Doctrine is PREDICTABLE —
+      // Kastor marches at relics, Dhoram stands his stone, hazards repel
+      const relics = g.relics?.board || [];
+      moves = moves.map((mv) => {
+        let w = mv.p;
+        if (foe.fk === "L" && relics.includes(mv.q)) w *= 4;
+        if (foe.fk !== "L" && relics.includes(mv.q) && (foe.hp - me.hp) <= -3) w *= 2;
+        if (foe.fk === "D" && g.terrain[mv.q]?.kind === "dom") w *= 1.6;
+        if (["frost", "scorch", "env", "mire", "whirl", "surf"].includes(g.terrain[mv.q]?.kind) && foe.fk !== "Y" && foe.fk !== "V") w *= 0.5;
+        return { q: mv.q, p: w };
+      });
+      const mSum = moves.reduce((a2, m) => a2 + m.p, 0);
+      moves = moves.map((m) => ({ q: m.q, p: m.p / mSum }));
+    }
+    const aimSelf = Math.min(0.95, Math.max(0.3, prof.aimSelf / prof.nAim + (1 - soph) * 0.05));
+    const out = [];
+    pool.forEach((id, i) => {
+      const ab = ABILITIES[id];
+      moves.forEach((mv) => {
+        if (mv.p <= 0.01) return;
+        out.push({
+          ab: id, type: ab.type, moveTo: mv.q, w: (weights[i] / tot) * mv.p,
+          pHitMe: (myEnd) => ab.type === "ward" ? 0 : (myEnd === me.pos ? aimSelf : ADJ[me.pos].includes(myEnd) ? (1 - aimSelf) / 2 : 0),
+        });
+      });
+    });
+    return out;
+  };
+
+  /* ---------- the endgame solver ---------- */
+  const clashDmg = (g, atk, dfn, id, dfnId, won, final) => {
+    // winner/trade damage under clash law; flat-final suppresses the bonus stack
+    let d = abilityBase(g, atk, dfn, id, dfn.pos);
+    if (!final) d += atkMods(g, atk, dfn, ABILITIES[id].type, { shared: true, collision: false, advWin: won });
+    if ((atk.weak || 0) > 0 && final) d -= 1; // reductions still apply under the law
+    if (won) d += 1 + (final ? 2 : 0);
+    if (ironSoak({ ab: dfnId })) d -= won ? 2 : 1;
+    return Math.max(0, d);
+  };
+  const clashPay = (g, me, foe, myId, foeId, final) => {
+    const myT = ABILITIES[myId].type, foT = ABILITIES[foeId].type;
+    let dTo = 0, dFrom = 0, util = 0;
+    const warmongerMe = me.fk === "G" && me.pass === "warmonger";
+    const warmongerFoe = foe.fk === "G" && foe.pass === "warmonger";
+    let winner = null;
+    if (myT !== foT) winner = BEATS[myT] === foT ? "me" : "foe";
+    else if (warmongerMe) winner = "me";
+    else if (warmongerFoe) winner = "foe";
+    if (!winner) { // trade
+      if (myT !== "ward") dTo = clashDmg(g, me, foe, myId, foeId, false, final);
+      if (foT !== "ward") dFrom = clashDmg(g, foe, me, foeId, myId, false, final);
+      util += planUtil(g, me, foe, { ab: myId }, {}) * 0.5;
+    } else if (winner === "me") {
+      if (myT !== "ward") dTo = clashDmg(g, me, foe, myId, foeId, true, final);
+      else { dTo = (myId === "arc" ? 2 : 1) + 1 + (final ? 2 : 0); util += planUtil(g, me, foe, { ab: myId }, {}) * 0.5; }
+    } else {
+      if (foT !== "ward") dFrom = clashDmg(g, foe, me, foeId, myId, true, final);
+      else dFrom = (foeId === "arc" ? 2 : 1) + 1 + (final ? 2 : 0);
+    }
+    if (final) {
+      // terminal payoff: P(win) after the bell
+      const hm = me.hp - dFrom, hf = foe.hp - dTo;
+      if (hf <= 0 && hm > 0) return 1;
+      if (hm <= 0 && hf > 0) return 0;
+      if (hm <= 0 && hf <= 0) return 0.5;
+      return hm > hf ? 1 : hm < hf ? 0 : 0.5;
+    }
+    return dTo - dFrom + util * 0.4 + (foe.hp - dTo <= 0 ? 4 : 0) - (me.hp - dFrom <= 0 ? 6 : 0);
+  };
+  const solveMatrix = (pay, iters = 220) => {
+    // fictitious play on a bimatrix treated as zero-sum-ish (payoff = row's value)
+    const R = pay.length, C = pay[0].length;
+    const rCount = new Array(R).fill(1), cCount = new Array(C).fill(1);
+    for (let it = 0; it < iters; it++) {
+      let bestR = 0, bestRv = -Infinity;
+      for (let r = 0; r < R; r++) { let v = 0; for (let c = 0; c < C; c++) v += pay[r][c] * cCount[c]; if (v > bestRv) { bestRv = v; bestR = r; } }
+      rCount[bestR] += 1;
+      let bestC = 0, bestCv = Infinity;
+      for (let c = 0; c < C; c++) { let v = 0; for (let r = 0; r < R; r++) v += pay[r][c] * rCount[r]; if (v < bestCv) { bestCv = v; bestC = c; } }
+      cCount[bestC] += 1;
+    }
+    const rSum = rCount.reduce((a, b) => a + b, 0), cSum = cCount.reduce((a, b) => a + b, 0);
+    const rowMix = rCount.map((x) => x / rSum), colMix = cCount.map((x) => x / cSum);
+    let value = 0;
+    for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) value += pay[r][c] * rowMix[r] * colMix[c];
+    return { rowMix, colMix, value };
+  };
+  const affordable = (g, s, foeOfS) => {
+    const abs = s.load.filter((id) => s.pow >= ABILITIES[id].cost && !(id === "heart" && (foeOfS.poison || 0) === 0));
+    return abs.length ? abs : s.load.filter((id) => ABILITIES[id].cost === 0);
+  };
+  // projected round-10 value for round-9 planning (tiny matrix, cheap iterations)
+  const finalValue = (g, me, foe, hpMe, hpFoe, powMe, powFoe) => {
+    const meS = { ...me, hp: Math.max(0, hpMe), pow: powMe };
+    const foeS = { ...foe, hp: Math.max(0, hpFoe), pow: powFoe };
+    if (meS.hp <= 0) return 0;
+    if (foeS.hp <= 0) return 1;
+    const mine = affordable(g, meS, foeS), theirs = affordable(g, foeS, meS);
+    const pay = mine.map((mid) => theirs.map((fid) => clashPay(g, meS, foeS, mid, fid, true)));
+    return solveMatrix(pay, 70).value;
+  };
+
+  /* ---------- clash planning (rounds 3/7/10) ---------- */
+  const planClash = (g, me, foe, opts) => {
+    const { diff, rng } = opts;
+    const t0 = typeof performance !== "undefined" ? performance.now() : Date.now();
+    const seatKey = me === g.P ? "P" : "A";
+    const foeSeat = seatKey === "P" ? "A" : "P";
+    const prof = g.mind?.prof?.[foeSeat] || blankProf();
+    const soph = diff === "crucible" ? 1 : 0.45;
+    const final = g.round === 10;
+    const mine = affordable(g, me, foe), theirs = affordable(g, foe, me);
+    const pay = mine.map((mid) => theirs.map((fid) => clashPay(g, me, foe, mid, fid, final)));
+    const sol = solveMatrix(pay);
+    // the foe is not a perfect equilibrium player: blend with their profile
+    const tSum = prof.types.rush + prof.types.break + prof.types.ward;
+    const prior = theirs.map((fid) => (prof.types[ABILITIES[fid].type] || 1) / tSum);
+    const pSum = prior.reduce((a, b) => a + b, 0);
+    const foeMix = theirs.map((_, c) => (sol.colMix[c] * (0.4 + 0.6 * soph) + (prior[c] / pSum) * (0.6 - 0.6 * soph + 0.6 * (1 - soph))));
+    const fSum = foeMix.reduce((a, b) => a + b, 0);
+    const evs = mine.map((mid, r) => theirs.reduce((acc, _, c) => acc + pay[r][c] * (foeMix[c] / fSum), 0));
+    // temperature selection over the EVs (never argmax)
+    const tau = diff === "crucible" ? (final ? 0.06 : 0.22) : 0.8;
+    const idx = softPick(evs, tau, rng, diff, g, me, foe);
+    logPlan(g, seatKey, {
+      r: g.round, kind: final ? "final-clash" : "clash",
+      note: `${final ? "FINAL solver" : "clash matrix"}: ${mine.map((m, i) => `${ABILITIES[m].name} ${final ? (evs[i] * 100).toFixed(0) + "%" : "EV " + evs[i].toFixed(2)}`).join(" · ")} → ${ABILITIES[mine[idx]].name}`,
+    });
+    perfMark(g, t0);
+    return { ab: mine[idx], soft: false, form: null };
+  };
+
+  const softPick = (evs, tau, rng, diff, g, me, foe) => {
+    let ranked = evs.map((v, i) => ({ v, i })).sort((a, b) => b.v - a.v);
+    // pattern-breaking (Crucible only): sometimes discard the very best line —
+    // the Mind knows it too is being watched
+    if (diff === "crucible" && ranked.length > 1 && rng() < 0.12 && ranked[0].v - ranked[1].v < 0.5) ranked = ranked.slice(1); // near-best means NEAR: unpredictability must never buy a blunder
+    const top = ranked.slice(0, 4);
+    const mx = top[0].v;
+    const ws = top.map((x) => Math.exp((x.v - mx) / Math.max(0.03, tau)));
+    const sum = ws.reduce((a, b) => a + b, 0);
+    let roll = rng() * sum;
+    for (let k = 0; k < top.length; k++) { roll -= ws[k]; if (roll <= 0) return top[k].i; }
+    return top[0].i;
+  };
+  const perfMark = (g, t0) => {
+    if (!g.mind) return;
+    const now = typeof performance !== "undefined" ? performance.now() : Date.now();
+    const ms = now - t0;
+    g.mind.perf.n += 1; g.mind.perf.ms += ms; if (ms > g.mind.perf.maxMs) g.mind.perf.maxMs = ms;
+  };
+  const logPlan = (g, seat, entry) => {
+    if (!g.mind) return;
+    g.mind.log.push({ seat, ...entry });
+    if (g.mind.log.length > 400) g.mind.log.splice(0, 100);
+  };
+
+  /* ---------- normal-round planning ---------- */
+  const plan = (g, me, foe, opts) => {
+    const { diff, rng, isClash, umbralFoePlan, forcedMove } = opts;
+    if (isClash) return planClash(g, me, foe, opts);
+    const t0 = typeof performance !== "undefined" ? performance.now() : Date.now();
+    const seatKey = me === g.P ? "P" : "A";
+    const foeSeat = seatKey === "P" ? "A" : "P";
+    const prof = g.mind?.prof?.[foeSeat] || blankProf();
+    const soph = diff === "crucible" ? 1 : 0.45;
+    const war = g.mind ? warPlanFor(g, me, foe, seatKey) : { ...WAR_MENU[me.fk] };
+    const warMult = war.mult || {};
+    const scen = foeScenarios(g, me, foe, prof, soph, null); // the umbral reveal steers only the dodge (v2 honesty law)
+    // movement options
+    let moves;
+    if (forcedMove) moves = [forcedMove];
+    else if (me.rooted) moves = [me.pos];
+    else {
+      moves = [me.pos, ...ADJ[me.pos]];
+      if (me.pass === "rider") QUADS.forEach((q) => { if (["whirl", "surf"].includes(g.terrain[q]?.kind) && !moves.includes(q)) moves.push(q); });
+    }
+    const mine = affordable(g, me, foe);
+    // likely foe positions for aiming (ranked by scenario mass)
+    const posMass = {};
+    scen.forEach((s) => { posMass[s.moveTo] = (posMass[s.moveTo] || 0) + s.w; });
+    const aimSpots = Object.entries(posMass).sort((a, b) => b[1] - a[1]).map(([q]) => q).slice(0, 3);
+    const candidates = [];
+    mine.forEach((id) => {
+      const ab = ABILITIES[id];
+      const targets = ab.needsTarget ? aimSpots : [null];
+      const moveSet = ab.umbral && umbralFoePlan
+        ? [(() => { const dodge = [me.pos, ...ADJ[me.pos]].filter((q) => q !== umbralFoePlan.target); return dodge.length ? dodge[Math.floor(rng() * dodge.length)] : me.pos; })()]
+        : moves;
+      moveSet.forEach((mv) => targets.forEach((tq) => candidates.push({ ab: id, type: ab.type, moveTo: mv, target: tq })));
+    });
+    // EV per candidate against the predicted distribution
+    const evs = candidates.map((c) => {
+      let ev = 0;
+      scen.forEach((s) => { ev += s.w * evalExchange(g, me, foe, c, s, warMult); });
+      ev += planUtil(g, me, foe, c, warMult);
+      // staleness: the third consecutive identical pick feeds reads
+      const prev = g.mind?.prev?.[seatKey] || [null, null];
+      if (prev[0] === c.ab && prev[1] === c.ab) ev -= 0.8;
+      // round-9 folds the projected final-clash value in
+      if (g.round === 9) {
+        const swing = ev; // rough expected swing proxy
+        const pWin = finalValue(g, me, foe, me.hp + Math.min(0, -0), foe.hp - Math.max(0, Math.min(3, swing)), Math.max(0, me.pow - (ABILITIES[c.ab].cost || 0)) + 1, Math.min(capOf(foe), foe.pow + 1));
+        ev += pWin * 2.5;
+      }
+      return ev;
+    });
+    // rubber-band lives in the temperature (Proving only — matchmaking, never mercy)
+    let tau = diff === "crucible" ? 0.3 : 0.95;
+    if (diff !== "crucible") {
+      const lead = me.hp - foe.hp;
+      if (lead >= 5) tau += 0.5; else if (lead <= -5) tau = Math.max(0.55, tau - 0.25);
+    }
+    const idx = softPick(evs, tau, rng, diff, g, me, foe);
+    const chosen = candidates[idx];
+    const ab = ABILITIES[chosen.ab];
+    const planOut = { ab: chosen.ab, soft: false, form: null, moveTo: chosen.moveTo, target: chosen.target, splash: null, secondary: null };
+    if (ab.dual) planOut.form = Object.keys(ab.dual)[Math.floor(rng() * Object.keys(ab.dual).length)];
+    if (ab.needsSplash && planOut.target) planOut.splash = ADJ[planOut.target][Math.floor(rng() * 2)];
+    if (ab.needsSecondary && planOut.target) { const sq = QUADS.filter((q) => q !== planOut.target); planOut.secondary = sq[Math.floor(rng() * sq.length)]; }
+    if (g.mind) g.mind.prev[seatKey] = [g.mind.prev[seatKey][1], chosen.ab];
+    // the transcript line: prediction, top lines, the war plan
+    const tSum = prof.types.rush + prof.types.break + prof.types.ward;
+    const ranked = evs.map((v, i) => ({ v, i })).sort((a, b) => b.v - a.v).slice(0, 3);
+    logPlan(g, seatKey, {
+      r: g.round, kind: "plan",
+      note: `predict ${TYPES.map((t) => `${t} ${(100 * prof.types[t] / tSum).toFixed(0)}%`).join("/")}${woundedOf(foe) ? " (wounded profile)" : ""} · ` +
+        `${ranked.map((x) => `${ABILITIES[candidates[x.i].ab].name}@${candidates[x.i].moveTo}${candidates[x.i].target ? "→" + candidates[x.i].target : ""} EV ${x.v.toFixed(2)}`).join(" · ")} · ` +
+        `war ${war.id} → ${ab.name}`,
+    });
+    perfMark(g, t0);
+    return planOut;
+  };
+
+  return { initState, observe, plan, tickOn, blankProf };
+})();
 
 /* ============ PORTRAITS ============ */
 /* ART PASS I — shared portrait depth kit: one key light (upper-left), a
@@ -3160,13 +3735,15 @@ const TUTS = {
     { you: { move: "T", ab: "viper", tgt: "F" }, foe: { ab: "howl", move: "T", tgt: "N" }, say: "He read your step — you'll trade. Trades still plant Poison, and Blood Tithe grew your max HP on that detonation. You profit from every exchange, even the fair ones." },
     { you: { move: "H", ab: "twin", tgt: "F", sec: "O" }, foe: { ab: "skull", move: "H", tgt: "Y" }, say: "THREE FANGS: two blades, two squares, and a third dagger sticks Poisoned ground into a square you didn't hit. Three-quarters of the arena now belongs to the venom. Class dismissed." },
   ]},
-  V: { foe: "C", pass: "shatter", rails: [
-    { you: { move: "T", ab: "lance", tgt: "F" }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "She jabs your old square; you step out and lance her. Ice Lance CHILLS on any contact — the next Break to land SHATTERS the chill for bonus damage." },
-    { you: { move: "H", ab: "hoar", tgt: null }, foe: { ab: "cinder", move: "T", tgt: "N" }, say: "She's diving your square — meet her in stance. Hoarfrost catches her Rush AND freezes the floor under you. Frost Chills anyone ending a round on it: the ground is your re-chiller." },
-    { clash: true, you: { ab: "spike" }, foe: { ab: "smoke" }, say: "CLASH — she's Chilled. GLACIAL SPIKE: Break beats her Ward, and the SHATTER pays +2 with Shatterpoint. Winning a clash places BOTH fighters — the script keeps you on your frost and puts HER on it too: the ground will re-chill her while she stands there." },
-    { you: { move: "H", ab: "aval", tgt: "F", sec: "O" }, foe: { ab: "magma", move: "H", tgt: "Y" }, say: "3◆: AVALANCHE — two quadrants of your choice, +1 per Frost on the board on Advantage. It's a RUSH now: her ward would catch it... she's guarding! Watch the catch, learn the ultimate read." },
-    { you: { move: "T", ab: "lance", tgt: "F" }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "Re-chill and rebuild. Permafrost means your frost never melts on its own — only her Pyre burns it away. Herd her onto your ground with shoves whenever you win." },
-    { you: { move: "H", ab: "spike", tgt: "F" }, foe: { ab: "smoke", move: "H", tgt: null }, say: "She shells up; you Spike straight through the guard. If the frost re-chilled her, this shatters again — the loop closes: frost chills, Spike cashes, forever." },
+  V: { foe: "C", pass: "blizzard", load: ["lance", "freeze", "spike", "iceage"], rails: [
+    { you: { move: "T", ab: "lance", tgt: "F" }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "She jabs the square you're LEAVING — step out and lance her. Ice Lance CHILLS on any contact. Learn the law first: the chill is a debt, and YOU collect it — any Break you land, or any exchange you win with Advantage, SHATTERS the chill for +1. Then it's SPENT, and must be laid again. One rule, one payout, never twice from the same hand." },
+    { you: { move: "A", ab: "freeze", tgt: "F" }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "2◆ (the story keeps your bank filled — in a real bout these casts ARE the budget): FLASH FREEZE where she stands. Three things land at once: damage, her square becomes a FROST ZONE, and the frozen boots ROOT her — no moving next round. The zone's clock is law too: exactly THREE round-ends, then it melts. Hold her on the ice and let the bell chill her." },
+    { clash: true, you: { ab: "iceage" }, foe: { ab: "cinder" }, say: "CLASH — 3◆: ICE AGE, a WARD. She lunges; the stance CATCHES her — and she's Chilled from your ice, so the riposte SHATTERS the chill: even a ward's answer collects the debt. And the cast itself: YOUR square freezes too, and every frost zone births an ICE ELEMENTAL — two of them stand up. Each ANCHORS its ground: anchored ice does not melt while its guardian stands. Keep her on the frost." },
+    { you: { move: "H", ab: "spike", tgt: "F" }, foe: { ab: "smoke", move: "H", tgt: null }, say: "Hear last bell's storm-line? BLIZZARD: two zones and a chilled foe hand you FLOW every bell. Now the masterstroke — she was hurled onto your own guarded ice, point-blank: GLACIAL SPIKE straight through her guard. Your shatter collects her chill... and the zone's elemental MIRRORS you — same attack, same exchange, Advantage and all, and its OWN shatter, its own source cashing the same spent chill once. Then it spends itself, and that zone's clock starts running again: three bells. Spike + shatter + mirror + its shatter: the tallest line winter builds." },
+    { you: { move: "T", ab: "lance", tgt: "F" }, foe: { ab: "cinder", move: "H", tgt: "Y" }, say: "Step out and lance — the chill is laid BY HAND when the ground hasn't done it, and Blizzard's Flow rides the strike. Then listen at the bell: across the arena the OTHER guardian still stands, and the frost that was due to melt HOLDS. The spent zone under her is mortal again and counting. Anchored ice keeps; spent ice dies on schedule." },
+    { you: { move: "H", ab: "spike", tgt: "F" }, foe: { ab: "smoke", move: "H", tgt: null }, say: "Collect again — Spike through the shell, SHATTER the chill. And count her zone's bells: the third one rings TONIGHT. Watch the old ice die on schedule while your anchored ground doesn't even flinch. That is the difference a guardian makes." },
+    { clash: true, you: { ab: "freeze" }, foe: { ab: "comb" }, say: "SECOND CLASH — she loads a Break; FLASH FREEZE is a RUSH and interrupts it. Clash riders live on rounds 3 and 7: the win SHATTERS her chill, fresh ice spreads under her feet, and the frozen boots ROOT her — a pin that outlasts the bell. Next round she cannot step. You know exactly where she'll be." },
+    { you: { move: "H", ab: "spike", tgt: "F" }, foe: { ab: "smoke", move: "H", tgt: null }, say: "She's nailed to the ice and shelled up — Spike the square she CANNOT leave. The guard breaks, the chill SHATTERS, and she never had a read to win because you removed the guessing. Root into Spike: the line that pays the rent. Look at the board as the bell rings: frozen ground, a guardian that will not let its ice die, a foe with nowhere safe to stand. You don't chase. You make the ground disloyal. Class dismissed — the cold keeps its own." },
   ]},
   C: { foe: "G", pass: "heatrise", rails: [
     { you: { move: "T", ab: "cinder", tgt: "F" }, foe: { ab: "skull", move: "H", tgt: "Y" }, say: "Step out of his swing and tag him. Burn sticks on ANY contact — each stack ticks 1 at round's end, and Heat Rising pays YOU ◆ while he burns." },
@@ -3199,8 +3776,8 @@ const TUTS = {
     { you: { move: "T", ab: "llance", tgt: "F" }, foe: { ab: "ruin", move: "H", tgt: "Y" }, say: "He burns his own blood to swing at your old square. Step out, lance him, and remember: you don't chase — you HOLD." },
     { you: { move: "R", ab: "oath", tgt: null }, foe: { ab: "ruin", move: "H", tgt: "Y" }, say: "A RELIC has manifested — Pilgrim's Stride already stepped you toward it. Stand ON it at round's end to claim: three claims wins outright. Oath up and plant." },
     { clash: true, you: { ab: "censure" }, foe: { ab: "tap" }, say: "CLASH — He hides behind the Tap \u2014 CENSURE breaks it, and its rider's Advantage denies his ◆ when it wins. The Light disapproves of a warlock's economy." },
-    { you: { move: "H", ab: "dawn", tgt: "F" }, foe: { ab: "tap", move: "H", tgt: null }, say: "3◆: DAWNHAMMER — 3 damage, and if you swing it from Sanctuary it heals you 2. Sunrise, administered directly." },
-    { you: { move: "H", ab: "consec", tgt: "F" }, foe: { ab: "ruin", move: "T", tgt: "N" }, say: "CONSECRATE his square: the Sanctuary heals YOU 1 and SEARS him 1 every round he stands there. Your Lightlance hits +1 on it. Make the arena holy; make trespass expensive." },
+    { you: { move: "H", ab: "consec", tgt: null }, foe: { ab: "chains", move: "T", tgt: "N" }, say: "1◆: CONSECRATION — a WARD: plant in stance and SANCTIFY. He's brawling point-blank on YOUR ground — so bless the very square you both contest. His lunge dies on the stance, the counter answers, and watch the bell do the rest: holy ground HEALS you 1 and SEARS him 1, every round he insists on standing there. Your Lightlance hits +1 on it too. Make trespass expensive." },
+    { you: { move: "H", ab: "dawn", tgt: "F" }, foe: { ab: "tap", move: "H", tgt: null }, say: "Now the combo the sanctity was for — 3◆: DAWNHAMMER swung FROM holy ground: 3 damage straight through his ward, and the sunrise heals you 2. Consecrate, stand, swing. Sunrise, administered directly." },
     { you: { move: "H", ab: "aegis", tgt: null }, foe: { ab: "chains", move: "H", tgt: "N" }, say: "AEGIS on the contested relic: heal, anchor \u2014 he lunges and the ward CATCHES him cold; the riposte answers and the Vigil holds the claim. (Stepping off was the safe road. Vigils don't take it.)" },
   ]},
   O: { foe: "L", pass: "mdeep", rails: [
@@ -3233,7 +3810,7 @@ const TUTS = {
     { you: { move: "T", ab: "broad", tgt: "F" }, foe: { ab: "lash", move: "H", tgt: "Y" }, say: "She lashes your old square. Step out, loose a Broadhead. Your whole kit is INFORMATION: know where they'll be, and the arrow does the rest." },
     { you: { move: "H", ab: "hawk", tgt: null }, foe: { ab: "lash", move: "T", tgt: "N" }, say: "We HOLD this round — on purpose: she's diving at your square, and a ward wants exactly that. HAWK'S EYE catches her Rush — riposte answers, Advantage sharpens it. And know the law: KESS IS THE MARKER — end a round in the hawk's square and you are Marked. Kess wings one square over (ADJACENT only, a real bird): park her where the hydromancer will stand. Your shove HOLDS her. Bait, catch, herd." },
     { clash: true, you: { ab: "pin" }, foe: { ab: "current" }, say: "CLASH — PINNING SHOT: Break beats her Ward, and the pin ROOTS her. A rooted target can't move: next round you KNOW her square. The pin manufactures the read." },
-    { you: { move: "R", ab: "sky", tgt: "F" }, foe: { ab: "current", move: "H", tgt: null }, say: "3\u25c6: SKYFALL VOLLEY \u2014 a BREAK: 2 dmg where you AIM, and Kess TAKES WING (adjacent). Then for TWO rounds the sky keeps falling on a RANDOM square \u2014 2 dmg and a MARK when it finds her. Two mark symbols happen only when the volley catches her IN Kess's square. She wards \u2014 the Break shatters through. Let the dice hunt." },
+    { you: { move: "R", ab: "sky", tgt: "F" }, foe: { ab: "lash", move: "H", tgt: "Y" }, say: "3\u25c6: SKYFALL VOLLEY \u2014 2 dmg where you AIM, and Kess TAKES WING (adjacent). Then for TWO rounds the sky keeps falling on a RANDOM square \u2014 2 dmg and a MARK when it finds her. Only a ward's CATCH stops the launch \u2014 and she's swinging at the square you LEFT instead. Let the dice hunt." },
     { you: { move: "H", ab: "broad", tgt: "F" }, foe: { ab: "lash", move: "H", tgt: "Y" }, say: "If the sky found her she's Marked; either way you're on the DIAGONAL: Deadeye +1, Mark +1 — a 3-damage free action. Geometry is your damage." },
     { you: { move: "T", ab: "pin", tgt: "F" }, foe: { ab: "whirlA", move: "H", tgt: null }, say: "She shells up in the current \u2014 doesn't matter: Pin the square, Kess marks the flight, and the next arrow cannot miss. Read, pin, finish. Kess watches. You finish." },
   ]},
@@ -3330,6 +3907,24 @@ function UndineMini({ size = 18 }) {
       <circle cx="11" cy="8.4" r="1.6" fill="#67e8f9" opacity=".22" /><circle cx="14" cy="8.2" r="1.6" fill="#67e8f9" opacity=".22" />
       <path d="M9 11 Q8 14 8.8 17" stroke="#ccfbf1" strokeWidth=".7" fill="none" opacity=".55" />
       <circle cx="19" cy="14" r="0.9" fill="#5eead4" opacity=".9" /><circle cx="3.5" cy="16" r="0.8" fill="#2dd4bf" opacity=".8" /><circle cx="18" cy="3.5" r="0.7" fill="#ccfbf1" opacity=".9" />
+    </svg>
+  );
+}
+/* ICE ELEMENTAL — silhouette doctrine (v0.82.3): ONE solid bold silhouette,
+   thick outline, glow — no construction lines; must read at 40-60px.
+   Jagged crystalline figure, faintly humanoid, rooted in its zone. */
+function IceElementalMini({ size = 30 }) {
+  return (
+    <svg viewBox="0 0 34 40" width={size} height={(size * 40) / 34}>
+      <ellipse cx="17" cy="21" rx="15" ry="17" fill="#38bdf8" opacity=".18" />
+      <ellipse cx="17" cy="20" rx="9" ry="11" fill="#7dd3fc" opacity=".2" />
+      <path d="M17 1 L21 9 L27 6.5 L25 14 L31 18 L25.5 22 L28 32 L21 29 L19.5 36 L23 39 L11 39 L14.5 36 L13 29 L6 32 L8.5 22 L3 18 L9 14 L7 6.5 L13 9 Z"
+        fill="#0c4a6e" stroke="#38bdf8" strokeWidth="2" strokeLinejoin="round" />
+      <path d="M17 5.5 L19.2 12 L17 20 L14.8 12 Z" fill="#7dd3fc" opacity=".9" />
+      <path d="M11 16 L14 19 L12 24 Z M23 16 L20 19 L22 24 Z" fill="#38bdf8" opacity=".8" />
+      <path d="M15 26 L17 23.5 L19 26 L17 33 Z" fill="#0ea5e9" opacity=".75" />
+      <path d="M12.8 13.8 L15.2 15.2 M21.2 13.8 L18.8 15.2" stroke="#e0f2fe" strokeWidth="1.7" strokeLinecap="round" />
+      <circle cx="24.8" cy="9.5" r="1" fill="#e0f2fe" /><circle cx="8.6" cy="24.5" r="0.9" fill="#e0f2fe" opacity=".9" />
     </svg>
   );
 }
@@ -3487,6 +4082,12 @@ const CSS = `
 @keyframes skyflash{0%,86%,100%{opacity:0}88%{opacity:.95}90%{opacity:.12}92%{opacity:.75}95%{opacity:0}}
 .fxSkyHit{animation:skyhit 1.5s ease-out both}
 @keyframes skyhit{0%{transform:translateY(-16px);opacity:0}30%{opacity:1}100%{transform:translateY(0);opacity:.85}}
+.icelIdle{display:inline-block;animation:icelShimmer 2.6s ease-in-out infinite}
+@keyframes icelShimmer{0%,100%{opacity:1;filter:brightness(1)}50%{opacity:.9;filter:brightness(1.22)}}
+.icelBirth{display:inline-block;animation:icelBirthK .9s ease-out both}
+@keyframes icelBirthK{0%{transform:translateY(7px) scale(.15);opacity:0}45%{transform:translateY(-3px) scale(1.18);opacity:1;filter:brightness(2.1)}100%{transform:translateY(0) scale(1);opacity:1;filter:brightness(1)}}
+.fxIceBurst{animation:iceburstK .95s ease-out both}
+@keyframes iceburstK{0%{transform:scale(.25);opacity:0}25%{opacity:1;filter:brightness(1.8)}70%{transform:scale(1.05);opacity:.9}100%{transform:scale(1.15);opacity:0}}
 @keyframes bgShake{0%,100%{transform:translate(0,0)}20%{transform:translate(-5px,3px)}40%{transform:translate(4px,-4px)}60%{transform:translate(-3px,-2px)}80%{transform:translate(3px,2px)}}
 @keyframes popRise{0%{opacity:0;transform:translateY(8px) scale(.6)}18%{opacity:1;transform:translateY(0) scale(1.2)}34%{transform:scale(1)}100%{opacity:0;transform:translateY(-30px)}}
 @keyframes slashIn{0%{opacity:0;transform:rotate(-28deg) scaleX(0)}30%{opacity:1;transform:rotate(-28deg) scaleX(1.05)}100%{opacity:0;transform:rotate(-28deg) scaleX(1)}}
@@ -3681,6 +4282,34 @@ export default function App() {
   const nm = (s) => FIGHTERS[s.fk].short;
   const elOf = (s) => FIGHTERS[s.fk].hex;
   const frostQs = () => QUADS.filter((q) => G.current.terrain[q]?.kind === "frost");
+  /* ---- Ice Elementals (Vessk's Ice Age) ----
+     Untargetable tokens, one per frost zone. They ANCHOR their zone (no
+     decay), MIRROR Vessk's Lance/Spike into their zone, and leave when
+     spent, countered, or their ground is destroyed. Kess precedent. */
+  const birthElementals = (caster, L) => {
+    const g = G.current;
+    g.icels = g.icels || {};
+    // v0.85.1 ruling: the Age brings its own winter — the caster's quadrant
+    // freezes first, then every frost zone births.
+    setTerrain(caster.pos, "frost", L, "❄ Frost");
+    const qs = frostQs().filter((q) => !g.icels[q]);
+    if (!qs.length) { L.push({ t: `🧊 ICE AGE — every zone already stands guarded; nothing new rises.` }); return; }
+    qs.forEach((q) => { g.icels[q] = { stun: 0, bornR: g.round }; if (g.stats?.icel) g.stats.icel.born += 1; });
+    g.icelBorn = { qs, r: g.roundJustPlayed };
+    L.push({ t: `🧊 ICE AGE — the winter stands up: an Ice Elemental rises in ${qs.join(" and ")}.`, fx: { kind: "combo", text: "ICE AGE" } });
+  };
+  const removeEl = (q, L, why) => {
+    // why: "spent" | "countered" | "zonelost". Spent/countered leave the
+    // zone standing — it resumes normal decay on a fresh 2-round clock.
+    const g = G.current;
+    const el = g.icels?.[q];
+    if (!el) return;
+    delete g.icels[q];
+    if (g.stats?.icel) { g.stats.icel[why] += 1; g.stats.icel.lifeSum += Math.max(0, (g.roundJustPlayed || g.round) - el.bornR); }
+    g.icelBursts = [...(g.icelBursts || []).slice(-7), { q, r: g.roundJustPlayed }];
+    if (why !== "zonelost" && g.terrain[q]?.kind === "frost") g.terrain[q].until = g.roundJustPlayed + 2; // fresh full clock
+    L.push({ t: why === "countered" ? `🧊 COUNTERED — the Ice Elemental at ${q} breaks apart for nothing.` : why === "spent" ? `🧊 The Ice Elemental at ${q} spends itself in the strike and shatters.` : `🧊 The Ice Elemental at ${q} collapses with its ground.`, fx: { kind: "combo", text: why === "spent" ? "ELEMENTAL SPENT" : "ELEMENTAL LOST" } });
+  };
   const railFor = (g) => (g?.tut && TUTS[g.P.fk]?.rails?.[g.round - 1]) || null;
   const resolveRail = (g) => {
     const rail = railFor(g);
@@ -3704,6 +4333,7 @@ export default function App() {
     const hazKinds = ["frost", "scorch", "env", "mire", "whirl", "surf"];
     if (p.kind === "kess" || p.kind === "undine") return p.opts.includes(foe0.pos) ? foe0.pos : p.opts[0];
     if (p.kind === "terr" && p.tkind === "whirl") return p.opts.includes(foe0.pos) ? foe0.pos : p.opts[0];
+    if (p.kind === "terr" && p.tkind === "hall") return p.opts.includes(foe0.pos) ? foe0.pos : p.opts[0]; // the lesson sears the trespasser
     if (p.kind === "gift") return "heal";
     if (p.kind === "placeSelf") {
       if (me0.fk === "L" && g.relics?.board?.length && p.opts.includes(g.relics.board[0])) return g.relics.board[0];
@@ -3766,10 +4396,16 @@ export default function App() {
     if (src.fk === "Z" && src.pass === "agonist" && ((tgt.weak || 0) > 0 || tgt.brandRound)) n += 1;
     if (src.fk === "W" && (tgt.mark || 0) > 0) n += Math.min(2, tgt.mark);
     if (src.flow) { const fb = src.pass === "pedge" ? 2 : 1; n += fb; src.flow = false; L.push({ t: `✦ Flow — the strike lands +${fb} heavier.` }); }
-    if (ty === "break" && tgt.chill) {
-      n += src.pass === "shatter" && src.fk === "V" ? 2 : 1;
-      tgt.chill = false;
-      L.push({ t: `❄ SHATTER — the chill breaks under the blow.`, fx: { kind: "combo", text: "SHATTER" } });
+    // SHATTER — Vessk's global rule: any Break he lands, or any Advantage
+    // exchange he wins, against a CHILLED target breaks the chill for +1.
+    // Once per exchange per source. Only a chill standing when the exchange
+    // BEGAN can be shattered (no double-dipping a chill applied mid-exchange);
+    // its echo lets his elemental — a separate source — cash it once too.
+    if (src.fk === "V" && !src._shatterUsed && (ty === "break" || src._advNow) && (tgt._chillEcho || (tgt.chill && tgt._chillPre))) {
+      n += 1; src._shatterUsed = true;
+      if (!tgt._chillEcho) { tgt.chill = false; tgt._chillEcho = true; } // the first cash consumes it
+      if (G.current.stats) G.current.stats.shatter[src === G.current.P ? "P" : "A"] += 1;
+      L.push({ t: `❄ SHATTER — the chill breaks under the blow and is spent.`, fx: { kind: "combo", text: "SHATTER" } });
     }
     dealRaw(tgt, n, L, label, ty, elOf(src));
   };
@@ -3816,11 +4452,13 @@ export default function App() {
   const setTerrain = (q, kind, L, label) => {
     const g = G.current;
     const vF = [g.P, g.A].find((f) => f.fk === "V"), yF = [g.P, g.A].find((f) => f.fk === "Y");
+    // frost zones last exactly 3 round-ends, unified (v0.85.1 ruling — was 2)
     let dur = 2;
     if (kind === "frost" && vF?.pass === "permafrost") dur = 999;
     if (kind === "dom") dur = 999;
     if (kind === "hall") dur = 3;
-        g.terrain[q] = { kind, until: g.roundJustPlayed + dur };
+    if (kind !== "frost") removeEl(q, L, "zonelost"); // paint over an anchored zone: the elemental falls with it
+    g.terrain[q] = { kind, until: g.roundJustPlayed + dur };
     L.push({ t: `${label || kind.toUpperCase()} claims ${q}.` });
   };
   const powCap = (s) => (s.pass === "reserves" ? 4 : 3);
@@ -3855,11 +4493,10 @@ export default function App() {
     if (plan.ab === "viper" || plan.ab === "twin") addPoison(tgt, 1, L);
     if (plan.ab === "lance") addChill(tgt, L);
     if (plan.ab === "cinder" || plan.ab === "magma") addBurn(src, tgt, L);
-    if (plan.ab === "freeze") setTerrain(plan.target, "frost", L, "❄ Frost");
+    if (plan.ab === "freeze") { setTerrain(plan.target, "frost", L, "❄ Frost"); tgt._rootNext = true; L.push({ t: `⛓ The frozen boots take hold — ${nm(tgt)} is Rooted next round.` }); }
     if (plan.ab === "chains") addWeak(tgt, 1, L);
     if (plan.ab === "brand") { tgt.brandRound = G.current.round + 2; L.push({ t: `⏳ ${nm(tgt)} is BRANDED — detonates at the end of round ${tgt.brandRound}.` }); }
     if (plan.ab === "dark") healUp(src, plan.soft ? 1 : 2, L, "Devouring Dark");
-    if (plan.ab === "consec") setTerrain(plan.target, "hall", L, "✦ Sanctuary");
     if (plan.ab === "dawn" && G.current.terrain[src.pos]?.kind === "hall") healUp(src, 2, L, "Dawnhammer — sunrise from sanctity");
     if (plan.ab === "stick") addCurse(src, tgt, 1, L);
     if (plan.ab === "eye") { addWeak(tgt, 1, L); addCurse(src, tgt, 1, L); }
@@ -3869,7 +4506,7 @@ export default function App() {
       qs.forEach((q) => { if (G.current.terrain[q] && G.current.terrain[q].kind !== "scorch") L.push({ t: `🔥 The Pyre burns ${q}'s ground bare.` }); setTerrain(q, "scorch", L, "🔥 Scorched ground"); });
     }
     if (plan.ab === "fissure") { setTerrain(plan.target, "dom", L, "⛰ Dominion"); G.current.prompts.push({ kind: "terr", tkind: "dom", who: src.fk, opts: ADJ[plan.target], label: "Fissure: the crack runs — convert one adjacent quadrant" }); }
-    if (plan.ab === "quake" && G.current.terrain[plan.target] && G.current.terrain[plan.target].kind !== "dom") { delete G.current.terrain[plan.target]; L.push({ t: `⛰ Quake Fist shatters the ground at ${plan.target}.` }); }
+    if (plan.ab === "quake" && G.current.terrain[plan.target] && G.current.terrain[plan.target].kind !== "dom") { delete G.current.terrain[plan.target]; removeEl(plan.target, L, "zonelost"); L.push({ t: `⛰ Quake Fist shatters the ground at ${plan.target}.` }); }
     if (plan.ab === "bwater") setTerrain(plan.target, "surf", L, "🌊 Crashing Surf");
     if (plan.ab === "grind") {
       const opts = QUADS.filter((q) => G.current.terrain[q] && G.current.terrain[q].kind !== "dom");
@@ -3893,7 +4530,12 @@ export default function App() {
     if (plan.ab === "cadence") { src._flowBank = true; L.push({ t: `✦ Blade Cadence — ${nm(src)} banks Flow.` }); }
     if (plan.ab === "core") {
       const q = plan.target || tgt.pos;
-      if (G.current.terrain[q]) { const k = TERRA_META[G.current.terrain[q].kind]?.name || "ground"; delete G.current.terrain[q]; L.push({ t: `☄ FINALITY — the ${k} at ${q} is razed to bare stone.` }); }
+      if (G.current.icels?.[q]) {
+        // ELEMENTAL LAW iv: the Beam STUNS the elemental (companion rule); the
+        // anchored zone holds against the raze — it stays frozen.
+        G.current.icels[q].stun = G.current.round + 1;
+        L.push({ t: `💫 The Ice Elemental at ${q} is blasted senseless — stunned; the anchored frost holds against the raze.` });
+      } else if (G.current.terrain[q]) { const k = TERRA_META[G.current.terrain[q].kind]?.name || "ground"; delete G.current.terrain[q]; L.push({ t: `☄ FINALITY — the ${k} at ${q} is razed to bare stone.` }); }
       if (G.current.kessQ === q) { G.current.kessStun = G.current.round + 1; L.push({ t: `💫 Kess is blasted senseless — stunned.` }); }
       if (G.current.undineQ === q) { G.current.undineStun = G.current.round + 1; L.push({ t: `💫 The Undine is blasted apart — stunned.` }); }
     }
@@ -3905,12 +4547,9 @@ export default function App() {
     switch (plan.ab) {
       // signatures: +1 AND effect
       case "harvest": plus1("Red Harvest overswing"); plan._kbAny = true; break;
-      case "freeze": plus1("Flash Freeze bites"); tgt._rootNext = true; L.push({ t: `⛓ ${nm(tgt)} is Rooted — no moving next round.` }); break;
       case "pyre": plus1("Pyre flare"); if (plan._pyreHit) addBurn(src, tgt, L); break;
-      case "aval": { const bonus = Math.min(2, frostQs().length); plus1("Avalanche surge"); if (bonus > 0) attackDamage(src, tgt, bonus, L, "The frost joins in", "break"); break; }
       case "arc": plus1("Arc Discharge grounds out"); if (tgt.pow > 0) { tgt.pow -= 1; L.push({ t: `⚡ ${nm(tgt)} loses 1◆.` }); } break;
       case "brand": plus1("Doombrand sears"); tgt.brandRound = G.current.round + 1; L.push({ t: `⏳ The fuse shortens — detonation end of round ${tgt.brandRound}.` }); break;
-      case "consec": plus1("Consecration flares"); setTerrain(src.pos, "hall", L, "✦ Sanctuary"); break;
       case "censure": plus1("Censure"); tgt.noGain = true; L.push({ t: `⚖ The Light disapproves — ${nm(tgt)} gains no ◆ this round.` }); break;
       case "mount": plus1("Mountainfall aftershock"); setTerrain(tgt.pos, "dom", L, "⛰ Dominion"); break;
       case "chainX": plus1("Chain follow-through"); src.flow = true; L.push({ t: `✦ ${nm(src)} keeps the Flow.` }); break;
@@ -3930,6 +4569,8 @@ export default function App() {
       case "hawk": plus1("Hawk's Eye counter"); break;
       case "eguard": plus1("Edgeguard counter"); warder.flow = true; L.push({ t: `✦ ${nm(warder)} gains Flow.` }); break;
       case "oath": plus1("Bulwark Oath counter"); warder._noKB = true; L.push({ t: `⚓ The Oath holds — nothing moves him this round.` }); break;
+      case "mantle": plus1("Mantle counter"); healUp(warder, 1, L, "Winter's Mantle — the catch"); setTerrain(warder.pos, "frost", L, "❄ Frost"); break;
+      case "consec": plus1("Consecration counter"); setTerrain(warder.pos, "hall", L, "✦ Sanctuary"); break;
       // everything else: the sharper riposte
       default: plus1(); break;
     }
@@ -3937,6 +4578,7 @@ export default function App() {
   const wardBase = (warder, plan, L) => {
     if (plan.ab === "hoar") setTerrain(warder.pos, "frost", L, "❄ Frost");
     if (plan.ab === "mantle") healUp(warder, 1, L, "Winter's Mantle");
+    if (plan.ab === "iceage") birthElementals(warder, L);
     if (plan.ab === "frame" && warder._frameFull) healUp(warder, 2, L, "Bulwark Frame vents the full bank");
     if (plan.ab === "arc" && !warder.dischargeField) { warder.dischargeField = true; L.push({ t: `🛰 DISCHARGE FIELD INSTALLED — ${nm(warder)}'s ground is electrified for the rest of the bout.`, fx: { kind: "combo", text: "DISCHARGE FIELD" } }); }
     if (plan.ab === "gyro") warder._noKB = true;
@@ -3946,6 +4588,7 @@ export default function App() {
     if (plan.ab === "wall") { warder._noKB = true; if (G.current.terrain[warder.pos]?.kind === "dom") warder._ironActive = true; }
     if (plan.ab === "current") healUp(warder, 1, L, "Renewing Current");
     if (plan.ab === "whirlA") G.current.prompts.push({ kind: "terr", tkind: "whirl", who: warder.fk, opts: QUADS, label: "Whirlpool: churn a quadrant" });
+    if (plan.ab === "consec") G.current.prompts.push({ kind: "terr", tkind: "hall", who: warder.fk, opts: QUADS, label: "Consecration: sanctify a quadrant" });
     if (plan.ab === "hawk") G.current.prompts.push({ kind: "kess", who: warder.fk, opts: ADJ[G.current.kessQ] || QUADS, label: "Hawk's Eye: wing Kess (adjacent)" });
     if (plan.ab === "riposte") { warder._flowBank = true; L.push({ t: `✦ ${nm(warder)} draws into stance — Flow.` }); }
     if (plan.ab === "tap" && warder.hp > 1) {
@@ -3957,53 +4600,10 @@ export default function App() {
     }
   };
 
-  /* ---- AI ---- */
+  /* ---- AI (v3 — THE MIND drives; the rails still own the lessons) ---- */
   const aiMakePlan = (ai, human, isClash, humanPlanForUmbral) => {
     const gT = G.current;
     const diffMode = gT?.diff || "proving";
-    const hist = (ai === gT?.P ? gT?.aHist : gT?.pHist) || [];
-    const predictType = () => {
-      if (!hist.length) return null;
-      const freq = {}; hist.forEach((t, i) => { freq[t] = (freq[t] || 0) + (diffMode === "crucible" && i >= hist.length - 3 ? 2 : 1); });
-      const last = hist[hist.length - 1];
-      if (hist.length >= 3) {
-        const trans = {};
-        for (let i = 0; i + 1 < hist.length; i++) if (hist[i] === last) trans[hist[i + 1]] = (trans[hist[i + 1]] || 0) + 1;
-        const top = Object.entries(trans).sort((a, b) => b[1] - a[1])[0];
-        if (top && top[1] >= 2) return top[0];
-      }
-      return Object.entries(freq).sort((a, b) => b[1] - a[1])[0][0];
-    };
-    const predT = predictType(); // both trials read the revealed-type history now
-    const T = (q) => gT?.terrain?.[q]?.kind;
-    const comboBias = (id) => {
-      const f = ai.fk, hpn = human;
-      if (f === "M" && id === "heart" && hpn.poison >= 2) return 8;
-      if (f === "M" && id === "viper" && hpn.poison === 0) return 3;
-      if (f === "Z" && id === "tap" && ai.pow <= 1 && ai.hp > 4) return 6;
-      if (f === "Z" && id === "brand" && !hpn.brandRound) return 5;
-      if (f === "Z" && id === "dark" && ai.hp <= ai.maxHp - 3) return 4;
-      if (f === "Y" && id === "storm" && ai.pow >= 3) return 6;
-      if (f === "Y" && (id === "lash" || id === "bwater") && ["whirl", "surf"].includes(T(hpn.pos))) return 5;
-      if (f === "W" && id === "pin" && !hpn.rooted) return 4;
-      if (f === "W" && (id === "sky" || id === "broad") && (hpn.rooted || (hpn.mark || 0) > 0)) return 6;
-      if (f === "L" && id === "consec" && T(hpn.pos) !== "hall") return 5;
-      if (f === "L" && id === "dawn" && ai.pow >= 3) return 6;
-      if (f === "L" && id === "llance" && T(hpn.pos) === "hall") return 5;
-      if (f === "O" && id === "sorrow" && (hpn.curse || 0) >= 3) return 8;
-      if (f === "O" && (id === "stick" || id === "eye") && (hpn.curse || 0) < 3) return 3;
-      if (f === "X" && ["arsenal", "cadence", "chainX"].includes(id) && ai.flow) return 5;
-      if (f === "X" && (id === "eguard" || id === "riposte") && !ai.flow) return 3;
-      if (f === "C" && id === "pyre" && (hpn.burn || 0) >= 2) return 5;
-      if (f === "V" && id === "spike" && hpn.chill) return 5;
-      if (f === "K" && id === "arc" && !ai.dischargeField && ai.pow >= 2) return 6;
-      if (f === "K" && id === "core" && ai.pow >= 3) return 6;
-      if (f === "K" && id === "frame" && ai.pow >= 3 && ai.hp <= ai.maxHp - 2) return 5;
-      if (f === "G" && id === "harvest" && ai.pow >= 3) return 5;
-      return 0;
-    };
-    const comboScale = diffMode === "crucible" ? 1 : 0.7;
-    const wantHold = diffMode === "crucible" && [...ai.load].some((id) => ABILITIES[id].cost === ai.pow + 1 && comboBias(id) >= 5);
     if (gT?.tut) {
       const R = resolveRail(gT);
       if (R && R.foe.ab) {
@@ -4011,111 +4611,12 @@ export default function App() {
         return { ab: R.foe.ab, soft: false, moveTo: isClash ? ai.pos : R.foe.moveTo, target: fab.needsTarget ? (isClash ? human.pos : R.foe.target || human.pos) : null, splash: fab.needsSplash ? rnd(ADJ[human.pos]) : null, secondary: fab.needsSecondary ? rnd(QUADS.filter((q) => q !== human.pos)) : null };
       }
     }
-    const opts = [];
-    [...ai.load].forEach((id) => {
-      if (id === "heart" && human.poison === 0) return;
-      const ab = ABILITIES[id];
-      let cost = ab.cost;
-      if (ai.pow >= cost) opts.push({ ab: id, soft: false });
+    if (!gT.mind) MIND.initState(gT);
+    return MIND.plan(gT, ai, human, {
+      diff: diffMode, isClash, rng: Math.random,
+      umbralFoePlan: humanPlanForUmbral, // honesty law: steers only the umbral dodge, never the scoring
+      forcedMove: !isClash ? gT.aiForcedMove : null,
     });
-    const weighted = [];
-    opts.forEach((o) => {
-      const ab = ABILITIES[o.ab];
-      let w = 2;
-      if (ab.dmg >= 2) w = 4;
-      if ((ab.cost >= 3 || o.ab === "aval" || o.ab === "pyre") && ai.pow >= 3) w = 7;
-      if (o.ab === "viper" || o.ab === "cinder" || o.ab === "lance") w = 5;
-      if (predT) {
-        if (BEATS[ab.type] === predT) w += diffMode === "crucible" ? 6 : 4;
-        else if (ab.type === predT) w += 1;
-        else if (BEATS[predT] === ab.type) w = Math.max(1, w - 2);
-      }
-      if (human.pow >= 3) {
-        const humanNuke = human.load.some((x) => ABILITIES[x].cost >= 3);
-        const humanBreakNuke = humanNuke && human.load.some((x) => ABILITIES[x].cost >= 3 && ABILITIES[x].type === "break");
-        if (humanBreakNuke) { if (ab.type === "rush") w += diffMode === "crucible" ? 5 : 3; }
-        else if (humanNuke && ab.type === "ward") w += diffMode === "crucible" ? 5 : 3;
-      }
-      {
-        // DoT-clock awareness: never waste a round warding unwardable round-end damage
-        const tickIn = ((ai.burn || 0) > 0 ? 1 : 0)
-          + (ai.brandRound === gT?.round ? 3 : 0)
-          + (human.fk === "O" && (ai.curse || 0) >= 3 && (gT?.round || 0) >= (human.pass === "mdeep" ? 7 : 8) ? Math.min(2, Math.floor(ai.curse / 3)) : 0);
-        if (tickIn > 0 && ab.type === "ward" && ai.hp <= tickIn) w = 1; // the clock kills regardless — never ward it
-        if (tickIn > 0 && ai.hp <= tickIn + 2 && ["dark", "mantle", "current", "knit", "frame", "aegis"].includes(o.ab)) w += 4;
-      }
-      w += Math.round(comboBias(o.ab) * comboScale);
-      if (gT?.aiPrev && gT.aiPrev[0] === o.ab && gT.aiPrev[1] === o.ab) w = Math.max(1, w - 3);
-      if (wantHold) { if (ab.cost > 0) w = Math.max(1, w - 3); else w += 2; }
-      for (let i = 0; i < w; i++) weighted.push(o);
-    });
-    let pick = null;
-    if (isClash && diffMode === "crucible") {
-      const loadTypes = [...new Set(human.load.map((x) => ABILITIES[x].type))];
-      const safe = ["break", "rush", "ward"].filter((t) => loadTypes.every((x) => BEATS[x] !== t));
-      const want = safe.find((t) => loadTypes.includes(BEATS[t])) || safe[0] || (predT ? Object.keys(BEATS).find((t) => BEATS[t] === predT) : null);
-      if (want) pick = opts.find((o) => ABILITIES[o.ab].type === want) || null;
-    }
-    if (!pick && isClash && predT) {
-      pick = opts.find((o) => BEATS[ABILITIES[o.ab].type] === predT) || null;
-    }
-    if (!pick) pick = rnd(weighted);
-    const ab = ABILITIES[pick.ab];
-    const plan = { ab: pick.ab, soft: pick.soft, moveTo: ai.pos, target: null, splash: null, secondary: null };
-    if (ab.dual) plan.form = rnd(Object.keys(ab.dual));
-    if (!isClash) {
-      if (ai.rooted) plan.moveTo = ai.pos;
-      else if (ab.umbral && humanPlanForUmbral) {
-        const dodge = [ai.pos, ...ADJ[ai.pos]].filter((q) => q !== humanPlanForUmbral.target);
-        plan.moveTo = dodge.length ? rnd(dodge) : ai.pos;
-      } else if (G.current.aiForcedMove) {
-        plan.moveTo = G.current.aiForcedMove;
-      } else {
-        // WORLD DOCTRINE: everyone fights to thrive. Relics are salvation,
-        // a rival's progress exists to be desecrated, ground is there to take.
-        const soph = diffMode === "crucible" ? 1 : 0.6;
-        const relics = gT?.relics?.board || [];
-        const behind = ai.hp - human.hp <= -3;
-        const scoreQ = (q) => {
-          let v = 0;
-          const t = T(q);
-          if (relics.includes(q) && q !== human.pos) v += (ai.fk === "L" ? 5 : behind || (human.fk === "L" && (gT?.relics?.claims || 0) >= 1) ? 4 : 2) * soph;
-          if (human.fk === "L" && (gT?.relics?.claims || 0) >= 2 && relics.includes(q)) v += 4;
-          if (ai.fk === "L" && relics.some((r) => ADJ[q].includes(r))) v += 1.5;
-          if (human.fk === "D" && t === "dom" && [...ai.load].some((x) => ABILITIES[x].type === "break" && ai.pow >= ABILITIES[x].cost)) v += (human.pass === "home" ? 1.5 : 3) * soph;
-          if (["frost", "scorch", "env", "mire"].includes(t) && !(ai.fk === "V" && t === "frost") && !(ai.fk === "C" && t === "scorch") && !(ai.fk === "O" && t === "mire")) v -= 2;
-          if (["whirl", "surf"].includes(t) && ai.fk !== "Y") v -= 3;
-          if (t === "hall") v += ai.fk === "L" ? 3 : -2;
-          if (t === "dom" && ai.fk === "D") v += 2;
-          if (["whirl", "surf"].includes(t) && ai.fk === "Y" && ai.pass === "rider") v += 2;
-          if (ai.fk === "W") v += q === human.pos ? -4 : ADJ[human.pos].includes(q) ? -1.5 : 2;
-          if (ai.fk === "M") v += q === human.pos ? (human.hp <= 3 ? 4 : -4) : 0;
-          if ((ai.fk === "G" || (ai.fk === "C" && ai.pass === "killheat" && (human.burn || 0) > 0) || (ai.fk === "D" && T(ai.pos) === "dom")) && q === human.pos) v += 2 * soph;
-          if (ai.fk === "K" && ai.dischargeField && q === ai.pos) v += 3;
-          if (gT?.kessQ === q && ai.fk !== "W") v -= 1.5;
-          return v + Math.random() * (diffMode === "crucible" ? 1.2 : 1.6);
-        };
-        const cand = [ai.pos, ...ADJ[ai.pos]];
-        if (ai.pass === "rider") QUADS.forEach((q) => { if (["whirl", "surf"].includes(T(q)) && !cand.includes(q)) cand.push(q); });
-        let best = cand[0], bestV = -Infinity;
-        cand.forEach((q) => { const v = scoreQ(q); if (v > bestV) { bestV = v; best = q; } });
-        plan.moveTo = best;
-      }
-      if (ab.needsTarget) {
-        const aimP = diffMode === "crucible" ? 0.9 : 0.8 + ((ai.hp - human.hp) >= 5 ? -0.1 : (ai.hp - human.hp) <= -5 ? 0.08 : 0);
-        // aim where they'll BE: the movement-frequency model (Crucible, and the kiting ranger at both tiers)
-        const mHist = (ai === gT?.P ? gT?.amHist : gT?.mHist) || [];
-        const moveRate = mHist.length ? mHist.filter(Boolean).length / mHist.length : 0.4;
-        const predictMove = (diffMode === "crucible" || ai.fk === "W") && mHist.length >= 3;
-        if (human.rooted) plan.target = human.pos;
-        else if (Math.random() < aimP) plan.target = predictMove && Math.random() < moveRate ? rnd(ADJ[human.pos]) : human.pos;
-        else plan.target = rnd(ADJ[human.pos]);
-        if (ab.needsSplash) plan.splash = rnd(ADJ[plan.target]);
-        if (ab.needsSecondary) plan.secondary = rnd(QUADS.filter((q) => q !== plan.target));
-      }
-    }
-    gT.aiPrev = [gT?.aiPrev?.[1], plan.ab];
-    return plan;
   };
 
   /* ---- playback ---- */
@@ -4162,13 +4663,32 @@ export default function App() {
   };
   const aiPickOpt = (p) => {
     const g = G.current;
+    const crucible = g.diff === "crucible";
+    if (p.kind === "terr" && p.tkind === "hall") return p.opts.includes(g.A.pos) ? g.A.pos : p.opts[0]; // Kastor sanctifies his own ground
     if (p.kind === "kb" || p.kind === "placeFoe") {
       const A = g.A, v = g.P;
       if (A.fk === "G" && A.pass === "scent" && p.opts.includes(v.pos) && A.pos === v.pos) return v.pos;
+      if (crucible) {
+        // THE MIND places: maximize the victim's round-end bleeding (round-10
+        // placement after a clash win decides the bell — solved, not guessed)
+        let best = p.opts[0], bestV = -Infinity;
+        p.opts.forEach((q) => { const val = MIND.tickOn(g, v, A, q, A.pos); if (val > bestV) { bestV = val; best = q; } });
+        if (bestV > 0.01) return best;
+      }
       const hazard = p.opts.find((q) => q !== v.pos && ["frost", "scorch", "env", "mire", "whirl", "surf"].includes(g.terrain[q]?.kind));
       if (hazard) return hazard;
       const moves = p.opts.filter((q) => q !== v.pos);
       return moves.length ? rnd(moves) : rnd(p.opts);
+    }
+    if (p.kind === "placeSelf" && crucible) {
+      // stand where the bell is kindest (relics counted)
+      let best = p.opts[0], bestV = -Infinity;
+      p.opts.forEach((q) => {
+        let val = -MIND.tickOn(g, g.A, g.P, q, g.P.pos);
+        if (g.relics?.board?.includes(q)) val += g.A.fk === "L" ? 3 : g.P.fk === "L" ? 2 : 1;
+        if (val > bestV) { bestV = val; best = q; }
+      });
+      return best;
     }
     return rnd(p.opts);
   };
@@ -4179,6 +4699,7 @@ export default function App() {
     if (t) {
       const name = { frost: "ice", scorch: "embers", env: "poison pools", mire: "mire", hall: "sanctuary ground", whirl: "whirlpool", surf: "breakers", dom: "stone" }[t.kind] || "terrain";
       delete g.terrain[victim.pos];
+      removeEl(victim.pos, L, "zonelost");
       dealRaw(victim, 1, L, `WRECKING THROW — slammed through the ${name}`, "break", "#dc2626");
       L.push({ t: `💥 The ${name} at ${victim.pos} is destroyed.`, fx: { kind: "combo", text: "WRECKED" } });
     }
@@ -4188,9 +4709,9 @@ export default function App() {
   const applyChoice = (p, q) => {
     const g = G.current;
     const actor = g.P.fk === p.who ? g.P : g.A;
-    if (p.kind === "grind") { g.terrain[q] = { kind: "dom", until: 9999 }; g.feed.push({ t: `⛰ ${q} is paved into Dominion.` }); }
+    if (p.kind === "grind") { const L2 = []; removeEl(q, L2, "zonelost"); g.terrain[q] = { kind: "dom", until: 9999 }; L2.forEach((l) => g.feed.push(l)); g.feed.push({ t: `⛰ ${q} is paved into Dominion.` }); }
     else if (p.kind === "terr") {
-      const L2 = []; setTerrain(q, p.tkind, L2, p.tkind === "whirl" ? "🌀 Whirlpool" : "⛰ Dominion");
+      const L2 = []; setTerrain(q, p.tkind, L2, p.tkind === "whirl" ? "🌀 Whirlpool" : p.tkind === "hall" ? "✦ Sanctuary" : "⛰ Dominion");
       if (p.tkind === "whirl") { const foe = [g.P, g.A].find((f) => f.fk !== "Y" && f.hp > 0 && ADJ[q].includes(f.pos) && !held(f)); if (foe) { foe.pos = q; L2.push({ t: `🌀 The vortex opens — ${nm(foe)} is YANKED in.` }); } }
       L2.forEach((l) => g.feed.push(l));
     }
@@ -4211,7 +4732,7 @@ export default function App() {
         }
       }
     } else if (p.kind === "step") { if (q === actor.pos) g.feed.push({ t: `✋ ${nm(actor)} holds — nose to the wind.` }); else { actor.pos = q; g.feed.push({ t: `→ ${nm(actor)} steps to ${q}.` }); } }
-    else if (p.kind === "enpoison") { g.terrain[q] = { kind: "env", until: g.roundJustPlayed + 1 }; g.feed.push({ t: `🧪 A poisoned dagger sticks in ${q}.` }); }
+    else if (p.kind === "enpoison") { const L2 = []; removeEl(q, L2, "zonelost"); g.terrain[q] = { kind: "env", until: g.roundJustPlayed + 1 }; L2.forEach((l) => g.feed.push(l)); g.feed.push({ t: `🧪 A poisoned dagger sticks in ${q}.` }); }
     else if (p.kind === "gift") {
       const L2 = [];
       if (q === "heal") healUp(actor, 1, L2, "Relic"); else gainPow(actor, 1, L2, "Relic");
@@ -4387,8 +4908,30 @@ export default function App() {
     [g.P, g.A].forEach((s) => {
       if (s.fk === "V" && s.pass === "numb" && other(s).pos === s.pos && !other(s).chill) addChill(other(s), L);
     });
-    // expiries
-    QUADS.forEach((q) => { const t = g.terrain[q]; if (t && g.roundJustPlayed >= t.until) { delete g.terrain[q]; } });
+    // BLIZZARD — the storm feeds Vessk at the bell: 2+ frost zones AND a
+    // chilled foe, or 3+ zones regardless (anchored zones count; Flow
+    // refreshes, never stacks)
+    [g.P, g.A].forEach((s) => {
+      if (s.fk === "V" && s.pass === "blizzard" && s.hp > 0) {
+        const fz = frostQs().length;
+        if ((fz >= 3 || (fz >= 2 && other(s).chill)) && !s.flow) {
+          s.flow = true;
+          if (g.stats) g.stats.blizz = (g.stats.blizz || 0) + 1;
+          L.push({ t: `❄ BLIZZARD — the storm feeds ${nm(s)}: Flow.` });
+        }
+      }
+    });
+    // orphan sweep: an elemental can never outlive its frost (safety invariant)
+    Object.keys(g.icels || {}).forEach((q) => { if (g.terrain[q]?.kind !== "frost") removeEl(q, L, "zonelost"); });
+    // expiries — elemental-anchored frost does NOT decay; melts are announced
+    QUADS.forEach((q) => {
+      const t = g.terrain[q];
+      if (t && g.roundJustPlayed >= t.until) {
+        if (t.kind === "frost" && g.icels?.[q]) { L.push({ t: `🧊 The Ice Elemental holds the frost at ${q} — no melt.` }); return; }
+        delete g.terrain[q];
+        if (t.kind === "frost") L.push({ t: `❄ The frost at ${q} melts away.` });
+      }
+    });
     g.curseHealed = false;
     [g.P, g.A].forEach((s) => {
       if (s.chill && g.roundJustPlayed >= s.chillUntil) s.chill = false;
@@ -4398,7 +4941,7 @@ export default function App() {
       s.rooted = !!s._rootNext; s._rootNext = false;
       s.kbLast = !!s._kbThis;
       if (s._flowBank) { s.flow = true; delete s._flowBank; } // banked Flow arms for the NEXT ability, never the same exchange
-      delete s._kbThis; delete s._spent; delete s._ironActive; delete s._noKB; delete s._warding; delete s._aegisHeld; delete s._frameFull; delete s._dfUsed;
+      delete s._kbThis; delete s._spent; delete s._ironActive; delete s._noKB; delete s._warding; delete s._aegisHeld; delete s._frameFull; delete s._dfUsed; delete s._advNow; delete s._chillEcho; delete s._shatterUsed; delete s._chillPre;
     });
     playLines(L, processPrompts);
   };
@@ -4458,8 +5001,16 @@ export default function App() {
     g.feed = [];
     const L = [];
     const P = g.P, A = g.A;
+    // THE MIND watches every reveal (profile learning, both seats)
+    if (g.mind) {
+      const hp0 = { P: P.hp, A: A.hp };
+      MIND.observe(g, "P", P, A, pPlan, { wounded: P.hp <= Math.ceil(P.maxHp * 0.4), fullBank: P.pow >= powCap(P), clash: false });
+      MIND.observe(g, "A", A, P, aPlan, { wounded: A.hp <= Math.ceil(A.maxHp * 0.4), fullBank: A.pow >= powCap(A), clash: false });
+      g.mind._hp0 = hp0;
+    }
     dfTrigger(L, "the round opens on his ground");
     [[P, pPlan], [A, aPlan]].forEach(([s, pl]) => {
+      delete s._shatterUsed; delete s._advNow; delete s._chillEcho; s._chillPre = !!s.chill; // fresh exchange
       const ab = ABILITIES[pl.ab];
       let c = pl.soft && ab.soft ? ab.soft.cost : ab.cost;
       if (pl.string) c = ab.cost + (s.pass === "flowing" ? 0 : 1);
@@ -4578,6 +5129,7 @@ export default function App() {
           wp._pyreHit = wp.ab === "pyre";
           verdict = `${TYPE_LABEL[pWins ? tP : tA]} BEATS ${TYPE_LABEL[pWins ? tA : tP]}`;
           L.push({ t: `⚡ ${TYPE_LABEL[pWins ? tP : tA]} beats ${TYPE_LABEL[pWins ? tA : tP]}.`, fx: { kind: "adv", text: `ADVANTAGE — ${nm(w).toUpperCase()}`, tone: FIGHTERS[w.fk].hex } });
+          w._advNow = true;
           baseEffect(w, l, wp, L); advRider(w, l, wp, L, followups);
           winner = w; loser = l; winPlan = wp;
         }
@@ -4598,6 +5150,7 @@ export default function App() {
       else if ((atkPlan.form || ABILITIES[atkPlan.ab].type) === "rush") {
         verdict = "WARD CATCH";
         L.push({ t: `🛡 WARD catches the RUSH — and answers.`, fx: { kind: "adv", text: `ADVANTAGE — ${nm(wrd).toUpperCase()}`, tone: FIGHTERS[wrd.fk].hex } });
+        wrd._advNow = true;
         attackDamage(wrd, atk, wrdPlan.ab === "arc" ? 2 : 1, L, "Riposte", "ward");
         if (wrdPlan.ab === "blackout") addPoison(atk, 1, L);
         if (wrdPlan.ab === "knit") addCurse(wrd, atk, 1, L);
@@ -4608,11 +5161,49 @@ export default function App() {
         verdict = "GUARD BREAK";
         wrd._aegisHeld = false;
         L.push({ t: `💢 BREAK shatters the WARD.`, fx: { kind: "adv", text: `ADVANTAGE — ${nm(atk).toUpperCase()}`, tone: FIGHTERS[atk.fk].hex } });
+        atk._advNow = true;
         baseEffect(atk, wrd, atkPlan, L); advRider(atk, wrd, atkPlan, L, followups);
         winner = atk; loser = wrd; winPlan = atkPlan;
       }
     } else { verdict = "DOUBLE GUARD"; L.push({ t: "Both fighters guard. The crowd howls for blood." }); }
-    [[P, pPlan], [A, aPlan]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(loser === src && winPlan && (winPlan.form || ABILITIES[winPlan.ab].type) === "rush")) { src._skyBarrage = 2; src._skyCast = g.roundJustPlayed; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); G.current.prompts.push({ kind: "kess", who: src.fk, opts: ADJ[G.current.kessQ] || QUADS, label: "Skyfall: wing Kess (adjacent)" }); } });
+    // ICE ELEMENTAL MIRROR — when Vessk casts Lance/Spike aimed at (or
+    // colliding in) an anchored zone, that zone's elemental mimics the attack
+    // against the enemy standing there, in this same exchange. Base damage on
+    // neutral/winning exchanges, the Advantage rider on wins, its OWN shatter
+    // (separate source); zero and REMOVED if the enemy's type countered it.
+    // Spent after dealing damage. Scheduled clashes have no aim: no mirror.
+    {
+      const V = P.fk === "V" ? P : A.fk === "V" ? A : null;
+      const vPlan = V === P ? pPlan : aPlan;
+      if (V && ["lance", "spike"].includes(vPlan?.ab)) {
+        const foe = other(V);
+        const zone = collided ? foe.pos : vPlan.target;
+        const el = g.icels?.[zone];
+        if (el && foe.pos === zone && foe.hp > 0) {
+          if (el.stun >= g.round) L.push({ t: `💫 The Ice Elemental at ${zone} is stunned — its mirror stays dark this round.` });
+          else if (loser === V) removeEl(zone, L, "countered");
+          else {
+            const ab = ABILITIES[vPlan.ab];
+            // an Advantage win only: triangle win or guard break (clean reads
+            // and the rider-less siege barrage grant no rider — mirror matches)
+            const advWin = winner === V && (verdict.includes("BEATS") || verdict === "GUARD BREAK");
+            let n = ab.dmg + (advWin ? 1 : 0);
+            let sh = false;
+            if ((ab.type === "break" || advWin) && (foe._chillEcho || (foe.chill && foe._chillPre))) {
+              sh = true; n += 1;
+              if (!foe._chillEcho) { foe.chill = false; foe._chillEcho = true; }
+            }
+            if (g.stats?.icel) g.stats.icel.mirrors += 1;
+            L.push({ t: `🧊 The Ice Elemental at ${zone} MIRRORS ${ab.name}${advWin ? " — Advantage and all" : ""}.`, fx: { kind: "combo", text: "MIRROR" } });
+            if (sh) { L.push({ t: `❄ SHATTER — the elemental's blow spends the chill.`, fx: { kind: "combo", text: "SHATTER" } }); if (g.stats?.icel) g.stats.icel.shatters += 1; }
+            dealRaw(foe, n, L, `Ice Elemental — mirrored ${ab.name}`, ab.type, "#7dd3fc");
+            if (vPlan.ab === "lance" && foe.hp > 0 && !foe._warding) addChill(foe, L);
+            removeEl(zone, L, "spent");
+          }
+        }
+      }
+    }
+    [[P, pPlan], [A, aPlan]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(loser === src && winPlan && (winPlan.form || ABILITIES[winPlan.ab].type) === "ward")) { src._skyBarrage = 2; src._skyCast = g.roundJustPlayed; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); G.current.prompts.push({ kind: "kess", who: src.fk, opts: ADJ[G.current.kessQ] || QUADS, label: "Skyfall: wing Kess (adjacent)" }); } });
     g.vs = { p: { n: abP.name, ty: tP, tq: pPlan.target }, a: { n: abA.name, ty: tA, tq: aPlan.target }, note: verdict, r: g.round };
 
     G.current._colNow = false;
@@ -4648,6 +5239,10 @@ export default function App() {
         followups.push({ kind: "placeFoe", who: s.fk, opts: ADJ[foe.pos], label: "Puppet Pull: drag them one quadrant" });
       }
     });
+    if (g.mind && g.mind._hp0) {
+      g.mind.tookHit = { P: P.hp < g.mind._hp0.P, A: A.hp < g.mind._hp0.A };
+      g.mind.colPrev = collided;
+    }
     g.after = "finish";
     playLines(L, processPrompts);
   };
@@ -4712,6 +5307,7 @@ export default function App() {
     const P = g.P, A = g.A;
     dfTrigger(L, "the clash opens on his ground");
     [[P, pPlan], [A, aPlan]].forEach(([s, pl]) => {
+      delete s._shatterUsed; delete s._advNow; delete s._chillEcho; s._chillPre = !!s.chill; // fresh exchange
       const ab = ABILITIES[pl.ab];
       let c = pl.soft && ab.soft ? ab.soft.cost : ab.cost;
       if (pl.string) c = ab.cost + (s.pass === "flowing" ? 0 : 1);
@@ -4734,6 +5330,12 @@ export default function App() {
     const tP = pPlan.form || abP.type, tA = aPlan.form || abA.type;
     G.current.pHist = (G.current.pHist || []).concat(tP).slice(-8);
     G.current.aHist = (G.current.aHist || []).concat(tA).slice(-8);
+    if (g.mind) {
+      const hp0 = { P: P.hp, A: A.hp };
+      MIND.observe(g, "P", P, A, pPlan, { wounded: P.hp <= Math.ceil(P.maxHp * 0.4), fullBank: P.pow + (pPlan.pivoted ? 1 : 0) + (ABILITIES[pPlan.ab].cost || 0) >= powCap(P), clash: true });
+      MIND.observe(g, "A", A, P, aPlan, { wounded: A.hp <= Math.ceil(A.maxHp * 0.4), fullBank: A.pow + (aPlan.pivoted ? 1 : 0) + (ABILITIES[aPlan.ab].cost || 0) >= powCap(A), clash: true });
+      g.mind._hp0 = hp0;
+    }
     L.push({ t: `⚔ CLASH${g.round === 10 ? " — FINAL: winner +2" : ""} — you: ${abP.name} [${TYPE_LABEL[tP]}] · foe: ${abA.name} [${TYPE_LABEL[tA]}]` });
     g.vs = { p: { n: abP.name, ty: tP }, a: { n: abA.name, ty: tA }, note: `CLASH${g.round === 10 ? " · FINAL" : ""}`, r: g.round };
     const followups = g.prompts;
@@ -4750,7 +5352,14 @@ export default function App() {
       if (src.fk === "Z" && src.pass === "agonist" && ((tgt.weak || 0) > 0 || tgt.brandRound)) n += 1;
       if (src.fk === "W" && (tgt.mark || 0) > 0) n += Math.min(2, tgt.mark);
         if (src.flow) { const fb = src.pass === "pedge" ? 2 : 1; n += fb; src.flow = false; L.push({ t: `✦ Flow — the strike lands +${fb} heavier.` }); }
-      if (ty === "break" && tgt.chill) { n += src.pass === "shatter" && src.fk === "V" ? 2 : 1; tgt.chill = false; L.push({ t: "❄ SHATTER." }); }
+      // SHATTER, the global rule — clash edition (rounds 3/7 keep riders;
+      // the FLAT-FINAL law above already silences it in round 10)
+      if (src.fk === "V" && !src._shatterUsed && (ty === "break" || src._advNow) && (tgt._chillEcho || (tgt.chill && tgt._chillPre))) {
+        n += 1; src._shatterUsed = true;
+        if (!tgt._chillEcho) { tgt.chill = false; tgt._chillEcho = true; }
+        if (G.current.stats) G.current.stats.shatter[src === G.current.P ? "P" : "A"] += 1;
+        L.push({ t: "❄ SHATTER — the chill breaks under the blow and is spent." });
+      }
       }
       dealRaw(tgt, n * mult, L, label, ty, elOf(src));
     };
@@ -4776,20 +5385,22 @@ export default function App() {
       if (plan.ab === "eye") addWeak(tgt, 1, L);
       if (plan.ab === "brand") { tgt.brandRound = g.round + 2; L.push({ t: `⏳ ${nm(tgt)} is BRANDED — end of round ${tgt.brandRound}.` }); }
       if (plan.ab === "dark") healUp(src, plan.soft ? 1 : 2, L, "Devouring Dark");
-      if (plan.ab === "consec") setTerrain(tgt.pos, "hall", L, "✦ Sanctuary");
       if (plan.ab === "dawn" && G.current.terrain[src.pos]?.kind === "hall") healUp(src, 2, L, "Dawnhammer — sunrise from sanctity");
-      if (plan.ab === "freeze") setTerrain(tgt.pos, "frost", L, "❄ Frost");
+      if (plan.ab === "freeze") { setTerrain(tgt.pos, "frost", L, "❄ Frost"); tgt._rootNext = true; L.push({ t: `⛓ The frozen boots take hold — ${nm(tgt)} is Rooted next round.` }); }
       if (plan.ab === "fissure") { setTerrain(tgt.pos, "dom", L, "⛰ Dominion"); G.current.prompts.push({ kind: "terr", tkind: "dom", who: src.fk, opts: ADJ[tgt.pos], label: "Fissure: the crack runs — convert one adjacent quadrant" }); }
       if (plan.ab === "mireA") setTerrain(tgt.pos, "mire", L, "🧷 Sorrow Mire");
       if (plan.ab === "storm") setTerrain(tgt.pos, "whirl", L, "🌀 Whirlpool");
       if (plan.ab === "undine") G.current.prompts.push({ kind: "undine", who: src.fk, opts: QUADS, label: "Place the Undine" });
       if (plan.ab === "cadence") src._flowBank = true;
       if (plan.ab === "pin") { tgt._rootNext = true; L.push({ t: `📌 Pinned — ${nm(tgt)} is Rooted next round.` }); }
-      if (plan.ab === "quake" && G.current.terrain[tgt.pos] && G.current.terrain[tgt.pos].kind !== "dom") { delete G.current.terrain[tgt.pos]; L.push({ t: `⛰ Quake Fist shatters the ground at ${tgt.pos}.` }); }
+      if (plan.ab === "quake" && G.current.terrain[tgt.pos] && G.current.terrain[tgt.pos].kind !== "dom") { delete G.current.terrain[tgt.pos]; removeEl(tgt.pos, L, "zonelost"); L.push({ t: `⛰ Quake Fist shatters the ground at ${tgt.pos}.` }); }
       if (plan.ab === "bwater") setTerrain(tgt.pos, "surf", L, "🌊 Crashing Surf");
       if (plan.ab === "core") {
         const q = tgt.pos;
-        if (G.current.terrain[q]) { const k = TERRA_META[G.current.terrain[q].kind]?.name || "ground"; delete G.current.terrain[q]; L.push({ t: `☄ FINALITY — the ${k} at ${q} is razed to bare stone.` }); }
+        if (G.current.icels?.[q]) {
+          G.current.icels[q].stun = G.current.round + 1;
+          L.push({ t: `💫 The Ice Elemental at ${q} is blasted senseless — stunned; the anchored frost holds against the raze.` });
+        } else if (G.current.terrain[q]) { const k = TERRA_META[G.current.terrain[q].kind]?.name || "ground"; delete G.current.terrain[q]; L.push({ t: `☄ FINALITY — the ${k} at ${q} is razed to bare stone.` }); }
         if (G.current.kessQ === q) { G.current.kessStun = G.current.round + 1; L.push({ t: `💫 Kess is blasted senseless — stunned.` }); }
         if (G.current.undineQ === q) { G.current.undineStun = G.current.round + 1; L.push({ t: `💫 The Undine is blasted apart — stunned.` }); }
       }
@@ -4815,7 +5426,7 @@ export default function App() {
     let winner = null, tie = tP === tA;
     if (!tie) winner = BEATS[tP] === tA ? P : A;
     [P, A].forEach((s) => { if (tie && s.fk === "G" && s.pass === "warmonger") { winner = s; tie = false; L.push({ t: "🏳 Warmonger — the tie is his." }); } });
-    [[P, pPlan, tP], [A, aPlan, tA]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(!tie && winner !== src && (winner === P ? tP : tA) === "rush")) { src._skyBarrage = 2; src._skyCast = g.roundJustPlayed; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); } });
+    [[P, pPlan, tP], [A, aPlan, tA]].forEach(([src, pl]) => { if (pl.ab === "sky" && !(!tie && winner !== src && (winner === P ? tP : tA) === "ward")) { src._skyBarrage = 2; src._skyCast = g.roundJustPlayed; L.push({ t: `☄ ${nm(src)} looses SKYFALL — the sky is loaded for two more rounds.` }); } });
     if (tie) {
       L.push({ t: "⚔ Clash TIE — a bloody trade." });
       if (tP !== "ward") clashBase(P, A, pPlan); else wardBase(P, pPlan, L);
@@ -4826,6 +5437,7 @@ export default function App() {
       const wab = ABILITIES[wp.ab];
       const wty = wp.form || wab.type;
       L.push({ t: `⚡ ${nm(winner)} wins the clash.`, fx: { kind: "adv", text: `CLASH — ${nm(winner).toUpperCase()}`, tone: FIGHTERS[winner.fk].hex } });
+      winner._advNow = true;
       if (G.current.stats) G.current.stats.adv[winner === g.P ? "P" : "A"] += 1;
       if (winner.pass === "momentum" && !winner.flow) { winner.flow = true; L.push({ t: `✦ Momentum — ${nm(winner)} gains Flow.` }); }
       if (l.pass === "tempo") gainPow(l, 1, L, "Steel Tempo");
@@ -4835,12 +5447,9 @@ export default function App() {
         clashBase(winner, l, wp);
         switch (wp.ab) {
           // signatures: +1 AND effect (placement already covers Harvest/Breakwater knockback riders)
-          case "freeze": dd(winner, l, 1, "Flash Freeze bites", "rush"); l._rootNext = true; L.push({ t: `⛓ ${nm(l)} is Rooted.` }); break;
           case "pyre": dd(winner, l, 1, "Pyre flare", "break"); addBurn(winner, l, L); break;
-          case "aval": { const b = Math.min(2, frostQs().length); dd(winner, l, 1, "Avalanche surge", "break"); if (b) dd(winner, l, b, "The frost joins in", "break"); break; }
           case "arc": dd(winner, l, 1, "Arc grounds out", "rush"); if (l.pow > 0) { l.pow -= 1; L.push({ t: `⚡ ${nm(l)} loses 1◆.` }); } break;
           case "brand": dd(winner, l, 1, "Doombrand sears", "rush"); l.brandRound = g.round + 1; L.push({ t: `⏳ Fuse shortened — end of round ${l.brandRound}.` }); break;
-          case "consec": dd(winner, l, 1, "Consecration flares", "rush"); setTerrain(winner.pos, "hall", L, "✦ Sanctuary"); break;
           case "censure": dd(winner, l, 1, "Censure", "break"); l.noGain = true; L.push({ t: `⚖ The Light disapproves — ${nm(l)} gains no ◆ this round.` }); break;
           case "mount": dd(winner, l, 1, "Mountainfall aftershock", "break"); break;
           case "chainX": dd(winner, l, 1, "Chain follow-through", "break"); winner.flow = true; break;
@@ -4854,6 +5463,45 @@ export default function App() {
         followups.push({ kind: "placeFoe", who: winner.fk, opts: QUADS, label: "Now hurl the loser anywhere" });
       }
     }
+    // ICE ELEMENTAL MIRROR IN CLASHES (v0.85.2 ruling): when the enemy
+    // already STANDS in an elemental's zone as the clash resolves, the
+    // mirror triggers as normal — Advantage rider on a Vessk win, base on
+    // a tie, countered (removed for nothing) on a Vessk loss. The
+    // FLAT-FINAL law still owns round 10: no elemental damage may modify
+    // the final clash — the mirror stays dark and the elemental persists.
+    {
+      const V = P.fk === "V" ? P : A.fk === "V" ? A : null;
+      const vPlan = V === P ? pPlan : aPlan;
+      if (V && ["lance", "spike"].includes(vPlan?.ab) && g.round !== 10) {
+        const foe = other(V);
+        const zone = foe.pos;
+        const el = g.icels?.[zone];
+        if (el && foe.hp > 0) {
+          if (el.stun >= g.round) L.push({ t: `💫 The Ice Elemental at ${zone} is stunned — its mirror stays dark this round.` });
+          else if (!tie && winner !== V) removeEl(zone, L, "countered");
+          else {
+            const ab = ABILITIES[vPlan.ab];
+            const advWin = !tie && winner === V;
+            let n = ab.dmg + (advWin ? 1 : 0);
+            let sh = false;
+            if ((ab.type === "break" || advWin) && (foe._chillEcho || (foe.chill && foe._chillPre))) {
+              sh = true; n += 1;
+              if (!foe._chillEcho) { foe.chill = false; foe._chillEcho = true; }
+            }
+            if (g.stats?.icel) g.stats.icel.mirrors += 1;
+            L.push({ t: `🧊 The Ice Elemental at ${zone} MIRRORS ${ab.name}${advWin ? " — Advantage and all" : ""}.`, fx: { kind: "combo", text: "MIRROR" } });
+            if (sh) { L.push({ t: `❄ SHATTER — the elemental's blow spends the chill.`, fx: { kind: "combo", text: "SHATTER" } }); if (g.stats?.icel) g.stats.icel.shatters += 1; }
+            dealRaw(foe, n, L, `Ice Elemental — mirrored ${ab.name}`, ab.type, "#7dd3fc");
+            if (vPlan.ab === "lance" && foe.hp > 0 && !foe._warding) addChill(foe, L);
+            removeEl(zone, L, "spent");
+          }
+        }
+      }
+    }
+    if (g.mind && g.mind._hp0) {
+      g.mind.tookHit = { P: P.hp < g.mind._hp0.P, A: A.hp < g.mind._hp0.A };
+      g.mind.colPrev = false;
+    }
     g.after = "finish";
     playLines(L, processPrompts);
   };
@@ -4861,6 +5509,15 @@ export default function App() {
     if (G.current.stats) G.current.stats.adv[warder === G.current.P ? "P" : "A"] += 1;
     const dd2 = (amt, label) => dealRaw(atk, amt * mult, L, label, "ward", elOf(warder));
     dd2(wp.ab === "arc" ? 2 : 1, "Riposte");
+    // SHATTER on the clash riposte: a ward win is an Advantage exchange
+    // (rounds 3/7 only — the FLAT-FINAL law owns round 10)
+    if (G.current.round !== 10 && warder.fk === "V" && !warder._shatterUsed && (atk._chillEcho || (atk.chill && atk._chillPre))) {
+      warder._shatterUsed = true;
+      if (!atk._chillEcho) { atk.chill = false; atk._chillEcho = true; }
+      if (G.current.stats) G.current.stats.shatter[warder === G.current.P ? "P" : "A"] += 1;
+      L.push({ t: "❄ SHATTER — the chill breaks under the counter and is spent." });
+      dd2(1, "SHATTER");
+    }
     if (wp.ab === "blackout") addPoison(atk, 1, L);
     if (wp.ab === "knit") addCurse(warder, atk, 1, L);
     switch (wp.ab) {
@@ -4871,6 +5528,8 @@ export default function App() {
       case "hawk": dd2(1, "Hawk's Eye counter"); L.push({ t: `🎯 ${nm(atk)} is MARKED.` }); break;
       case "eguard": dd2(1, "Edgeguard counter"); warder.flow = true; break;
       case "oath": dd2(1, "Bulwark Oath counter"); warder._noKB = true; break;
+      case "mantle": dd2(1, "Mantle counter"); healUp(warder, 1, L, "Winter's Mantle — the catch"); setTerrain(warder.pos, "frost", L, "❄ Frost"); break;
+      case "consec": dd2(1, "Consecration counter"); setTerrain(warder.pos, "hall", L, "✦ Sanctuary"); break;
       default: dd2(1, "Sharpened riposte"); break;
     }
   };
@@ -4955,8 +5614,9 @@ export default function App() {
     const P = mk(pFk, pLoad, pPass);
     const A = mk(aiFk, opts.aiLoad || FIGHTERS[aiFk].aiLoad, opts.aiPass || FIGHTERS[aiFk].aiPass);
     P.pos = "SW"; A.pos = "NE";
-    G.current = { round: 1, diff: opts.diff || diff, pHist: [], P, A, terrain: {}, phase: "plan", prompts: [], feed: [], history: [], winner: null, planSel: null, aiPlan: null, roundJustPlayed: 1, relics: { board: [], claims: 0, spawned: 0 }, altWin: null, after: "finish", curseHealed: false, kessQ: null, undineQ: null, undineUntil: 0, undineHeals: false, aiForcedMove: null, pendClash: null, kessStun: 0, undineStun: 0, domPending: null, stats: { dir: { P: 0, A: 0 }, whiff: { P: 0, A: 0 }, col: 0, clashes: 0, adv: { P: 0, A: 0 }, dmg: { P: 0, A: 0 } } };
+    G.current = { round: 1, diff: opts.diff || diff, pHist: [], P, A, terrain: {}, phase: "plan", prompts: [], feed: [], history: [], winner: null, planSel: null, aiPlan: null, roundJustPlayed: 1, relics: { board: [], claims: 0, spawned: 0 }, altWin: null, after: "finish", curseHealed: false, kessQ: null, undineQ: null, undineUntil: 0, undineHeals: false, aiForcedMove: null, pendClash: null, kessStun: 0, undineStun: 0, domPending: null, icels: {}, icelBorn: null, icelBursts: [], stats: { dir: { P: 0, A: 0 }, whiff: { P: 0, A: 0 }, col: 0, clashes: 0, adv: { P: 0, A: 0 }, dmg: { P: 0, A: 0 }, shatter: { P: 0, A: 0 }, blizz: 0, icel: { born: 0, spent: 0, countered: 0, zonelost: 0, lifeSum: 0, mirrors: 0, shatters: 0 } } };
     if (P.fk === "W") G.current.kessQ = P.pos; if (A.fk === "W") G.current.kessQ = A.pos;
+    MIND.initState(G.current);
     if (opts.tut) G.current.tut = true;
     setPoses({ P: "idle", A: "idle" }); setDying(null); setDeathHold(false);
     G.current.phase = "vs";
@@ -4967,7 +5627,7 @@ export default function App() {
 
   // Dormant test hook: exposes engine internals to the automated test/audit
   // harness only when a test runner sets window.__CL_TEST_HOOK__. Inert in play.
-  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G, api: { startGame, beginBout, aiMakePlan, aiPivot, applyToll, resolveRound, confirmClash, confirmPlan, useCraven, answerPrompt, processPrompts, throwSudden, skipPlay, clearTimers, confirmUmbralMove, confirmFeint, confirmFeintClash, afterCutin, railPromptPick, aiPickOpt, runClash, resolveRail, getPoses: () => posesRef.current }, defs: { FIGHTERS, ABILITIES, PASSIVES, TUTS, QUADS, ADJ, BEATS, CLASH_ROUNDS } };
+  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G, api: { startGame, beginBout, aiMakePlan, aiPivot, applyToll, resolveRound, confirmClash, confirmPlan, useCraven, answerPrompt, processPrompts, throwSudden, skipPlay, clearTimers, confirmUmbralMove, confirmFeint, confirmFeintClash, afterCutin, railPromptPick, aiPickOpt, runClash, resolveRail, getPoses: () => posesRef.current }, defs: { FIGHTERS, ABILITIES, PASSIVES, TUTS, QUADS, ADJ, BEATS, CLASH_ROUNDS }, mind: MIND };
   // Headless lab mode: the engine runs, nothing renders. Test-harness only.
   if (typeof window !== "undefined" && window.__CL_LAB__) return null;
   // Art gallery route (dev + visual-regression surface): ?artgallery
@@ -5064,6 +5724,7 @@ export default function App() {
             <div className="text-[10px] font-black tracking-widest text-teal-300 mt-3 mb-1">COMPANIONS & PRIZES</div>
             <p className="mb-1.5 flex gap-1.5 items-start"><span className="shrink-0"><KessMini size={23} /></span><span>{STATUS_INFO.kess.replace(/^[^ ]+ /, "")}</span></p>
             <p className="mb-1.5 flex gap-1.5 items-start"><span className="shrink-0"><UndineMini size={22} /></span><span>{STATUS_INFO.undine.replace(/^[^ ]+ /, "")}</span></p>
+            <p className="mb-1.5 flex gap-1.5 items-start"><span className="shrink-0"><IceElementalMini size={22} /></span><span>{STATUS_INFO.icel.replace(/^[^ ]+ /, "")}</span></p>
             <p className="mb-1.5 flex gap-1.5 items-start"><span className="shrink-0"><RelicGrail size={20} /></span><span>{STATUS_INFO.relic.replace(/^[^ ]+ /, "")}</span></p>
             <div className="text-[10px] font-black tracking-widest text-stone-400 mt-3 mb-1">THE CALENDAR</div>
             <p className="mb-3">Rounds 3, 7, and 10 are CLASHES — no movement, pure triangle, winner places both fighters, and the Round-10 winner strikes +2. Win a direct exchange any other round and you SHOVE: stagger them adjacent, or hold them where they stand.</p>
@@ -5175,7 +5836,7 @@ export default function App() {
         </div>
         <BigBtn onClick={() => startGame(foeSel ? { aiFk: foeSel, diff } : { diff })} disabled={pickAb.length !== 4 || !pickPass || !pickAb.some((id) => ABILITIES[id].cost === 0)}>Enter the Crucible ▸ ({pickAb.length}/4)</BigBtn>
         <div className="mt-2">
-          <BigBtn dim onClick={() => { const T = TUTS[side]; startGame({ tut: true, pFk: side, pLoad: FIGHTERS[side].aiLoad, pPass: T.pass, aiFk: T.foe, aiLoad: FIGHTERS[T.foe].aiLoad, aiPass: FIGHTERS[T.foe].aiPass }); }}>📖 Guided — learn {F.short} vs {FIGHTERS[TUTS[side].foe].short} ▸</BigBtn>
+          <BigBtn dim onClick={() => { const T = TUTS[side]; startGame({ tut: true, pFk: side, pLoad: T.load || FIGHTERS[side].aiLoad, pPass: T.pass, aiFk: T.foe, aiLoad: FIGHTERS[T.foe].aiLoad, aiPass: FIGHTERS[T.foe].aiPass }); }}>📖 Guided — learn {F.short} vs {FIGHTERS[TUTS[side].foe].short} ▸</BigBtn>
         </div>
       </Shell>
     );
@@ -5350,6 +6011,22 @@ export default function App() {
                 {g.relics?.board.includes(q) && <span onClick={(e) => { e.stopPropagation(); setTip("relic"); }} className="absolute top-1 right-1 z-10 cursor-pointer" style={{ filter: "drop-shadow(0 0 9px #eab308)", animation: REDUCED ? "none" : "venPulse 1.8s infinite", background: "radial-gradient(circle, rgba(234,179,8,.26), transparent 70%)", borderRadius: "50%", padding: 3 }}><RelicGrail size={26} /></span>}
                 {g.kessQ === q && <span onClick={(e) => { e.stopPropagation(); setTip("kess"); }} className="absolute top-1 left-2 z-10 cursor-pointer" style={{ filter: "drop-shadow(0 0 7px #16a34a)", opacity: g.kessStun >= g.round ? 0.35 : 1, background: "radial-gradient(circle, rgba(22,163,74,.30), transparent 70%)", borderRadius: "50%", padding: 3 }}><KessMini size={27} /></span>}
                 {g.undineQ === q && <span onClick={(e) => { e.stopPropagation(); setTip("undine"); }} className="absolute bottom-1 right-2 z-10 cursor-pointer" style={{ filter: "drop-shadow(0 0 8px #0d9488)", opacity: g.undineStun >= g.round ? 0.35 : 1, background: "radial-gradient(circle, rgba(13,148,136,.30), transparent 70%)", borderRadius: "50%", padding: 3 }}><UndineMini size={26} /></span>}
+                {g.icels?.[q] && (
+                  <span onClick={(e) => { e.stopPropagation(); setTip("icel"); }} className="absolute bottom-1 left-1/2 -translate-x-1/2 z-10 cursor-pointer" style={{ filter: "drop-shadow(0 0 9px #38bdf8)", opacity: g.icels[q].stun >= g.round ? 0.35 : 1, background: "radial-gradient(circle, rgba(56,189,248,.28), transparent 70%)", borderRadius: "50%", padding: 2 }}>
+                    <span className={REDUCED ? "" : g.icels[q].bornR === g.round ? "icelBirth" : "icelIdle"}><IceElementalMini size={30} /></span>
+                  </span>
+                )}
+                {(g.icelBursts || []).some((b) => b.q === q && b.r === g.roundJustPlayed) && (
+                  <span className="absolute inset-0 pointer-events-none flex items-center justify-center" style={{ zIndex: 7 }}>
+                    <svg width="66" height="66" viewBox="0 0 60 60" className={REDUCED ? "" : "fxIceBurst"}>
+                      <circle cx="30" cy="30" r="17" fill="#38bdf8" opacity=".2" />
+                      <circle cx="30" cy="30" r="9" fill="#e0f2fe" opacity=".35" />
+                      <path d="M30 8 L34 22 L30 27 L26 22 Z M48 18 L38 26 L34 24 Z M52 34 L40 33 L37 30 Z M44 50 L36 38 L39 34 Z M30 54 L27 39 L33 39 Z M14 48 L23 37 L26 41 Z M8 30 L21 28 L23 32 Z M13 13 L24 22 L21 26 Z"
+                        fill="#7dd3fc" stroke="#0c4a6e" strokeWidth="1.2" strokeLinejoin="round" opacity=".95" />
+                      <circle cx="30" cy="30" r="3" fill="#e0f2fe" />
+                    </svg>
+                  </span>
+                )}
                 {planning && g.aiForcedMove === q && (
                   <span onClick={(e) => { e.stopPropagation(); setTip("tolleye"); }} className="absolute top-1 left-1/2 -translate-x-1/2 z-10 text-sm cursor-pointer rounded-full px-1.5" style={{ background: "rgba(0,0,0,.55)", border: "1px solid #fbbf2466", textShadow: "0 0 8px #f59e0b", animation: REDUCED ? "none" : "venPulse 1.6s infinite" }}>👁</span>
                 )}
@@ -5643,7 +6320,7 @@ export default function App() {
             <p className="mb-2"><b className="text-violet-300">POWER ◆.</b> +1 at end of round unless you spent. Cap 3. Whiffed spenders still pay.</p>
             <p className="mb-2"><b className="text-stone-200">YOUR FOUR ARE ALL YOU HAVE.</b> No basic fallbacks — the draft is the fighter. Classes shape the pools: <b className="text-red-400">RAVAGERS</b> lean Rush/Break (kill first), <b className="text-amber-300">DUELISTS</b> lean Rush/Ward (strike, counter, trick, repeat), <b className="text-yellow-400">CHAMPIONS</b> lean Break/Ward (the hammer and the wall), <b className="text-sky-300">SHAPERS</b> lean Rush/Ward spent on the board (aggressive control). Class also tells you the FINISHER: Ravager and Champion ultimates are BREAKS (Rush the nuke turn); Duelist and Shaper ultimates are RUSHES (Ward it).</p>
             <p className="mb-1 text-stone-400 font-black uppercase tracking-widest">Keywords</p>
-            <p className="mb-1">🧪 <b>Poison</b> — inert; at 3 stacks it RUPTURES for 3 and clears. 🔥 <b>Burn</b> — at round's end take 1, then a stack fades (cap 2); Combustion detonates stacks mid-round at double value, and detonated stacks never tick. ❄ <b>Chill</b> — next Break that hits you SHATTERS for extra; consumed. ⛓ <b>Rooted</b> — can't choose to move next round.</p>
+            <p className="mb-1">🧪 <b>Poison</b> — inert; at 3 stacks it RUPTURES for 3 and clears. 🔥 <b>Burn</b> — at round's end take 1, then a stack fades (cap 2); Combustion detonates stacks mid-round at double value, and detonated stacks never tick. ❄ <b>Chill</b> — Vessk's SHATTER: any Break he lands on you, or any Advantage exchange he wins against you, breaks the chill for +1 — then it's spent. His frost zones melt after exactly 3 round-ends; his Ice Elementals anchor a zone and mirror his Lance or Spike into it. ⛓ <b>Rooted</b> — can't choose to move next round.</p>
             <p className="mb-1"><CurseDoll size={13} /> <b>Curse</b> — inert until Round 8, then 1 dmg per 3 stacks each round (never expires). ⏳ <b>Doombrand</b> — detonates for 3 on its round. ↓ <b>Weakened</b> — your hits deal −1. 🩸 <b>Blood Price</b> — HP paid as a cost (never below 1).</p>
             <p className="mb-1">✦ <b>Relics</b> (vs Kastor) — spawn rounds 2/4/6/8; end a round on one to claim. Kastor wins at 3; anyone else destroys it for heal/◆.</p>
             <p className="mb-1">⛰ <b>Dominion</b> (vs Dhoram) — his converted ground; all 4 quadrants = his win. Land a BREAK while standing on a tile to demolish it. 🌀 <b>Whirlpools</b> yank an adjacent foe in as they open and grind occupants 1/round; <b>Crashing Surf</b> batters and throws; her <b>Undine</b> chips its square. 🎯 <b>Marked</b> (Kess's quadrant) — +1 dmg from Wrenna. Dregan runs on <b>Flow</b> (bank +1 via wards, Cadence, and Advantages) and <b>Pivots</b> — Crescent and Chain can switch grip after the reveal for 1◆; sometimes the pivot only buys a trade, and that's the point.</p>

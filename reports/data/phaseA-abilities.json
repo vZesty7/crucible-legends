@@ -96,14 +96,6 @@
   "note": ""
  },
  {
-  "id": "base:aval",
-  "mechanic": "Avalanche base damage (trade)",
-  "expected": "2",
-  "observed": "2",
-  "pass": true,
-  "note": ""
- },
- {
   "id": "base:cinder",
   "mechanic": "Cinder Jab base damage (trade)",
   "expected": "1",
@@ -218,14 +210,6 @@
  {
   "id": "base:llance",
   "mechanic": "Lightlance base damage (trade)",
-  "expected": "1",
-  "observed": "1",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "base:consec",
-  "mechanic": "Consecration base damage (trade)",
   "expected": "1",
   "observed": "1",
   "pass": true,
@@ -478,6 +462,14 @@
   "observed": "3",
   "pass": true,
   "note": ""
+ },
+ {
+  "id": "adv:freeze",
+  "mechanic": "Flash Freeze advantage total",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": "root moved to base in v0.85; rider is the plain +1"
  },
  {
   "id": "adv:cinder",
@@ -744,50 +736,26 @@
   "note": ""
  },
  {
-  "id": "adv:freeze:dmg",
-  "mechanic": "Flash Freeze adv total",
-  "expected": "2",
-  "observed": "2",
+  "id": "base:freeze:dmg",
+  "mechanic": "Flash Freeze trade damage (base only)",
+  "expected": "1",
+  "observed": "1",
   "pass": true,
   "note": ""
  },
  {
-  "id": "adv:freeze:root",
-  "mechanic": "Rooted bag cannot move next round",
+  "id": "base:freeze:root",
+  "mechanic": "base ROOT: bag cannot move next round despite trading",
   "expected": "stays NE",
   "observed": "NE",
   "pass": true,
   "note": ""
  },
  {
-  "id": "adv:freeze:frost",
-  "mechanic": "Flash Freeze frosts the target quadrant",
+  "id": "base:freeze:frost",
+  "mechanic": "Flash Freeze frosts the target quadrant on base",
   "expected": "frost at NE",
   "observed": "frost",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "adv:aval:0frost",
-  "mechanic": "Avalanche adv, 0 frost",
-  "expected": "3",
-  "observed": "3",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "adv:aval:1frost",
-  "mechanic": "Avalanche adv, 1 frost",
-  "expected": "4",
-  "observed": "4",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "adv:aval:3frost",
-  "mechanic": "Avalanche adv, 3 frost (cap +2)",
-  "expected": "5",
-  "observed": "5",
   "pass": true,
   "note": ""
  },
@@ -812,30 +780,6 @@
   "mechanic": "base fuse = round 3",
   "expected": "3",
   "observed": "3",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "adv:consec:dmg",
-  "mechanic": "Consecration adv total",
-  "expected": "2",
-  "observed": "2",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "adv:consec:self",
-  "mechanic": "own quadrant hallowed",
-  "expected": "hall at SW",
-  "observed": "hall",
-  "pass": true,
-  "note": ""
- },
- {
-  "id": "base:consec:target",
-  "mechanic": "target quadrant hallowed",
-  "expected": "hall at NE",
-  "observed": "hall",
   "pass": true,
   "note": ""
  },
@@ -1089,7 +1033,7 @@
  },
  {
   "id": "base:sky:dmg",
-  "mechanic": "Skyfall direct (guard break) 2+1",
+  "mechanic": "Skyfall direct (rush interrupts break) 2+1",
   "expected": "3",
   "observed": "3",
   "pass": true,

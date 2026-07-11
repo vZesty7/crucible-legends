@@ -1,0 +1,93 @@
+{
+ "mid": {
+  "winrate": 46.1,
+  "games": 11000,
+  "crashed": 0,
+  "violations": [],
+  "avgRounds": 9.4,
+  "winTypes": {
+   "ko": 2221,
+   "bell": 2585,
+   "sudden": 264,
+   "alt": 0
+  },
+  "shattersPerGame": 0.8,
+  "mirrorsPerGame": 0.025,
+  "blizzPerGame": 0,
+  "icel": {
+   "bornPerGame": 0.776,
+   "removalShare": {
+    "spent": 15.4,
+    "countered": 9.7,
+    "zonelost": 74.9
+   },
+   "avgLifespanRounds": 1.92,
+   "survivorsPerGame": 0.617
+  },
+  "maxLine": {
+   "corePerGame": 0.0023,
+   "withFlowPerGame": 0.0003
+  },
+  "matchups": {
+   "G": 46.3,
+   "M": 49.7,
+   "C": 39.3,
+   "K": 34.6,
+   "Z": 72.3,
+   "L": 40,
+   "D": 36.9,
+   "Y": 43,
+   "W": 59.7,
+   "X": 31.5,
+   "O": 53.7
+  }
+ },
+ "max": {
+  "winrate": 50.1,
+  "games": 11000,
+  "crashed": 0,
+  "violations": [],
+  "avgRounds": 9.49,
+  "winTypes": {
+   "ko": 2199,
+   "bell": 3017,
+   "sudden": 293,
+   "alt": 0
+  },
+  "shattersPerGame": 0.62,
+  "mirrorsPerGame": 0,
+  "blizzPerGame": 0.39,
+  "icel": {
+   "bornPerGame": 0,
+   "removalShare": null,
+   "avgLifespanRounds": null,
+   "survivorsPerGame": 0
+  },
+  "maxLine": {
+   "corePerGame": 0,
+   "withFlowPerGame": 0
+  },
+  "matchups": {
+   "G": 51.9,
+   "M": 64.1,
+   "C": 41.5,
+   "K": 42.1,
+   "Z": 73.1,
+   "L": 45.9,
+   "D": 41.5,
+   "Y": 44.1,
+   "W": 54.5,
+   "X": 33,
+   "O": 59.2
+  }
+ },
+ "maxBuild": {
+  "load": [
+   "lance",
+   "hoar",
+   "spike",
+   "mantle"
+  ],
+  "pass": "blizzard"
+ }
+}

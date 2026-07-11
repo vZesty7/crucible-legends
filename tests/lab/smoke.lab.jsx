@@ -10,7 +10,7 @@ test("one full game runs and ends sanely", () => {
   const rng = () => Math.random();
   const res = playGame({
     pFk: "G", pLoad: ["skull", "howl", "sunder", "iron"], pPass: "warmonger",
-    aFk: "V", aLoad: ["lance", "hoar", "spike", "aval"], aPass: "shatter",
+    aFk: "V", aLoad: ["lance", "hoar", "spike", "iceage"], aPass: "blizzard",
     diff: "proving",
     pPolicy: makeAiPolicy(rng), aPolicy: makeAiPolicy(rng),
     seed: 1234, collectRounds: true,
@@ -32,7 +32,7 @@ test("speed benchmark: 100 games", () => {
   for (let i = 0; i < 100; i++) {
     const res = playGame({
       pFk: "G", pLoad: ["skull", "howl", "sunder", "iron"], pPass: "warmonger",
-      aFk: "V", aLoad: ["lance", "hoar", "spike", "aval"], aPass: "shatter",
+      aFk: "V", aLoad: ["lance", "hoar", "spike", "iceage"], aPass: "blizzard",
       diff: "proving",
       pPolicy: makeAiPolicy(rng), aPolicy: makeAiPolicy(rng),
       seed: 5000 + i,

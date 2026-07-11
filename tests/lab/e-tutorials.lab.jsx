@@ -30,7 +30,7 @@ function playLesson(fk, seed) {
     api().clearTimers();
     api().startGame({
       tut: true, pFk: fk,
-      pLoad: fk === "G" ? ["skull", "howl", "iron", "harvest"] : FIGHTERS[fk].aiLoad,
+      pLoad: T.load || (fk === "G" ? ["skull", "howl", "iron", "harvest"] : FIGHTERS[fk].aiLoad),
       pPass: T.pass, aiFk: T.foe, aiLoad: FIGHTERS[T.foe].aiLoad, aiPass: FIGHTERS[T.foe].aiPass,
     });
     flush();
@@ -81,7 +81,7 @@ function playLesson(fk, seed) {
 const SIGNATURES = {
   G: [["shove/placement", /hurled into|holds .* right where|drops|claims/], ["clash win", /wins the clash|BREAK shatters|beats/], ["advantage rider", /Advantage|overswing/]],
   M: [["poison application", /gains \d Poison/], ["rupture or detonation", /RUPTURE|HEARTSEEKER/], ["blood tithe", /Blood Tithe/]],
-  V: [["chill", /is Chilled/], ["frost ground", /Frost claims/], ["shatter", /SHATTER/]],
+  V: [["chill", /is Chilled/], ["frost ground", /Frost claims/], ["shatter + consume", /SHATTER — the chill breaks under the (blow|counter) and is spent/], ["zone expiry (melt)", /melts away/], ["flash freeze base root", /frozen boots take hold/], ["ice age birth", /ICE AGE — the winter stands up/], ["elemental anchor", /holds the frost/], ["elemental mirror", /MIRRORS Glacial Spike/], ["elemental spent", /spends itself in the strike/]],
   C: [["burn application", /is Burning/], ["burn tick", /Burning —/], ["detonation or pyre", /COMBUSTION|Pyre/]],
   K: [["discharge field install", /DISCHARGE FIELD INSTALLED/], ["field bites", /Discharge Field.*takes 1/], ["full-bank payoff", /Bulwark Frame vents the full bank|OVERCLOCK/], ["finality beam", /Finality Beam/], ["beam recoil root", /Rooted/]],
   Z: [["blood price", /pays \d blood|trades 1 blood/], ["life tap economy", /Life Tap/], ["doombrand clock", /BRANDED|DOOMBRAND/]],

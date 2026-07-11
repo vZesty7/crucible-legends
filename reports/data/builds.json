@@ -25,7 +25,7 @@
     "spike",
     "mantle"
    ],
-   "pass": "numb"
+   "pass": "blizzard"
   },
   "C": {
    "load": [
@@ -131,11 +131,11 @@
   "V": {
    "load": [
     "lance",
+    "spike",
     "freeze",
-    "mantle",
-    "aval"
+    "iceage"
    ],
-   "pass": "numb"
+   "pass": "permafrost"
   },
   "C": {
    "load": [

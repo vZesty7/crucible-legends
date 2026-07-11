@@ -56,10 +56,66 @@
   "note": ""
  },
  {
-  "id": "ward:mantle:heal",
-  "mechanic": "heal 1",
+  "id": "ward:mantle:idleHeal",
+  "mechanic": "heal 1 idle (base utility)",
   "expected": "1",
   "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:mantle:idleFrost",
+  "mechanic": "no frost without a catch",
+  "expected": "none",
+  "observed": "none",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:mantle:catchDmg",
+  "mechanic": "riposte 1 + Mantle counter 1",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:mantle:catchHeal",
+  "mechanic": "heal totals exactly 2 on the catch (1 base + 1 catch)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:mantle:catchFrost",
+  "mechanic": "own quadrant becomes a frost zone",
+  "expected": "frost at SW",
+  "observed": "frost",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:iceage:births",
+  "mechanic": "two zones + the self-painted one → three elementals",
+  "expected": "3",
+  "observed": "3",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:iceage:bare",
+  "mechanic": "bare board → own quadrant freezes, one elemental",
+  "expected": "1",
+  "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:iceage:selfpaint",
+  "mechanic": "caster's quadrant is a frost zone",
+  "expected": "frost at SW",
+  "observed": "frost",
   "pass": true,
   "note": ""
  },
@@ -156,6 +212,46 @@
   "mechanic": "vortex grinds 1 at round end",
   "expected": "1",
   "observed": "1",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:consec:place",
+  "mechanic": "chosen quadrant hallowed (idle)",
+  "expected": "hall at NE",
+  "observed": "hall",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:consec:noSelf",
+  "mechanic": "own square NOT hallowed without a catch",
+  "expected": "none",
+  "observed": "none",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:consec:counter",
+  "mechanic": "riposte 1 + Consecration counter 1 (the round-end sear is the ground's own rent)",
+  "expected": "2",
+  "observed": "2",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:consec:self",
+  "mechanic": "own quadrant hallowed on the catch",
+  "expected": "hall at SW",
+  "observed": "hall",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "id": "ward:consec:both",
+  "mechanic": "chosen quadrant hallowed too",
+  "expected": "hall at NE",
+  "observed": "hall",
   "pass": true,
   "note": ""
  },
