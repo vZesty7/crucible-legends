@@ -227,6 +227,31 @@ const FIGHTERS = {
 };
 
 /* ============ PORTRAITS ============ */
+/* ART PASS I — shared portrait depth kit: one key light (upper-left), a
+   vignette, and a grounding anchor shadow; rim strokes are authored per
+   portrait along the key-light silhouette edges. */
+function PDepth({ id, hex, rim }) {
+  return (
+    <g pointerEvents="none">
+      <defs>
+        <linearGradient id={`key${id}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity=".07" />
+          <stop offset="30%" stopColor="#ffffff" stopOpacity=".035" />
+          <stop offset="65%" stopColor="#ffffff" stopOpacity="0" />
+        </linearGradient>
+        <radialGradient id={`vin${id}`} cx="50%" cy="42%" r="78%">
+          <stop offset="60%" stopColor="#000000" stopOpacity="0" />
+          <stop offset="100%" stopColor="#000000" stopOpacity=".3" />
+        </radialGradient>
+      </defs>
+      <ellipse cx="60" cy="132" rx="42" ry="6.5" fill="#000000" opacity=".28" />
+      <ellipse cx="60" cy="131" rx="30" ry="4.5" fill={hex} opacity=".1" />
+      {rim}
+      <rect width="120" height="138" rx="10" fill={`url(#key${id})`} />
+      <rect width="120" height="138" rx="10" fill={`url(#vin${id})`} />
+    </g>
+  );
+}
 function PortraitG({ size = 120 }) {
   return (
     <svg width={size} height={size * 1.15} viewBox="0 0 120 138">
@@ -437,6 +462,11 @@ function PortraitV({ size = 120 }) {
       <path d="M55.5 56.2 Q60 57.4 64.5 56.2" stroke="#6b5a45" strokeWidth="1.3" fill="none" /><path d="M55.5 56.2 L54.3 57.2 M64.5 56.2 L65.7 57.2" stroke="#6b5a45" strokeWidth="1" />
       </g>
       <circle cx="30" cy="72" r="1.2" fill="#bae6fd" opacity=".7" /><circle cx="90" cy="46" r="1" fill="#e0f2fe" opacity=".8" />
+      <PDepth id="V" hex="#38bdf8" rim={<g fill="none" strokeLinecap="round">
+        <path d="M36 50 Q45 44.5 58 44" stroke="#a5f3fc" strokeWidth="1.2" opacity=".55" />
+        <path d="M27 58 L44 52.5" stroke="#a5f3fc" strokeWidth="1.1" opacity=".5" />
+        <path d="M30 60 L26.5 96" stroke="#7dd3fc" strokeWidth=".9" opacity=".3" />
+      </g>} />
     </svg>
   );
 }
@@ -474,6 +504,12 @@ function PortraitC({ size = 120 }) {
       <path d="M60 62 L60 90" stroke="#0c0a09" strokeWidth="1.1" opacity=".6" />
       <path d="M86 58 L91 63 L88 70 Z" fill="#eab308" /><circle cx="89" cy="72" r="1.7" fill="#eab308" />
       <circle cx="18" cy="96" r="1.5" fill="#fb923c" opacity=".85" /><circle cx="102" cy="92" r="1.3" fill="#fde047" opacity=".8" />
+      <PDepth id="C" hex="#f97316" rim={<g fill="none" strokeLinecap="round">
+        <path d="M32 62 L36 36 L50 26" stroke="#fdba74" strokeWidth="1.5" opacity=".8" />
+        <path d="M32 62 L40 83" stroke="#fb923c" strokeWidth="1" opacity=".4" />
+        <path d="M46 92 L60 92" stroke="#fdba74" strokeWidth="1.1" opacity=".45" />
+        <path d="M45 112 L58 112" stroke="#fde047" strokeWidth="1" opacity=".55" />
+      </g>} />
     </svg>
   );
 }
@@ -637,6 +673,12 @@ function PortraitL({ size = 120 }) {
       <path d="M44 68 L44 74 M76 68 L76 74" stroke="#57534e" strokeWidth="1.6" />
       <path d="M74 16 L79 28" stroke="#57534e" strokeWidth="1.2" />
       <path d="M46 80 L52 84" stroke="#7f1d1d" strokeWidth="1.6" opacity=".8" />
+      <PDepth id="L" hex="#eab308" rim={<g fill="none" strokeLinecap="round">
+        <path d="M60 4 L36 22 L34 46" stroke="#f5f5f4" strokeWidth="1.6" opacity=".6" />
+        <path d="M34 46 L12 22" stroke="#e7e5e4" strokeWidth="1.1" opacity=".55" />
+        <path d="M2 108 L26 97" stroke="#e7e5e4" strokeWidth="1" opacity=".5" />
+        <path d="M37 97 L58 97" stroke="#d6d3d1" strokeWidth="1" opacity=".4" />
+      </g>} />
     </svg>
   );
 }
@@ -1691,12 +1733,58 @@ const FIGS = {
     <path d="M18 17 Q24 20 30 17 L29 21 Q24 23 19 21 Z" fill="#cfae83" />
   </g>),
 };
-function VecFig({ fk, size = 56, flip }) {
+/* ---- ART PASS I: authored pose variants (transform + accent) per the Art Bible ---- */
+const POSE_T = {
+  V: { strike: "rotate(14deg) translate(3px,-1px)", ward: "rotate(-6deg) translate(0,3px) scaleY(.92)", hurt: "rotate(-16deg) translate(-3px,1px)", victorious: "rotate(-3deg) scaleY(1.06)", fallen: "translate(16px,1px) rotate(-84deg) scale(.78)" },
+  C: { strike: "rotate(17deg) translate(4px,-1px)", ward: "rotate(-7deg) translate(0,3.5px) scaleY(.9)", hurt: "rotate(-17deg) translate(-3px,1px)", victorious: "scaleY(1.08) rotate(-2deg)", fallen: "translate(-27px,1px) rotate(84deg) scale(.78)" },
+  L: { strike: "rotate(10deg) translate(2px,-1px)", ward: "translate(0,3px) scaleY(.94) rotate(-2deg)", hurt: "rotate(-12deg) translate(-3px,.5px)", victorious: "scaleY(1.05)", fallen: "translate(0,10px) scaleY(.78) rotate(7deg)" },
+};
+const POSE_FX = {
+  V: {
+    strike: <g><path d="M36 30 L50 25 L46 38 Z" fill="#a5f3fc" opacity=".95" /><path d="M36 31 L50 26" stroke="#38bdf8" strokeWidth="2.6" opacity=".9" /><circle cx="48" cy="28" r="5" fill="#38bdf8" opacity=".25" /></g>,
+    ward: <g><path d="M8 46 Q24 36 40 46" stroke="#7dd3fc" strokeWidth="3" fill="none" opacity=".85" /><path d="M8 46 Q24 36 40 46" stroke="#a5f3fc" strokeWidth="1.2" fill="none" opacity=".9" /></g>,
+    victorious: <g><circle cx="24" cy="5" r="6.5" fill="#a5f3fc" opacity=".3" /><path d="M18 3 L24 -3 L30 3" stroke="#a5f3fc" strokeWidth="1.6" fill="none" opacity=".8" /></g>,
+    fallen: <g><path d="M8 66 L13 55 L17 66 Z" fill="#38bdf8" opacity=".85" /><path d="M32 67 L36 58 L40 67 Z" fill="#7dd3fc" opacity=".7" /><path d="M22 68 L25 62 L28 68 Z" fill="#a5f3fc" opacity=".6" /></g>,
+  },
+  C: {
+    strike: <g><circle cx="43" cy="41" r="6.5" fill="#f97316" opacity=".45" /><circle cx="43" cy="41" r="3" fill="#fde047" opacity=".95" /><path d="M38 36 L48 32 M39 46 L49 44" stroke="#fdba74" strokeWidth="1.6" opacity=".8" /></g>,
+    ward: <g><path d="M8 47 Q24 37 40 47" stroke="#fdba74" strokeWidth="3" fill="none" opacity=".8" /><path d="M8 47 Q24 37 40 47" stroke="#fde047" strokeWidth="1.2" fill="none" opacity=".85" /></g>,
+    victorious: <g><path d="M14 5 L18 -3 L23 3 L28 -4 L33 4" stroke="#f97316" strokeWidth="2.6" fill="none" opacity=".9" /><path d="M17 3 L21 -1 L25 2" stroke="#fde047" strokeWidth="1.4" fill="none" opacity=".9" /></g>,
+    fallen: <g><circle cx="14" cy="64" r="1.4" fill="#7c2d12" opacity=".8" /><circle cx="30" cy="66" r="1.1" fill="#57534e" opacity=".8" /></g>,
+  },
+  L: {
+    strike: <g><path d="M40 6 Q50 19 44 34" stroke="#fde047" strokeWidth="3" fill="none" opacity=".9" /><path d="M41 8 Q49 19 44 31" stroke="#fff7cc" strokeWidth="1.2" fill="none" opacity=".85" /></g>,
+    ward: <g><path d="M7 44 Q24 34 41 44" stroke="#fde047" strokeWidth="3" fill="none" opacity=".8" /><path d="M7 44 Q24 34 41 44" stroke="#fff7cc" strokeWidth="1.1" fill="none" opacity=".8" /></g>,
+    victorious: <g><circle cx="24" cy="13" r="14" fill="none" stroke="#fde047" strokeWidth="2" opacity=".7" /><circle cx="24" cy="13" r="14" fill="#fde047" opacity=".07" /></g>,
+    fallen: <g><path d="M31 30 L33.6 30 L33.6 70 L31 70 Z" fill="#e2e8f0" /><path d="M28 29 L36.6 29 L36.6 32 L28 32 Z" fill="#a16207" /><circle cx="24" cy="20" r="9" fill="none" stroke="#fde047" strokeWidth=".8" opacity=".18" /></g>,
+  },
+};
+const FIG_PARTS = {
+  V: <g><circle className="pDrift1" cx="10" cy="58" r="2.6" fill="#a5f3fc" opacity=".16" /><circle className="pDrift2" cx="38" cy="50" r="2" fill="#7dd3fc" opacity=".12" /></g>,
+  C: <g><circle className="pEmber1" cx="13" cy="34" r="1.1" fill="#fdba74" /><circle className="pEmber2" cx="35" cy="38" r=".9" fill="#f97316" /><circle className="pEmber3" cx="24" cy="30" r=".8" fill="#fde047" /></g>,
+  L: <g><circle className="pMote1" cx="11" cy="20" r="1" fill="#fde047" opacity=".6" /><circle className="pMote2" cx="38" cy="27" r=".8" fill="#fde047" opacity=".45" /></g>,
+};
+const FIG_SWAY = {
+  V: <path className="figSway" d="M9 40 Q7 48 9.5 56" stroke="#22304d" strokeWidth="1.6" fill="none" opacity=".8" />,
+  C: <path className="figSway" d="M18 6 L21 1.5 L23 5" stroke="#fdba74" strokeWidth="1.4" fill="none" opacity=".7" />,
+  L: <path className="figSway" d="M19 52 L22 52 L21.5 58 L19.4 58 Z" fill="#1e3a8a" opacity=".9" />,
+};
+function VecFig({ fk, size = 56, flip, pose = "idle", dying }) {
   const h = (size * 72) / 48;
   const fl = flip ? "scaleX(-1)" : "scaleX(1)";
+  const t = !dying && pose !== "idle" ? POSE_T[fk]?.[pose] : null;
+  const still = pose === "fallen" || dying;
+  const gCls = REDUCED ? "figPoseR" : dying ? `fall${fk}` : "figPose";
   return (
-    <span className={REDUCED ? "" : "vfig"} style={{ display: "inline-block", width: size, height: h, transform: REDUCED ? fl : undefined, "--fl": fl }}>
-      <svg viewBox="0 0 48 72" width={size} height={h}>{FIGS[fk]()}</svg>
+    <span className={REDUCED || still ? "" : "vfig"} style={{ display: "inline-block", width: size, height: h, transform: REDUCED ? fl : undefined, "--fl": fl }}>
+      <svg viewBox="0 0 48 72" width={size} height={h} overflow="visible">
+        <g className={gCls} style={t ? { transform: t } : undefined}>
+          {FIGS[fk]()}
+          {!REDUCED && !still && FIG_SWAY[fk]}
+          {POSE_FX[fk]?.[pose] || null}
+        </g>
+        {!REDUCED && !still && FIG_PARTS[fk]}
+      </svg>
     </span>
   );
 }
@@ -2077,7 +2165,27 @@ const CSS = `
 .bg-shake{animation:bgShake .32s linear}
 .spriteA{animation:frA 1s steps(1) infinite}
 .spriteB{animation:frB 1s steps(1) infinite}
-.vfig{animation:vBreathe 2.8s ease-in-out infinite;transform-origin:50% 100%}
+.vfig{animation:vBreathe 3.4s ease-in-out infinite;transform-origin:50% 100%}
+.figPose{transition:transform .25s ease;transform-box:view-box;transform-origin:24px 69px}
+.figPoseR{transform-box:view-box;transform-origin:24px 69px}
+.fallV{animation:fallV .6s ease-in forwards;transform-box:view-box;transform-origin:24px 69px}
+.fallC{animation:fallC .6s ease-in forwards;transform-box:view-box;transform-origin:24px 69px}
+.fallL{animation:fallL .6s ease-out forwards;transform-box:view-box;transform-origin:24px 69px}
+@keyframes fallV{0%{transform:rotate(0)}45%{transform:translate(4px,0) rotate(-34deg) scale(.9)}100%{transform:translate(16px,1px) rotate(-84deg) scale(.78)}}
+@keyframes fallC{0%{transform:rotate(0)}45%{transform:translate(-4px,0) rotate(36deg) scale(.9)}100%{transform:translate(-27px,1px) rotate(84deg) scale(.78)}}
+@keyframes fallL{0%{transform:none}60%{transform:translate(0,8px) scaleY(.84) rotate(5deg)}100%{transform:translate(0,10px) scaleY(.78) rotate(7deg)}}
+.pDrift1{animation:pDrift 5.2s ease-in-out infinite}
+.pDrift2{animation:pDrift 6.1s ease-in-out infinite reverse}
+@keyframes pDrift{0%,100%{transform:translate(0,0);opacity:.10}50%{transform:translate(2.5px,-3px);opacity:.22}}
+.pEmber1{animation:pEmber 3.8s linear infinite}
+.pEmber2{animation:pEmber 4.6s linear infinite .9s}
+.pEmber3{animation:pEmber 5.4s linear infinite 1.8s}
+@keyframes pEmber{0%{transform:translateY(0);opacity:0}15%{opacity:.9}100%{transform:translateY(-16px);opacity:0}}
+.pMote1{animation:pMote 6s ease-in-out infinite}
+.pMote2{animation:pMote 7s ease-in-out infinite 1.4s}
+@keyframes pMote{0%,100%{transform:translate(0,0);opacity:.35}50%{transform:translate(-2px,-4px);opacity:.8}}
+.figSway{animation:figSway 3.8s ease-in-out infinite;transform-box:view-box;transform-origin:24px 30px}
+@keyframes figSway{0%,100%{transform:rotate(0)}50%{transform:rotate(1.6deg)}}
 @keyframes vBreathe{0%,100%{transform:scaleY(1) var(--fl,scaleX(1))}50%{transform:scaleY(1.02) var(--fl,scaleX(1))}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes frA{0%,49%{opacity:1}50%,100%{opacity:0}}
@@ -2140,6 +2248,19 @@ export default function App() {
       });
     } else au.pause();
   }, [screen, gPhaseNow, muted, musicUrl]);
+  useEffect(() => {
+    // the end pose beat: VICTORIOUS for the winner; HURT for a bell loss;
+    // the ~0.6s death fall into FALLEN only on a true match-ending KO —
+    // survive-at-1 effects keep hp above 0 mid-match and can never reach here fallen
+    if (gPhaseNow !== "over" || !G.current || !G.current.winner || G.current.winner === "LESSON") return;
+    const winSide = G.current.winner, loseSide = winSide === "P" ? "A" : "P";
+    const koLoss = G.current[loseSide].hp <= 0;
+    setPoses((p) => ({ ...p, [winSide]: "victorious", [loseSide]: koLoss ? p[loseSide] : "hurt" }));
+    if (koLoss) {
+      setDying(loseSide); setDeathHold(true);
+      later(() => { setDying(null); setPoses((p) => ({ ...p, [loseSide]: "fallen" })); setDeathHold(false); }, 650);
+    }
+  }, [gPhaseNow]);
   const [side, setSide] = useState(null);
   const [pickAb, setPickAb] = useState([]);
   const [pickPass, setPickPass] = useState(null);
@@ -2153,6 +2274,15 @@ export default function App() {
   const [cutin, setCutin] = useState(false);
   const [sudden, setSudden] = useState(null);
   const [hitTok, setHitTok] = useState(null);
+  const [poses, setPoses] = useState({ P: "idle", A: "idle" });
+  const [dying, setDying] = useState(null);
+  const [deathHold, setDeathHold] = useState(false);
+  const posesRef = useRef({ P: "idle", A: "idle" });
+  posesRef.current = poses;
+  const setPoseFor = (side, pose, ms) => {
+    setPoses((p) => ({ ...p, [side]: pose }));
+    if (ms) later(() => setPoses((p) => (p[side] === pose ? { ...p, [side]: "idle" } : p)), ms);
+  };
   const [showLog, setShowLog] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [tip, setTip] = useState(null);
@@ -2180,8 +2310,12 @@ export default function App() {
   const tokFlash = (k) => { setHitTok(k); later(() => setHitTok(null), 420); };
   const fireFx = (fx) => {
     if (!fx) return;
-    if (fx.kind === "hit") { addPop(fx.side, `−${fx.amt}`, "text-red-400"); flashQuad(fx.q, fx.ty, fx.el); tokFlash(fx.side); if (fx.amt >= 2) doShake(); }
-    if (fx.kind === "glance") { addPop(fx.side, `−${fx.amt}`, "text-stone-400"); flashQuad(fx.q, fx.ty, fx.el); }
+    if (fx.kind === "hit") {
+      addPop(fx.side, `−${fx.amt}`, "text-red-400"); flashQuad(fx.q, fx.ty, fx.el); tokFlash(fx.side); if (fx.amt >= 2) doShake();
+      setPoseFor(fx.side === "P" ? "A" : "P", "strike", 340);
+      later(() => setPoseFor(fx.side, "hurt", 400), 120);
+    }
+    if (fx.kind === "glance") { addPop(fx.side, `−${fx.amt}`, "text-stone-400"); flashQuad(fx.q, fx.ty, fx.el); setPoseFor(fx.side, "hurt", 300); }
     if (fx.kind === "heal") addPop(fx.side, `+${fx.amt}`, "text-emerald-400");
     if (fx.kind === "poison") addPop(fx.side, "+🧪", "text-lime-400");
     if (fx.kind === "burn") addPop(fx.side, "+🔥", "text-orange-400");
@@ -2639,6 +2773,11 @@ export default function App() {
   /* ---- playback ---- */
   const playLines = (lines, done) => {
     G.current.phase = "playing";
+    const v = G.current.vs;
+    if (G.current.after === "finish" && v && v.r === G.current.roundJustPlayed) {
+      if (v.p?.ty === "ward") setPoseFor("P", "ward", 1600);
+      if (v.a?.ty === "ward") setPoseFor("A", "ward", 1600);
+    }
     pendingRef.current = { lines, i: 0, done };
     rerender(); stepPlay();
   };
@@ -3471,6 +3610,7 @@ export default function App() {
     G.current = { round: 1, diff: opts.diff || diff, pHist: [], P, A, terrain: {}, phase: "plan", prompts: [], feed: [], history: [], winner: null, planSel: null, aiPlan: null, roundJustPlayed: 1, relics: { board: [], claims: 0, spawned: 0 }, altWin: null, after: "finish", curseHealed: false, kessQ: null, undineQ: null, undineUntil: 0, undineHeals: false, aiForcedMove: null, pendClash: null, kessStun: 0, undineStun: 0, domPending: null, stats: { dir: { P: 0, A: 0 }, whiff: { P: 0, A: 0 }, col: 0, clashes: 0, adv: { P: 0, A: 0 }, dmg: { P: 0, A: 0 } } };
     if (P.fk === "W") G.current.kessQ = P.pos; if (A.fk === "W") G.current.kessQ = A.pos;
     if (opts.tut) G.current.tut = true;
+    setPoses({ P: "idle", A: "idle" }); setDying(null); setDeathHold(false);
     G.current.phase = "vs";
     setScreen("game");
     resetSel(G.current);
@@ -3479,9 +3619,31 @@ export default function App() {
 
   // Dormant test hook: exposes engine internals to the automated test/audit
   // harness only when a test runner sets window.__CL_TEST_HOOK__. Inert in play.
-  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G, api: { startGame, beginBout, aiMakePlan, aiPivot, applyToll, resolveRound, confirmClash, confirmPlan, useCraven, answerPrompt, processPrompts, throwSudden, skipPlay, clearTimers, confirmUmbralMove, confirmFeint, confirmFeintClash, afterCutin, railPromptPick, aiPickOpt, runClash, resolveRail }, defs: { FIGHTERS, ABILITIES, PASSIVES, TUTS, QUADS, ADJ, BEATS, CLASH_ROUNDS } };
+  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G, api: { startGame, beginBout, aiMakePlan, aiPivot, applyToll, resolveRound, confirmClash, confirmPlan, useCraven, answerPrompt, processPrompts, throwSudden, skipPlay, clearTimers, confirmUmbralMove, confirmFeint, confirmFeintClash, afterCutin, railPromptPick, aiPickOpt, runClash, resolveRail, getPoses: () => posesRef.current }, defs: { FIGHTERS, ABILITIES, PASSIVES, TUTS, QUADS, ADJ, BEATS, CLASH_ROUNDS } };
   // Headless lab mode: the engine runs, nothing renders. Test-harness only.
   if (typeof window !== "undefined" && window.__CL_LAB__) return null;
+  // Art gallery route (dev + visual-regression surface): ?artgallery
+  if (typeof window !== "undefined" && window.location.search.includes("artgallery")) return (
+    <Shell><style>{CSS}</style>
+      <div className="p-4 min-h-screen" style={{ background: "#12100d" }}>
+        <div className="text-xs tracking-widest text-stone-500 mb-2">PORTRAITS — ART PASS I</div>
+        <div className="flex flex-wrap gap-2 mb-6">{Object.keys(FIGHTERS).map((fk) => (
+          <div key={fk} className="text-center"><Portrait fk={fk} size={96} /><div className="text-[10px] text-stone-500">{FIGHTERS[fk].short}</div></div>
+        ))}</div>
+        <div className="text-xs tracking-widest text-stone-500 mb-2">THE LIVING BOARD — SIX POSES</div>
+        {["V", "C", "L"].map((fk) => (
+          <div key={fk} className="mb-4">
+            <div className="text-[11px] text-stone-400 mb-1">{FIGHTERS[fk].short}</div>
+            <div className="flex items-end gap-5 rounded-lg p-3" style={{ background: "#1d1813" }}>
+              {["idle", "strike", "ward", "hurt", "victorious", "fallen"].map((p) => (
+                <div key={p} className="text-center"><VecFig fk={fk} size={52} pose={p} /><div className="text-[10px] text-stone-600 mt-1">{p}</div></div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Shell>
+  );
 
   /* ================= screens ================= */
   if (screen === "title") return (
@@ -3870,7 +4032,7 @@ export default function App() {
                 }}>
                   <span className="absolute left-1/2 -translate-x-1/2 rounded-full" style={{ bottom: -3, width: 34, height: 8, background: "radial-gradient(closest-side, rgba(0,0,0,.7), transparent)" }} />
                   <span className="relative block" style={{ filter: `drop-shadow(0 0 8px ${F.hex}66)` }}>
-                    <VecFig fk={s.fk} size={44} flip={i === 1} />
+                    <VecFig fk={s.fk} size={44} flip={i === 1} pose={poses[key]} dying={dying === key} />
                   </span>
                 </div>
               );
@@ -4039,7 +4201,7 @@ export default function App() {
             </div>
           </div>
         )}
-        {g.phase === "over" && (
+        {g.phase === "over" && !deathHold && (
           <div className="text-center py-2">
             <div className="flex justify-center mb-2"><Portrait fk={g.winner === "A" ? ai.fk : me.fk} size={92} /></div>
             <div className={`font-serif italic text-4xl ${g.winner === "LESSON" ? "text-amber-300" : g.winner === "P" ? "text-emerald-400" : "text-red-500"}`} style={{ textShadow: "0 0 40px rgba(220,38,38,.4)" }}>

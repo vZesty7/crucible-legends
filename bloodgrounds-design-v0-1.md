@@ -399,6 +399,55 @@ With basics removed, **class shapes the pool** — each 6-ability pool leans on 
 
 ---
 
+## THE ART BIBLE *(v0.85 — Art Pass I law; written before painting, binding on all visual work)*
+
+### Palette table — every color belongs to a family
+| Fighter | Core | Light tint | Deep shade | Second accent |
+|---|---|---|---|---|
+| Gharzul | #dc2626 | #f87171 | #7f1d1d | bone #d9c8a8 |
+| Maleth | #10b981 | #6ee7b7 | #064e3b | dusk-violet #6d5b8e |
+| Vessk | #38bdf8 | #a5f3fc | #123252 | coat-navy #1b2942 |
+| Ashkarra | #f97316 | #fdba74 | #7c2d12 | slag #44403c |
+| Koros | #a78bfa | #ddd6fe | #3b2d63 | steel #64748b |
+| Zhal | #a855f7 | #e9d5ff | #3b0764 | blood #dc2626 |
+| Kastor | #eab308 | #fde047 | #713f12 | steel #a8a29e |
+| Marrow | #a3e635 | #d9f99d | #3f6212 | bone #d6d3d1 |
+| Dhoram | #d97706 | #fbbf24 | #78350f | stone #57534e |
+| Maelis | #0d9488 | #5eead4 | #134e4a | drowned-bronze #8a6d3b |
+| Wrenna | #16a34a | #86efac | #14532d | leather #7c5a3a |
+| Dregan | #94a3b8 | #e2e8f0 | #334155 | oil-blue #475569 |
+
+A fighter's every effect, particle, and accent draws from their row. Neutral stone/void grounds are shared.
+
+### Line-weight standards
+Portraits: detail strokes 0.8–1.4; structural/weapon strokes 2–2.8; nothing hairline at render size.
+Board figures (48×72 box shown at ~44px): minimum feature ≥1.5 units; outlines on added elements ≥2.
+Board-scale FX: **the Silhouette Doctrine (v0.82.3) is LAW** — one solid silhouette + glow + thick outline; never construction lines; hands and faces lose at 60px, depict the wound/effect, not the limb.
+
+### Scale grid
+| Surface | ViewBox | Shown at | Standard |
+|---|---|---|---|
+| Portrait | 120×138 | card 80 · detail 72 · splash 100 · victory 92 | head mass 34–40% of frame height, eyes on the upper-third line |
+| Board figure | 48×72 | 44px on tiles | feet baseline y≈69; head ≈16–22 units tall |
+| Companion token | — | ≤26px | silhouette + one glow accent only |
+
+### The Key Light — one sun for everyone
+Light comes from the **upper-left**, always. Rim light lives on upper-left silhouette edges (light tint of the fighter's row, opacity .5–.8); form shadows fall lower-right; every grounded body casts an anchoring shadow ellipse at its feet (black ~.35 + a faint element glow beneath).
+
+### THE RESTRAINT LAW
+This game's charm is stillness and bold shape. Every addition must earn its place; when in doubt, less. Nothing competes with the fighters for attention. Particles are seasoning, never weather: one signature per fighter, 2–3 elements maximum, slow, quiet.
+
+### THE SEQUENCING LAW *(forward law — implemented fully in Art Pass II; obeyed by everything from this pass on)*
+Resolution is a conducted sequence, never a simultaneous flash: one event at a time, in causal order, each beat given readable breath. A full round's theater runs roughly 5–10 seconds; fluidity over speed; no two damage events land in the same instant. Pacing controls (tap to fast-forward; animation-speed setting normal/brisk/instant) are Pass II deliverables.
+
+### Animation timing standards
+Idle loops 3–4s, eased. Pose transitions 200–300ms. The death fall ~0.6s, played only on a true match-ending KO (never on bell losses, never on survive-at-1 effects — a permanent guardrail test enforces this). All motion respects the reduced-motion flag.
+
+### The pose system *(Art Pass I)*
+Six authored poses per board figure — IDLE, STRIKE, WARD, HURT, VICTORIOUS, FALLEN — as transform-plus-accent variants over the figure's existing construction (polish, never redesign). Death directions follow identity: Kastor kneels propped on the hammer; Koros powers down, reactor light dying; Vessk shatters into his element; Zhal releases a faint door-wisp; Ashkarra's embers extinguish; Marrow drops stringless; the rest per their identity notes.
+
+---
+
 ## 8. Stages (future sketch)
 
 Stages add terrain rules and, rarely, their own win conditions:
