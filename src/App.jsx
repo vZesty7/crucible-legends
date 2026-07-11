@@ -2080,13 +2080,9 @@ const FIGS = {
   G: () => (<g>
     <path d="M15 52 L21 52 L20 68 L14 68 Z" fill="#7f1d1d" /><path d="M27 52 L33 52 L34 68 L28 68 Z" fill="#991b1b" />
     <path d="M13 66 L21 66 L21 71 L12 71 Z M27 66 L35 66 L36 71 L27 71 Z" fill="#120b08" />
-    <path d="M33 60 L40 14" stroke="#3d2a12" strokeWidth="2.8" strokeLinecap="round" />
-    <path d="M33 60 L40 14" stroke="#6b4a24" strokeWidth="1" strokeLinecap="round" />
-    <path d="M41 17 L48 13 Q51 19 48 25 L41 22 Z" fill="#a8a29e" /><path d="M48 13 Q51 19 48 25 L46.8 24 Q49 19 46.8 14 Z" fill="#e7e5e4" />
-    <path d="M38 16.5 L31 12.5 Q28 18.5 31 24.5 L38 21.5 Z" fill="#8f8a80" /><path d="M31 12.5 Q28 18.5 31 24.5 L32.2 23.5 Q30 18.5 32.2 13.5 Z" fill="#d6d3d1" />
-    <path d="M37.5 15.5 L41.5 16.5 L41 23 L37 22 Z" fill="#57534e" /><circle cx="39.2" cy="18" r=".7" fill="#a8a29e" />
-    <path d="M38.5 15 L39.7 9.5 L41 15 Z" fill="#78716c" />
-    <path d="M46 22 L48.5 24.5 L45 24 Z" fill="#7f1d1d" />
+    <g transform="translate(33,60) rotate(9)">{GAXE}</g>
+    <path d="M30.6 55.6 Q34.6 54.8 35.6 58 Q35.2 61.4 31.8 61 Q29.2 60 29.6 57.4 Z" fill="#4d7c0f" />
+    <path d="M31.2 57 L34.6 56.6 M31.2 59 L34.6 58.6" stroke="#365314" strokeWidth=".6" />
     <path d="M14 26 Q24 22 34 26 L36 50 Q24 54 12 50 Z" fill="#4d7c0f" />
     <path d="M14 26 Q19 24 24 24 L24 52 Q17 52 12 50 Z" fill="#365314" />
     <path d="M12 48 L36 48 L36 52 L12 52 Z" fill="#b91c1c" />
@@ -2136,23 +2132,10 @@ const FIGS = {
     <path d="M11 29 L17 27 L18 31 L12 33 Z" fill="#22304d" />
     <path d="M37 29 L31 27 L30 31 L36 33 Z" fill="#1b2942" />
     <path d="M15 34 Q24 30 33 34 L32 52 Q24 56 16 52 Z" fill="#0e7490" />
-    <path d="M23.5 32 L24.5 32 L24.5 54 L23.5 54 Z" fill="#7dd3fc" opacity=".6" />
     <path d="M16 52 Q24 57 32 52 L32 57 Q24 61 16 57 Z" fill="#1e293b" />
     <path d="M16 25.5 L32 25.5 L33 29.5 Q24 27 15 29.5 Z" fill="#1e2939" />
     <path d="M18 25.5 L17.4 23.1 M24 25.1 L24 22.7 M30 25.5 L30.6 23.1" stroke="#2c394d" strokeWidth="1.4" strokeLinecap="round" />
-    <path d="M22 21 L26 21 L26 25.5 L22 25.5 Z" fill="#d9c4ac" />
-    <path d="M19 10 Q19 5.5 24 5 Q29 5.5 29 10 L28 19 Q24 21.5 20 19 Z" fill="#e6d3bc" />
-    <path d="M19 10 Q19 5.5 24 5 L24 21 Q21 20.5 20 19 Z" fill="#cbb49a" />
-    <path d="M18 10 Q17 3.5 24 3 Q31 3.5 30 10 L28.5 8.5 Q24 6 19.5 8.5 Z" fill="#1e2939" />
-    <path d="M30 8 L33 6.5 L30.5 11 Z M18 8 L15 6.5 L17.5 11 Z" fill="#1a2333" />
-    <path d="M21 5 L22 4.6 L21 8 Z" fill="#e8eef4" />
-    <path d="M19.5 8.6 L28.5 8.6 L28.2 10.4 L19.8 10.4 Z" fill="#a5f3fc" opacity=".92" />
-    <path d="M20.6 8.6 L21.4 6.2 L22.2 8.6 Z M23.3 8.6 L24 5.4 L24.7 8.6 Z M25.8 8.6 L26.6 6.2 L27.4 8.6 Z" fill="#e0f2fe" />
-    <path d="M20 12.6 L23 13.3 M28 12.6 L25 13.3" stroke="#241c12" strokeWidth="1.1" strokeLinecap="round" />
-    <path d="M20.2 14 L23 14.6 L22.7 15.9 L20.5 15.3 Z" fill="#38bdf8" />
-    <path d="M27.8 14 L25 14.6 L25.3 15.9 L27.5 15.3 Z" fill="#38bdf8" />
-    <circle cx="21.7" cy="14.8" r=".4" fill="#ffffff" /><circle cx="26.3" cy="14.8" r=".4" fill="#ffffff" />
-    <path d="M22.6 18.4 L25.4 18.4" stroke="#6b5a45" strokeWidth=".9" />
+    {VHEAD}
     <path d="M32 34 Q38 37 39 46 L40 56 L35 62 L32 58 L33 48 L30 40 Z" fill="#1b2942" />
     <path d="M33 48 L40 51 L38 58 L33 55 Z" fill="#38bdf8" opacity=".5" />
     <path d="M40 50 L44 47 L41 54 Z" fill="#38bdf8" opacity=".45" />
@@ -2335,7 +2318,7 @@ const FIGS = {
     <path d="M8.6 37 L12.4 36.4 L13 40.6 L9.2 41.2 Z" fill="#3a2408" /><path d="M9.4 38.4 L12.4 38 M9.6 39.8 L12.6 39.4" stroke="#7c2d12" strokeWidth=".6" />
   </g>),
   X: () => (<g>
-    <path d="M38 6 L34 30" stroke="#cbd5e1" strokeWidth="2" strokeLinecap="round" /><path d="M38 6 L41 3" stroke="#e2e8f0" strokeWidth="2" />
+    <g transform="translate(12,62) rotate(24)">{DSPEAR}</g>
     <path d="M17 50 L22 50 L21 69 L16 69 Z M26 50 L31 50 L32 69 L27 69 Z" fill="#141d2b" />
     <path d="M15 24 Q24 21 33 24 L34 50 Q24 53 14 50 Z" fill="#1e293b" />
     <path d="M15 24 L24 22 L24 52 Q18 51 14 50 Z" fill="#141d2b" />
@@ -2343,7 +2326,10 @@ const FIGS = {
     <path d="M13 27 L19 25 M14 31 L20 29" stroke="#94a3b8" strokeWidth="0.8" opacity=".8" />
     <path d="M18 22 Q24 27 30 22 Q31 26 27 28 Q24 30 21 28 Q17 26 18 22 Z" fill="#b91c1c" />
     <path d="M29 26 Q35 30 34 38 L31 35 Q32 30 28 28 Z" fill="#7f1d1d" />
-    <path d="M42 60 L30 36" stroke="#94a3b8" strokeWidth="2.2" strokeLinecap="round" /><path d="M42 60 L45 64" stroke="#475569" strokeWidth="2.4" />
+    <path d="M32 30 L38 38 L35 41 L29 33 Z" fill="#293548" />
+    <g transform="translate(37,40) rotate(155)">{DSWORD}</g>
+    <path d="M34.8 37.8 Q38.4 37 39.4 39.8 Q39 42.8 35.8 42.4 Q33.6 41.6 34 39.4 Z" fill="#334155" />
+    <path d="M35.4 39 L38.6 38.6 M35.4 40.8 L38.6 40.4" stroke="#94a3b8" strokeWidth=".5" />
     <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
     <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
     <path d="M17 12 L22 12 L22 15 L17 15 Z M26 12 L31 12 L31 15 L26 15 Z" fill="#0b0f16" />
@@ -2356,9 +2342,53 @@ const FIGS = {
    (limbs, weapon, torso, head as separate parts in new positions); whole-figure
    transforms never substitute for a pose. Heads are shared parts, repositioned
    per pose. Silhouette law: six poses = six shapes under black fill. */
-const VHEAD = (
+/* THE PROP FORGE — every weapon exists once; poses place it by reference.
+   Axis convention: origin at the grip, weapon pointing UP; poses rotate. */
+const GAXE = (
   <g>
-    <path d="M22 21 L26 21 L26 25.5 L22 25.5 Z" fill="#d9c4ac" />
+    <path d="M0 0 L0 -44" stroke="#3d2a12" strokeWidth="2.8" strokeLinecap="round" />
+    <path d="M0 0 L0 -44" stroke="#6b4a24" strokeWidth="1" strokeLinecap="round" />
+    <path d="M-2.5 -36 L2.5 -36 L2.2 -43 L-2.2 -43 Z" fill="#57534e" />
+    <circle cx="0" cy="-39.5" r=".7" fill="#a8a29e" />
+    <path d="M2 -35.5 L9 -31 Q12.5 -37.5 9 -44 L2 -40.5 Z" fill="#a8a29e" />
+    <path d="M9 -31 Q12.5 -37.5 9 -44 L7.6 -42.8 Q10.2 -37.5 7.7 -32.4 Z" fill="#e7e5e4" />
+    <path d="M-2 -35.5 L-9 -31 Q-12.5 -37.5 -9 -44 L-2 -40.5 Z" fill="#8f8a80" />
+    <path d="M-9 -31 Q-12.5 -37.5 -9 -44 L-7.6 -42.8 Q-10.2 -37.5 -7.7 -32.4 Z" fill="#d6d3d1" />
+    <path d="M-1.5 -43 L0 -49.5 L1.5 -43 Z" fill="#78716c" />
+    <path d="M8.6 -32.5 L11 -30.4 L7.4 -31.2 Z" fill="#7f1d1d" />
+  </g>
+);
+const DSWORD = (
+  <g>
+    <circle cx="0" cy="4.6" r="1.5" fill="#94a3b8" /><circle cx="0" cy="4.6" r=".6" fill="#e2e8f0" />
+    <path d="M-1 3.6 L1 3.6 L1 -0.4 L-1 -0.4 Z" fill="#7f1d1d" />
+    <path d="M-0.9 2.7 L0.9 2.2 M-0.9 1.2 L0.9 0.7" stroke="#450a0a" strokeWidth=".5" />
+    <path d="M-4.4 -0.4 L4.4 -0.4 L3.4 -2.6 L-3.4 -2.6 Z" fill="#475569" />
+    <path d="M-4.4 -0.4 L-5.6 1 M4.4 -0.4 L5.6 1" stroke="#475569" strokeWidth="1.6" strokeLinecap="round" />
+    <path d="M-4 -0.8 L4 -0.8" stroke="#94a3b8" strokeWidth=".6" opacity=".9" />
+    <path d="M-1.6 -2.6 L1.6 -2.6 L1.1 -26 L0 -29.5 L-1.1 -26 Z" fill="#cbd5e1" />
+    <path d="M-1.6 -2.6 L0 -2.6 L0 -29 L-1.1 -26 Z" fill="#94a3b8" />
+    <path d="M0 -3.6 L0 -25" stroke="#f1f5f9" strokeWidth=".6" opacity=".9" />
+    <path d="M-1.3 -3.2 L-1 -24.5" stroke="#64748b" strokeWidth=".4" opacity=".8" />
+  </g>
+);
+const DSPEAR = (
+  <g>
+    <path d="M0 2.6 L0 -40" stroke="#64748b" strokeWidth="2" strokeLinecap="round" />
+    <path d="M0 2 L0 -40" stroke="#94a3b8" strokeWidth=".7" strokeLinecap="round" />
+    <path d="M-2.4 -40 L0 -49 L2.4 -40 L0 -37.5 Z" fill="#cbd5e1" />
+    <path d="M0 -48 L0 -38.5" stroke="#f1f5f9" strokeWidth=".5" opacity=".9" />
+    <path d="M-1.4 -39.6 L1.4 -39.6" stroke="#7f1d1d" strokeWidth="1.2" />
+  </g>
+);
+const FORGED = [
+  { fk: "G", label: "warcleaver", node: GAXE, vb: "-15 -53 30 60" },
+  { fk: "X", label: "master sword", node: DSWORD, vb: "-8 -32 16 40" },
+  { fk: "X", label: "war spear", node: DSPEAR, vb: "-6 -52 12 58" },
+];
+const VHEAD = (
+  <g transform="translate(0,2.5)">
+    <path d="M22 20 L26 20 L26 23.5 L22 23.5 Z" fill="#d9c4ac" />
     <path d="M19 10 Q19 5.5 24 5 Q29 5.5 29 10 L28 19 Q24 21.5 20 19 Z" fill="#e6d3bc" />
     <path d="M19 10 Q19 5.5 24 5 L24 21 Q21 20.5 20 19 Z" fill="#cbb49a" />
     <path d="M18 10 Q17 3.5 24 3 Q31 3.5 30 10 L28.5 8.5 Q24 6 19.5 8.5 Z" fill="#1e2939" />
@@ -2442,12 +2472,13 @@ const FIG_POSES = {
         <path d="M32 30 L44 27 L46 31 L34 36 Z" fill="#1b2942" />
         <path d="M42 27 L46 26 L47 32 L43 32 Z" fill="#22304d" />
         <path d="M46 27 L49.5 26 L50 30 L46.5 31 Z" fill="#d9c4ac" />
-        <path d="M49 26 L59 23.5 L50.5 28.5 Z" fill="#7dd3fc" opacity=".9" />
-        <path d="M50 26.4 L57 24.4 L50.8 27.6 Z" fill="#e0f2fe" opacity=".95" />
-        <path d="M50 31 L58 32.5 L50.8 33.8 Z" fill="#38bdf8" opacity=".8" />
-        <path d="M50.6 31.6 L55.8 32.5 L51 33 Z" fill="#a5f3fc" opacity=".9" />
-        <path d="M48 21.5 L54 17.5 L49.5 23 Z" fill="#a5f3fc" opacity=".75" />
-        <circle cx="57.5" cy="28" r=".7" fill="#e0f2fe" opacity=".9" /><circle cx="54.5" cy="20" r=".5" fill="#a5f3fc" opacity=".8" />
+        <path d="M48 25.5 L64 22 L50 29.5 Z" fill="#7dd3fc" opacity=".92" />
+        <path d="M49.5 26 L60 23.6 L50.5 28.2 Z" fill="#e0f2fe" opacity=".95" />
+        <path d="M49 31.5 L62 34.5 L50 35.5 Z" fill="#38bdf8" opacity=".85" />
+        <path d="M50 32 L58 34 L50.6 34.6 Z" fill="#a5f3fc" opacity=".9" />
+        <path d="M47 20.5 L58 15 L49.5 22.5 Z" fill="#a5f3fc" opacity=".8" />
+        <path d="M50.5 17.5 L55.5 15.4" stroke="#e0f2fe" strokeWidth=".6" opacity=".8" />
+        <circle cx="63" cy="27" r=".8" fill="#e0f2fe" opacity=".9" /><circle cx="59" cy="18" r=".6" fill="#a5f3fc" opacity=".8" />
         <path d="M18 25.5 L34 25.5 L35 29.5 Q26 27 17 29.5 Z" fill="#1e2939" />
         <g transform="translate(4,1)">{VHEAD}</g>
       </g>
@@ -2467,13 +2498,15 @@ const FIG_POSES = {
           {VHEAD}
           <path d="M16 25.5 L32 25.5 L33 29.5 Q24 27 15 29.5 Z" fill="#1e2939" />
         </g>
-        <path d="M38 68 L38 42 L40.5 37 L43 41 L43 68 Z" fill="#7dd3fc" opacity=".75" />
-        <path d="M43 68 L43 34 L45.8 28 L48.5 33 L48.5 68 Z" fill="#a5f3fc" opacity=".85" />
-        <path d="M48.5 68 L48.5 44 L50.5 39.5 L52.5 43 L52.5 68 Z" fill="#38bdf8" opacity=".65" />
-        <path d="M39.2 68 L39.2 44 L40.5 39.5" stroke="#e0f2fe" strokeWidth=".7" opacity=".8" fill="none" />
-        <path d="M44.4 68 L44.4 36 L45.8 31" stroke="#e0f2fe" strokeWidth=".9" opacity=".9" fill="none" />
-        <path d="M49.6 68 L49.6 46 L50.5 42" stroke="#e0f2fe" strokeWidth=".6" opacity=".7" fill="none" />
-        <path d="M35 68 L37 63 L39 68 Z" fill="#38bdf8" opacity=".55" />
+        <path d="M36.5 68 L36 44 L39.5 35.5 L43.5 43 L43.5 68 Z" fill="#7dd3fc" opacity=".8" />
+        <path d="M43.5 68 L43 30 L47.5 21.5 L51.5 29 L51.5 68 Z" fill="#a5f3fc" opacity=".88" />
+        <path d="M51.5 68 L51.5 46 L54.5 38.5 L57.5 44.5 L57.5 68 Z" fill="#38bdf8" opacity=".7" />
+        <path d="M38.2 68 L38 46 L39.6 38.5" stroke="#e0f2fe" strokeWidth=".7" opacity=".85" fill="none" />
+        <path d="M45 68 L44.6 34 L47.5 25" stroke="#e0f2fe" strokeWidth=".9" opacity=".95" fill="none" />
+        <path d="M49.4 30.5 L49.4 66" stroke="#38bdf8" strokeWidth=".6" opacity=".7" />
+        <path d="M53 68 L53 47 L54.5 41" stroke="#e0f2fe" strokeWidth=".6" opacity=".75" fill="none" />
+        <path d="M33.5 68 L35.5 62 L37.5 68 Z" fill="#38bdf8" opacity=".6" />
+        <path d="M56.5 68 L58.5 63.5 L60.5 68 Z" fill="#7dd3fc" opacity=".55" />
       </g>
     ),
     hurt: (
@@ -2508,7 +2541,10 @@ const FIG_POSES = {
         <circle cx="37.9" cy="3.4" r="1" fill="#0f172a" /><circle cx="41" cy="3.4" r="1" fill="#0f172a" />
         <path d="M37.6 8.2 L41 8.2 M38.3 6.9 L38.3 8.2 M39.6 6.9 L39.6 8.2 M40.7 6.9 L40.7 8.2" stroke="#0f172a" strokeWidth=".5" />
         <path d="M35 8 L34.5 1.5 L37 -2.5" stroke="#e0f2fe" strokeWidth=".7" fill="none" opacity=".9" />
-        <circle cx="43.2" cy="-1" r=".6" fill="#e0f2fe" opacity=".9" /><circle cx="34.6" cy="6" r=".5" fill="#a5f3fc" opacity=".8" />
+        <path d="M43.5 1.5 L43 8" stroke="#a5f3fc" strokeWidth=".6" opacity=".8" />
+        <path d="M35.2 4.5 L38 -2 M40.5 8.8 L43.2 2.2" stroke="#e0f2fe" strokeWidth=".5" opacity=".75" />
+        <path d="M34.5 1.5 L43.5 1.5" stroke="#a5f3fc" strokeWidth=".5" opacity=".6" />
+        <circle cx="43.2" cy="-1" r=".6" fill="#e0f2fe" opacity=".9" /><circle cx="34.6" cy="6" r=".5" fill="#a5f3fc" opacity=".8" /><circle cx="39" cy="-3.2" r=".5" fill="#e0f2fe" opacity=".85" />
         <path d="M13 33 Q5 38 3 46 L7 49 Q11 42 15 38 Z" fill="#131e33" />
         <g transform="translate(0,-1)">
           {VHEAD}
@@ -2782,19 +2818,14 @@ const FIG_POSES = {
         <path d="M12 46 L36 46 L36 50 L12 50 Z" fill="#b91c1c" />
         <path d="M13 29 L33 43" stroke="#7c5a34" strokeWidth="1.6" />
         <path d="M11 25 Q23 20 35 25 L34 30 Q23 26 12 30 Z" fill="#292524" />
-        <path d="M14 25 L13 21 M20 23.5 L19.5 19.5 M28 23.5 L28.5 19.5" stroke="#3f3a34" strokeWidth="1.8" strokeLinecap="round" />
         <ellipse cx="11.5" cy="28" rx="5.5" ry="4.6" fill="#d6cdba" /><circle cx="9.8" cy="27.4" r=".9" fill="#120b08" /><circle cx="13.2" cy="27.4" r=".9" fill="#120b08" />
-        <path d="M14 38 Q7 40 5 46 L9 49 Q13 44 16 42 Z" fill="#365314" />
-        <path d="M6 44 Q10 42 13 44 Q12 48 8 48 Q5 47 6 44 Z" fill="#4d7c0f" />
-        <path d="M30 30 L42 27 L43 32 L31 35 Z" fill="#4d7c0f" />
-        <path d="M40 27 Q45 25 46 30 Q46 34 42 34 Q38 33 38 30 Z" fill="#365314" />
-        <path d="M12 37 L44 29" stroke="#3d2a12" strokeWidth="2.8" strokeLinecap="round" />
-        <path d="M12 37 L44 29" stroke="#6b4a24" strokeWidth="1" strokeLinecap="round" />
-        <path d="M42.5 26 L47 25 L47.6 31.5 L43 32.5 Z" fill="#57534e" />
-        <path d="M46 23 L44.5 12.5 L57 17 L49 28 Z" fill="#a8a29e" />
-        <path d="M44.5 12.5 L57 17 L55.4 18.6 L46.4 15.4 Z" fill="#e7e5e4" />
-        <path d="M46.5 30 L54 34 L46 36 Z" fill="#8f8a80" />
-        <circle cx="55" cy="21" r=".8" fill="#ef4444" opacity=".85" />
+        <path d="M12 34 L17 36 L16 39 L11 38 Z" fill="#365314" />
+        <path d="M28 30 L32 33 L31 37 L27 34 Z" fill="#4d7c0f" />
+        <g transform="translate(12,36) rotate(90)">{GAXE}</g>
+        <path d="M14.6 33.6 Q18.6 32.8 19.6 36 Q19.2 39.4 15.8 39 Q13.2 38 13.6 35.4 Z" fill="#4d7c0f" />
+        <path d="M15.2 35 L18.6 34.6 M15.2 37 L18.6 36.6" stroke="#365314" strokeWidth=".6" />
+        <path d="M27.6 31.6 Q31.6 30.8 32.6 34 Q32.2 37.4 28.8 37 Q26.2 36 26.6 33.4 Z" fill="#4d7c0f" />
+        <path d="M28.2 33 L31.6 32.6 M28.2 35 L31.6 34.6" stroke="#365314" strokeWidth=".6" />
         <g transform="translate(4,2)">{GHEAD}</g>
       </g>
     ),
@@ -2807,18 +2838,19 @@ const FIG_POSES = {
         <path d="M11 50 L37 50 L37 54 L11 54 Z" fill="#b91c1c" />
         <path d="M11 28 Q24 23 37 28 L36 33 Q24 29 12 33 Z" fill="#292524" />
         <ellipse cx="11" cy="31" rx="5.5" ry="4.6" fill="#d6cdba" /><circle cx="9.3" cy="30.4" r=".9" fill="#120b08" /><circle cx="12.7" cy="30.4" r=".9" fill="#120b08" />
-        <path d="M8 52 L38 24" stroke="#3d2a12" strokeWidth="2.8" strokeLinecap="round" />
-        <path d="M8 52 L38 24" stroke="#6b4a24" strokeWidth="1" strokeLinecap="round" />
-        <path d="M12 44 Q7 46 7 50 Q8 54 12 53 Q15 51 14 48 Z" fill="#4d7c0f" />
-        <path d="M28 32 Q24 34 24 38 Q25 41 29 40 Q32 38 31 35 Z" fill="#365314" />
-        <path d="M36 21 L41 19 L42.2 26 L37.4 27.5 Z" fill="#57534e" />
-        <path d="M40 17 L38.5 7.5 L50 11.5 L43 21.5 Z" fill="#a8a29e" />
-        <path d="M38.5 7.5 L50 11.5 L48.5 13 L40.3 10.2 Z" fill="#e7e5e4" />
+        <path d="M14 42 L20 46 L18 50 L13 46 Z" fill="#365314" />
+        <path d="M28 34 L33 38 L31 42 L26 38 Z" fill="#4d7c0f" />
+        <g transform="translate(12,56) rotate(52)">{GAXE}</g>
+        <path d="M19.4 45.6 Q23.4 44.8 24.4 48 Q24 51.4 20.6 51 Q18 50 18.4 47.4 Z" fill="#4d7c0f" />
+        <path d="M20 47 L23.4 46.6 M20 49 L23.4 48.6" stroke="#365314" strokeWidth=".6" />
+        <path d="M30.4 36.6 Q34.4 35.8 35.4 39 Q35 42.4 31.6 42 Q29 41 29.4 38.4 Z" fill="#4d7c0f" />
+        <path d="M31 38 L34.4 37.6 M31 40 L34.4 39.6" stroke="#365314" strokeWidth=".6" />
         <g transform="translate(0,4)">{GHEAD}</g>
       </g>
     ),
     hurt: (
       <g>
+        <g transform="translate(14,30) rotate(-140)">{GAXE}</g>
         <path d="M12 48 L18 49 L14 62 L8 63 Z" fill="#7f1d1d" /><path d="M7 61 L15 61 L13 69 L6 68 Z" fill="#120b08" />
         <path d="M24 46 L30 44 L35 54 L29 57 Z" fill="#991b1b" /><path d="M31 54 L36 52 L37 64 L32 64 Z" fill="#120b08" />
         <path d="M11 28 Q20 23 29 27 L31 48 Q20 52 9 46 Z" fill="#4d7c0f" />
@@ -2826,11 +2858,10 @@ const FIG_POSES = {
         <path d="M9 44 L31 46 L31 50 L9 48 Z" fill="#b91c1c" />
         <path d="M9 26 Q20 21 31 25 L30 30 Q20 26 10 31 Z" fill="#292524" />
         <ellipse cx="9" cy="29" rx="5.5" ry="4.6" fill="#d6cdba" /><circle cx="7.3" cy="28.4" r=".9" fill="#120b08" /><circle cx="11.3" cy="28.4" r=".9" fill="#120b08" />
-        <path d="M28 28 L38 20 L41 24 L31 32 Z" fill="#4d7c0f" />
-        <path d="M38 17 Q43 16 44 20 Q44 24 40 24 Q37 23 37 20 Z" fill="#365314" />
-        <path d="M40 22 L48 6" stroke="#3d2a12" strokeWidth="2.6" strokeLinecap="round" />
-        <path d="M46.5 9 L44 2 L53 5 L48.5 11.5 Z" fill="#a8a29e" />
-        <path d="M8 32 Q3 38 4 46 L8 47 Q10 40 11 35 Z" fill="#365314" />
+        <path d="M28 32 L36 28 L38 32 L30 36 Z" fill="#4d7c0f" />
+        <path d="M36 26.5 Q40 25.5 41 28.5 Q41 31.5 38 31.5 Q35.5 31 35.5 29 Z" fill="#365314" />
+        <path d="M37 27.5 L40 27 M37 29.5 L40 29" stroke="#4d7c0f" strokeWidth=".5" />
+        <path d="M8 34 Q3 40 4 48 L8 49 Q10 42 11 37 Z" fill="#365314" />
         <g transform="translate(-4,2) rotate(-13 24 14)">{GHEAD}</g>
       </g>
     ),
@@ -2845,12 +2876,10 @@ const FIG_POSES = {
         <ellipse cx="10.5" cy="27" rx="5.5" ry="4.6" fill="#d6cdba" /><circle cx="8.8" cy="26.4" r=".9" fill="#120b08" /><circle cx="12.2" cy="26.4" r=".9" fill="#120b08" />
         <path d="M13 28 Q7 24 6 18 L10 15 Q13 20 16 24 Z" fill="#365314" />
         <path d="M6 16 Q10 13 13 16 Q13 20 9 20 Q5 19 6 16 Z" fill="#4d7c0f" />
-        <path d="M31 28 L36 12 L41 13 L36 30 Z" fill="#4d7c0f" />
-        <path d="M36 10 Q41 9 42 13 Q42 17 38 17 Q35 16 35 13 Z" fill="#365314" />
-        <path d="M38 13 L38 -2" stroke="#3d2a12" strokeWidth="2.8" strokeLinecap="round" />
-        <path d="M36 2 L34 -8 L46 -4 L40 4 Z" fill="#a8a29e" />
-        <path d="M34 -8 L46 -4 L44.6 -2.4 L36 -5.6 Z" fill="#e7e5e4" />
-        <path d="M36 6 L30 8 L35 10 Z" fill="#8f8a80" />
+        <path d="M31 28 L36 13 L41 14 L36 30 Z" fill="#4d7c0f" />
+        <g transform="translate(37,30) rotate(4)">{GAXE}</g>
+        <path d="M35 26.6 Q39 25.8 40 29 Q39.6 32.4 36.2 32 Q33.6 31 34 28.4 Z" fill="#4d7c0f" />
+        <path d="M35.6 28 L39 27.6 M35.6 30 L39 29.6" stroke="#365314" strokeWidth=".6" />
         <g transform="translate(0,-1)">{GHEAD}</g>
       </g>
     ),
@@ -2865,9 +2894,7 @@ const FIG_POSES = {
         <path d="M40 55 L44 54 L43 58 L40 58 Z" fill="#120b08" />
         <path d="M42 62 L50 63 L50 66 L42 65 Z" fill="#4d7c0f" />
         <path d="M49 62.5 Q53 62 53.5 65 Q53 67.5 50 67 Z" fill="#365314" />
-        <path d="M12 66.5 L36 66.5" stroke="#3d2a12" strokeWidth="2.4" strokeLinecap="round" />
-        <path d="M8 60 L4 54 L14 56 L12 63 Z" fill="#8f8a80" />
-        <path d="M4 54 L14 56 L13 57.6 L5.6 56.2 Z" fill="#d6d3d1" />
+        <g transform="translate(4,57) rotate(90)">{GAXE}</g>
         <circle cx="24" cy="52" r=".8" fill="#ef4444" opacity=".6" />
       </g>
     ),
@@ -3137,11 +3164,18 @@ const FIG_POSES = {
         <path d="M21 30 L23 30 L23 52 L21 52 Z" fill="#f59e0b" opacity=".7" /><circle cx="22" cy="38" r="4" fill="#f59e0b" opacity=".18" />
         <path d="M2 26 L14 28 L14 36 L4 38 Z" fill="#78716c" /><path d="M2 26 L14 28 L13.6 30.4 L3 28.6 Z" fill="#a8a29e" />
         <path d="M4 40 Q2 34 6 30 L12 32 Q13 38 10 43 Z" fill="#a67c4a" />
-        <path d="M32 30 L44 28 L45 36 L33 38 Z" fill="#96703f" />
-        <path d="M42 24 L56 22 L57 42 L43 44 Z" fill="#78716c" />
-        <path d="M42 24 L56 22 L55.6 25 L42.4 27 Z" fill="#a8a29e" />
-        <path d="M45 30 L54 29 M45 36 L54 35" stroke="#57534e" strokeWidth="1.2" />
-        <circle cx="49" cy="33" r=".9" fill="#a8a29e" />
+        <path d="M32 32 L42 30 L43 38 L33 40 Z" fill="#96703f" />
+        <path d="M40 28 Q46 27 47 33 Q47 39 41 39 Q37 38 37 33 Q37 29 40 28 Z" fill="#a67c4a" />
+        <path d="M41.5 30.5 L45 30 M41.5 33 L45.5 32.6 M41.5 35.5 L45 35.2" stroke="#6b4a24" strokeWidth=".8" />
+        <path d="M40 69 L44 47 L50 69 Z" fill="#a67c4a" />
+        <path d="M40 69 L44 47 L46 55 L44.8 69 Z" fill="#8a6039" />
+        <path d="M47 69 L53 35 L60 69 Z" fill="#96703f" />
+        <path d="M47 69 L53 35 L55.4 48 L52 69 Z" fill="#7a5c33" />
+        <path d="M52.2 39 L53 35 L54.2 39" stroke="#f59e0b" strokeWidth=".7" fill="none" opacity=".9" />
+        <path d="M57 69 L61 51 L66 69 Z" fill="#8a6a3f" />
+        <path d="M30 68 Q40 65 47 63" stroke="#3d2a12" strokeWidth="1.3" fill="none" />
+        <path d="M42 64 L46 62 M52 58 L56 57" stroke="#f59e0b" strokeWidth=".9" opacity=".85" />
+        <circle cx="46" cy="44" r=".9" fill="#a8a29e" opacity=".7" /><circle cx="56" cy="37" r=".8" fill="#78716c" opacity=".7" />
         <g transform="translate(4,2)">
           <path d="M15 15 Q14 5 24 4.5 Q34 5 33 15 L32.5 22 Q28 25 24 25 Q20 25 15.5 22 Z" fill="#a67c4a" /><path d="M15 15 Q14 5 24 4.5 L24 25 Q20 25 15.5 22 Z" fill="#8a6039" />
           <path d="M22.6 8.6 L24 7 L25.4 8.6 L24 10.2 Z" fill="none" stroke="#f59e0b" strokeWidth=".8" />
@@ -3154,17 +3188,23 @@ const FIG_POSES = {
     ),
     ward: (
       <g>
-        <path d="M11 54 L20 54 L19 69 L10 69 Z" fill="#5c4425" />
-        <path d="M28 54 L37 54 L38 69 L29 69 Z" fill="#5c4425" />
-        <path d="M9 30 L39 30 L41 56 L7 56 Z" fill="#8a6a3f" />
-        <path d="M10 28 L24 26 L24 56 L8 56 Z" fill="#78716c" />
-        <path d="M10 28 L17 27 L17 56 L8 56 Z" fill="#57534e" />
-        <path d="M24 26 L38 28 L40 56 L24 56 Z" fill="#8f8a80" />
-        <path d="M24 26 L31 27 L31 56 L24 56 Z" fill="#6e6a64" />
-        <path d="M24 27 L24 55" stroke="#f59e0b" strokeWidth="1.6" opacity=".95" />
-        <circle cx="24" cy="40" r="6" fill="#f59e0b" opacity=".15" />
-        <path d="M12 32 L20 31 M12 40 L20 39 M12 48 L20 47 M28 31 L36 32 M28 39 L36 40 M28 47 L36 48" stroke="#44403c" strokeWidth="1.1" />
-        <g transform="translate(0,2)">
+        <path d="M9 54 L18 54 L17 69 L8 69 Z" fill="#5c4425" />
+        <path d="M22 54 L31 54 L32 69 L23 69 Z" fill="#5c4425" />
+        <path d="M7 32 L31 30 L33 56 L5 56 Z" fill="#8a6a3f" />
+        <path d="M7 32 L19 31 L19 56 L5 56 Z" fill="#6b4f2c" />
+        <path d="M18 33 L20 33 L20 54 L18 54 Z" fill="#f59e0b" opacity=".5" />
+        <path d="M0 28 L11 30 L11 38 L2 40 Z" fill="#78716c" />
+        <path d="M10 42 Q14 40 17 43 Q16 47 12 46 Q9 45 10 42 Z" fill="#a67c4a" />
+        <path d="M25 42 Q29 40 32 43 Q31 47 27 46 Q24 45 25 42 Z" fill="#96703f" />
+        <path d="M34 69 L34 34 L42 31 L43 69 Z" fill="#78716c" />
+        <path d="M34 69 L34 34 L38 32.8 L38.5 69 Z" fill="#57534e" />
+        <path d="M43 69 L43 27 L51 25 L52 69 Z" fill="#8f8a80" />
+        <path d="M43 69 L43 27 L47 26 L47.5 69 Z" fill="#6e6a64" />
+        <path d="M42.8 28 L42.8 68" stroke="#f59e0b" strokeWidth="1.2" opacity=".9" />
+        <path d="M36 36 L40 35 M36 46 L40 45.4 M36 56 L40 55.6 M45 30 L50 29 M45 42 L50 41 M45 54 L50 53" stroke="#44403c" strokeWidth="1" />
+        <path d="M28 68 Q32 66 34 64" stroke="#3d2a12" strokeWidth="1.2" fill="none" />
+        <circle cx="37" cy="29" r=".8" fill="#a8a29e" opacity=".7" /><circle cx="49" cy="22" r=".8" fill="#78716c" opacity=".7" />
+        <g transform="translate(-2,3)">
           <path d="M15 15 Q14 5 24 4.5 Q34 5 33 15 L32.5 22 Q28 25 24 25 Q20 25 15.5 22 Z" fill="#a67c4a" /><path d="M15 15 Q14 5 24 4.5 L24 25 Q20 25 15.5 22 Z" fill="#8a6039" />
           <path d="M22.6 8.6 L24 7 L25.4 8.6 L24 10.2 Z" fill="none" stroke="#f59e0b" strokeWidth=".8" />
           <path d="M16.5 11 L31.5 11 L31 14 L17 14 Z" fill="#3d2a12" />
@@ -3178,14 +3218,17 @@ const FIG_POSES = {
         <path d="M25 50 L34 49 L38 64 L30 66 Z" fill="#5c4425" />
         <path d="M6 30 L36 26 L39 52 L5 55 Z" fill="#8a6a3f" />
         <path d="M6 30 L21 28 L21 55 L5 55 Z" fill="#6b4f2c" />
-        <path d="M20 32 L22 32 L22 53 L20 53 Z" fill="#f59e0b" opacity=".4" />
-        <path d="M24 34 L28 42 L25 48" stroke="#3d2a12" strokeWidth="1.3" fill="none" />
+        <path d="M20 32 L22 32 L22 53 L20 53 Z" fill="#f59e0b" opacity=".3" />
+        <path d="M24 30 L28 38 L25 44 L29 50" stroke="#3d2a12" strokeWidth="1.4" fill="none" />
+        <path d="M26 36 L27.5 39" stroke="#f59e0b" strokeWidth=".9" opacity=".9" />
+        <path d="M12 34 L15 40 L13 45" stroke="#3d2a12" strokeWidth="1.1" fill="none" />
         <path d="M0 28 L12 30 L12 38 L2 40 Z" fill="#78716c" />
         <path d="M34 34 L46 40 L42 48 L32 44 Z" fill="#96703f" />
-        <path d="M43 46 Q45 50 43 54 Z" fill="#96703f" />
-        <circle cx="6" cy="52" r="1" fill="#a8a29e" opacity=".6" /><circle cx="42" cy="56" r=".8" fill="#78716c" opacity=".6" />
+        <path d="M44 46 L47 49 L43 50 Z" fill="#7a5c33" /><path d="M46 52 L48 54 L45 54.6 Z" fill="#6b4f2c" />
+        <circle cx="8" cy="50" r="1" fill="#a8a29e" opacity=".7" /><circle cx="27" cy="56" r=".9" fill="#8f8a80" opacity=".7" /><circle cx="41" cy="58" r=".8" fill="#78716c" opacity=".6" />
         <g transform="translate(-4,2) rotate(-11 24 14)">
           <path d="M15 15 Q14 5 24 4.5 Q34 5 33 15 L32.5 22 Q28 25 24 25 Q20 25 15.5 22 Z" fill="#a67c4a" /><path d="M15 15 Q14 5 24 4.5 L24 25 Q20 25 15.5 22 Z" fill="#8a6039" />
+          <path d="M18 6 L21 10 L19 14" stroke="#3d2a12" strokeWidth="1.1" fill="none" />
           <path d="M16.5 11 L31.5 11 L31 14 L17 14 Z" fill="#3d2a12" />
           <path d="M19.8 12.3 L21.8 12.3 L21.7 13.3 L19.9 13.3 Z" fill="#f59e0b" /><path d="M26.2 12.3 L28.2 12.3 L28.1 13.3 L26.3 13.3 Z" fill="#f59e0b" />
         </g>
@@ -3193,6 +3236,9 @@ const FIG_POSES = {
     ),
     victorious: (
       <g>
+        <path d="M1 69 L2 28 L10 25 L12 69 Z" fill="#78716c" />
+        <path d="M1 69 L2 28 L6 26.8 L6.5 69 Z" fill="#57534e" />
+        <path d="M6.4 27.5 L6.4 68" stroke="#f59e0b" strokeWidth=".9" opacity=".8" />
         <path d="M11 52 L20 52 L19 69 L10 69 Z" fill="#5c4425" />
         <path d="M28 52 L37 52 L38 69 L29 69 Z" fill="#5c4425" />
         <path d="M7 26 L41 26 L43 54 L5 54 Z" fill="#8a6a3f" />
@@ -3200,11 +3246,11 @@ const FIG_POSES = {
         <path d="M22.5 28 L25.5 28 L25.5 52 L22.5 52 Z" fill="#f59e0b" opacity=".95" /><circle cx="24" cy="38" r="7" fill="#f59e0b" opacity=".25" />
         <path d="M10 28 L4 16 L12 12 L16 26 Z" fill="#a67c4a" />
         <path d="M4 14 Q2 8 7 6 L12 8 Q13 12 10 15 Z" fill="#a67c4a" />
-        <path d="M5 8 L4 3 L7 4 L7 8 Z M8.5 7 L8.5 2 L11.5 3.5 L11 8 Z" fill="#a67c4a" />
         <path d="M38 28 L44 16 L36 12 L32 26 Z" fill="#96703f" />
         <path d="M44 14 Q46 8 41 6 L36 8 Q35 12 38 15 Z" fill="#96703f" />
-        <path d="M43 8 L44 3 L41 4 L41 8 Z M39.5 7 L39.5 2 L36.5 3.5 L37 8 Z" fill="#96703f" />
-        <circle cx="6" cy="10" r="1.4" fill="#8a6a3f" opacity=".9" /><circle cx="43" cy="6" r="1.1" fill="#6b4f2c" opacity=".9" />
+        <path d="M16 4 Q19 2 21 4 Q20 7 17 6.5 Q15.5 5.5 16 4 Z" fill="#8a6a3f" />
+        <path d="M30 0 Q33 -2 35 0 Q34 3 31 2.5 Q29.5 1.5 30 0 Z" fill="#96703f" />
+        <path d="M43 22 Q46 20 48 22 Q47 25 44 24.5 Q42.5 23.5 43 22 Z" fill="#78716c" />
         <g transform="translate(0,-1)">
           <path d="M15 15 Q14 5 24 4.5 Q34 5 33 15 L32.5 22 Q28 25 24 25 Q20 25 15.5 22 Z" fill="#a67c4a" /><path d="M15 15 Q14 5 24 4.5 L24 25 Q20 25 15.5 22 Z" fill="#8a6039" />
           <path d="M22.6 8.6 L24 7 L25.4 8.6 L24 10.2 Z" fill="none" stroke="#f59e0b" strokeWidth=".8" />
@@ -3215,25 +3261,25 @@ const FIG_POSES = {
     ),
     fallen: (
       <g>
-        <path d="M12 60 L26 58 L28 66 L10 68 Z" fill="#5c4425" />
-        <path d="M24 62 L36 62 L38 69 L23 69 Z" fill="#4a3617" />
-        <path d="M10 38 L36 36 L38 62 L8 62 Z" fill="#8a6a3f" />
-        <path d="M10 38 L23 37 L22 62 L8 62 Z" fill="#6b4f2c" />
-        <path d="M22 40 L24 40 L24 60 L22 60 Z" fill="#7a5c33" />
-        <path d="M2 64 L16 62 L17 67 L3 69 Z" fill="#78716c" />
-        <path d="M32 62 L46 64 L45 69 L31 67 Z" fill="#57534e" />
-        <path d="M14 34 L26 42 L22 48" stroke="#3d2a12" strokeWidth="1.2" fill="none" />
-        <circle cx="8" cy="56" r="1.2" fill="#a8a29e" opacity=".5" /><circle cx="40" cy="58" r="1" fill="#78716c" opacity=".5" />
-        <g transform="translate(0,18) rotate(12 24 14)">
-          <path d="M15 15 Q14 5 24 4.5 Q34 5 33 15 L32.5 22 Q28 25 24 25 Q20 25 15.5 22 Z" fill="#a67c4a" /><path d="M15 15 Q14 5 24 4.5 L24 25 Q20 25 15.5 22 Z" fill="#8a6039" />
-          <path d="M16.5 11 L31.5 11 L31 14 L17 14 Z" fill="#3d2a12" />
-        </g>
+        <path d="M8 63 Q13 58 19 62 Q22 66 18 69 L8 69 Z" fill="#8a6a3f" />
+        <path d="M16 60 Q23 55 30 60 Q33 65 29 68 L17 68 Z" fill="#96703f" />
+        <path d="M27 62 Q33 58 39 62 Q41 66 38 69 L28 69 Z" fill="#6b4f2c" />
+        <path d="M36 64 Q41 61 45 64 Q46 67 44 69 L36 69 Z" fill="#78716c" />
+        <path d="M4 66 Q7 63 10 66 Q10 68.5 8 69 L4 69 Z" fill="#7a5c33" />
+        <path d="M22 60 L26 60 L26 64 L22 64 Z" fill="#7a5c33" />
+        <path d="M23.4 60.5 L23.4 63.5" stroke="#57431f" strokeWidth=".8" />
+        <path d="M14 54 Q14 47 22 46.5 Q30 47 30 54 L29 58 L15 58 Z" fill="#a67c4a" />
+        <path d="M14 54 Q14 47 22 46.5 L22 58 L15 58 Z" fill="#8a6039" />
+        <path d="M18 48 L21 52 L19 56" stroke="#3d2a12" strokeWidth="1.1" fill="none" />
+        <path d="M16.5 53 L27.5 53 L27.2 55.4 L16.8 55.4 Z" fill="#3d2a12" />
+        <circle cx="8" cy="58" r="1" fill="#a8a29e" opacity=".6" /><circle cx="34" cy="55" r=".9" fill="#8f8a80" opacity=".6" /><circle cx="42" cy="60" r=".7" fill="#78716c" opacity=".5" />
       </g>
     ),
   },
   X: {
     strike: (
       <g>
+        <g transform="translate(10,60) rotate(22)">{DSPEAR}</g>
         <path d="M13 48 L18 49 L9 65 L5 63 Z" fill="#141d2b" />
         <path d="M26 48 L31 48 L34 60 L29 62 Z" fill="#141d2b" /><path d="M29 60 L34 59 L35 69 L30 69 Z" fill="#0b0f16" />
         <path d="M13 26 Q23 22 32 26 L35 48 Q23 52 11 48 Z" fill="#1e293b" />
@@ -3243,12 +3289,10 @@ const FIG_POSES = {
         <path d="M16 24 Q22 29 28 24 Q29 28 25 30 Q22 32 19 30 Q15 28 16 24 Z" fill="#b91c1c" />
         <path d="M27 28 Q34 32 33 40 L30 37 Q31 32 27 30 Z" fill="#7f1d1d" />
         <path d="M14 36 Q8 40 7 46 L11 48 Q13 42 17 39 Z" fill="#141d2b" />
-        <path d="M8 46 L2 56" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" />
-        <path d="M30 30 L40 27 L41 31 L31 34 Z" fill="#293548" />
-        <path d="M39 26.2 L43.5 25.2 L44.2 30.4 L39.8 31.2 Z" fill="#334155" />
-        <path d="M43.5 25.5 L58 23.3 L59.5 25 L44 27.8 Z" fill="#cbd5e1" />
-        <path d="M44.5 26 L57 24.2" stroke="#f1f5f9" strokeWidth=".7" opacity=".85" />
-        <path d="M42.6 23.6 L43.4 28.6" stroke="#475569" strokeWidth="1.6" />
+        <path d="M30 28 L38 27.4 L38.4 31.4 L30.4 32 Z" fill="#293548" />
+        <g transform="translate(39,29.5) rotate(92)">{DSWORD}</g>
+        <path d="M37.2 27.4 Q40.8 26.8 41.6 29.6 Q41.2 32.4 38 32 Q35.8 31.2 36.2 29 Z" fill="#334155" />
+        <path d="M37.8 28.6 L41 28.2 M37.8 30.4 L41 30" stroke="#94a3b8" strokeWidth=".5" />
         <g transform="translate(4,1)">
           <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
           <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
@@ -3262,16 +3306,16 @@ const FIG_POSES = {
       <g>
         <path d="M15 50 L20 50 L19 69 L14 69 Z" fill="#141d2b" />
         <path d="M27 50 L32 50 L34 69 L29 69 Z" fill="#141d2b" />
-        <path d="M10 22 L10 64" stroke="#94a3b8" strokeWidth="2.2" strokeLinecap="round" /><path d="M10 22 L10 16" stroke="#e2e8f0" strokeWidth="2" />
+        <g transform="translate(8,66)">{DSPEAR}</g>
         <path d="M14 28 Q24 24 33 28 L34 52 Q23 55 13 52 Z" fill="#1e293b" />
         <path d="M14 28 L24 26 L23 53 Q17 52 13 52 Z" fill="#141d2b" />
         <path d="M11 30 L19 28 L20 36 L12 38 Z" fill="#334155" /><path d="M35 30 L28 28 L27 36 L34 38 Z" fill="#293548" />
         <path d="M17 26 Q23 30 29 26 Q30 29 26 31 Q23 32 20 31 Q16 29 17 26 Z" fill="#b91c1c" />
-        <path d="M14 42 L10 46 L14 48 L18 44 Z" fill="#293548" />
-        <path d="M30 42 L38 38 L39.5 41 L32 46 Z" fill="#293548" />
-        <path d="M37 39.5 L15 18 L16.8 16.4 L38.8 37.6 Z" fill="#cbd5e1" />
-        <path d="M36 38.5 L17 20" stroke="#f1f5f9" strokeWidth=".6" opacity=".8" />
-        <path d="M34.6 41.4 L39.4 36.6" stroke="#475569" strokeWidth="1.6" />
+        <path d="M12 40 L9 46 L13 48 L16 42 Z" fill="#293548" />
+        <path d="M28 42 L36 38 L37.5 41 L30 46 Z" fill="#293548" />
+        <g transform="translate(20,46) rotate(48)">{DSWORD}</g>
+        <path d="M18.2 43.8 Q21.8 43.2 22.6 46 Q22.2 48.8 19 48.4 Q16.8 47.6 17.2 45.4 Z" fill="#334155" />
+        <path d="M18.8 45 L22 44.6 M18.8 46.8 L22 46.4" stroke="#94a3b8" strokeWidth=".5" />
         <g transform="translate(1,3)">
           <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
           <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
@@ -3283,6 +3327,7 @@ const FIG_POSES = {
     ),
     hurt: (
       <g>
+        <g transform="translate(2,66) rotate(94)">{DSPEAR}</g>
         <path d="M13 47 L18 48 L13 62 L8 61 Z" fill="#141d2b" /><path d="M7 60 L14 61 L12 69 L5 68 Z" fill="#0b0f16" />
         <path d="M25 46 L30 44 L35 56 L30 58 Z" fill="#141d2b" />
         <path d="M11 28 Q20 23 29 26 L31 48 Q20 52 9 46 Z" fill="#1e293b" />
@@ -3290,10 +3335,11 @@ const FIG_POSES = {
         <path d="M8 30 L16 27 L17 35 L9 38 Z" fill="#334155" />
         <path d="M14 26 Q20 30 26 25 Q27 29 23 31 Q20 32 17 31 Q13 29 14 26 Z" fill="#b91c1c" />
         <path d="M25 29 Q33 34 36 30 L38 34 Q33 39 26 33 Z" fill="#7f1d1d" />
-        <path d="M28 30 L37 22 L40 25 L31 34 Z" fill="#293548" />
-        <path d="M38 26 L48 42 L46 43.5 L36.4 28.4 Z" fill="#cbd5e1" />
+        <path d="M28 32 L34 38 L31 41 L26 36 Z" fill="#293548" />
+        <g transform="translate(33,42) rotate(195)">{DSWORD}</g>
+        <path d="M31.2 39.8 Q34.8 39.2 35.6 42 Q35.2 44.8 32 44.4 Q29.8 43.6 30.2 41.4 Z" fill="#334155" />
+        <path d="M31.8 41 L35 40.6 M31.8 42.8 L35 42.4" stroke="#94a3b8" strokeWidth=".5" />
         <path d="M8 34 Q3 40 4 47 L8 48 Q9 41 11 37 Z" fill="#141d2b" />
-        <path d="M12 62 L30 66" stroke="#94a3b8" strokeWidth="1.8" strokeLinecap="round" opacity=".8" />
         <g transform="translate(-4,2) rotate(-12 24 12)">
           <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
           <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
@@ -3313,12 +3359,12 @@ const FIG_POSES = {
         <path d="M16 22 Q23 27 30 22 Q31 26 27 28 Q23 30 20 28 Q15 26 16 22 Z" fill="#b91c1c" />
         <path d="M29 26 Q37 30 36 38 L33 35 Q34 30 29 28 Z" fill="#7f1d1d" />
         <path d="M12 28 L7 14 L12 12 L16 26 Z" fill="#293548" />
-        <path d="M9 13 L2 -1 L4.4 -2.2 L11.6 11.6 Z" fill="#94a3b8" />
-        <path d="M6.5 13.5 L12 10.5" stroke="#475569" strokeWidth="1.5" />
+        <g transform="translate(10,13) rotate(-18)">{DSPEAR}</g>
+        <path d="M8.2 10.8 Q11.8 10.2 12.6 13 Q12.2 15.8 9 15.4 Q6.8 14.6 7.2 12.4 Z" fill="#334155" />
         <path d="M36 28 L41 14 L36 12 L32 26 Z" fill="#334155" />
-        <path d="M39 13 L45 -1.5 L47 -0.4 L41.6 12.2 Z" fill="#cbd5e1" />
-        <path d="M45.5 -1 L44.5 -3.5" stroke="#e2e8f0" strokeWidth="1.8" />
-        <path d="M37 13.5 L42.5 11" stroke="#475569" strokeWidth="1.5" />
+        <g transform="translate(38,13) rotate(2)">{DSWORD}</g>
+        <path d="M36.2 10.8 Q39.8 10.2 40.6 13 Q40.2 15.8 37 15.4 Q34.8 14.6 35.2 12.4 Z" fill="#334155" />
+        <path d="M36.8 12 L40 11.6 M36.8 13.8 L40 13.4" stroke="#94a3b8" strokeWidth=".5" />
         <g transform="translate(0,-1)">
           <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
           <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
@@ -3330,16 +3376,14 @@ const FIG_POSES = {
     ),
     fallen: (
       <g>
-        <path d="M12 30 L26 64" stroke="#94a3b8" strokeWidth="2.2" strokeLinecap="round" /><path d="M12 30 L10 24" stroke="#475569" strokeWidth="2.2" />
+        <g transform="translate(10,68) rotate(20)">{DSPEAR}</g>
         <path d="M22 58 L36 56 L38 63 L21 64 Z" fill="#141d2b" />
         <path d="M34 61 L44 62 L44 66 L34 65 Z" fill="#0b0f16" />
         <path d="M14 40 Q24 36 31 40 L32 60 L14 60 Z" fill="#1e293b" />
         <path d="M14 40 L23 38 L22 60 L14 60 Z" fill="#141d2b" />
         <path d="M12 42 L20 40 L21 48 L13 50 Z" fill="#334155" />
         <path d="M18 38 Q24 42 30 38 Q30 42 26 43 Q22 44 20 43 Q17 41 18 38 Z" fill="#7f1d1d" />
-        <path d="M28 64 L46 62.5 L46.5 64.5 L28 66 Z" fill="#cbd5e1" />
-        <path d="M30 64.7 L44 63.6" stroke="#f1f5f9" strokeWidth=".5" opacity=".7" />
-        <path d="M26.5 62.6 L27.5 66.4" stroke="#475569" strokeWidth="1.4" />
+        <g transform="translate(28,64.5) rotate(92)">{DSWORD}</g>
         <g transform="translate(2,25) rotate(16 24 12)">
           <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
           <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
@@ -3697,6 +3741,7 @@ function VecFig({ fk, size = 56, flip, pose = "idle", dying }) {
   return (
     <span className={REDUCED || still ? "" : "vfig"} style={{ display: "inline-block", width: size, height: h, transform: REDUCED ? fl : undefined, "--fl": fl }}>
       <svg viewBox="0 0 48 72" width={size} height={h} overflow="visible">
+        <ellipse cx="24" cy="68.2" rx="12.5" ry="2.1" fill="#000000" opacity=".22" />
         <g key={dying ? "dying" : pose} className={gCls}>
           {body}
           {!REDUCED && !dying && pose === "idle" && FIG_SWAY[fk]}
@@ -5649,6 +5694,41 @@ export default function App() {
             </div>
           </div>
         ))}
+        <div className="text-xs tracking-widest text-stone-500 mb-2 mt-6">THE PROP FORGE — WEAPONS, SOLO + BLACK-FILL</div>
+        <div className="flex flex-wrap items-end gap-6 rounded-lg p-3 mb-6" style={{ background: "#c9c2b6" }}>
+          {FORGED.map((w, i) => (
+            <div key={i} className="text-center">
+              <div className="flex items-end gap-3">
+                <svg viewBox={w.vb} width="52" height="104">{w.node}</svg>
+                <svg viewBox={w.vb} width="52" height="104" style={{ filter: "brightness(0)" }}>{w.node}</svg>
+              </div>
+              <div className="text-[10px] text-stone-700 mt-1">{FIGHTERS[w.fk].short} — {w.label}</div>
+            </div>
+          ))}
+        </div>
+        <div className="text-xs tracking-widest text-stone-500 mb-2 mt-6">BOARD SCALE — TRUE IN-GAME SIZE</div>
+        {["V", "D", "G", "X"].map((fk) => (
+          <div key={`bs${fk}`} className="mb-3">
+            <div className="text-[11px] text-stone-400 mb-1">{FIGHTERS[fk].short}</div>
+            <div className="flex items-end gap-2">
+              {["idle", "strike", "ward", "hurt", "victorious", "fallen"].map((p) => (
+                <div key={p} className="grid place-items-end rounded" style={{ background: "#262019", width: 76, height: 88, paddingBottom: 4, justifyItems: "center" }}><VecFig fk={fk} size={44} pose={p} /></div>
+              ))}
+            </div>
+          </div>
+        ))}
+        <div className="text-xs tracking-widest text-stone-500 mb-2 mt-6">FACING LAW — MIRRORED (RIGHT-SIDE) RENDER</div>
+        <div className="flex items-end gap-4 rounded-lg p-3 mb-6" style={{ background: "#262019" }}>
+          {["V", "D", "G", "X"].map((fk) => (
+            <div key={`mir${fk}`} className="text-center">
+              <div className="flex items-end gap-1">
+                <VecFig fk={fk} size={44} pose="strike" />
+                <VecFig fk={fk} size={44} pose="strike" flip />
+              </div>
+              <div className="text-[10px] text-stone-500 mt-1">{FIGHTERS[fk].short}</div>
+            </div>
+          ))}
+        </div>
         <div className="text-xs tracking-widest text-stone-500 mb-2 mt-6">SILHOUETTE LAW — BLACK-FILL TEST</div>
         {Object.keys(FIGHTERS).map((fk) => (
           <div key={`sil${fk}`} className="mb-4">

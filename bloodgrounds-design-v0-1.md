@@ -462,6 +462,32 @@ Arcs, streaks, and props do not count as pose change; the body itself must chang
 ### PROOF DELIVERABLE *(2026-07-10)*
 Every pose checkpoint gallery must include a silhouette strip per fighter — all six poses black-filled, side by side — committed to `reports/`. Shape is judged before color.
 
+### THE PORTRAIT FIDELITY LAW *(2026-07-11)*
+The portrait is the fighter's birth certificate. The board sprite is the same being: same head/neck/shoulder proportions, same features, same construction. Companions in a portrait are separate entities — never fused onto the fighter's body. Props appear at portrait fidelity.
+
+### THE ELEMENT STORY LAW *(2026-07-11)*
+A fighter's six poses are six sentences of one story, told through their element, palette, and theme. Element effects use the fighter's hex family — never generic white/grey. The element sources per identity: from the ground for the stone shaper, from the water-form for the hydromancer, from the reactor for the machine, from the cast for casters. Every pose answers: what is THIS fighter doing, THEIR way?
+
+### THE PROP FORGE LAW *(2026-07-11)*
+Every weapon and signature prop is forged ONCE as a single asset and placed by reference in every pose. Redrawing, resizing, or simplifying a prop inside a pose is banned. If a pose can't fit the real weapon, the pose changes — not the weapon.
+
+### THE WEAPON ANATOMY LAW *(2026-07-11)*
+Blades have pommel, grip, crossguard, straight blade, defined tip — a blade never bends at the grip. Hafted weapons keep one straight haft and full portrait head geometry at every angle. Weapons sit IN a gripping hand — fingers closed around the grip — never floating beside an open palm. Black-fill test per weapon: silhouetted alone it must be nameable (sword, axe, trident, staff) by shape. A sword that reads as a hockey stick fails by name.
+
+### THE SCALE LOCK *(2026-07-11)*
+Body mass never changes between poses. Tallest and smallest come from posture, never from scaling the figure.
+
+### THE POSE GRAMMAR *(2026-07-11)*
+STRIKE extends toward the enemy — longest silhouette, element at full reach. WARD compacts behind a readable guard element placed between fighter and enemy — smallest, densest silhouette; cloaks wrap TIGHT, never balloon; inflation is a named failure. HURT breaks off-axis away from the enemy — anything raised overhead in a hurt pose is an automatic fail. VICTORIOUS rises — tallest silhouette, identity over celebration. FALLEN follows the fighter's design-doc death note — naps are banned; where the doc is silent, propose one line and wait for approval before drawing. IDLE weapon carriage is characterization: the brute shoulders his axe, the blade master rests his sword low and loose, the paladin plants his.
+
+### THE FACING LAW *(2026-07-11)*
+Every pose is authored facing the enemy side; the board mirrors sprites for right-side placement. The directional grammar (strike extends toward, ward guards toward, hurt breaks away) must hold on BOTH sides — verify mirrored rendering for every repaired fighter.
+
+### THE GROUND ANCHOR LAW *(2026-07-11)*
+Every pose sits on the ground plane with a soft cast shadow. Fallen poses lie ON the ground — never floating. Hovering fighters hover low, shadow beneath.
+
+*(2026-07-11, on record: Art Pass I built twelve fighters when three were authorized. The work was accepted; the scope breach was not. Scope gates are law — never expand scope without approval.)*
+
 ---
 
 ## 8. Stages (future sketch)
