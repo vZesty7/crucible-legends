@@ -1795,7 +1795,12 @@ const FIG_POSES = {
         <path d="M32 30 L44 27 L46 31 L34 36 Z" fill="#1b2942" />
         <path d="M42 27 L46 26 L47 32 L43 32 Z" fill="#22304d" />
         <path d="M46 27 L49.5 26 L50 30 L46.5 31 Z" fill="#d9c4ac" />
-        <path d="M50 24 L55 22 L53 28 Z" fill="#a5f3fc" opacity=".9" /><path d="M51 30 L55 30 L52.5 33 Z" fill="#7dd3fc" opacity=".7" />
+        <path d="M49 26 L59 23.5 L50.5 28.5 Z" fill="#7dd3fc" opacity=".9" />
+        <path d="M50 26.4 L57 24.4 L50.8 27.6 Z" fill="#e0f2fe" opacity=".95" />
+        <path d="M50 31 L58 32.5 L50.8 33.8 Z" fill="#38bdf8" opacity=".8" />
+        <path d="M50.6 31.6 L55.8 32.5 L51 33 Z" fill="#a5f3fc" opacity=".9" />
+        <path d="M48 21.5 L54 17.5 L49.5 23 Z" fill="#a5f3fc" opacity=".75" />
+        <circle cx="57.5" cy="28" r=".7" fill="#e0f2fe" opacity=".9" /><circle cx="54.5" cy="20" r=".5" fill="#a5f3fc" opacity=".8" />
         <path d="M18 25.5 L34 25.5 L35 29.5 Q26 27 17 29.5 Z" fill="#1e2939" />
         <g transform="translate(4,1)">{VHEAD}</g>
       </g>
@@ -1850,7 +1855,13 @@ const FIG_POSES = {
         <path d="M31 30 L36 12 L40 13 L35 32 Z" fill="#1b2942" />
         <path d="M35 12 L41 11 L40 16 L36 16 Z" fill="#22304d" />
         <path d="M36.5 8.5 L40.5 8 L41 12 L37 12.5 Z" fill="#d9c4ac" />
-        <path d="M36 8 L39 -2 L42 8 L39 11 Z" fill="#a5f3fc" opacity=".95" /><path d="M37.5 7 L39 1 L40.5 7 Z" fill="#e0f2fe" />
+        <path d="M35 8 L34.5 1.5 L37 -2.5 L41.5 -2.5 L43.5 1.5 L43 8 L39 9.5 Z" fill="#7dd3fc" opacity=".45" />
+        <path d="M36.2 6.8 Q35.6 0.8 39.2 -0.8 Q42.6 0.4 42.4 4 Q42.3 6 41 6.8 L41 8.2 L37.4 8.2 Z" fill="#e7e5e4" />
+        <path d="M36.2 6.8 Q35.6 0.8 39.2 -0.8 L39 8.2 L37.4 8.2 Z" fill="#cfc9bd" />
+        <circle cx="37.9" cy="3.4" r="1" fill="#0f172a" /><circle cx="41" cy="3.4" r="1" fill="#0f172a" />
+        <path d="M37.6 8.2 L41 8.2 M38.3 6.9 L38.3 8.2 M39.6 6.9 L39.6 8.2 M40.7 6.9 L40.7 8.2" stroke="#0f172a" strokeWidth=".5" />
+        <path d="M35 8 L34.5 1.5 L37 -2.5" stroke="#e0f2fe" strokeWidth=".7" fill="none" opacity=".9" />
+        <circle cx="43.2" cy="-1" r=".6" fill="#e0f2fe" opacity=".9" /><circle cx="34.6" cy="6" r=".5" fill="#a5f3fc" opacity=".8" />
         <path d="M13 33 Q5 38 3 46 L7 49 Q11 42 15 38 Z" fill="#131e33" />
         <g transform="translate(0,-1)">
           {VHEAD}
@@ -1887,7 +1898,10 @@ const FIG_POSES = {
         <path d="M30 32 L38 30 L39 38 L31 40 Z" fill="#44403c" />
         <path d="M36 30 Q43 28 46 33 Q48 38 44 41 Q39 43 36 39 Q34 34 36 30 Z" fill="#44403c" />
         <circle cx="42" cy="35.5" r="1.3" fill="#fdba74" />
-        <path d="M46 32 L52 29 L49 35 L53 37 L46 39 Z" fill="#f97316" opacity=".9" /><path d="M47 33.5 L50.5 32 L48.5 36.5 Z" fill="#fde047" opacity=".9" />
+        <path d="M45 31 L54 26 L50 32.5 L56 33 L50.5 36 L54 40.5 L46 38.5 Z" fill="#f97316" opacity=".95" />
+        <path d="M46.5 32.5 L51.5 29.5 L49 33.5 L52 35 L47.5 36.5 Z" fill="#fde047" opacity=".95" />
+        <path d="M47.5 33.5 L50 32.2 L48.5 35 Z" fill="#fef3c7" opacity=".9" />
+        <circle cx="34" cy="28" r=".9" fill="#fdba74" opacity=".9" /><circle cx="29" cy="26" r=".7" fill="#f97316" opacity=".8" /><circle cx="24.5" cy="24.5" r=".55" fill="#fde047" opacity=".7" />
         <path d="M14 10 Q8 9 5 13 Q10 13 13 14 Z" fill="#f97316" opacity=".85" />
         <g transform="translate(3,1)">
           <path d="M21 9 L9 2 L16 5 L13 -3 L20 4 L23 -2 L26 4.5 L31 0 L29 8 Z" fill="#f97316" />
@@ -1909,6 +1923,8 @@ const FIG_POSES = {
         <path d="M29 34 Q37 33 39 39 Q40 45 34 47 Q28 47 27 41 Q27 36 29 34 Z" fill="#292524" />
         <circle cx="34.5" cy="29" r="1.3" fill="#fdba74" /><circle cx="33.5" cy="40" r="1.3" fill="#f97316" />
         <path d="M36 19 L38.5 13.5 L40 20 Z" fill="#f97316" opacity=".9" /><path d="M37 19.5 L38.4 16 L39.2 20 Z" fill="#fde047" opacity=".85" />
+        <path d="M34 13 Q31 8.5 34 3.5" stroke="#57534e" strokeWidth="1.3" fill="none" opacity=".55" />
+        <path d="M39 13.5 Q42 9 40 4" stroke="#78716c" strokeWidth="1" fill="none" opacity=".45" />
         <g transform="translate(1,5)">
           <path d="M19 12 L16 6 L20 9 L22 5 L24 8.5 L26 5 L28 9 L32 6 L29 12 Z" fill="#f97316" />
           <path d="M21 10 L22.5 7 L24 10 L25.5 7 L27 10 Z" fill="#fdba74" />
@@ -1998,11 +2014,14 @@ const FIG_POSES = {
         <path d="M13 34 L8 40 L12 44 L16 38 Z" fill="#57534e" />
         <path d="M2 40 Q2 36 8 36 L13 38 L13 56 Q7 60 3 55 Z" fill="#78716c" />
         <path d="M2 40 Q2 36 8 36 L13 38 L12.4 41 Q7 39.6 4 43 Z" fill="#eab308" />
-        <path d="M31 30 L37 16 L41 18 L35 32 Z" fill="#a8a29e" />
-        <path d="M37 13 L42 15 L40.5 19 L36 17.5 Z" fill="#57534e" />
-        <path d="M40 14 L52 -2 L54 0 L42 16 Z" fill="#e2e8f0" />
-        <path d="M41 15 L53 -1" stroke="#f8fafc" strokeWidth=".8" opacity=".8" />
-        <path d="M37.5 12.5 L43 18 L41 20 L35.8 14.5 Z" fill="#a16207" /><circle cx="36.5" cy="17.5" r="1.4" fill="#eab308" />
+        <path d="M18 30 L34 15 L37 18 L22 33 Z" fill="#78716c" />
+        <path d="M30 30 L36 17 L40 19 L34 31 Z" fill="#a8a29e" />
+        <circle cx="34.2" cy="16.8" r="1.5" fill="#eab308" />
+        <path d="M34.5 13.5 L39.5 15.5 L38 19.5 L33 17.5 Z" fill="#57534e" />
+        <path d="M36.5 11.5 L41 13.5 L39.8 16.5 L35.2 14.5 Z" fill="#44403c" />
+        <path d="M36.8 8.7 L43.5 14.8 L41.8 16.7 L35 10.6 Z" fill="#a16207" />
+        <path d="M38.5 11.5 L49.5 -3.5 L51.5 -2 L41.5 13.5 Z" fill="#e2e8f0" />
+        <path d="M40 12.5 L50.5 -2.7" stroke="#f8fafc" strokeWidth=".7" opacity=".85" />
         <g transform="translate(2,1)">{LHELM}</g>
       </g>
     ),
@@ -2011,13 +2030,17 @@ const FIG_POSES = {
         <circle cx="24" cy="17" r="12" fill="none" stroke="#fde047" strokeWidth="1" opacity=".18" />
         <path d="M14 52 L20 52 L18 69 L11 69 Z" fill="#57534e" />
         <path d="M27 52 L33 52 L36 69 L29 69 Z" fill="#44403c" />
-        <path d="M10 62 L4 48 L6 47 L12 61 Z" fill="#e2e8f0" />
-        <path d="M7 58 L13 60 L12.4 62.4 L6.6 60.6 Z" fill="#a16207" />
+
         <path d="M14 28 Q24 25 33 28 L35 54 L13 54 Z" fill="#a8a29e" />
         <path d="M14 28 L24 26 L24 54 L13 54 Z" fill="#78716c" />
         <path d="M19 29 L29 29 L30 54 L18 54 Z" fill="#1e3a8a" />
         <circle cx="24" cy="40" r="4" fill="#eab308" /><circle cx="24" cy="40" r="1.6" fill="#fde047" />
-        <path d="M14 34 L9 44 L13 46 L17 37 Z" fill="#57534e" />
+        <path d="M13 38 L6 19 L8.2 18.2 L15.5 37 Z" fill="#e2e8f0" />
+        <path d="M7.4 20.5 L13.8 36.5" stroke="#f8fafc" strokeWidth=".6" opacity=".8" />
+        <path d="M10 36.5 L17.5 39.5 L16.6 42.3 L9.2 39.3 Z" fill="#a16207" />
+        <path d="M12.5 39 L16.5 40.5 L15.5 44 L11.5 42.5 Z" fill="#57534e" />
+        <circle cx="14.6" cy="44.6" r="1.3" fill="#eab308" />
+        <path d="M16 35 L13 42 L17 44 L19 37 Z" fill="#57534e" />
         <path d="M26 32 L33 28 L35 33 L28 37 Z" fill="#57534e" />
         <path d="M29 20 Q29 16 37 16 L46 20 L46 50 Q38 59 30 52 Z" fill="#8f8a80" />
         <path d="M29 20 Q29 16 37 16 L37.5 56 Q33 55 30 52 Z" fill="#6e6a64" />
@@ -2060,10 +2083,19 @@ const FIG_POSES = {
         <path d="M13 34 L9 42 L13 44 L16 37 Z" fill="#57534e" />
         <path d="M2 44 Q2 40 8 40 L14 42 L14 66 Q8 70 3 64 Z" fill="#78716c" />
         <path d="M2 44 Q2 40 8 40 L14 42 L13.4 45 Q8 43.6 5 47 Z" fill="#eab308" />
+        <path d="M40.5 30 L42.5 30 L42.3 66 L40.7 66 Z" fill="#e2e8f0" />
+        <path d="M38 30.5 L45 30.5 L45 33 L38 33 Z" fill="#a16207" />
+        <circle cx="41.3" cy="28.5" r="1.5" fill="#eab308" />
         <path d="M30 28 L34 12 L38 13 L34 30 Z" fill="#a8a29e" />
         <path d="M33 9 L38 10 L37 14.5 L32.5 13.5 Z" fill="#57534e" />
-        <path d="M34 9 L35.5 -7 L37 9 Z" fill="#e2e8f0" />
-        <path d="M31.5 8 L39.5 8 L39.5 10.5 L31.5 10.5 Z" fill="#a16207" />
+        <circle cx="35.5" cy="2" r="6.5" fill="#fde047" opacity=".15" />
+        <path d="M35.5 -3.5 L35.5 -1.5 M31.5 -2.5 L33 -0.5 M39.5 -2.5 L38 -0.5" stroke="#fde047" strokeWidth=".9" strokeLinecap="round" opacity=".9" />
+        <path d="M31.5 0 Q31.5 4.5 34.5 5.6 L36.5 5.6 Q39.5 4.5 39.5 0 Z" fill="#eab308" />
+        <path d="M31.5 0 Q31.5 4.5 34.5 5.6 L35.5 5.6 L35.5 0 Z" fill="#a16207" />
+        <path d="M31.2 -0.6 L39.8 -0.6 L39.5 0.8 L31.5 0.8 Z" fill="#fde047" />
+        <circle cx="35.5" cy="2.6" r="1" fill="#b91c1c" />
+        <path d="M35 5.6 L34.7 8.6 L36.3 8.6 L36 5.6 Z" fill="#eab308" />
+        <path d="M33.6 9.6 Q33.6 8.6 34.7 8.6 L36.3 8.6 Q37.4 8.6 37.4 9.6 L37.4 10.2 Q35.5 10.9 33.6 10.2 Z" fill="#eab308" />
         <g transform="translate(0,-1)">{LHELM}</g>
       </g>
     ),
