@@ -2867,35 +2867,52 @@ const FIG_POSES = {
     ),
     victorious: (
       <g>
-        <path d="M13 50 L19 50 L17 69 L11 69 Z" fill="#7f1d1d" /><path d="M10 67 L18 67 L18 71 L9 71 Z" fill="#120b08" />
-        <path d="M27 50 L33 50 L35 69 L29 69 Z" fill="#991b1b" /><path d="M28 67 L36 67 L37 71 L28 71 Z" fill="#120b08" />
+        <g transform="translate(4,62) rotate(84)">{GAXE}</g>
+        <path d="M14 50 L20 50 L18 69 L12 69 Z" fill="#7f1d1d" /><path d="M11 67 L19 67 L19 71 L10 71 Z" fill="#120b08" />
+        <path d="M26 48 L33 49 L38 53 L30 56 Z" fill="#991b1b" />
+        <path d="M36 51.5 L45 53.5 L45 58 L36 56.5 Z" fill="#120b08" />
         <path d="M12 26 Q23 21 34 26 L36 50 Q23 55 10 50 Z" fill="#4d7c0f" />
         <path d="M12 26 L23 23 L22 52 Q15 52 10 50 Z" fill="#365314" />
         <path d="M10 48 L36 48 L36 52 L10 52 Z" fill="#b91c1c" />
         <path d="M10 24 Q23 19 36 24 L35 29 Q23 25 11 29 Z" fill="#292524" />
         <ellipse cx="10.5" cy="27" rx="5.5" ry="4.6" fill="#d6cdba" /><circle cx="8.8" cy="26.4" r=".9" fill="#120b08" /><circle cx="12.2" cy="26.4" r=".9" fill="#120b08" />
-        <path d="M13 28 Q7 24 6 18 L10 15 Q13 20 16 24 Z" fill="#365314" />
-        <path d="M6 16 Q10 13 13 16 Q13 20 9 20 Q5 19 6 16 Z" fill="#4d7c0f" />
-        <path d="M31 28 L36 13 L41 14 L36 30 Z" fill="#4d7c0f" />
-        <g transform="translate(37,30) rotate(4)">{GAXE}</g>
-        <path d="M35 26.6 Q39 25.8 40 29 Q39.6 32.4 36.2 32 Q33.6 31 34 28.4 Z" fill="#4d7c0f" />
-        <path d="M35.6 28 L39 27.6 M35.6 30 L39 29.6" stroke="#365314" strokeWidth=".6" />
+        <path d="M13 28 Q7 30 6 36 L10 38 Q13 33 16 31 Z" fill="#365314" />
+        <path d="M31 26 L35 4 L40 5 L36 28 Z" fill="#4d7c0f" />
+        <path d="M34 1.5 Q38 .7 39 4 Q38.6 7.4 35.2 7 Q32.6 6 33 3.4 Z" fill="#4d7c0f" />
+        <path d="M34 3 L37.6 2.6 M34 5 L37.6 4.6" stroke="#365314" strokeWidth=".6" />
+        <path d="M36.5 7 L38.3 10 M38.2 6.8 L39.6 10" stroke="#3d2410" strokeWidth=".9" strokeLinecap="round" />
+        <circle cx="38.8" cy="13.6" r="4.2" fill="#c9a077" />
+        <path d="M34.6 13.6 Q34.6 9.6 38.8 9.4 L38.8 17.8 Q35.6 17.2 34.6 13.6 Z" fill="#b78a5e" />
+        <path d="M35 10.5 Q38 8.6 42 10" stroke="#3d2410" strokeWidth="1.4" fill="none" />
+        <path d="M36 12.8 L38 13.8 M39.6 13.8 L41.6 12.8" stroke="#241505" strokeWidth=".8" strokeLinecap="round" />
+        <path d="M36.6 15.8 Q38.8 16.8 41 15.8" stroke="#241505" strokeWidth=".7" fill="none" />
+        <path d="M36.8 17.6 L40.8 17.6 L40.2 19.4 L37.4 19.4 Z" fill="#7f1d1d" />
+        <circle cx="41" cy="21" r=".5" fill="#ef4444" /><circle cx="40.4" cy="23.6" r=".35" fill="#ef4444" />
         <g transform="translate(0,-1)">{GHEAD}</g>
       </g>
     ),
     fallen: (
       <g>
-        <path d="M4 62 L12 62 L12 68 L3 68 Z" fill="#7f1d1d" /><path d="M2 66 L8 66 L7 70 L1 70 Z" fill="#120b08" />
-        <path d="M10 58 Q22 54 32 58 L33 68 L9 68 Z" fill="#4d7c0f" />
-        <path d="M10 58 L20 56 L19 68 L9 68 Z" fill="#365314" />
-        <path d="M30 58 L33 68 L36 68 L34 58 Z" fill="#b91c1c" />
-        <ellipse cx="14" cy="57" rx="4.5" ry="3.6" fill="#d6cdba" /><circle cx="12.6" cy="56.6" r=".8" fill="#120b08" /><circle cx="15.4" cy="56.6" r=".8" fill="#120b08" />
-        <circle cx="37" cy="61" r="6.5" fill="#4d7c0f" /><path d="M31 61 Q31 55 37 54.5 L37 67.5 Q32 66.5 31 61 Z" fill="#365314" />
-        <path d="M40 55 L44 54 L43 58 L40 58 Z" fill="#120b08" />
-        <path d="M42 62 L50 63 L50 66 L42 65 Z" fill="#4d7c0f" />
-        <path d="M49 62.5 Q53 62 53.5 65 Q53 67.5 50 67 Z" fill="#365314" />
-        <g transform="translate(4,57) rotate(90)">{GAXE}</g>
-        <circle cx="24" cy="52" r=".8" fill="#ef4444" opacity=".6" />
+        <ellipse cx="22" cy="66.5" rx="13" ry="2.6" fill="#7f1d1d" opacity=".45" />
+        <path d="M8 62 Q16 54 26 58 L30 66 L8 68 Z" fill="#4d7c0f" />
+        <path d="M8 62 L18 57 L17 68 L8 68 Z" fill="#365314" />
+        <path d="M24 60 L30 60 L30 64 L24 64 Z" fill="#b91c1c" />
+        <path d="M28 58 L34 52 L37 55 L31 62 Z" fill="#991b1b" />
+        <path d="M34 53 L39 59 L35 61.5 Z" fill="#120b08" />
+        <path d="M30 64 L40 66 L40 69 L30 68 Z" fill="#7f1d1d" />
+        <path d="M38 66 L45 66.5 L45 69 L38 69 Z" fill="#120b08" />
+        <path d="M8 60 Q3 58 1 62 L4 65 Q7 64 9 63 Z" fill="#365314" />
+        <circle cx="10" cy="56" r="6" fill="#4d7c0f" /><path d="M4.5 56 Q4.5 50.5 10 50 L10 62 Q6 61 4.5 56 Z" fill="#365314" />
+        <path d="M6.8 54 L9 56 M9 54 L6.8 56" stroke="#120b08" strokeWidth=".8" strokeLinecap="round" />
+        <path d="M11.5 54.2 L13.5 56 M13.5 54.2 L11.5 56" stroke="#120b08" strokeWidth=".8" strokeLinecap="round" />
+        <path d="M7 59 Q10 62.5 13.5 59.5 L13 62 Q10 64.5 7.5 61.5 Z" fill="#120b08" />
+        <path d="M8 59.6 L9.3 59.6 L9.3 60.9 Z" fill="#e7ddc8" />
+        <path d="M4 51 L1 47.5 L5.2 49.2 Z" fill="#120b08" />
+        <g transform="translate(26,22) rotate(172)">{GAXE}</g>
+        <path d="M21 60 Q27 57.5 31 61.5 L30 66 L21 66 Z" fill="#4d7c0f" />
+        <path d="M27 60.5 L33.5 59.5 L31.5 64 Z" fill="#7f1d1d" opacity=".9" />
+        <circle cx="29" cy="57.5" r=".7" fill="#ef4444" /><circle cx="33" cy="62" r=".45" fill="#ef4444" />
+        <ellipse cx="43" cy="63.5" rx="4" ry="3.2" fill="#d6cdba" /><circle cx="41.8" cy="63" r=".8" fill="#120b08" /><circle cx="44.4" cy="63" r=".8" fill="#120b08" />
       </g>
     ),
   },
@@ -3289,10 +3306,15 @@ const FIG_POSES = {
         <path d="M16 24 Q22 29 28 24 Q29 28 25 30 Q22 32 19 30 Q15 28 16 24 Z" fill="#b91c1c" />
         <path d="M27 28 Q34 32 33 40 L30 37 Q31 32 27 30 Z" fill="#7f1d1d" />
         <path d="M14 36 Q8 40 7 46 L11 48 Q13 42 17 39 Z" fill="#141d2b" />
-        <path d="M30 28 L38 27.4 L38.4 31.4 L30.4 32 Z" fill="#293548" />
+        <path d="M28 25.5 L36 25.5 L37 32.5 L29 33 Z" fill="#334155" />
+        <path d="M30 26.5 L35 26.3" stroke="#94a3b8" strokeWidth=".7" opacity=".8" />
+        <path d="M34 27 L40 27.4 L40.2 31.6 L34.2 31.6 Z" fill="#293548" />
         <g transform="translate(39,29.5) rotate(92)">{DSWORD}</g>
-        <path d="M37.2 27.4 Q40.8 26.8 41.6 29.6 Q41.2 32.4 38 32 Q35.8 31.2 36.2 29 Z" fill="#334155" />
-        <path d="M37.8 28.6 L41 28.2 M37.8 30.4 L41 30" stroke="#94a3b8" strokeWidth=".5" />
+        <path d="M37.2 27.2 Q40.8 26.6 41.6 29.4 Q41.2 32.4 38 32 Q35.8 31.2 36.2 29 Z" fill="#334155" />
+        <path d="M37.8 28.4 L41 28 M37.8 30.2 L41 29.8" stroke="#94a3b8" strokeWidth=".5" />
+        <path d="M45 27.2 L59 25.8" stroke="#f8fafc" strokeWidth=".8" opacity=".9" strokeLinecap="round" />
+        <path d="M47 31.6 L57 32.2" stroke="#e2e8f0" strokeWidth=".6" opacity=".7" strokeLinecap="round" />
+        <path d="M66 28 L69 31 M69 28 L66 31" stroke="#f8fafc" strokeWidth=".8" opacity=".95" strokeLinecap="round" />
         <g transform="translate(4,1)">
           <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
           <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
@@ -3306,16 +3328,21 @@ const FIG_POSES = {
       <g>
         <path d="M15 50 L20 50 L19 69 L14 69 Z" fill="#141d2b" />
         <path d="M27 50 L32 50 L34 69 L29 69 Z" fill="#141d2b" />
-        <g transform="translate(8,66)">{DSPEAR}</g>
         <path d="M14 28 Q24 24 33 28 L34 52 Q23 55 13 52 Z" fill="#1e293b" />
         <path d="M14 28 L24 26 L23 53 Q17 52 13 52 Z" fill="#141d2b" />
         <path d="M11 30 L19 28 L20 36 L12 38 Z" fill="#334155" /><path d="M35 30 L28 28 L27 36 L34 38 Z" fill="#293548" />
         <path d="M17 26 Q23 30 29 26 Q30 29 26 31 Q23 32 20 31 Q16 29 17 26 Z" fill="#b91c1c" />
-        <path d="M12 40 L9 46 L13 48 L16 42 Z" fill="#293548" />
-        <path d="M28 42 L36 38 L37.5 41 L30 46 Z" fill="#293548" />
-        <g transform="translate(20,46) rotate(48)">{DSWORD}</g>
-        <path d="M18.2 43.8 Q21.8 43.2 22.6 46 Q22.2 48.8 19 48.4 Q16.8 47.6 17.2 45.4 Z" fill="#334155" />
-        <path d="M18.8 45 L22 44.6 M18.8 46.8 L22 46.4" stroke="#94a3b8" strokeWidth=".5" />
+        <path d="M13 38 L18 45 L15 48 L10 41 Z" fill="#293548" />
+        <path d="M32 40 L36 49 L32 51 L28 43 Z" fill="#293548" />
+        <g transform="translate(17,49) rotate(42)">{DSWORD}</g>
+        <g transform="translate(35,52) rotate(-38)">{DSPEAR}</g>
+        <path d="M15.2 46.8 Q18.8 46.2 19.6 49 Q19.2 51.8 16 51.4 Q13.8 50.6 14.2 48.4 Z" fill="#334155" />
+        <path d="M15.8 48 L19 47.6 M15.8 49.8 L19 49.4" stroke="#94a3b8" strokeWidth=".5" />
+        <path d="M33.2 49.8 Q36.8 49.2 37.6 52 Q37.2 54.8 34 54.4 Q31.8 53.6 32.2 51.4 Z" fill="#334155" />
+        <path d="M33.8 51 L37 50.6 M33.8 52.8 L37 52.4" stroke="#94a3b8" strokeWidth=".5" />
+        <circle cx="25" cy="36" r="3" fill="#f1f5f9" opacity=".28" />
+        <path d="M25 31 L25 41 M20 36 L30 36" stroke="#f8fafc" strokeWidth="1" opacity=".95" strokeLinecap="round" />
+        <path d="M22 33 L28 39 M28 33 L22 39" stroke="#e2e8f0" strokeWidth=".6" opacity=".75" strokeLinecap="round" />
         <g transform="translate(1,3)">
           <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
           <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
