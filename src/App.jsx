@@ -2015,11 +2015,11 @@ const FIG_POSES = {
         <path d="M3 36 Q3 32 9 32 L15 34 L15 54 Q9 58 4 53 Z" fill="#78716c" />
         <path d="M3 36 Q3 32 9 32 L15 34 L14.4 37 Q9 35.6 5 39 Z" fill="#eab308" />
         <path d="M31 30 L39 15 L43 17 L36 32 Z" fill="#a8a29e" />
-        <path d="M41 16 L52 27 L50.3 29 L39.5 18 Z" fill="#e2e8f0" />
-        <path d="M41.5 17.3 L50.9 26.9" stroke="#f8fafc" strokeWidth=".7" opacity=".85" />
-        <path d="M42.8 13.3 L44.8 15.3 L39.8 20.3 L37.8 18.3 Z" fill="#a16207" />
-        <path d="M39 14.5 L44 16.5 L42.5 20.5 L37.5 18.5 Z" fill="#57534e" />
-        <circle cx="38.1" cy="14.1" r="1.4" fill="#eab308" />
+        <path d="M40.6 19.2 L43 18 L54.6 43 L52.4 44 Z" fill="#e2e8f0" />
+        <path d="M41.9 19 L53.4 43" stroke="#f8fafc" strokeWidth=".7" opacity=".85" />
+        <path d="M44.6 15.3 L45.5 17.1 L38.3 20.5 L37.4 18.7 Z" fill="#a16207" />
+        <path d="M38.6 13.6 L43 15.4 L41.8 18.6 L37.6 16.8 Z" fill="#57534e" />
+        <circle cx="38.2" cy="12.8" r="1.4" fill="#eab308" />
         <g transform="translate(2,1)">{LHELM}</g>
       </g>
     ),
