@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 
 const QUADS = ["NW", "NE", "SW", "SE"];
 const ADJ = { NW: ["NE", "SW"], NE: ["NW", "SE"], SW: ["NW", "SE"], SE: ["NE", "SW"] };
-const BUILD = "v0.84";
+const BUILD = "v0.85";
 const BEATS = { break: "ward", rush: "break", ward: "rush" };
 const TYPE_LABEL = { break: "BREAK", rush: "RUSH", ward: "WARD" };
 const TYPE_HEX = { break: "#ef4444", rush: "#f59e0b", ward: "#38bdf8" };
@@ -323,6 +323,12 @@ function PortraitG({ size = 120 }) {
         <path d="M74 78 Q77 73 74 69 Q70 72 70 78 Z" fill="#f5f0e1" /><path d="M74 71 L72.5 69" stroke="#d6cdba" strokeWidth="1" />
         <path d="M55 82 L58 86 M62 86 L65 82" stroke="#f5f0e1" strokeWidth="1.6" />
       </g>
+      <PDepth id="G" hex="#b91c1c" rim={<g fill="none" strokeLinecap="round">
+        <path d="M34 64 Q32 35 60 32" stroke="#cbe895" strokeWidth="1.4" opacity=".6" />
+        <path d="M54 32 Q52 20 60 16" stroke="#cbe895" strokeWidth="1" opacity=".45" />
+        <path d="M12 96 Q14 80 34 82" stroke="#e7e5e4" strokeWidth="1.1" opacity=".5" />
+        <path d="M28 86 Q44 79 60 80" stroke="#57534e" strokeWidth="1" opacity=".5" />
+      </g>} />
     </svg>
   );
 }
@@ -387,6 +393,10 @@ function PortraitM({ size = 120 }) {
       <circle cx="44" cy="55" r="1" fill="#e2e8f0" /><circle cx="76" cy="55" r="1" fill="#e2e8f0" /><circle cx="46" cy="72" r=".9" fill="#475569" /><circle cx="74" cy="72" r=".9" fill="#475569" />
       <path d="M45 76 Q52 82 60 82" stroke="#334155" strokeWidth="1" fill="none" opacity=".7" />
       <path d="M42 54 L36 50 M78 54 L84 50" stroke="#262040" strokeWidth="2" />
+      <PDepth id="M" hex="#34d399" rim={<g fill="none" strokeLinecap="round">
+        <path d="M60 0 L38 20 Q30 34 32 52" stroke="#c7ccdb" strokeWidth="1.2" opacity=".5" />
+        <path d="M14 112 Q22 100 40 98" stroke="#8b90a6" strokeWidth="1" opacity=".4" />
+      </g>} />
     </svg>
   );
 }
@@ -578,6 +588,11 @@ function PortraitK({ size = 120 }) {
       <path d="M116 110 L89 112 M117 119 L89 121 M116 128 L91 130" stroke="#1c1917" strokeWidth="2" />
       <path d="M110 104 L110 136 M102 104 L102 137 M95 106 L95 137" stroke="#3f3a34" strokeWidth="1.3" />
       <path d="M115 115 L90 117" stroke="#a78bfa" strokeWidth="1" opacity=".75" />
+      <PDepth id="K" hex="#a78bfa" rim={<g fill="none" strokeLinecap="round">
+        <path d="M44 46 L60 38" stroke="#d6d3d1" strokeWidth="1.4" opacity=".6" />
+        <path d="M8 26 L2 12" stroke="#d6d3d1" strokeWidth="1" opacity=".5" />
+        <path d="M36 40 L44 8" stroke="#8f8a80" strokeWidth="1" opacity=".5" />
+      </g>} />
     </svg>
   );
 }
@@ -617,6 +632,11 @@ function PortraitZ({ size = 120 }) {
       <path d="M14 54 Q18 46 15 40 Q11 46 13 52 Z" fill="#ef4444" opacity=".75" />
       <path d="M13 102 Q10 108 12 114" stroke="#57534e" strokeWidth="2" fill="none" />
       <circle cx="12" cy="117" r="2.4" fill="none" stroke="#78716c" strokeWidth="1.3" />
+      <PDepth id="Z" hex="#ef4444" rim={<g fill="none" strokeLinecap="round">
+        <path d="M56 8 Q30 14 30 48" stroke="#a78bfa" strokeWidth="1.2" opacity=".45" />
+        <path d="M28 40 Q14 22 18 6" stroke="#a78bfa" strokeWidth="1" opacity=".4" />
+        <path d="M20 104 Q28 92 44 90" stroke="#5d4a8c" strokeWidth="1" opacity=".45" />
+      </g>} />
     </svg>
   );
 }
@@ -712,6 +732,10 @@ function PortraitO({ size = 120 }) {
       <path d="M46 64 L74 64 M49 60 L49 70 M55 60 L55 72 M60 61 L60 73 M65 60 L65 72 M71 60 L71 70" stroke="#0a0d05" strokeWidth="1.6" />
       <path d="M53 10 Q60 4 67 10 Q66 17 60 17 Q54 17 53 10 Z" fill="#d6cdba" /><circle cx="57" cy="10.5" r="1.1" fill="#0a0d05" /><circle cx="63" cy="10.5" r="1.1" fill="#0a0d05" />
       <path d="M57.5 14 L62.5 14" stroke="#0a0d05" strokeWidth=".9" />
+      <PDepth id="O" hex="#a3e635" rim={<g fill="none" strokeLinecap="round">
+        <path d="M32 44 Q30 12 60 8" stroke="#f5f5f4" strokeWidth="1.3" opacity=".55" />
+        <path d="M10 104 Q24 82 60 76" stroke="#8a8072" strokeWidth="1" opacity=".45" />
+      </g>} />
     </svg>
   );
 }
@@ -782,6 +806,11 @@ function PortraitD({ size = 120 }) {
       <path d="M37 61 L83 61" stroke="#a8a29e" strokeWidth="1.1" />
       <path d="M38 68 L82 68 M40 76 L80 76 M44 84 L76 84" stroke="#57514a" strokeWidth="1.3" />
       <path d="M58 62 L60 68 L62 62" stroke="#57514a" strokeWidth="1" fill="none" />
+      <PDepth id="D" hex="#f59e0b" rim={<g fill="none" strokeLinecap="round">
+        <path d="M34 74 Q30 27 60 20" stroke="#d9b98a" strokeWidth="1.4" opacity=".55" />
+        <path d="M0 66 L28 74" stroke="#c7c2ba" strokeWidth="1" opacity=".45" />
+        <path d="M36 60 L60 60" stroke="#a8a29e" strokeWidth="1" opacity=".4" />
+      </g>} />
     </svg>
   );
 }
@@ -869,6 +898,11 @@ function PortraitY({ size = 120 }) {
       <path d="M57.5 75.6 L58.2 77.4 L59 75.7 Z M61 75.7 L61.8 77.4 L62.5 75.6 Z" fill="#e7f5f2" />
       <path d="M56 80.4 L57 78.8 L58 80.5 Z M62 80.5 L63 78.8 L64 80.4 Z" fill="#d5ece7" opacity=".9" />
       <path d="M49 73 L47 71.5 M71 73 L73 71.5" stroke="#4f7c74" strokeWidth="1.1" />
+      <PDepth id="Y" hex="#2dd4bf" rim={<g fill="none" strokeLinecap="round">
+        <path d="M32 62 L36 38 L48 28" stroke="#ccfbf1" strokeWidth="1.4" opacity=".6" />
+        <path d="M36 60 Q22 44 28 24" stroke="#5eead4" strokeWidth="1" opacity=".4" />
+        <path d="M14 114 Q22 102 40 100" stroke="#0d9488" strokeWidth="1" opacity=".45" />
+      </g>} />
     </svg>
   );
 }
@@ -946,7 +980,13 @@ function PortraitW({ size = 120 }) {
       <path d="M44 104 L44 132 M50 102 L50 134" stroke="#0c3018" strokeWidth="1.2" />
       
       <path d="M28 118 L34 112 M30 124 L38 116" stroke="#4ade80" strokeWidth="1.1" opacity=".45" />
+      <g fill="none" strokeLinecap="round">
+        <path d="M60 12 Q28 22 30 66" stroke="#86efac" strokeWidth="1.3" opacity=".35" />
+        <path d="M46 44 Q60 36 74 44" stroke="#e7d5bd" strokeWidth="1" opacity=".5" />
+        <path d="M24 138 Q28 106 46 98" stroke="#166534" strokeWidth="1.2" opacity=".6" />
       </g>
+      </g>
+      <PDepth id="W" hex="#4ade80" rim={null} />
     </svg>
   );
 }
@@ -973,6 +1013,10 @@ function PortraitX({ size = 120 }) {
       <path d="M50 82 Q60 88 70 82" stroke="#8a6a45" strokeWidth="1.2" fill="none" />
       <path d="M68 74 L74 84" stroke="#8a3324" strokeWidth="1.4" opacity=".9" />
       <path d="M46 88 Q60 98 74 88 L74 92 Q60 100 46 92 Z" fill="#7f1d1d" />
+      <PDepth id="X" hex="#94a3b8" rim={<g fill="none" strokeLinecap="round">
+        <path d="M40 58 Q40 33 60 30" stroke="#e2e8f0" strokeWidth="1.4" opacity=".6" />
+        <path d="M24 106 Q30 100 44 98" stroke="#94a3b8" strokeWidth="1" opacity=".45" />
+      </g>} />
     </svg>
   );
 }
@@ -1781,6 +1825,34 @@ const LHELM = (
     <path d="M19.5 14 L18 12.6 M28.5 14 L30 12.6" stroke="#fde047" strokeWidth=".8" opacity=".85" />
   </g>
 );
+const GHEAD = (
+  <g>
+    <circle cx="24" cy="14" r="8" fill="#4d7c0f" /><path d="M16 14 Q16 6 24 6 L24 22 Q18 21 16 14 Z" fill="#365314" />
+    <path d="M22 1.5 L26 1.5 L25 7 L23 7 Z" fill="#120b08" />
+    <path d="M17.5 11 L30.5 11 L30 14 L18 14 Z" fill="#2a4507" />
+    <path d="M18.5 14.6 L29.5 14.6" stroke="#5a8c14" strokeWidth=".9" />
+    <circle cx="21" cy="16" r="3" fill="#ef4444" opacity=".18" /><circle cx="27" cy="16" r="3" fill="#ef4444" opacity=".18" />
+    <circle cx="21" cy="16" r="1.4" fill="#ef4444" /><circle cx="27" cy="16" r="1.4" fill="#ef4444" />
+    <circle cx="21.4" cy="15.5" r=".45" fill="#fef3c7" /><circle cx="27.4" cy="15.5" r=".45" fill="#fef3c7" />
+    <path d="M17 17.5 L20 18 M31 17.5 L28 18" stroke="#b91c1c" strokeWidth="1" opacity=".8" />
+    <path d="M19 19.5 Q24 23.5 29 19.5 L29 23 Q24 26 19 23 Z" fill="#120b08" />
+    <path d="M19.5 19.4 L21.1 19.4 L21.1 20.8 L19.5 20.8 Z" fill="#e7ddc8" />
+    <path d="M26.8 19 L27.9 22.6 L29.3 19.4 Z" fill="#f5f0e1" />
+  </g>
+);
+const MHEAD = (
+  <g>
+    <path d="M24 5 L21 10 L27 10 Z" fill="#3a3054" /><path d="M24 1 L27.5 6 L24 8.5 L21.5 5 Z" fill="#2f2748" />
+    <path d="M19 11.5 Q24 9.5 29 11.5 L28.6 16.5 L19.4 16.5 Z" fill="#6d5a86" />
+    <path d="M19.2 13.4 L23 14.1 M28.8 13.4 L25 14.1" stroke="#1c1736" strokeWidth="1.1" strokeLinecap="round" />
+    <circle cx="21.3" cy="15.4" r="2.4" fill="#34d399" opacity=".2" /><circle cx="26.7" cy="15.4" r="2.4" fill="#34d399" opacity=".2" />
+    <path d="M20 14.6 L22.8 15.1 L22.5 16.4 L20.3 15.9 Z" fill="#07120c" /><path d="M28 14.6 L25.2 15.1 L25.5 16.4 L27.7 15.9 Z" fill="#07120c" />
+    <path d="M21.2 14.9 L21 16.2 M26.8 14.9 L27 16.2" stroke="#6ee7b7" strokeWidth="1" strokeLinecap="round" />
+    <path d="M19 16.8 L29 16.8 L28.4 21.2 Q24 23 19.6 21.2 Z" fill="#94a3b8" /><path d="M19 16.8 L24 16.8 L24 22 Q21 22 19.6 21.2 Z" fill="#64748b" />
+    <path d="M19.2 17 L28.8 17" stroke="#f1f5f9" strokeWidth=".6" />
+    <path d="M20.8 18 L20.8 20.6 M22.4 18 L22.4 21.2 M24 18 L24 21.4 M25.6 18 L25.6 21.2 M27.2 18 L27.2 20.6" stroke="#05070d" strokeWidth=".8" />
+  </g>
+);
 const FIG_POSES = {
   V: {
     strike: (
@@ -2125,16 +2197,920 @@ const FIG_POSES = {
       </g>
     ),
   },
+  G: {
+    strike: (
+      <g>
+        <path d="M11 50 L17 52 L8 66 L4 63 Z" fill="#7f1d1d" /><path d="M3 62 L9 65 L8 69 L2 68 Z" fill="#120b08" />
+        <path d="M25 50 L31 50 L34 62 L29 64 Z" fill="#991b1b" /><path d="M29 62 L34 61 L35 69 L29 69 Z" fill="#120b08" />
+        <path d="M13 27 Q23 22 33 27 L36 48 Q24 53 12 48 Z" fill="#4d7c0f" />
+        <path d="M13 27 L23 24 L22 50 Q16 50 12 48 Z" fill="#365314" />
+        <path d="M12 46 L36 46 L36 50 L12 50 Z" fill="#b91c1c" />
+        <path d="M13 29 L33 43" stroke="#7c5a34" strokeWidth="1.6" />
+        <path d="M11 25 Q23 20 35 25 L34 30 Q23 26 12 30 Z" fill="#292524" />
+        <path d="M14 25 L13 21 M20 23.5 L19.5 19.5 M28 23.5 L28.5 19.5" stroke="#3f3a34" strokeWidth="1.8" strokeLinecap="round" />
+        <ellipse cx="11.5" cy="28" rx="5.5" ry="4.6" fill="#d6cdba" /><circle cx="9.8" cy="27.4" r=".9" fill="#120b08" /><circle cx="13.2" cy="27.4" r=".9" fill="#120b08" />
+        <path d="M14 38 Q7 40 5 46 L9 49 Q13 44 16 42 Z" fill="#365314" />
+        <path d="M6 44 Q10 42 13 44 Q12 48 8 48 Q5 47 6 44 Z" fill="#4d7c0f" />
+        <path d="M30 30 L42 27 L43 32 L31 35 Z" fill="#4d7c0f" />
+        <path d="M40 27 Q45 25 46 30 Q46 34 42 34 Q38 33 38 30 Z" fill="#365314" />
+        <path d="M12 37 L44 29" stroke="#3d2a12" strokeWidth="2.8" strokeLinecap="round" />
+        <path d="M12 37 L44 29" stroke="#6b4a24" strokeWidth="1" strokeLinecap="round" />
+        <path d="M42.5 26 L47 25 L47.6 31.5 L43 32.5 Z" fill="#57534e" />
+        <path d="M46 23 L44.5 12.5 L57 17 L49 28 Z" fill="#a8a29e" />
+        <path d="M44.5 12.5 L57 17 L55.4 18.6 L46.4 15.4 Z" fill="#e7e5e4" />
+        <path d="M46.5 30 L54 34 L46 36 Z" fill="#8f8a80" />
+        <circle cx="55" cy="21" r=".8" fill="#ef4444" opacity=".85" />
+        <g transform="translate(4,2)">{GHEAD}</g>
+      </g>
+    ),
+    ward: (
+      <g>
+        <path d="M13 52 L19 52 L17 69 L11 69 Z" fill="#7f1d1d" /><path d="M10 67 L18 67 L18 71 L9 71 Z" fill="#120b08" />
+        <path d="M28 52 L34 52 L36 69 L30 69 Z" fill="#991b1b" /><path d="M29 67 L37 67 L38 71 L29 71 Z" fill="#120b08" />
+        <path d="M13 30 Q24 25 35 30 L37 52 Q24 57 11 52 Z" fill="#4d7c0f" />
+        <path d="M13 30 L24 27 L23 54 Q16 54 11 52 Z" fill="#365314" />
+        <path d="M11 50 L37 50 L37 54 L11 54 Z" fill="#b91c1c" />
+        <path d="M11 28 Q24 23 37 28 L36 33 Q24 29 12 33 Z" fill="#292524" />
+        <ellipse cx="11" cy="31" rx="5.5" ry="4.6" fill="#d6cdba" /><circle cx="9.3" cy="30.4" r=".9" fill="#120b08" /><circle cx="12.7" cy="30.4" r=".9" fill="#120b08" />
+        <path d="M8 52 L38 24" stroke="#3d2a12" strokeWidth="2.8" strokeLinecap="round" />
+        <path d="M8 52 L38 24" stroke="#6b4a24" strokeWidth="1" strokeLinecap="round" />
+        <path d="M12 44 Q7 46 7 50 Q8 54 12 53 Q15 51 14 48 Z" fill="#4d7c0f" />
+        <path d="M28 32 Q24 34 24 38 Q25 41 29 40 Q32 38 31 35 Z" fill="#365314" />
+        <path d="M36 21 L41 19 L42.2 26 L37.4 27.5 Z" fill="#57534e" />
+        <path d="M40 17 L38.5 7.5 L50 11.5 L43 21.5 Z" fill="#a8a29e" />
+        <path d="M38.5 7.5 L50 11.5 L48.5 13 L40.3 10.2 Z" fill="#e7e5e4" />
+        <g transform="translate(0,4)">{GHEAD}</g>
+      </g>
+    ),
+    hurt: (
+      <g>
+        <path d="M12 48 L18 49 L14 62 L8 63 Z" fill="#7f1d1d" /><path d="M7 61 L15 61 L13 69 L6 68 Z" fill="#120b08" />
+        <path d="M24 46 L30 44 L35 54 L29 57 Z" fill="#991b1b" /><path d="M31 54 L36 52 L37 64 L32 64 Z" fill="#120b08" />
+        <path d="M11 28 Q20 23 29 27 L31 48 Q20 52 9 46 Z" fill="#4d7c0f" />
+        <path d="M11 28 L20 25 L18 50 Q13 49 9 46 Z" fill="#365314" />
+        <path d="M9 44 L31 46 L31 50 L9 48 Z" fill="#b91c1c" />
+        <path d="M9 26 Q20 21 31 25 L30 30 Q20 26 10 31 Z" fill="#292524" />
+        <ellipse cx="9" cy="29" rx="5.5" ry="4.6" fill="#d6cdba" /><circle cx="7.3" cy="28.4" r=".9" fill="#120b08" /><circle cx="11.3" cy="28.4" r=".9" fill="#120b08" />
+        <path d="M28 28 L38 20 L41 24 L31 32 Z" fill="#4d7c0f" />
+        <path d="M38 17 Q43 16 44 20 Q44 24 40 24 Q37 23 37 20 Z" fill="#365314" />
+        <path d="M40 22 L48 6" stroke="#3d2a12" strokeWidth="2.6" strokeLinecap="round" />
+        <path d="M46.5 9 L44 2 L53 5 L48.5 11.5 Z" fill="#a8a29e" />
+        <path d="M8 32 Q3 38 4 46 L8 47 Q10 40 11 35 Z" fill="#365314" />
+        <g transform="translate(-4,2) rotate(-13 24 14)">{GHEAD}</g>
+      </g>
+    ),
+    victorious: (
+      <g>
+        <path d="M13 50 L19 50 L17 69 L11 69 Z" fill="#7f1d1d" /><path d="M10 67 L18 67 L18 71 L9 71 Z" fill="#120b08" />
+        <path d="M27 50 L33 50 L35 69 L29 69 Z" fill="#991b1b" /><path d="M28 67 L36 67 L37 71 L28 71 Z" fill="#120b08" />
+        <path d="M12 26 Q23 21 34 26 L36 50 Q23 55 10 50 Z" fill="#4d7c0f" />
+        <path d="M12 26 L23 23 L22 52 Q15 52 10 50 Z" fill="#365314" />
+        <path d="M10 48 L36 48 L36 52 L10 52 Z" fill="#b91c1c" />
+        <path d="M10 24 Q23 19 36 24 L35 29 Q23 25 11 29 Z" fill="#292524" />
+        <ellipse cx="10.5" cy="27" rx="5.5" ry="4.6" fill="#d6cdba" /><circle cx="8.8" cy="26.4" r=".9" fill="#120b08" /><circle cx="12.2" cy="26.4" r=".9" fill="#120b08" />
+        <path d="M13 28 Q7 24 6 18 L10 15 Q13 20 16 24 Z" fill="#365314" />
+        <path d="M6 16 Q10 13 13 16 Q13 20 9 20 Q5 19 6 16 Z" fill="#4d7c0f" />
+        <path d="M31 28 L36 12 L41 13 L36 30 Z" fill="#4d7c0f" />
+        <path d="M36 10 Q41 9 42 13 Q42 17 38 17 Q35 16 35 13 Z" fill="#365314" />
+        <path d="M38 13 L38 -2" stroke="#3d2a12" strokeWidth="2.8" strokeLinecap="round" />
+        <path d="M36 2 L34 -8 L46 -4 L40 4 Z" fill="#a8a29e" />
+        <path d="M34 -8 L46 -4 L44.6 -2.4 L36 -5.6 Z" fill="#e7e5e4" />
+        <path d="M36 6 L30 8 L35 10 Z" fill="#8f8a80" />
+        <g transform="translate(0,-1)">{GHEAD}</g>
+      </g>
+    ),
+    fallen: (
+      <g>
+        <path d="M4 62 L12 62 L12 68 L3 68 Z" fill="#7f1d1d" /><path d="M2 66 L8 66 L7 70 L1 70 Z" fill="#120b08" />
+        <path d="M10 58 Q22 54 32 58 L33 68 L9 68 Z" fill="#4d7c0f" />
+        <path d="M10 58 L20 56 L19 68 L9 68 Z" fill="#365314" />
+        <path d="M30 58 L33 68 L36 68 L34 58 Z" fill="#b91c1c" />
+        <ellipse cx="14" cy="57" rx="4.5" ry="3.6" fill="#d6cdba" /><circle cx="12.6" cy="56.6" r=".8" fill="#120b08" /><circle cx="15.4" cy="56.6" r=".8" fill="#120b08" />
+        <circle cx="37" cy="61" r="6.5" fill="#4d7c0f" /><path d="M31 61 Q31 55 37 54.5 L37 67.5 Q32 66.5 31 61 Z" fill="#365314" />
+        <path d="M40 55 L44 54 L43 58 L40 58 Z" fill="#120b08" />
+        <path d="M42 62 L50 63 L50 66 L42 65 Z" fill="#4d7c0f" />
+        <path d="M49 62.5 Q53 62 53.5 65 Q53 67.5 50 67 Z" fill="#365314" />
+        <path d="M12 66.5 L36 66.5" stroke="#3d2a12" strokeWidth="2.4" strokeLinecap="round" />
+        <path d="M8 60 L4 54 L14 56 L12 63 Z" fill="#8f8a80" />
+        <path d="M4 54 L14 56 L13 57.6 L5.6 56.2 Z" fill="#d6d3d1" />
+        <circle cx="24" cy="52" r=".8" fill="#ef4444" opacity=".6" />
+      </g>
+    ),
+  },
+  M: {
+    strike: (
+      <g>
+        <path d="M14 48 L18 49 L9 65 L5 63 Z" fill="#1c1736" />
+        <path d="M26 48 L30 47 L34 62 L30 64 Z" fill="#1c1736" />
+        <path d="M26 8 Q12 16 14 34 L12 52 Q6 56 2 54 Q8 50 8 42 Q8 24 16 14 Z" fill="#2b2344" />
+        <path d="M26 8 Q14 15 15 32 L17 48 Q22 44 26 44 Q30 44 33 48 L34 30 Q37 14 26 8 Z" fill="#3a3054" />
+        <path d="M26 8 Q14 15 15 32 L16 46 Q19 32 26 22 Z" fill="#2b2344" />
+        <path d="M17 46 L22 50 L18 54 L24 56" stroke="#2b2344" strokeWidth="2.2" fill="none" />
+        <path d="M15 28 L10 22 L16 25 Z" fill="#2f2748" />
+        <path d="M18 14 Q15 21 18 27 Q20 32 18 37 L20.5 36 Q22 31 20 26 Q18.5 20 20.6 15 Z" fill="#8b90a6" />
+        <path d="M30 30 L42 27 L43 31 L31 35 Z" fill="#2f2748" />
+        <path d="M41 26.5 L45 25.5 L45.6 30.5 L41.8 31.5 Z" fill="#3a3054" />
+        <path d="M45 26 L56 23.5" stroke="#cbd5e1" strokeWidth="1.9" strokeLinecap="round" />
+        <path d="M45 26 L50 24.8" stroke="#f1f5f9" strokeWidth=".8" strokeLinecap="round" />
+        <circle cx="44.2" cy="28.5" r="1.4" fill="#065f46" />
+        <path d="M12 34 Q7 38 6 44 L10 46 Q12 40 15 37 Z" fill="#2b2344" />
+        <path d="M6 42 L1 49" stroke="#94a3b8" strokeWidth="1.7" strokeLinecap="round" />
+        <circle cx="6.5" cy="41.5" r="1.3" fill="#065f46" />
+        <g transform="translate(4,1)">{MHEAD}</g>
+      </g>
+    ),
+    ward: (
+      <g>
+        <path d="M17 50 L21 50 L20 69 L16 69 Z" fill="#1c1736" />
+        <path d="M27 50 L31 50 L32 69 L28 69 Z" fill="#1c1736" />
+        <path d="M24 10 Q13 18 15 34 L16 54 Q20 50 24 50 Q28 50 32 54 L33 34 Q35 18 24 10 Z" fill="#3a3054" />
+        <path d="M24 10 Q13 18 15 34 L16 52 Q18 34 24 26 Z" fill="#2b2344" />
+        <path d="M16 52 L21 55 L18 58 L23 60" stroke="#2b2344" strokeWidth="2.2" fill="none" />
+        <path d="M16 16 Q13 23 16 29 Q18 34 16 39 L18.5 38 Q20 33 18 28 Q16.5 22 18.6 17 Z" fill="#8b90a6" />
+        <path d="M26 34 L36 28 L38 31 L28 38 Z" fill="#2f2748" />
+        <path d="M27 42 L37 38 L38.5 41 L29 45 Z" fill="#2b2344" />
+        <path d="M35 30 L44 20" stroke="#cbd5e1" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M37 39 L46 30" stroke="#94a3b8" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="34.5" cy="30.8" r="1.3" fill="#065f46" /><circle cx="36.4" cy="39.6" r="1.3" fill="#065f46" />
+        <g transform="translate(1,5)">{MHEAD}</g>
+      </g>
+    ),
+    hurt: (
+      <g>
+        <path d="M14 47 L18 48 L13 62 L8 62 Z" fill="#1c1736" />
+        <path d="M25 45 L29 43 L34 55 L30 58 Z" fill="#1c1736" />
+        <path d="M20 10 Q9 19 11 35 L10 52 Q15 49 19 50 Q24 50 28 55 L30 36 Q32 19 20 10 Z" fill="#3a3054" />
+        <path d="M20 10 Q9 19 11 35 L10 50 Q13 34 20 24 Z" fill="#2b2344" />
+        <path d="M28 50 L36 54 L30 58 L38 62" stroke="#2b2344" strokeWidth="2" fill="none" />
+        <path d="M13 16 Q10 23 13 29 Q15 34 13 39 L15.5 38 Q17 33 15 28 Q13.5 22 15.6 17 Z" fill="#8b90a6" />
+        <path d="M26 28 L36 19 L39 22 L29 32 Z" fill="#2f2748" />
+        <path d="M37 17 L43 12" stroke="#cbd5e1" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="36.4" cy="17.6" r="1.3" fill="#065f46" />
+        <path d="M11 34 Q6 40 7 47 L11 48 Q12 41 14 37 Z" fill="#2b2344" />
+        <g transform="translate(-4,2) rotate(-13 24 14)">{MHEAD}</g>
+      </g>
+    ),
+    victorious: (
+      <g>
+        <path d="M16 50 L20 50 L19 69 L15 69 Z" fill="#1c1736" />
+        <path d="M28 50 L32 50 L33 69 L29 69 Z" fill="#1c1736" />
+        <path d="M24 8 Q10 16 13 34 L14 54 Q19 50 24 50 Q29 50 34 54 L35 34 Q38 16 24 8 Z" fill="#3a3054" />
+        <path d="M24 8 Q10 16 13 34 L14 52 Q17 34 24 24 Z" fill="#2b2344" />
+        <path d="M14 52 L20 56 L16 60 L22 62" stroke="#2b2344" strokeWidth="2.4" fill="none" />
+        <path d="M16 14 Q13 21 16 27 Q18 32 16 37 L18.5 36 Q20 31 18 26 Q16.5 20 18.6 15 Z" fill="#8b90a6" />
+        <path d="M32 15 Q35 22 32 28 Q30 33 32 38 L29.5 37 Q28 32 30 27 Q31.5 21 29.4 16 Z" fill="#767b91" />
+        <path d="M14 30 L9 18 L13 17 L17 28 Z" fill="#2f2748" />
+        <path d="M11 16 L6 6" stroke="#cbd5e1" strokeWidth="1.9" strokeLinecap="round" />
+        <circle cx="10.6" cy="16.6" r="1.4" fill="#065f46" />
+        <path d="M34 30 L39 18 L43 19 L38 31 Z" fill="#2f2748" />
+        <path d="M41 17 L46 7" stroke="#cbd5e1" strokeWidth="1.9" strokeLinecap="round" />
+        <circle cx="41.4" cy="17.6" r="1.4" fill="#065f46" />
+        <g transform="translate(0,-1)">{MHEAD}</g>
+      </g>
+    ),
+    fallen: (
+      <g>
+        <path d="M10 60 Q24 52 38 60 L40 69 L8 69 Z" fill="#3a3054" />
+        <path d="M10 60 L24 55 L23 69 L8 69 Z" fill="#2b2344" />
+        <path d="M8 66 L13 63 L10 69 L16 66 L14 69 M40 66 L35 63 L38 69 L32 66 L34 69" stroke="#2b2344" strokeWidth="1.6" fill="none" />
+        <path d="M20 46 Q16 52 18 58 Q24 62 30 58 Q32 52 28 46 Q24 43 20 46 Z" fill="#2f2748" />
+        <path d="M20 46 Q17 52 19 57 Q23 60 24 59 L24 46 Z" fill="#2b2344" />
+        <path d="M22 52 Q24 54 26 52" stroke="#8b90a6" strokeWidth="1" fill="none" opacity=".7" />
+        <path d="M6 55 L9 66" stroke="#cbd5e1" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="5.6" cy="54" r="1.3" fill="#065f46" />
+        <path d="M42 55 L39 66" stroke="#94a3b8" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="42.4" cy="54" r="1.3" fill="#065f46" />
+        <circle cx="27" cy="51" r=".8" fill="#34d399" opacity=".5" />
+      </g>
+    ),
+  },
+  Z: {
+    strike: (
+      <g>
+        <path d="M2 10 L6 8 L5 34 L2 32 Z" fill="#ef4444" opacity=".2" />
+        <path d="M4 9 L3.5 33" stroke="#ef4444" strokeWidth=".9" opacity=".5" />
+        <path d="M27 4 Q12 12 14 34 L10 60 L15 56 L19 62 L24 56 L29 62 L33 57 L37 60 L38 34 Q41 12 27 4 Z" fill="#4c1d95" />
+        <path d="M27 4 Q12 12 14 34 L11 58 Q16 38 27 26 Z" fill="#2a1247" />
+        <path d="M21.5 8 L17 2 L20 3.5 L23 7 Z" fill="#2a1247" /><path d="M32.5 8 L37 2 L34 3.5 L31 7 Z" fill="#1c0b30" />
+        <path d="M30 32 L42 30 L43 35 L31 37 Z" fill="#4c1d95" />
+        <circle cx="45" cy="33" r="2.4" fill="#ef4444" opacity=".9" /><circle cx="45" cy="33" r="5" fill="#ef4444" opacity=".2" />
+        <path d="M48 31 L56 29 M48 35 L55 36" stroke="#ef4444" strokeWidth="1.3" strokeLinecap="round" opacity=".8" />
+        <circle cx="8" cy="44" r="2" fill="#ef4444" opacity=".55" /><circle cx="8" cy="44" r="4" fill="#ef4444" opacity=".12" />
+        <circle cx="27" cy="38" r="5" fill="none" stroke="#ef4444" strokeWidth="1.2" opacity=".8" />
+        <path d="M27 34 L27 42 M24 36 L30 40 M30 36 L24 40" stroke="#ef4444" strokeWidth="0.9" opacity=".7" />
+        <g transform="translate(3,1)"><ellipse cx="24" cy="14" rx="6" ry="7" fill="#0d0512" /><circle cx="21.5" cy="13.5" r="1.3" fill="#ef4444" /><circle cx="26.5" cy="13.5" r="1.3" fill="#ef4444" /><circle cx="21.5" cy="13.5" r="3.4" fill="#ef4444" opacity=".2" /><circle cx="26.5" cy="13.5" r="3.4" fill="#ef4444" opacity=".2" /></g>
+      </g>
+    ),
+    ward: (
+      <g>
+        <path d="M22 2 L26 0.5 L25.4 16 L22.6 16 Z" fill="#ef4444" opacity=".25" />
+        <path d="M24 6 Q8 14 6 38 L2 62 L9 57 L14 63 L19 57 L24 63 L29 57 L34 63 L39 57 L46 62 L42 38 Q40 14 24 6 Z" fill="#4c1d95" />
+        <path d="M24 6 Q8 14 6 38 L3 60 Q12 40 24 28 Z" fill="#2a1247" />
+        <path d="M18.5 10 L14 4 L17 5.5 L20 9 Z" fill="#2a1247" /><path d="M29.5 10 L34 4 L31 5.5 L28 9 Z" fill="#1c0b30" />
+        <circle cx="18" cy="36" r="2" fill="#ef4444" opacity=".5" /><circle cx="30" cy="36" r="2" fill="#ef4444" opacity=".5" />
+        <circle cx="24" cy="40" r="6.5" fill="none" stroke="#ef4444" strokeWidth="1.6" opacity=".95" />
+        <circle cx="24" cy="40" r="9" fill="#ef4444" opacity=".1" />
+        <path d="M24 34.5 L24 45.5 M20 37 L28 43 M28 37 L20 43" stroke="#ef4444" strokeWidth="1.1" opacity=".85" />
+        <g transform="translate(0,4)"><ellipse cx="24" cy="14" rx="6" ry="7" fill="#0d0512" /><circle cx="21.5" cy="13.5" r="1.3" fill="#ef4444" /><circle cx="26.5" cy="13.5" r="1.3" fill="#ef4444" /><circle cx="21.5" cy="13.5" r="3.4" fill="#ef4444" opacity=".2" /><circle cx="26.5" cy="13.5" r="3.4" fill="#ef4444" opacity=".2" /></g>
+      </g>
+    ),
+    hurt: (
+      <g>
+        <path d="M20 6 Q6 14 9 36 L5 60 L10 56 L14 62 L19 56 L24 61 L28 55 L32 58 L33 36 Q34 14 20 6 Z" fill="#4c1d95" />
+        <path d="M20 6 Q6 14 9 36 L6 58 Q11 38 20 26 Z" fill="#2a1247" />
+        <path d="M14.5 10 L10 4 L13 5.5 L16 9 Z" fill="#2a1247" /><path d="M25.5 10 L30 4 L27 5.5 L24 9 Z" fill="#1c0b30" />
+        <circle cx="5" cy="30" r="1.8" fill="#ef4444" opacity=".4" />
+        <circle cx="40" cy="50" r="1.8" fill="#ef4444" opacity=".4" />
+        <circle cx="22" cy="38" r="5" fill="none" stroke="#ef4444" strokeWidth="1" opacity=".4" />
+        <path d="M22 34.5 L22 41.5 M19.5 36 L24.5 40 M24.5 36 L19.5 40" stroke="#ef4444" strokeWidth=".8" opacity=".35" />
+        <g transform="translate(-4,2) rotate(-14 24 14)"><ellipse cx="24" cy="14" rx="6.5" ry="7.5" fill="#0d0512" /><circle cx="21.5" cy="13" r="1.6" fill="#ef4444" /><circle cx="27" cy="13" r="1.6" fill="#ef4444" /><circle cx="21.5" cy="13" r="3.8" fill="#ef4444" opacity=".25" /><circle cx="27" cy="13" r="3.8" fill="#ef4444" opacity=".25" /></g>
+      </g>
+    ),
+    victorious: (
+      <g>
+        <path d="M32 4 L46 2 L46 52 L34 50 Z" fill="#0c0517" opacity=".8" />
+        <path d="M32 4 L46 2 L46 52 L34 50 Z" fill="none" stroke="#ef4444" strokeWidth="1.6" opacity=".9" />
+        <path d="M37 12 Q40 26 37 42" stroke="#ef4444" strokeWidth="1" fill="none" opacity=".5" />
+        <path d="M25 6 Q11 13 13 33 L11 56 L16 52 L20 57 L25 52 L30 57 L34 52 L37 56 L36 33 Q39 13 25 6 Z" fill="#4c1d95" />
+        <path d="M25 6 Q11 13 13 33 L12 54 Q16 36 25 26 Z" fill="#2a1247" />
+        <path d="M13 59 L15 64 M22 60 L23 66 M31 59 L32 64" stroke="#4c1d95" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M19.5 9 L15 3 L18 4.5 L21 8 Z" fill="#2a1247" /><path d="M30.5 9 L35 3 L32 4.5 L29 8 Z" fill="#1c0b30" />
+        <path d="M13 30 L8 20 L13 19 L16 28 Z" fill="#4c1d95" />
+        <circle cx="10" cy="17" r="2.6" fill="#ef4444" opacity=".95" /><circle cx="10" cy="17" r="6" fill="#ef4444" opacity=".22" />
+        <path d="M36 30 L41 20 L44 22 L39 31 Z" fill="#4c1d95" />
+        <circle cx="43" cy="18" r="2.6" fill="#ef4444" opacity=".95" /><circle cx="43" cy="18" r="6" fill="#ef4444" opacity=".22" />
+        <circle cx="25" cy="38" r="5.5" fill="none" stroke="#ef4444" strokeWidth="1.4" opacity=".95" />
+        <path d="M25 33.5 L25 42.5 M21.5 35.5 L28.5 40.5 M28.5 35.5 L21.5 40.5" stroke="#ef4444" strokeWidth="1" opacity=".85" />
+        <g transform="translate(0,-1)"><ellipse cx="24" cy="14" rx="6" ry="7" fill="#0d0512" /><circle cx="21.5" cy="13.5" r="1.4" fill="#ef4444" /><circle cx="26.5" cy="13.5" r="1.4" fill="#ef4444" /><circle cx="21.5" cy="13.5" r="3.6" fill="#ef4444" opacity=".25" /><circle cx="26.5" cy="13.5" r="3.6" fill="#ef4444" opacity=".25" /></g>
+      </g>
+    ),
+    fallen: (
+      <g>
+        <path d="M8 62 L14 56 L20 61 L26 56 L32 61 L38 57 L42 63 L40 69 L9 69 Z" fill="#4c1d95" />
+        <path d="M8 62 L14 56 L20 61 L18 69 L9 69 Z" fill="#2a1247" />
+        <path d="M24 58 L30 58 L29 64 L25 64 Z" fill="#1c0b30" />
+        <circle cx="27" cy="61" r="4" fill="none" stroke="#7f1d1d" strokeWidth="1" opacity=".5" />
+        <path d="M26 54 Q24 46 28 40 Q31 36 30 30" stroke="#ef4444" strokeWidth="1.1" fill="none" opacity=".6" strokeLinecap="round" />
+        <circle cx="30" cy="27" r="1" fill="#ef4444" opacity=".7" />
+        <path d="M31 34 L34 33 L33.6 44 L30.8 43 Z" fill="#ef4444" opacity=".14" />
+      </g>
+    ),
+  },
+  K: {
+    strike: (
+      <g>
+        <path d="M12 50 L20 50 L17 68 L9 67 Z" fill="#44403c" />
+        <path d="M27 50 L35 50 L39 66 L31 68 Z" fill="#44403c" />
+        <path d="M11 25 L35 24 L38 50 L9 50 Z" fill="#78716c" />
+        <path d="M11 25 L23 24.5 L23 50 L9 50 Z" fill="#57534e" />
+        <circle cx="23" cy="37" r="5" fill="#1c1917" /><circle cx="23" cy="37" r="3.4" fill="#a78bfa" /><path d="M23 30.5 L23 43.5" stroke="#ede9fe" strokeWidth="1" strokeLinecap="round" /><circle cx="23" cy="37" r="1.4" fill="#ede9fe" /><circle cx="23" cy="37" r="7" fill="#a78bfa" opacity=".18" />
+        <path d="M2 22 L16 17 L18 31 L6 35 Z" fill="#a8a29e" /><path d="M2 22 L9 19.5 L10 33 L6 35 Z" fill="#78716c" />
+        <path d="M5 20 L2 12 L10 18 Z" fill="#57534e" />
+        <path d="M5 26 L12 24" stroke="#a78bfa" strokeWidth="1" opacity=".8" />
+        <path d="M32 28 L44 26 L45 34 L33 36 Z" fill="#78716c" />
+        <path d="M44 25 L52 24 L53 34 L44 35 Z" fill="#57534e" />
+        <path d="M45.5 27 L51.5 26.4 M45.7 31 L51.7 30.6" stroke="#1c1917" strokeWidth="1.1" />
+        <path d="M53 26 L58 23.5 M53.5 31 L58.5 32.5" stroke="#c4b5fd" strokeWidth="1.3" strokeLinecap="round" opacity=".9" />
+        <g transform="translate(3,1)">
+          <path d="M19 4 L18 9 L21 8 Z M29 4 L30 9 L27 8 Z" fill="#44403c" /><path d="M17 8 L31 8 L32 22 L16 22 Z" fill="#78716c" /><path d="M17 8 L24 8 L24 22 L16 22 Z" fill="#57534e" />
+          <path d="M18 13 L30 13 L30 16 L18 16 Z" fill="#ede9fe" /><path d="M18 13 L30 13 L30 16 L18 16 Z" fill="#a78bfa" opacity=".5" />
+        </g>
+      </g>
+    ),
+    ward: (
+      <g>
+        <path d="M13 52 L22 52 L21 69 L12 69 Z" fill="#44403c" />
+        <path d="M26 52 L35 52 L36 69 L27 69 Z" fill="#44403c" />
+        <path d="M11 28 L37 28 L39 54 L9 54 Z" fill="#78716c" />
+        <path d="M11 28 L24 28 L24 54 L9 54 Z" fill="#57534e" />
+        <circle cx="24" cy="44" r="4" fill="#1c1917" /><circle cx="24" cy="44" r="2.6" fill="#a78bfa" /><circle cx="24" cy="44" r="6" fill="#a78bfa" opacity=".2" />
+        <path d="M2 24 L16 20 L18 34 L6 38 Z" fill="#a8a29e" /><path d="M5 22 L2 14 L10 20 Z" fill="#57534e" />
+        <path d="M46 24 L32 20 L30 34 L42 38 Z" fill="#78716c" /><path d="M43 22 L46 14 L38 20 Z" fill="#57534e" />
+        <path d="M14 32 L34 30 L35 38 L15 40 Z" fill="#a8a29e" />
+        <path d="M14 32 L24 31 L24 39 L15 40 Z" fill="#8f8a80" />
+        <path d="M13 42 L35 40 L36 48 L14 50 Z" fill="#78716c" />
+        <path d="M17 34.5 L20 34.3 M28 33.6 L31 33.4 M18 44.5 L21 44.3 M29 43.6 L32 43.4" stroke="#1c1917" strokeWidth="1" />
+        <path d="M12 36 L8 38 M40 34 L44 36" stroke="#a78bfa" strokeWidth="1" opacity=".7" />
+        <g transform="translate(0,5)">
+          <path d="M19 4 L18 9 L21 8 Z M29 4 L30 9 L27 8 Z" fill="#44403c" /><path d="M17 8 L31 8 L32 22 L16 22 Z" fill="#78716c" /><path d="M17 8 L24 8 L24 22 L16 22 Z" fill="#57534e" />
+          <path d="M18 13 L30 13 L30 16 L18 16 Z" fill="#ede9fe" /><path d="M18 13 L30 13 L30 16 L18 16 Z" fill="#a78bfa" opacity=".5" />
+        </g>
+      </g>
+    ),
+    hurt: (
+      <g>
+        <path d="M12 48 L20 49 L15 64 L7 62 Z" fill="#44403c" />
+        <path d="M26 48 L34 47 L38 62 L30 64 Z" fill="#44403c" />
+        <path d="M9 26 L33 23 L36 48 L8 50 Z" fill="#78716c" />
+        <path d="M9 26 L21 24.5 L21 50 L8 50 Z" fill="#57534e" />
+        <circle cx="22" cy="36" r="5" fill="#1c1917" /><circle cx="22" cy="36" r="3.4" fill="#a78bfa" opacity=".7" />
+        <path d="M18 32 L13 27 M26 33 L31 29 M20 41 L16 45" stroke="#ede9fe" strokeWidth="1.2" strokeLinecap="round" opacity=".9" />
+        <path d="M0 24 L14 18 L16 32 L4 36 Z" fill="#a8a29e" />
+        <path d="M34 30 L44 36 L40 44 L32 40 Z" fill="#78716c" />
+        <path d="M42 42 L45 48" stroke="#57534e" strokeWidth="2" />
+        <g transform="translate(-4,2) rotate(-12 24 14)">
+          <path d="M19 4 L18 9 L21 8 Z M29 4 L30 9 L27 8 Z" fill="#44403c" /><path d="M17 8 L31 8 L32 22 L16 22 Z" fill="#78716c" /><path d="M17 8 L24 8 L24 22 L16 22 Z" fill="#57534e" />
+          <path d="M18 13 L30 13 L30 16 L18 16 Z" fill="#ede9fe" /><path d="M18 13 L30 13 L30 16 L18 16 Z" fill="#a78bfa" opacity=".7" />
+        </g>
+      </g>
+    ),
+    victorious: (
+      <g>
+        <path d="M13 50 L22 50 L21 69 L12 69 Z" fill="#44403c" />
+        <path d="M26 50 L35 50 L36 69 L27 69 Z" fill="#44403c" />
+        <path d="M11 24 L37 24 L39 50 L9 50 Z" fill="#78716c" />
+        <path d="M11 24 L24 24 L24 50 L9 50 Z" fill="#57534e" />
+        <circle cx="24" cy="37" r="5.5" fill="#1c1917" /><circle cx="24" cy="37" r="4" fill="#a78bfa" /><path d="M24 29.5 L24 44.5" stroke="#ede9fe" strokeWidth="1.2" strokeLinecap="round" /><circle cx="24" cy="37" r="1.8" fill="#ede9fe" /><circle cx="24" cy="37" r="9" fill="#a78bfa" opacity=".22" />
+        <path d="M17 30 L20 32 M31 30 L28 32 M17 44 L20 42 M31 44 L28 42" stroke="#a78bfa" strokeWidth="1.1" opacity=".8" />
+        <path d="M10 26 L5 12 L13 9 L17 24 Z" fill="#a8a29e" /><path d="M10 26 L9 13 L13 9 L14 15 Z" fill="#78716c" />
+        <path d="M4 10 L12 7 L13 12 L6 14 Z" fill="#57534e" />
+        <path d="M38 26 L43 12 L35 9 L31 24 Z" fill="#78716c" />
+        <path d="M44 10 L36 7 L35 12 L42 14 Z" fill="#57534e" />
+        <path d="M19 4 Q24 -3 29 4" stroke="#c4b5fd" strokeWidth="1.2" fill="none" opacity=".9" />
+        <g transform="translate(0,-1)">
+          <path d="M19 4 L18 9 L21 8 Z M29 4 L30 9 L27 8 Z" fill="#44403c" /><path d="M17 8 L31 8 L32 22 L16 22 Z" fill="#78716c" /><path d="M17 8 L24 8 L24 22 L16 22 Z" fill="#57534e" />
+          <path d="M18 13 L30 13 L30 16 L18 16 Z" fill="#ede9fe" /><path d="M18 13 L30 13 L30 16 L18 16 Z" fill="#a78bfa" opacity=".3" />
+        </g>
+      </g>
+    ),
+    fallen: (
+      <g>
+        <path d="M14 58 L24 57 L23 69 L12 69 Z" fill="#44403c" />
+        <path d="M27 62 L38 62 L40 69 L26 69 Z" fill="#3f3a34" />
+        <path d="M12 36 L36 34 L38 60 L10 60 Z" fill="#78716c" />
+        <path d="M12 36 L24 35 L23 60 L10 60 Z" fill="#57534e" />
+        <circle cx="23" cy="48" r="5" fill="#1c1917" /><circle cx="23" cy="48" r="3" fill="#44403c" />
+        <path d="M25 44 L27 42" stroke="#a78bfa" strokeWidth=".9" opacity=".4" />
+        <path d="M2 34 L14 30 L16 42 L6 46 Z" fill="#8f8a80" />
+        <path d="M34 30 L44 34 L42 46 L32 42 Z" fill="#6e6a64" />
+        <path d="M8 46 L4 60 L10 62 L13 48 Z" fill="#57534e" />
+        <path d="M36 46 L42 60 L36 62 L31 48 Z" fill="#57534e" />
+        <g transform="translate(0,17) rotate(14 24 14)">
+          <path d="M19 4 L18 9 L21 8 Z M29 4 L30 9 L27 8 Z" fill="#3f3a34" /><path d="M17 8 L31 8 L32 22 L16 22 Z" fill="#6e6a64" /><path d="M17 8 L24 8 L24 22 L16 22 Z" fill="#57534e" />
+          <path d="M18 13 L30 13 L30 16 L18 16 Z" fill="#1c1917" />
+        </g>
+      </g>
+    ),
+  },
+  D: {
+    strike: (
+      <g>
+        <path d="M10 52 L19 52 L16 68 L7 67 Z" fill="#5c4425" />
+        <path d="M25 52 L34 52 L38 67 L29 68 Z" fill="#5c4425" />
+        <path d="M7 28 L37 26 L40 54 L5 54 Z" fill="#8a6a3f" />
+        <path d="M7 28 L22 27 L22 54 L5 54 Z" fill="#6b4f2c" />
+        <path d="M21 30 L23 30 L23 52 L21 52 Z" fill="#f59e0b" opacity=".7" /><circle cx="22" cy="38" r="4" fill="#f59e0b" opacity=".18" />
+        <path d="M2 26 L14 28 L14 36 L4 38 Z" fill="#78716c" /><path d="M2 26 L14 28 L13.6 30.4 L3 28.6 Z" fill="#a8a29e" />
+        <path d="M4 40 Q2 34 6 30 L12 32 Q13 38 10 43 Z" fill="#a67c4a" />
+        <path d="M32 30 L44 28 L45 36 L33 38 Z" fill="#96703f" />
+        <path d="M42 24 L56 22 L57 42 L43 44 Z" fill="#78716c" />
+        <path d="M42 24 L56 22 L55.6 25 L42.4 27 Z" fill="#a8a29e" />
+        <path d="M45 30 L54 29 M45 36 L54 35" stroke="#57534e" strokeWidth="1.2" />
+        <circle cx="49" cy="33" r=".9" fill="#a8a29e" />
+        <g transform="translate(4,2)">
+          <path d="M15 15 Q14 5 24 4.5 Q34 5 33 15 L32.5 22 Q28 25 24 25 Q20 25 15.5 22 Z" fill="#a67c4a" /><path d="M15 15 Q14 5 24 4.5 L24 25 Q20 25 15.5 22 Z" fill="#8a6039" />
+          <path d="M22.6 8.6 L24 7 L25.4 8.6 L24 10.2 Z" fill="none" stroke="#f59e0b" strokeWidth=".8" />
+          <path d="M16.5 11 L31.5 11 L31 14 L17 14 Z" fill="#3d2a12" />
+          <path d="M19.8 12.3 L21.8 12.3 L21.7 13.3 L19.9 13.3 Z" fill="#f59e0b" /><path d="M26.2 12.3 L28.2 12.3 L28.1 13.3 L26.3 13.3 Z" fill="#f59e0b" />
+          <path d="M15 16 L33 16 L32.5 24 Q28 26.5 24 26.5 Q20 26.5 15.5 24 Z" fill="#8a8072" /><path d="M15 16 L24 16 L24 26.5 Q20 26.5 15.5 24 Z" fill="#6f675c" />
+          <path d="M16 19 L32 19 M17 22 L31 22" stroke="#57514a" strokeWidth=".9" />
+        </g>
+      </g>
+    ),
+    ward: (
+      <g>
+        <path d="M11 54 L20 54 L19 69 L10 69 Z" fill="#5c4425" />
+        <path d="M28 54 L37 54 L38 69 L29 69 Z" fill="#5c4425" />
+        <path d="M9 30 L39 30 L41 56 L7 56 Z" fill="#8a6a3f" />
+        <path d="M10 28 L24 26 L24 56 L8 56 Z" fill="#78716c" />
+        <path d="M10 28 L17 27 L17 56 L8 56 Z" fill="#57534e" />
+        <path d="M24 26 L38 28 L40 56 L24 56 Z" fill="#8f8a80" />
+        <path d="M24 26 L31 27 L31 56 L24 56 Z" fill="#6e6a64" />
+        <path d="M24 27 L24 55" stroke="#f59e0b" strokeWidth="1.6" opacity=".95" />
+        <circle cx="24" cy="40" r="6" fill="#f59e0b" opacity=".15" />
+        <path d="M12 32 L20 31 M12 40 L20 39 M12 48 L20 47 M28 31 L36 32 M28 39 L36 40 M28 47 L36 48" stroke="#44403c" strokeWidth="1.1" />
+        <g transform="translate(0,2)">
+          <path d="M15 15 Q14 5 24 4.5 Q34 5 33 15 L32.5 22 Q28 25 24 25 Q20 25 15.5 22 Z" fill="#a67c4a" /><path d="M15 15 Q14 5 24 4.5 L24 25 Q20 25 15.5 22 Z" fill="#8a6039" />
+          <path d="M22.6 8.6 L24 7 L25.4 8.6 L24 10.2 Z" fill="none" stroke="#f59e0b" strokeWidth=".8" />
+          <path d="M16.5 11 L31.5 11 L31 14 L17 14 Z" fill="#3d2a12" />
+          <path d="M19.8 12.3 L21.8 12.3 L21.7 13.3 L19.9 13.3 Z" fill="#f59e0b" /><path d="M26.2 12.3 L28.2 12.3 L28.1 13.3 L26.3 13.3 Z" fill="#f59e0b" />
+        </g>
+      </g>
+    ),
+    hurt: (
+      <g>
+        <path d="M10 50 L19 51 L14 65 L5 63 Z" fill="#5c4425" />
+        <path d="M25 50 L34 49 L38 64 L30 66 Z" fill="#5c4425" />
+        <path d="M6 30 L36 26 L39 52 L5 55 Z" fill="#8a6a3f" />
+        <path d="M6 30 L21 28 L21 55 L5 55 Z" fill="#6b4f2c" />
+        <path d="M20 32 L22 32 L22 53 L20 53 Z" fill="#f59e0b" opacity=".4" />
+        <path d="M24 34 L28 42 L25 48" stroke="#3d2a12" strokeWidth="1.3" fill="none" />
+        <path d="M0 28 L12 30 L12 38 L2 40 Z" fill="#78716c" />
+        <path d="M34 34 L46 40 L42 48 L32 44 Z" fill="#96703f" />
+        <path d="M43 46 Q45 50 43 54 Z" fill="#96703f" />
+        <circle cx="6" cy="52" r="1" fill="#a8a29e" opacity=".6" /><circle cx="42" cy="56" r=".8" fill="#78716c" opacity=".6" />
+        <g transform="translate(-4,2) rotate(-11 24 14)">
+          <path d="M15 15 Q14 5 24 4.5 Q34 5 33 15 L32.5 22 Q28 25 24 25 Q20 25 15.5 22 Z" fill="#a67c4a" /><path d="M15 15 Q14 5 24 4.5 L24 25 Q20 25 15.5 22 Z" fill="#8a6039" />
+          <path d="M16.5 11 L31.5 11 L31 14 L17 14 Z" fill="#3d2a12" />
+          <path d="M19.8 12.3 L21.8 12.3 L21.7 13.3 L19.9 13.3 Z" fill="#f59e0b" /><path d="M26.2 12.3 L28.2 12.3 L28.1 13.3 L26.3 13.3 Z" fill="#f59e0b" />
+        </g>
+      </g>
+    ),
+    victorious: (
+      <g>
+        <path d="M11 52 L20 52 L19 69 L10 69 Z" fill="#5c4425" />
+        <path d="M28 52 L37 52 L38 69 L29 69 Z" fill="#5c4425" />
+        <path d="M7 26 L41 26 L43 54 L5 54 Z" fill="#8a6a3f" />
+        <path d="M7 26 L24 26 L24 54 L5 54 Z" fill="#6b4f2c" />
+        <path d="M22.5 28 L25.5 28 L25.5 52 L22.5 52 Z" fill="#f59e0b" opacity=".95" /><circle cx="24" cy="38" r="7" fill="#f59e0b" opacity=".25" />
+        <path d="M10 28 L4 16 L12 12 L16 26 Z" fill="#a67c4a" />
+        <path d="M4 14 Q2 8 7 6 L12 8 Q13 12 10 15 Z" fill="#a67c4a" />
+        <path d="M5 8 L4 3 L7 4 L7 8 Z M8.5 7 L8.5 2 L11.5 3.5 L11 8 Z" fill="#a67c4a" />
+        <path d="M38 28 L44 16 L36 12 L32 26 Z" fill="#96703f" />
+        <path d="M44 14 Q46 8 41 6 L36 8 Q35 12 38 15 Z" fill="#96703f" />
+        <path d="M43 8 L44 3 L41 4 L41 8 Z M39.5 7 L39.5 2 L36.5 3.5 L37 8 Z" fill="#96703f" />
+        <circle cx="6" cy="10" r="1.4" fill="#8a6a3f" opacity=".9" /><circle cx="43" cy="6" r="1.1" fill="#6b4f2c" opacity=".9" />
+        <g transform="translate(0,-1)">
+          <path d="M15 15 Q14 5 24 4.5 Q34 5 33 15 L32.5 22 Q28 25 24 25 Q20 25 15.5 22 Z" fill="#a67c4a" /><path d="M15 15 Q14 5 24 4.5 L24 25 Q20 25 15.5 22 Z" fill="#8a6039" />
+          <path d="M22.6 8.6 L24 7 L25.4 8.6 L24 10.2 Z" fill="none" stroke="#f59e0b" strokeWidth=".8" />
+          <path d="M16.5 11 L31.5 11 L31 14 L17 14 Z" fill="#3d2a12" />
+          <path d="M19.8 12.3 L21.8 12.3 L21.7 13.3 L19.9 13.3 Z" fill="#f59e0b" /><path d="M26.2 12.3 L28.2 12.3 L28.1 13.3 L26.3 13.3 Z" fill="#f59e0b" />
+        </g>
+      </g>
+    ),
+    fallen: (
+      <g>
+        <path d="M12 60 L26 58 L28 66 L10 68 Z" fill="#5c4425" />
+        <path d="M24 62 L36 62 L38 69 L23 69 Z" fill="#4a3617" />
+        <path d="M10 38 L36 36 L38 62 L8 62 Z" fill="#8a6a3f" />
+        <path d="M10 38 L23 37 L22 62 L8 62 Z" fill="#6b4f2c" />
+        <path d="M22 40 L24 40 L24 60 L22 60 Z" fill="#7a5c33" />
+        <path d="M2 64 L16 62 L17 67 L3 69 Z" fill="#78716c" />
+        <path d="M32 62 L46 64 L45 69 L31 67 Z" fill="#57534e" />
+        <path d="M14 34 L26 42 L22 48" stroke="#3d2a12" strokeWidth="1.2" fill="none" />
+        <circle cx="8" cy="56" r="1.2" fill="#a8a29e" opacity=".5" /><circle cx="40" cy="58" r="1" fill="#78716c" opacity=".5" />
+        <g transform="translate(0,18) rotate(12 24 14)">
+          <path d="M15 15 Q14 5 24 4.5 Q34 5 33 15 L32.5 22 Q28 25 24 25 Q20 25 15.5 22 Z" fill="#a67c4a" /><path d="M15 15 Q14 5 24 4.5 L24 25 Q20 25 15.5 22 Z" fill="#8a6039" />
+          <path d="M16.5 11 L31.5 11 L31 14 L17 14 Z" fill="#3d2a12" />
+        </g>
+      </g>
+    ),
+  },
+  X: {
+    strike: (
+      <g>
+        <path d="M13 48 L18 49 L9 65 L5 63 Z" fill="#141d2b" />
+        <path d="M26 48 L31 48 L34 60 L29 62 Z" fill="#141d2b" /><path d="M29 60 L34 59 L35 69 L30 69 Z" fill="#0b0f16" />
+        <path d="M13 26 Q23 22 32 26 L35 48 Q23 52 11 48 Z" fill="#1e293b" />
+        <path d="M13 26 L23 24 L22 50 Q16 50 11 48 Z" fill="#141d2b" />
+        <path d="M10 28 L18 26 L19 34 L11 36 Z" fill="#334155" />
+        <path d="M11 29 L17 27" stroke="#94a3b8" strokeWidth="0.8" opacity=".8" />
+        <path d="M16 24 Q22 29 28 24 Q29 28 25 30 Q22 32 19 30 Q15 28 16 24 Z" fill="#b91c1c" />
+        <path d="M27 28 Q34 32 33 40 L30 37 Q31 32 27 30 Z" fill="#7f1d1d" />
+        <path d="M14 36 Q8 40 7 46 L11 48 Q13 42 17 39 Z" fill="#141d2b" />
+        <path d="M8 46 L2 56" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" />
+        <path d="M30 30 L40 27 L41 31 L31 34 Z" fill="#293548" />
+        <path d="M39 26.2 L43.5 25.2 L44.2 30.4 L39.8 31.2 Z" fill="#334155" />
+        <path d="M43.5 25.5 L58 23.3 L59.5 25 L44 27.8 Z" fill="#cbd5e1" />
+        <path d="M44.5 26 L57 24.2" stroke="#f1f5f9" strokeWidth=".7" opacity=".85" />
+        <path d="M42.6 23.6 L43.4 28.6" stroke="#475569" strokeWidth="1.6" />
+        <g transform="translate(4,1)">
+          <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
+          <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
+          <path d="M17 12 L22 12 L22 15 L17 15 Z M26 12 L31 12 L31 15 L26 15 Z" fill="#0b0f16" />
+          <circle cx="19.5" cy="13.5" r="0.8" fill="#e2e8f0" /><circle cx="28.5" cy="13.5" r="0.8" fill="#e2e8f0" />
+          <path d="M18 17 Q24 20 30 17 L29 21 Q24 23 19 21 Z" fill="#cfae83" />
+        </g>
+      </g>
+    ),
+    ward: (
+      <g>
+        <path d="M15 50 L20 50 L19 69 L14 69 Z" fill="#141d2b" />
+        <path d="M27 50 L32 50 L34 69 L29 69 Z" fill="#141d2b" />
+        <path d="M10 22 L10 64" stroke="#94a3b8" strokeWidth="2.2" strokeLinecap="round" /><path d="M10 22 L10 16" stroke="#e2e8f0" strokeWidth="2" />
+        <path d="M14 28 Q24 24 33 28 L34 52 Q23 55 13 52 Z" fill="#1e293b" />
+        <path d="M14 28 L24 26 L23 53 Q17 52 13 52 Z" fill="#141d2b" />
+        <path d="M11 30 L19 28 L20 36 L12 38 Z" fill="#334155" /><path d="M35 30 L28 28 L27 36 L34 38 Z" fill="#293548" />
+        <path d="M17 26 Q23 30 29 26 Q30 29 26 31 Q23 32 20 31 Q16 29 17 26 Z" fill="#b91c1c" />
+        <path d="M14 42 L10 46 L14 48 L18 44 Z" fill="#293548" />
+        <path d="M30 42 L38 38 L39.5 41 L32 46 Z" fill="#293548" />
+        <path d="M37 39.5 L15 18 L16.8 16.4 L38.8 37.6 Z" fill="#cbd5e1" />
+        <path d="M36 38.5 L17 20" stroke="#f1f5f9" strokeWidth=".6" opacity=".8" />
+        <path d="M34.6 41.4 L39.4 36.6" stroke="#475569" strokeWidth="1.6" />
+        <g transform="translate(1,3)">
+          <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
+          <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
+          <path d="M17 12 L22 12 L22 15 L17 15 Z M26 12 L31 12 L31 15 L26 15 Z" fill="#0b0f16" />
+          <circle cx="19.5" cy="13.5" r="0.8" fill="#e2e8f0" /><circle cx="28.5" cy="13.5" r="0.8" fill="#e2e8f0" />
+          <path d="M18 17 Q24 20 30 17 L29 21 Q24 23 19 21 Z" fill="#cfae83" />
+        </g>
+      </g>
+    ),
+    hurt: (
+      <g>
+        <path d="M13 47 L18 48 L13 62 L8 61 Z" fill="#141d2b" /><path d="M7 60 L14 61 L12 69 L5 68 Z" fill="#0b0f16" />
+        <path d="M25 46 L30 44 L35 56 L30 58 Z" fill="#141d2b" />
+        <path d="M11 28 Q20 23 29 26 L31 48 Q20 52 9 46 Z" fill="#1e293b" />
+        <path d="M11 28 L20 25 L18 50 Q13 48 9 46 Z" fill="#141d2b" />
+        <path d="M8 30 L16 27 L17 35 L9 38 Z" fill="#334155" />
+        <path d="M14 26 Q20 30 26 25 Q27 29 23 31 Q20 32 17 31 Q13 29 14 26 Z" fill="#b91c1c" />
+        <path d="M25 29 Q33 34 36 30 L38 34 Q33 39 26 33 Z" fill="#7f1d1d" />
+        <path d="M28 30 L37 22 L40 25 L31 34 Z" fill="#293548" />
+        <path d="M38 26 L48 42 L46 43.5 L36.4 28.4 Z" fill="#cbd5e1" />
+        <path d="M8 34 Q3 40 4 47 L8 48 Q9 41 11 37 Z" fill="#141d2b" />
+        <path d="M12 62 L30 66" stroke="#94a3b8" strokeWidth="1.8" strokeLinecap="round" opacity=".8" />
+        <g transform="translate(-4,2) rotate(-12 24 12)">
+          <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
+          <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
+          <path d="M17 12 L22 12 L22 15 L17 15 Z M26 12 L31 12 L31 15 L26 15 Z" fill="#0b0f16" />
+          <circle cx="19.5" cy="13.5" r="0.8" fill="#e2e8f0" /><circle cx="28.5" cy="13.5" r="0.8" fill="#e2e8f0" />
+          <path d="M18 17 Q24 20 30 17 L29 21 Q24 23 19 21 Z" fill="#cfae83" />
+        </g>
+      </g>
+    ),
+    victorious: (
+      <g>
+        <path d="M14 50 L19 50 L18 69 L13 69 Z" fill="#141d2b" />
+        <path d="M28 50 L33 50 L34 69 L29 69 Z" fill="#141d2b" />
+        <path d="M13 24 Q24 20 34 24 L36 50 Q23 54 11 50 Z" fill="#1e293b" />
+        <path d="M13 24 L24 22 L23 52 Q16 51 11 50 Z" fill="#141d2b" />
+        <path d="M10 26 L18 24 L19 32 L11 34 Z" fill="#334155" /><path d="M37 26 L29 24 L28 32 L36 34 Z" fill="#293548" />
+        <path d="M16 22 Q23 27 30 22 Q31 26 27 28 Q23 30 20 28 Q15 26 16 22 Z" fill="#b91c1c" />
+        <path d="M29 26 Q37 30 36 38 L33 35 Q34 30 29 28 Z" fill="#7f1d1d" />
+        <path d="M12 28 L7 14 L12 12 L16 26 Z" fill="#293548" />
+        <path d="M9 13 L2 -1 L4.4 -2.2 L11.6 11.6 Z" fill="#94a3b8" />
+        <path d="M6.5 13.5 L12 10.5" stroke="#475569" strokeWidth="1.5" />
+        <path d="M36 28 L41 14 L36 12 L32 26 Z" fill="#334155" />
+        <path d="M39 13 L45 -1.5 L47 -0.4 L41.6 12.2 Z" fill="#cbd5e1" />
+        <path d="M45.5 -1 L44.5 -3.5" stroke="#e2e8f0" strokeWidth="1.8" />
+        <path d="M37 13.5 L42.5 11" stroke="#475569" strokeWidth="1.5" />
+        <g transform="translate(0,-1)">
+          <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
+          <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
+          <path d="M17 12 L22 12 L22 15 L17 15 Z M26 12 L31 12 L31 15 L26 15 Z" fill="#0b0f16" />
+          <circle cx="19.5" cy="13.5" r="0.8" fill="#e2e8f0" /><circle cx="28.5" cy="13.5" r="0.8" fill="#e2e8f0" />
+          <path d="M18 17 Q24 20 30 17 L29 21 Q24 23 19 21 Z" fill="#cfae83" />
+        </g>
+      </g>
+    ),
+    fallen: (
+      <g>
+        <path d="M12 30 L26 64" stroke="#94a3b8" strokeWidth="2.2" strokeLinecap="round" /><path d="M12 30 L10 24" stroke="#475569" strokeWidth="2.2" />
+        <path d="M22 58 L36 56 L38 63 L21 64 Z" fill="#141d2b" />
+        <path d="M34 61 L44 62 L44 66 L34 65 Z" fill="#0b0f16" />
+        <path d="M14 40 Q24 36 31 40 L32 60 L14 60 Z" fill="#1e293b" />
+        <path d="M14 40 L23 38 L22 60 L14 60 Z" fill="#141d2b" />
+        <path d="M12 42 L20 40 L21 48 L13 50 Z" fill="#334155" />
+        <path d="M18 38 Q24 42 30 38 Q30 42 26 43 Q22 44 20 43 Q17 41 18 38 Z" fill="#7f1d1d" />
+        <path d="M28 64 L46 62.5 L46.5 64.5 L28 66 Z" fill="#cbd5e1" />
+        <path d="M30 64.7 L44 63.6" stroke="#f1f5f9" strokeWidth=".5" opacity=".7" />
+        <path d="M26.5 62.6 L27.5 66.4" stroke="#475569" strokeWidth="1.4" />
+        <g transform="translate(2,25) rotate(16 24 12)">
+          <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
+          <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
+          <path d="M17 12 L22 12 L22 15 L17 15 Z M26 12 L31 12 L31 15 L26 15 Z" fill="#0b0f16" />
+        </g>
+      </g>
+    ),
+  },
+  Y: {
+    strike: (
+      <g>
+        <path d="M26 24 Q14 28 11 68 L39 68 Q38 28 28 24 Z" fill="#115e59" />
+        <path d="M26 24 Q14 28 11 68 L23 68 Q21 38 26 26 Z" fill="#0b3f3a" />
+        <path d="M18 27 Q22 24 26 26 Q30 24 33 27 L31 31 Q25 28 20 31 Z" fill="#ccfbf1" opacity=".9" />
+        <path d="M10 32 L40 29" stroke="#26140a" strokeWidth="2.2" strokeLinecap="round" />
+        <path d="M40 29.4 Q44 27 44 24 M40 29.4 Q44 31 44 35" stroke="#155e59" strokeWidth="1.5" fill="none" />
+        <path d="M44 24 L50 22.6 L46 26 Z M44 29 L52 28.6 L45 31 Z M44 35 L50 36.4 L46 33 Z" fill="#a5f3fc" />
+        <path d="M14 34 Q18 32 20 35 Q19 39 15 38 Q13 36 14 34 Z" fill="#0d9488" />
+        <path d="M30 30 Q34 28 36 31 Q35 35 31 34 Q29 32 30 30 Z" fill="#0d9488" />
+        <path d="M9 64 Q19 58 31 64 Q39 68 43 64 Q41 71 31 69 Q19 67 9 71 Z" fill="#2dd4bf" opacity=".4" />
+        <circle cx="52" cy="26" r="1" fill="#a5f3fc" opacity=".8" /><circle cx="50" cy="34" r=".8" fill="#5eead4" opacity=".7" />
+        <g transform="translate(3,1)">
+          <path d="M17 8 Q11 12 12 22 Q16 26 20 24 L20 12 Z" fill="#115e59" opacity=".9" />
+          <path d="M31 8 Q37 12 36 22 Q32 26 28 24 L28 12 Z" fill="#0d9488" opacity=".9" />
+          <circle cx="24" cy="14" r="6.5" fill="#cbd5e1" /><path d="M17.5 14 Q17.5 8 24 7.5 L24 20.5 Q18.5 20 17.5 14 Z" fill="#94a3b8" />
+          <path d="M27 6 Q40 8 42 20 Q36 30 30 32 Q37 22 32 12 Q35 20 29 25 Q32 15 26 9 Z" fill="#0d9488" />
+          <path d="M20.5 13.5 L23.5 12.8 L22.8 15.5 Z" fill="#5eead4" /><path d="M27.5 13.5 L24.5 12.8 L25.2 15.5 Z" fill="#5eead4" />
+          <path d="M21 17.5 Q24 19.5 27 17.5 L26.5 18.7 Q24 20.1 21.5 18.7 Z" fill="#04211c" />
+        </g>
+      </g>
+    ),
+    ward: (
+      <g>
+        <path d="M6 28 L6 62" stroke="#26140a" strokeWidth="2.2" strokeLinecap="round" />
+        <path d="M6 28 L6 20" stroke="#155e59" strokeWidth="1.8" /><path d="M6 20 L4.8 23 L7.2 23 Z" fill="#a5f3fc" />
+        <path d="M24 26 Q13 30 11 68 L37 68 Q35 30 24 26 Z" fill="#115e59" />
+        <path d="M24 26 Q13 30 11 68 L22 68 Q20 40 24 28 Z" fill="#0b3f3a" />
+        <path d="M17 29 Q21 26 24 28 Q27 26 31 29 L29 33 Q24 30 19 33 Z" fill="#ccfbf1" opacity=".9" />
+        <path d="M14 36 Q18 33 21 36 Q20 40 16 39 Q13 38 14 36 Z" fill="#0d9488" />
+        <path d="M27 36 Q31 33 34 36 Q33 40 29 39 Q26 38 27 36 Z" fill="#0d9488" />
+        <path d="M38 66 Q50 50 42 28 Q49 42 45 58 Q48 50 46 44 Q49 56 42 66 Z" fill="#2dd4bf" opacity=".75" />
+        <path d="M40 60 Q46 48 42 34" stroke="#5eead4" strokeWidth="1.1" fill="none" opacity=".8" />
+        <path d="M8 64 Q18 58 30 64 Q38 68 44 64 Q42 71 30 69 Q18 67 8 71 Z" fill="#2dd4bf" opacity=".45" />
+        <g transform="translate(0,4)">
+          <path d="M17 8 Q11 12 12 22 Q16 26 20 24 L20 12 Z" fill="#115e59" opacity=".9" />
+          <path d="M31 8 Q37 12 36 22 Q32 26 28 24 L28 12 Z" fill="#0d9488" opacity=".9" />
+          <circle cx="24" cy="14" r="6.5" fill="#cbd5e1" /><path d="M17.5 14 Q17.5 8 24 7.5 L24 20.5 Q18.5 20 17.5 14 Z" fill="#94a3b8" />
+          <path d="M27 6 Q38 8 40 18 Q35 26 30 28 Q35 20 31 12 Q33 19 28 23 Q31 14 26 9 Z" fill="#0d9488" />
+          <path d="M20.5 13.5 L23.5 12.8 L22.8 15.5 Z" fill="#5eead4" /><path d="M27.5 13.5 L24.5 12.8 L25.2 15.5 Z" fill="#5eead4" />
+          <path d="M21 17.5 Q24 19.5 27 17.5 L26.5 18.7 Q24 20.1 21.5 18.7 Z" fill="#04211c" />
+        </g>
+      </g>
+    ),
+    hurt: (
+      <g>
+        <path d="M22 26 Q10 30 9 66 L35 66 Q36 30 26 26 Z" fill="#115e59" />
+        <path d="M22 26 Q10 30 9 66 L20 66 Q18 40 22 28 Z" fill="#0b3f3a" />
+        <path d="M30 34 L42 30 L44 50 L40 52 Z" fill="#26140a" opacity="0" />
+        <path d="M36 30 L44 56" stroke="#26140a" strokeWidth="2" strokeLinecap="round" />
+        <path d="M36 30 L34 24" stroke="#155e59" strokeWidth="1.6" /><path d="M34 24 L32.6 27 L35.6 26.6 Z" fill="#a5f3fc" />
+        <path d="M8 62 L14 56 L12 64 Z" fill="#2dd4bf" opacity=".6" /><path d="M38 64 L44 58 L43 66 Z" fill="#2dd4bf" opacity=".5" />
+        <path d="M7 64 Q17 58 29 64 Q37 68 41 64 Q39 71 29 69 Q17 67 7 71 Z" fill="#2dd4bf" opacity=".4" />
+        <g transform="translate(-4,2) rotate(-13 24 14)">
+          <path d="M17 8 Q11 12 12 22 Q16 26 20 24 L20 12 Z" fill="#115e59" opacity=".9" />
+          <path d="M31 8 Q37 12 36 22 Q32 26 28 24 L28 12 Z" fill="#0d9488" opacity=".9" />
+          <circle cx="24" cy="14" r="6.5" fill="#cbd5e1" /><path d="M17.5 14 Q17.5 8 24 7.5 L24 20.5 Q18.5 20 17.5 14 Z" fill="#94a3b8" />
+          <path d="M27 7 Q36 10 37 18 Q32 24 28 25 Q32 18 29 12 Z" fill="#0d9488" />
+          <path d="M20.5 13.5 L23.5 12.8 L22.8 15.5 Z" fill="#5eead4" /><path d="M27.5 13.5 L24.5 12.8 L25.2 15.5 Z" fill="#5eead4" />
+          <path d="M21 18 Q24 16.5 27 18 L26.5 19.2 Q24 18 21.5 19.2 Z" fill="#04211c" />
+        </g>
+      </g>
+    ),
+    victorious: (
+      <g>
+        <path d="M25 24 Q13 28 11 68 L39 68 Q37 28 27 24 Z" fill="#115e59" />
+        <path d="M25 24 Q13 28 11 68 L23 68 Q21 38 25 26 Z" fill="#0b3f3a" />
+        <path d="M18 27 Q22 24 25 26 Q28 24 32 27 L30 31 Q25 28 20 31 Z" fill="#ccfbf1" opacity=".9" />
+        <path d="M31 30 L35 14 L39 15 L36 31 Z" fill="#115e59" />
+        <path d="M36 16 L36 -4" stroke="#26140a" strokeWidth="2.2" strokeLinecap="round" />
+        <path d="M36 -2 Q32 -4 31 -7 M36 -2 Q40 -4 41 -7" stroke="#155e59" strokeWidth="1.5" fill="none" />
+        <path d="M31 -7 L29.6 -12 L33 -9 Z M35 -6 L36 -13 L37 -6 Z M41 -7 L42.4 -12 L39 -9 Z" fill="#a5f3fc" />
+        <path d="M38 8 Q43 14 40 22 Q46 16 43 8 Z" fill="#2dd4bf" opacity=".7" />
+        <path d="M12 32 Q6 36 5 42 L9 44 Q11 38 15 36 Z" fill="#0b3f3a" />
+        <path d="M8 62 Q18 55 30 62 Q38 66 44 61 Q42 70 30 68 Q18 66 8 71 Z" fill="#2dd4bf" opacity=".5" />
+        <circle cx="10" cy="52" r="2.2" fill="none" stroke="#5eead4" strokeWidth="1" opacity=".7" />
+        <g transform="translate(0,-1)">
+          <path d="M17 8 Q11 12 12 22 Q16 26 20 24 L20 12 Z" fill="#115e59" opacity=".9" />
+          <path d="M31 8 Q37 12 36 22 Q32 26 28 24 L28 12 Z" fill="#0d9488" opacity=".9" />
+          <circle cx="24" cy="14" r="6.5" fill="#cbd5e1" /><path d="M17.5 14 Q17.5 8 24 7.5 L24 20.5 Q18.5 20 17.5 14 Z" fill="#94a3b8" />
+          <path d="M27 6 Q40 8 42 20 Q36 30 30 32 Q37 22 32 12 Q35 20 29 25 Q32 15 26 9 Z" fill="#0d9488" />
+          <path d="M20.5 13.5 L23.5 12.8 L22.8 15.5 Z" fill="#5eead4" /><path d="M27.5 13.5 L24.5 12.8 L25.2 15.5 Z" fill="#5eead4" />
+          <path d="M21 17.5 Q24 19.5 27 17.5 L26.5 18.7 Q24 20.1 21.5 18.7 Z" fill="#04211c" />
+        </g>
+      </g>
+    ),
+    fallen: (
+      <g>
+        <path d="M4 64 Q14 57 26 62 Q36 66 44 62 Q42 70 30 69 Q14 68 4 70 Z" fill="#2dd4bf" opacity=".55" />
+        <path d="M8 66 Q18 61 30 65" stroke="#5eead4" strokeWidth="1" fill="none" opacity=".7" />
+        <path d="M20 44 Q12 48 11 62 L33 62 Q32 48 26 44 Z" fill="#115e59" opacity=".85" />
+        <path d="M20 44 Q12 48 11 62 L20 62 Q19 52 21 46 Z" fill="#0b3f3a" opacity=".85" />
+        <path d="M6 64 L34 61" stroke="#26140a" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M34 61.3 Q38 59 38 56 M34 61.3 Q38 63 38 66" stroke="#155e59" strokeWidth="1.3" fill="none" />
+        <path d="M38 56 L43 54.8 L39.6 58 Z M38 61 L45 60.8 L39 63 Z M38 66 L43 67 L39.6 64.4 Z" fill="#a5f3fc" opacity=".9" />
+        <circle cx="14" cy="52" r="1.4" fill="none" stroke="#5eead4" strokeWidth=".8" opacity=".7" /><circle cx="30" cy="48" r="1" fill="none" stroke="#5eead4" strokeWidth=".7" opacity=".6" />
+        <g transform="translate(1,28) rotate(10 24 14)" opacity=".92">
+          <circle cx="24" cy="14" r="6.5" fill="#cbd5e1" /><path d="M17.5 14 Q17.5 8 24 7.5 L24 20.5 Q18.5 20 17.5 14 Z" fill="#94a3b8" />
+          <path d="M17 10 Q13 13 14 20 Q17 23 20 21 L20 13 Z" fill="#0b3f3a" opacity=".8" />
+          <path d="M31 10 Q35 13 34 20 Q31 23 28 21 L28 13 Z" fill="#0b3f3a" opacity=".8" />
+          <path d="M21 17.5 L27 17.5" stroke="#04211c" strokeWidth="1" />
+        </g>
+      </g>
+    ),
+  },
+  W: {
+    strike: (
+      <g>
+        <path d="M17 50 L21 50 L19 66 L15 66 Z M25 50 L29 50 L30 66 L26 66 Z" fill="#0f4a24" />
+        <path d="M14.5 65 L19.5 65 L20 70 L13.5 70 Z M25.5 65 L30.5 65 L31.5 70 L25 70 Z" fill="#241505" />
+        <path d="M23 10 Q14 15 14.5 28 L15 52 Q23 55 31 52 L31.5 28 Q32 15 23 10 Z" fill="#14532d" />
+        <path d="M23 10 Q14 15 14.5 28 L15 50 Q17.5 32 23 25 Z" fill="#0c3018" />
+        <path d="M15 24 L4 17 L8 24 L2 24 L8 28 L4 32 L11 29 Z" fill="#3a2408" />
+        <path d="M14 27 L7 26 L11 30 L7 33 L13 31 Z" fill="#7c2d12" />
+        <path d="M30.5 35 L36 35.8 L35.4 47 L30.6 46.4 Z" fill="#78350f" />
+        <path d="M31.5 34 L33 30.5 M33.4 34.3 L35 30.8" stroke="#b45309" strokeWidth="1.1" strokeLinecap="round" />
+        <path d="M34 12 Q46 32 34 54" stroke="#92400e" strokeWidth="2.2" fill="none" strokeLinecap="round" />
+        <path d="M34 12 L20 34 L34 54" stroke="#f5f5f4" strokeWidth="0.7" fill="none" opacity=".9" />
+        <path d="M20 34 L46 32.4" stroke="#78350f" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M46 30.6 L52 32.4 L46 34.4 Z" fill="#cbd5e1" />
+        <path d="M21 32.4 L17 30.6 L17 35.4 L21 34 Z" fill="#d9cfba" />
+        <path d="M26 30 L37 31 L37 36 L26 35 Z" fill="#14532d" />
+        <path d="M37 31.5 Q40.5 31 40.5 34 Q40 36.5 37 36 Z" fill="#d1a374" />
+        <path d="M18 32 Q21 30 24 32 L23 36 Q20 37 18 35 Z" fill="#c08d5c" />
+        <g transform="translate(2,1)">
+          <path d="M24 3.5 Q16.5 6 15.5 15 Q15 20 17.5 23 Q17 15 24 12 Q31 15 30.5 23 Q33 20 32.5 15 Q31.5 6 24 3.5 Z" fill="#241505" />
+          <path d="M24 1.5 L21 6 L27 6 Z" fill="#241505" />
+          <path d="M16.5 16 L12 13.5 L16 19 Z" fill="#d1a374" /><path d="M31.5 16 L36 13.5 L32 19 Z" fill="#c08d5c" />
+          <path d="M18.5 12.5 Q24 9.5 29.5 12.5 L28.6 21 Q26.5 24.5 24 24.5 Q21.5 24.5 19.4 21 Z" fill="#d1a374" />
+          <path d="M18.8 13.5 Q24 11 29.2 13.5 L28.9 16 Q24 14 19.1 16 Z" fill="#3d2410" />
+          <path d="M20.6 17.6 L23.4 16.9 L22.6 19.6 Z" fill="#4ade80" /><path d="M27.4 17.6 L24.6 16.9 L25.4 19.6 Z" fill="#4ade80" />
+        </g>
+      </g>
+    ),
+    ward: (
+      <g>
+        <path d="M12 24 L12 64" stroke="#92400e" strokeWidth="2" strokeLinecap="round" />
+        <path d="M12 24 L12 64" stroke="#5b2c0b" strokeWidth=".7" opacity=".7" />
+        <path d="M18 52 L22 52 L21 69 L17 69 Z M26 52 L30 52 L31 69 L27 69 Z" fill="#0f4a24" />
+        <path d="M24 12 Q15 18 15.5 32 L15 62 L33 62 L32.5 32 Q33 18 24 12 Z" fill="#14532d" />
+        <path d="M24 12 Q15 18 15.5 32 L15 60 Q18 38 24 26 Z" fill="#0c3018" />
+        <path d="M24 14 L24 60" stroke="#0c3018" strokeWidth="1.2" opacity=".8" />
+        <path d="M17 26 Q24 22.5 31 26 L30.4 30 Q24 27 17.6 30 Z" fill="#3a2408" />
+        <path d="M19.5 26.6 L19.8 28.8 M23 25.8 L23.1 28 M26.5 26 L26.4 28.2" stroke="#d9cfba" strokeWidth=".7" opacity=".85" />
+        <path d="M30 34 L34 35 L33.6 44 L30.2 43 Z" fill="#78350f" />
+        <g transform="translate(0,4)">
+          <path d="M24 2 Q15.5 4.5 14.5 14 Q14 20 17 24 Q16.5 15 24 11.5 Q31.5 15 31 24 Q34 20 33.5 14 Q32.5 4.5 24 2 Z" fill="#241505" />
+          <path d="M24 0 L21 4.5 L27 4.5 Z" fill="#241505" />
+          <path d="M19 13 Q24 10.5 29 13 L28.4 20 Q26.4 23 24 23 Q21.6 23 19.6 20 Z" fill="#d1a374" />
+          <path d="M19.2 14 Q24 11.5 28.8 14 L28.5 17.5 Q24 15 19.5 17.5 Z" fill="#3d2410" />
+          <path d="M21 18.4 L23.6 17.8 L22.9 20.2 Z" fill="#4ade80" /><path d="M27 18.4 L24.4 17.8 L25.1 20.2 Z" fill="#4ade80" />
+        </g>
+      </g>
+    ),
+    hurt: (
+      <g>
+        <path d="M15 48 L19 49 L14 63 L9 62 Z" fill="#0f4a24" /><path d="M8 61 L15 62 L13 69 L6 68 Z" fill="#241505" />
+        <path d="M26 47 L30 45 L34 57 L30 59 Z" fill="#0f4a24" />
+        <path d="M21 12 Q12 18 13 31 L12 54 Q20 57 28 53 L29.5 30 Q30 17 21 12 Z" fill="#14532d" />
+        <path d="M21 12 Q12 18 13 31 L12 52 Q15 34 21 26 Z" fill="#0c3018" />
+        <path d="M13 26 L2 20 L6 26 L0 27 L7 30 Z" fill="#3a2408" />
+        <path d="M28 28 L37 20 L40 23 L31 32 Z" fill="#14532d" />
+        <path d="M36 18 Q48 30 40 46" stroke="#92400e" strokeWidth="2" fill="none" strokeLinecap="round" />
+        <path d="M38 44 L44 50 L40 52 Z" fill="#78350f" opacity="0" />
+        <path d="M36 44 L42 50" stroke="#78350f" strokeWidth="1.3" strokeLinecap="round" />
+        <path d="M42 49 L46 51.4 L42.4 52.6 Z" fill="#cbd5e1" />
+        <path d="M29 36 L33 37 L32.6 44 L29.2 43 Z" fill="#78350f" />
+        <g transform="translate(-4,2) rotate(-13 24 14)">
+          <path d="M24 3.5 Q16.5 6 15.5 15 Q15 20 17.5 23 Q17 15 24 12 Q31 15 30.5 23 Q33 20 32.5 15 Q31.5 6 24 3.5 Z" fill="#241505" />
+          <path d="M16.5 16 L12 13.5 L16 19 Z" fill="#d1a374" /><path d="M31.5 16 L36 13.5 L32 19 Z" fill="#c08d5c" />
+          <path d="M18.5 12.5 Q24 9.5 29.5 12.5 L28.6 21 Q26.5 24.5 24 24.5 Q21.5 24.5 19.4 21 Z" fill="#d1a374" />
+          <path d="M18.8 13.5 Q24 11 29.2 13.5 L28.9 16 Q24 14 19.1 16 Z" fill="#3d2410" />
+          <path d="M20.6 17.6 L23.4 16.9 L22.6 19.6 Z" fill="#4ade80" /><path d="M27.4 17.6 L24.6 16.9 L25.4 19.6 Z" fill="#4ade80" />
+        </g>
+      </g>
+    ),
+    victorious: (
+      <g>
+        <path d="M17 50 L21 50 L20 69 L16 69 Z M27 50 L31 50 L32 69 L28 69 Z" fill="#0f4a24" />
+        <path d="M24 10 Q15 15 15.5 28 L16 52 Q24 55 32 52 L32.5 28 Q33 15 24 10 Z" fill="#14532d" />
+        <path d="M24 10 Q15 15 15.5 28 L16 50 Q18.5 32 24 25 Z" fill="#0c3018" />
+        <path d="M16 24 L4 16 L8 24 L1 24 L8 28 L3 33 L11 29 Z" fill="#3a2408" />
+        <path d="M32 24 L44 16 L40 24 L47 24 L40 28 L45 33 L37 29 Z" fill="#241505" />
+        <path d="M14 27 L6 26 L10 30 L6 34 L13 31 Z" fill="#7c2d12" />
+        <path d="M34 27 L42 26 L38 30 L42 34 L35 31 Z" fill="#7c2d12" />
+        <path d="M13 30 L8 18 L12 16 L16 28 Z" fill="#0f4a24" />
+        <path d="M33 28 L37 15 L41 16 L37 30 Z" fill="#14532d" />
+        <path d="M6 10 Q20 -2 34 10" stroke="#92400e" strokeWidth="2.2" fill="none" strokeLinecap="round" />
+        <path d="M6 10 L34 10" stroke="#f5f5f4" strokeWidth="0.6" opacity=".8" />
+        <path d="M8 16 Q11 14 13 16 L12 19 Q10 20 8 18 Z" fill="#c08d5c" />
+        <g transform="translate(0,-1)">
+          <path d="M24 3.5 Q16.5 6 15.5 15 Q15 20 17.5 23 Q17 15 24 12 Q31 15 30.5 23 Q33 20 32.5 15 Q31.5 6 24 3.5 Z" fill="#241505" />
+          <path d="M24 1.5 L21 6 L27 6 Z" fill="#241505" />
+          <path d="M16.5 16 L12 13.5 L16 19 Z" fill="#d1a374" /><path d="M31.5 16 L36 13.5 L32 19 Z" fill="#c08d5c" />
+          <path d="M18.5 12.5 Q24 9.5 29.5 12.5 L28.6 21 Q26.5 24.5 24 24.5 Q21.5 24.5 19.4 21 Z" fill="#d1a374" />
+          <path d="M18.8 13.5 Q24 11 29.2 13.5 L28.9 16 Q24 14 19.1 16 Z" fill="#3d2410" />
+          <path d="M20.6 17.6 L23.4 16.9 L22.6 19.6 Z" fill="#4ade80" /><path d="M27.4 17.6 L24.6 16.9 L25.4 19.6 Z" fill="#4ade80" />
+          <path d="M22.6 22.3 L25.4 22.3" stroke="#8a5a30" strokeWidth=".7" />
+        </g>
+      </g>
+    ),
+    fallen: (
+      <g>
+        <path d="M12 20 L12 66" stroke="#92400e" strokeWidth="2.2" strokeLinecap="round" />
+        <path d="M12 20 L12 66" stroke="#f5f5f4" strokeWidth="0.5" opacity=".6" />
+        <path d="M14 48 Q22 42 30 46 L32 62 L14 62 Z" fill="#14532d" />
+        <path d="M14 48 L22 44 L21 62 L14 62 Z" fill="#0c3018" />
+        <path d="M14 60 L34 60 L36 68 L12 68 Z" fill="#0f4a24" />
+        <path d="M13 38 L17 36 L18 42 L14 44 Z" fill="#c08d5c" />
+        <path d="M28 64 L38 63 L38.6 65 L28 66 Z" fill="#78350f" /><path d="M38 62.6 L42 63.8 L38 65.4 Z" fill="#cbd5e1" opacity=".8" />
+        <path d="M24 66 L33 66.6 L33 68 L24 67.6 Z" fill="#78350f" opacity=".8" />
+        <path d="M36 50 Q39 48 41 50 Q39 53 36 52 Z" fill="#4ade80" opacity=".5" />
+        <path d="M42 58 Q45 56 47 58 Q45 61 42 60 Z" fill="#166534" opacity=".6" />
+        <g transform="translate(-1,26) rotate(-8 24 14)">
+          <path d="M24 3.5 Q16.5 6 15.5 15 Q15 20 17.5 23 Q17 15 24 12 Q31 15 30.5 23 Q33 20 32.5 15 Q31.5 6 24 3.5 Z" fill="#241505" />
+          <path d="M18.5 12.5 Q24 9.5 29.5 12.5 L28.6 21 Q26.5 24.5 24 24.5 Q21.5 24.5 19.4 21 Z" fill="#d1a374" />
+          <path d="M18.8 13.5 Q24 11 29.2 13.5 L28.9 16 Q24 14 19.1 16 Z" fill="#3d2410" />
+          <path d="M21 18.5 L23 18 M27 18.5 L25 18" stroke="#3d2410" strokeWidth=".8" />
+        </g>
+      </g>
+    ),
+  },
+  O: {
+    strike: (
+      <g>
+        <path d="M42 4 L36 64" stroke="#78350f" strokeWidth="2.2" /><circle cx="42.5" cy="3" r="3.4" fill="#e7e5e4" /><circle cx="41.3" cy="2.5" r="0.8" fill="#0a0d05" /><circle cx="43.8" cy="2.5" r="0.8" fill="#0a0d05" />
+        <path d="M40 8 L32 22 M41 12 L44 34" stroke="#d6cdba" strokeWidth=".6" opacity=".55" />
+        <path d="M12 68 Q10 36 24 28 Q34 26 38 36 L38 68 Z" fill="#1a2e0a" />
+        <path d="M12 68 Q10 36 24 28 L26 32 Q16 42 16 68 Z" fill="#101f05" />
+        <path d="M34 36 Q44 33 48 39 Q44 44 35 43 Z" fill="#1a2e0a" />
+        <path d="M46 37 L50 35 M47.5 39.5 L52 39 M46.5 42 L50 44" stroke="#101f05" strokeWidth="1.3" strokeLinecap="round" />
+        <path d="M14 32 Q8 30 6 24 Q12 24 15 28 Z" fill="#b45309" />
+        <g transform="translate(4,2) rotate(9 25 22)">
+          <path d="M20 12 Q28 8 32 14 Q35 22 32 30 Q27 36 21 33 Q15 27 16 19 Q17 14 20 12 Z" fill="#e7e5e4" />
+          <path d="M20 12 Q24 10 26 10 L24 34 Q18 30 16 22 Q16 15 20 12 Z" fill="#cfc9bd" />
+          <path d="M20 19 Q22 17 24 19 Q23 23 20.5 23 Z" fill="#0a0d05" /><path d="M30 19 Q28 17 26 19 Q27 23 29.5 23 Z" fill="#0a0d05" />
+          <circle cx="22" cy="20.5" r="0.9" fill="#a3e635" /><circle cx="28" cy="20.5" r="0.9" fill="#a3e635" />
+          <path d="M21 28 L29 28 M23 26.5 L23 29.5 M26 26.5 L26 29.5" stroke="#0a0d05" strokeWidth="0.9" />
+        </g>
+      </g>
+    ),
+    ward: (
+      <g>
+        <path d="M30 4 L30 66" stroke="#78350f" strokeWidth="2.2" /><circle cx="30.5" cy="3" r="3.4" fill="#e7e5e4" /><circle cx="29.3" cy="2.5" r="0.8" fill="#0a0d05" /><circle cx="31.8" cy="2.5" r="0.8" fill="#0a0d05" />
+        <path d="M28 8 L24 20 M31 8 L33 22" stroke="#d6cdba" strokeWidth=".6" opacity=".6" />
+        <path d="M14 68 Q12 40 24 32 Q32 30 34 40 L34 68 Z" fill="#1a2e0a" />
+        <path d="M14 68 Q12 40 24 32 L25 36 Q18 46 18 68 Z" fill="#101f05" />
+        <path d="M14 38 Q10 36 9 31 Q14 32 16 35 Z" fill="#b45309" />
+        <g transform="translate(1,8)">
+          <path d="M20 12 Q28 8 32 14 Q35 22 32 30 Q27 36 21 33 Q15 27 16 19 Q17 14 20 12 Z" fill="#e7e5e4" />
+          <path d="M20 12 Q24 10 26 10 L24 34 Q18 30 16 22 Q16 15 20 12 Z" fill="#cfc9bd" />
+          <path d="M20 19 Q22 17 24 19 Q23 23 20.5 23 Z" fill="#0a0d05" /><path d="M30 19 Q28 17 26 19 Q27 23 29.5 23 Z" fill="#0a0d05" />
+          <circle cx="22" cy="20.5" r="0.9" fill="#a3e635" /><circle cx="28" cy="20.5" r="0.9" fill="#a3e635" />
+          <path d="M21 28 L29 28 M23 26.5 L23 29.5 M26 26.5 L26 29.5" stroke="#0a0d05" strokeWidth="0.9" />
+        </g>
+      </g>
+    ),
+    hurt: (
+      <g>
+        <path d="M44 8 L40 64" stroke="#78350f" strokeWidth="2.2" /><circle cx="44.5" cy="7" r="3.4" fill="#e7e5e4" transform="rotate(15 44.5 7)" /><circle cx="43.3" cy="6.5" r="0.8" fill="#0a0d05" /><circle cx="45.8" cy="6.5" r="0.8" fill="#0a0d05" />
+        <path d="M42 12 Q39 22 41 28" stroke="#d6cdba" strokeWidth=".6" fill="none" opacity=".6" />
+        <path d="M8 68 Q7 38 20 30 Q30 28 34 38 L33 68 Z" fill="#1a2e0a" />
+        <path d="M8 68 Q7 38 20 30 L22 34 Q12 44 12 68 Z" fill="#101f05" />
+        <path d="M10 34 Q5 32 3 26 Q9 26 12 30 Z" fill="#b45309" />
+        <g transform="translate(-4,3) rotate(-18 25 22)">
+          <path d="M20 12 Q28 8 32 14 Q35 22 32 30 Q27 36 21 33 Q15 27 16 19 Q17 14 20 12 Z" fill="#e7e5e4" />
+          <path d="M20 12 Q24 10 26 10 L24 34 Q18 30 16 22 Q16 15 20 12 Z" fill="#cfc9bd" />
+          <path d="M20 19 Q22 17 24 19 Q23 23 20.5 23 Z" fill="#0a0d05" /><path d="M30 19 Q28 17 26 19 Q27 23 29.5 23 Z" fill="#0a0d05" />
+          <circle cx="22" cy="20.5" r="0.9" fill="#a3e635" /><circle cx="28" cy="20.5" r="0.9" fill="#a3e635" />
+          <path d="M21 28 L29 28 M23 26.5 L23 29.5 M26 26.5 L26 29.5" stroke="#0a0d05" strokeWidth="0.9" />
+        </g>
+      </g>
+    ),
+    victorious: (
+      <g>
+        <path d="M40 -2 L36 62" stroke="#78350f" strokeWidth="2.2" /><circle cx="40.5" cy="-3" r="3.4" fill="#e7e5e4" /><circle cx="39.3" cy="-3.5" r="0.8" fill="#0a0d05" /><circle cx="41.8" cy="-3.5" r="0.8" fill="#0a0d05" /><path d="M44 -5 L46 -7" stroke="#f5f5f4" strokeWidth=".8" opacity=".9" />
+        <path d="M38 2 Q30 12 32 24 M39 4 Q44 18 42 32" stroke="#d6cdba" strokeWidth=".6" fill="none" opacity=".55" />
+        <path d="M12 68 Q10 38 24 30 Q34 28 38 38 L38 68 Z" fill="#1a2e0a" />
+        <path d="M12 68 Q10 38 24 30 L26 34 Q16 44 16 68 Z" fill="#101f05" />
+        <path d="M13 32 Q5 26 7 18 Q13 22 15 28 Z" fill="#1a2e0a" />
+        <path d="M35 30 Q43 24 41 16 Q35 20 33 26 Z" fill="#1a2e0a" />
+        <path d="M9 20 Q5 18 4 13 Q10 14 12 18 Z" fill="#f59e0b" />
+        <g transform="translate(1,0) rotate(8 25 22)">
+          <path d="M20 12 Q28 8 32 14 Q35 22 32 30 Q27 36 21 33 Q15 27 16 19 Q17 14 20 12 Z" fill="#e7e5e4" />
+          <path d="M20 12 Q24 10 26 10 L24 34 Q18 30 16 22 Q16 15 20 12 Z" fill="#cfc9bd" />
+          <path d="M20 19 Q22 17 24 19 Q23 23 20.5 23 Z" fill="#0a0d05" /><path d="M30 19 Q28 17 26 19 Q27 23 29.5 23 Z" fill="#0a0d05" />
+          <circle cx="22" cy="20.5" r="1.1" fill="#a3e635" /><circle cx="28" cy="20.5" r="1.1" fill="#a3e635" />
+          <path d="M21 28 L29 28 M23 26.5 L23 29.5 M26 26.5 L26 29.5" stroke="#0a0d05" strokeWidth="0.9" />
+        </g>
+      </g>
+    ),
+    fallen: (
+      <g>
+        <path d="M6 62 Q10 54 24 52 Q38 54 42 62 L42 69 L6 69 Z" fill="#1a2e0a" />
+        <path d="M6 62 Q10 54 24 52 L23 69 L6 69 Z" fill="#101f05" />
+        <path d="M8 56 L46 66" stroke="#78350f" strokeWidth="2" /><circle cx="47" cy="66.5" r="3" fill="#cfc9bd" /><circle cx="46" cy="66" r="0.7" fill="#0a0d05" /><circle cx="48.2" cy="66" r="0.7" fill="#0a0d05" />
+        <path d="M20 56 Q24 52 28 56" stroke="#d6cdba" strokeWidth=".6" fill="none" opacity=".6" />
+        <path d="M14 58 Q10 56 8 52" stroke="#d6cdba" strokeWidth=".5" fill="none" opacity=".5" />
+        <g transform="translate(0,36)">
+          <path d="M20 12 Q28 8 32 14 Q35 22 32 30 Q27 36 21 33 Q15 27 16 19 Q17 14 20 12 Z" fill="#e7e5e4" />
+          <path d="M20 12 Q24 10 26 10 L24 34 Q18 30 16 22 Q16 15 20 12 Z" fill="#cfc9bd" />
+          <path d="M20 19 Q22 17 24 19 Q23 23 20.5 23 Z" fill="#0a0d05" /><path d="M30 19 Q28 17 26 19 Q27 23 29.5 23 Z" fill="#0a0d05" />
+          <circle cx="22" cy="20.5" r="0.7" fill="#44403c" /><circle cx="28" cy="20.5" r="0.7" fill="#44403c" />
+          <path d="M21 28 L29 28 M23 26.5 L23 29.5 M26 26.5 L26 29.5" stroke="#0a0d05" strokeWidth="0.9" />
+        </g>
+        <circle cx="36" cy="44" r=".9" fill="#a3e635" opacity=".45" />
+      </g>
+    ),
+  },
 };
 const FIG_PARTS = {
   V: <g><circle className="pDrift1" cx="10" cy="58" r="2.6" fill="#a5f3fc" opacity=".16" /><circle className="pDrift2" cx="38" cy="50" r="2" fill="#7dd3fc" opacity=".12" /></g>,
   C: <g><circle className="pEmber1" cx="13" cy="34" r="1.1" fill="#fdba74" /><circle className="pEmber2" cx="35" cy="38" r=".9" fill="#f97316" /><circle className="pEmber3" cx="24" cy="30" r=".8" fill="#fde047" /></g>,
   L: <g><circle className="pMote1" cx="11" cy="20" r="1" fill="#fde047" opacity=".6" /><circle className="pMote2" cx="38" cy="27" r=".8" fill="#fde047" opacity=".45" /></g>,
+  G: <g><circle className="pEmber1" cx="42" cy="20" r=".9" fill="#ef4444" opacity=".7" /><circle className="pEmber2" cx="10" cy="36" r=".7" fill="#b91c1c" opacity=".6" /></g>,
+  M: <g><circle className="pDrift1" cx="6" cy="50" r=".9" fill="#34d399" opacity=".5" /><circle className="pDrift2" cx="42" cy="46" r=".7" fill="#10b981" opacity=".4" /></g>,
+  K: <g><path className="pMote1" d="M8 26 L10 28 L8.6 29.6" stroke="#c4b5fd" strokeWidth=".9" fill="none" opacity=".6" /><path className="pMote2" d="M40 30 L38 32.4" stroke="#a78bfa" strokeWidth=".9" fill="none" opacity=".5" /></g>,
+  Z: <g><path className="pDrift1" d="M40 46 Q42 40 40 34" stroke="#ef4444" strokeWidth=".9" fill="none" opacity=".4" /><circle className="pDrift2" cx="7" cy="30" r=".8" fill="#ef4444" opacity=".45" /></g>,
+  D: <g><circle className="pDrift1" cx="8" cy="30" r=".9" fill="#a8a29e" opacity=".4" /><circle className="pDrift2" cx="41" cy="38" r=".7" fill="#78716c" opacity=".4" /></g>,
+  Y: <g><circle className="pDrift1" cx="10" cy="50" r="1" fill="#5eead4" opacity=".5" /><circle className="pDrift2" cx="40" cy="42" r=".8" fill="#a5f3fc" opacity=".4" /></g>,
+  W: <g><path className="pDrift1" d="M8 34 Q10 32 12 34 Q10 36 8 34 Z" fill="#4ade80" opacity=".45" /><path className="pDrift2" d="M40 26 Q42 24 44 26 Q42 28 40 26 Z" fill="#166534" opacity=".55" /></g>,
+  X: <g><path className="pMote1" d="M37 12 L38.4 13.4 M38.4 12 L37 13.4" stroke="#f8fafc" strokeWidth=".7" opacity=".7" /><circle className="pMote2" cx="9" cy="44" r=".6" fill="#e2e8f0" opacity=".5" /></g>,
+  O: <g><circle className="pMote1" cx="8" cy="50" r="1" fill="#a3e635" opacity=".5" /><circle className="pMote2" cx="42" cy="40" r=".8" fill="#84cc16" opacity=".4" /></g>,
 };
 const FIG_SWAY = {
   V: <path className="figSway" d="M9 40 Q7 48 9.5 56" stroke="#22304d" strokeWidth="1.6" fill="none" opacity=".8" />,
   C: <path className="figSway" d="M18 6 L21 1.5 L23 5" stroke="#fdba74" strokeWidth="1.4" fill="none" opacity=".7" />,
   L: <path className="figSway" d="M19 52 L22 52 L21.5 58 L19.4 58 Z" fill="#1e3a8a" opacity=".9" />,
+  G: <path className="figSway" d="M34 44 Q36 48 34 52" stroke="#7c5a34" strokeWidth="1.4" fill="none" opacity=".8" />,
+  M: <path className="figSway" d="M16 20 Q14 26 16 32" stroke="#8b90a6" strokeWidth="1.2" fill="none" opacity=".7" />,
+  K: <path className="figSway" d="M19 6 L17 2" stroke="#a78bfa" strokeWidth="1.1" opacity=".6" />,
+  Z: <path className="figSway" d="M36 58 Q38 62 36 66" stroke="#4c1d95" strokeWidth="1.4" fill="none" opacity=".8" />,
+  D: <circle className="figSway" cx="3" cy="22" r="1.2" fill="#8a6a3f" opacity=".8" />,
+  Y: <path className="figSway" d="M40 16 Q44 18 43 23" stroke="#2dd4bf" strokeWidth="1.3" fill="none" opacity=".7" />,
+  W: <path className="figSway" d="M31 52 Q33 56 31 60" stroke="#14532d" strokeWidth="1.4" fill="none" opacity=".8" />,
+  X: <path className="figSway" d="M32 30 Q36 33 34 38" stroke="#b91c1c" strokeWidth="1.4" fill="none" opacity=".8" />,
+  O: <path className="figSway" d="M12 30 Q10 33 12 36" stroke="#b45309" strokeWidth="1.1" fill="none" opacity=".7" />,
 };
 function VecFig({ fk, size = 56, flip, pose = "idle", dying }) {
   const h = (size * 72) / 48;
@@ -2532,15 +3508,20 @@ const CSS = `
 .bg-shake{animation:bgShake .32s linear}
 .spriteA{animation:frA 1s steps(1) infinite}
 .spriteB{animation:frB 1s steps(1) infinite}
-.vfig{animation:vBreathe 3.4s ease-in-out infinite;transform-origin:50% 100%}
+.vfig{animation:vBreathe 3.4s ease-in-out infinite;transform-origin:50% 100%;will-change:transform}
 .figIn{animation:figIn .24s ease;transform-box:view-box;transform-origin:24px 69px}@keyframes figIn{0%{opacity:.45}100%{opacity:1}}
 .figPoseR{transform-box:view-box;transform-origin:24px 69px}
 .fallV{animation:fallV .6s ease-in forwards;transform-box:view-box;transform-origin:24px 69px}
 .fallC{animation:fallC .6s ease-in forwards;transform-box:view-box;transform-origin:24px 69px}
 .fallL{animation:fallL .6s ease-out forwards;transform-box:view-box;transform-origin:24px 69px}
+.fallG,.fallO,.fallZ{animation:fallFlat .6s ease-in forwards;transform-box:view-box;transform-origin:24px 69px}
+.fallM,.fallK,.fallD,.fallW,.fallX{animation:fallSink .6s ease-in forwards;transform-box:view-box;transform-origin:24px 69px}
+.fallY{animation:fallV .6s ease-in forwards;transform-box:view-box;transform-origin:24px 69px}
 @keyframes fallV{0%{transform:none;opacity:1}55%{transform:translate(0,5px) scaleY(.85);opacity:1}100%{transform:translate(0,16px) scaleY(.4);opacity:0}}
 @keyframes fallC{0%{transform:none}100%{transform:translate(0,9px) scaleY(.72)}}
 @keyframes fallL{0%{transform:none}100%{transform:translate(0,7px) scaleY(.82)}}
+@keyframes fallFlat{0%{transform:none}100%{transform:translate(0,12px) scaleY(.45)}}
+@keyframes fallSink{0%{transform:none}100%{transform:translate(0,8px) scaleY(.75)}}
 .pDrift1{animation:pDrift 5.2s ease-in-out infinite}
 .pDrift2{animation:pDrift 6.1s ease-in-out infinite reverse}
 @keyframes pDrift{0%,100%{transform:translate(0,0);opacity:.10}50%{transform:translate(2.5px,-3px);opacity:.22}}
@@ -3998,7 +4979,7 @@ export default function App() {
           <div key={fk} className="text-center"><Portrait fk={fk} size={96} /><div className="text-[10px] text-stone-500">{FIGHTERS[fk].short}</div></div>
         ))}</div>
         <div className="text-xs tracking-widest text-stone-500 mb-2">THE LIVING BOARD — SIX POSES</div>
-        {["V", "C", "L"].map((fk) => (
+        {Object.keys(FIGHTERS).map((fk) => (
           <div key={fk} className="mb-4">
             <div className="text-[11px] text-stone-400 mb-1">{FIGHTERS[fk].short}</div>
             <div className="flex items-end gap-5 rounded-lg p-3" style={{ background: "#1d1813" }}>
@@ -4009,7 +4990,7 @@ export default function App() {
           </div>
         ))}
         <div className="text-xs tracking-widest text-stone-500 mb-2 mt-6">SILHOUETTE LAW — BLACK-FILL TEST</div>
-        {["V", "C", "L"].map((fk) => (
+        {Object.keys(FIGHTERS).map((fk) => (
           <div key={`sil${fk}`} className="mb-4">
             <div className="text-[11px] text-stone-400 mb-1">{FIGHTERS[fk].short}</div>
             <div className="flex items-end gap-5 rounded-lg p-3" style={{ background: "#c9c2b6" }}>
