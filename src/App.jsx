@@ -2577,17 +2577,17 @@ const FIG_POSES = {
         </g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <ellipse cx="24" cy="66" rx="17" ry="4" fill="#7dd3fc" opacity=".14" />
         <path d="M10 69 L14 61 L20 69 Z" fill="#1b2942" /><path d="M19 69 L23 63 L27 69 Z" fill="#131e33" /><path d="M30 69 L33 62 L38 69 Z" fill="#1b2942" />
         <path d="M14 69 L17 56 L21 69 Z" fill="#38bdf8" opacity=".85" /><path d="M24 69 L27 54 L31 69 Z" fill="#7dd3fc" opacity=".9" /><path d="M33 69 L36 59 L40 69 Z" fill="#a5f3fc" opacity=".8" /><path d="M6 69 L8 63 L11 69 Z" fill="#7dd3fc" opacity=".6" />
         <path d="M21 66 L23 63 L25 66 L23 68 Z" fill="#e0f2fe" opacity=".9" /><path d="M35 66 L37 64 L38.5 66.5 L36.5 68 Z" fill="#a5f3fc" opacity=".7" />
         <path d="M27 62 L32 57 L34 62 L30 65 Z" fill="#0e7490" opacity=".9" />
-        <g transform="rotate(-8 27 58)">
+        {foe !== "G" && (<g transform="rotate(-8 27 58)">
           <path d="M23 57 L31 57 L30.7 59.4 L23.3 59.4 Z" fill="#a5f3fc" opacity=".92" />
           <path d="M24 57 L24.8 54.8 L25.6 57 Z M26.4 57 L27.1 54 L27.8 57 Z M28.6 57 L29.4 54.8 L30.2 57 Z" fill="#e0f2fe" />
-        </g>
+        </g>)}
       </g>
     ),
   },
@@ -2681,7 +2681,7 @@ const FIG_POSES = {
         </g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <path d="M14 62 L30 62 L32 69 L12 69 Z" fill="#292524" />
         <path d="M12 60 L18 58 L19 63 L13 64 Z" fill="#1c1917" /><path d="M30 58 L36 60 L35 64 L29 63 Z" fill="#1c1917" />
@@ -2691,7 +2691,7 @@ const FIG_POSES = {
         <path d="M8 58 Q13 57 14 62 Q14 66 9 66 Q5 65 5 61 Q5 58 8 58 Z" fill="#292524" />
         <path d="M36 58 Q41 57 42 62 Q42 66 37 66 Q33 65 33 61 Q33 58 36 58 Z" fill="#3f3a34" />
         <circle cx="10" cy="62" r="1" fill="#44403c" /><circle cx="38" cy="62" r="1" fill="#44403c" />
-        <g transform="translate(2,22) rotate(12 24 20)">
+        {foe !== "G" && (<g transform="translate(2,22) rotate(12 24 20)">
           <path d="M20 10 L18 5 L21 8 L23 4 L24 8 L26 4 L27 8 L30 5 L28 10 Z" fill="#3f2a1a" />
           <circle cx="24" cy="15" r="7" fill="#92400e" />
           <path d="M17.5 12 L30.5 12 L30 15 L18 15 Z" fill="#7c3509" />
@@ -2700,7 +2700,8 @@ const FIG_POSES = {
           <path d="M18 15.5 L30 15.5 L29.2 21 Q24 23.4 18.8 21 Z" fill="#1c1917" />
           <path d="M18 15.5 L30 15.5" stroke="#a16207" strokeWidth=".9" />
           <circle cx="30.6" cy="17.5" r=".8" fill="#a16207" />
-        </g>
+        </g>)}
+        {foe === "G" && (<g><path d="M20 40 L28 40 L27 43.5 L21 43.5 Z" fill="#7f1d1d" /><circle cx="18.5" cy="42" r=".6" fill="#ef4444" /></g>)}
         <path d="M23 33 Q21 26 24 20" stroke="#57534e" strokeWidth="1.4" fill="none" opacity=".65" />
         <path d="M29 32 Q31 25 28 18" stroke="#44403c" strokeWidth="1.2" fill="none" opacity=".55" />
         <circle cx="26" cy="23" r=".7" fill="#f97316" opacity=".8" />
@@ -2805,7 +2806,7 @@ const FIG_POSES = {
         <g transform="translate(0,-1)">{LHELM}</g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <circle cx="27" cy="24" r="11" fill="none" stroke="#fde047" strokeWidth="1" opacity=".1" />
         <path d="M2 64 L14 62 L16 66 L4 68 Z" fill="#78716c" />
@@ -2823,13 +2824,14 @@ const FIG_POSES = {
         <circle cx="30.8" cy="36.5" r="1.8" fill="#eab308" />
         <path d="M16 38 L27 33 L28.5 36 L18 42 Z" fill="#57534e" />
         <path d="M27.5 33 L33.5 33 L34 37 L27 37 Z" fill="#57534e" /><path d="M28 30.5 L33 30.5 L33.5 34 L27.5 34 Z" fill="#44403c" />
-        <g transform="translate(3,10) rotate(18 24 14)">
+        {foe !== "G" && (<g transform="translate(3,10) rotate(18 24 14)">
           <path d="M17 14 Q17 5 24 5 Q31 5 31 14 L30 20 Q24 23 18 20 Z" fill="#a8a29e" />
           <path d="M17 14 Q17 5 24 5 L24 22 Q19 21 18 20 Z" fill="#78716c" />
           <path d="M17 12 L9 5 L12 10 L8 10 L13 14 Z" fill="#a8a29e" /><path d="M31 12 L39 5 L36 10 L40 10 L35 14 Z" fill="#78716c" />
           <path d="M23.2 5 L24.8 5 L25 13 L23 13 Z" fill="#a16207" />
           <path d="M18 13 L30 13 L29 17 L19 17 Z" fill="#1c1502" />
-        </g>
+        </g>)}
+        {foe === "G" && (<g><path d="M20 31 L28 30 L28 34 L20 35 Z" fill="#7f1d1d" /><circle cx="18.5" cy="33" r=".6" fill="#ef4444" /></g>)}
       </g>
     ),
   },
@@ -2892,10 +2894,10 @@ const FIG_POSES = {
     ),
     victorious: (foe) => (
       <g>
-        <g transform="translate(4,62) rotate(84)">{GAXE}</g>
+        <g transform="translate(40,20) rotate(180)">{GAXE}</g>
         <path d="M14 50 L20 50 L18 69 L12 69 Z" fill="#7f1d1d" /><path d="M11 67 L19 67 L19 71 L10 71 Z" fill="#120b08" />
-        <path d="M26 48 L33 49 L38 53 L30 56 Z" fill="#991b1b" />
-        <path d="M36 51.5 L45 53.5 L45 58 L36 56.5 Z" fill="#120b08" />
+        <path d="M26 48 L33 46 L37 48 L31 53 Z" fill="#991b1b" />
+        <path d="M34 47 L44 49 L44 53.5 L34 51.5 Z" fill="#120b08" />
         <path d="M12 26 Q23 21 34 26 L36 50 Q23 55 10 50 Z" fill="#4d7c0f" />
         <path d="M12 26 L23 23 L22 52 Q15 52 10 50 Z" fill="#365314" />
         <path d="M10 48 L36 48 L36 52 L10 52 Z" fill="#b91c1c" />
@@ -2912,7 +2914,7 @@ const FIG_POSES = {
         <g transform="translate(0,-1)">{GHEAD}</g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <ellipse cx="22" cy="66.5" rx="13" ry="2.6" fill="#7f1d1d" opacity=".45" />
         <path d="M8 62 Q16 54 26 58 L30 66 L8 68 Z" fill="#4d7c0f" />
@@ -2923,12 +2925,14 @@ const FIG_POSES = {
         <path d="M30 64 L40 66 L40 69 L30 68 Z" fill="#7f1d1d" />
         <path d="M38 66 L45 66.5 L45 69 L38 69 Z" fill="#120b08" />
         <path d="M8 60 Q3 58 1 62 L4 65 Q7 64 9 63 Z" fill="#365314" />
+        {foe !== "G" && (<g>
         <circle cx="10" cy="56" r="6" fill="#4d7c0f" /><path d="M4.5 56 Q4.5 50.5 10 50 L10 62 Q6 61 4.5 56 Z" fill="#365314" />
         <path d="M6.8 54 L9 56 M9 54 L6.8 56" stroke="#120b08" strokeWidth=".8" strokeLinecap="round" />
         <path d="M11.5 54.2 L13.5 56 M13.5 54.2 L11.5 56" stroke="#120b08" strokeWidth=".8" strokeLinecap="round" />
         <path d="M7 59 Q10 62.5 13.5 59.5 L13 62 Q10 64.5 7.5 61.5 Z" fill="#120b08" />
         <path d="M8 59.6 L9.3 59.6 L9.3 60.9 Z" fill="#e7ddc8" />
-        <path d="M4 51 L1 47.5 L5.2 49.2 Z" fill="#120b08" />
+        <path d="M4 51 L1 47.5 L5.2 49.2 Z" fill="#120b08" /></g>)}
+        {foe === "G" && (<g><path d="M8 59 L14 57 L14 62 L9 63 Z" fill="#7f1d1d" /><circle cx="7" cy="60" r=".7" fill="#ef4444" /></g>)}
         <g transform="translate(26,22) rotate(172)">{GAXE}</g>
         <path d="M21 60 Q27 57.5 31 61.5 L30 66 L21 66 Z" fill="#4d7c0f" />
         <path d="M27 60.5 L33.5 59.5 L31.5 64 Z" fill="#7f1d1d" opacity=".9" />
@@ -3008,14 +3012,16 @@ const FIG_POSES = {
         <g transform="translate(0,-1)">{MHEAD}</g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <path d="M10 60 Q24 52 38 60 L40 69 L8 69 Z" fill="#3a3054" />
         <path d="M10 60 L24 55 L23 69 L8 69 Z" fill="#2b2344" />
         <path d="M8 66 L13 63 L10 69 L16 66 L14 69 M40 66 L35 63 L38 69 L32 66 L34 69" stroke="#2b2344" strokeWidth="1.6" fill="none" />
+        {foe !== "G" && (<g>
         <path d="M20 46 Q16 52 18 58 Q24 62 30 58 Q32 52 28 46 Q24 43 20 46 Z" fill="#2f2748" />
         <path d="M20 46 Q17 52 19 57 Q23 60 24 59 L24 46 Z" fill="#2b2344" />
-        <path d="M22 52 Q24 54 26 52" stroke="#8b90a6" strokeWidth="1" fill="none" opacity=".7" />
+        <path d="M22 52 Q24 54 26 52" stroke="#8b90a6" strokeWidth="1" fill="none" opacity=".7" /></g>)}
+        {foe === "G" && (<g><path d="M20 56 L28 56 L27 59 L21 59 Z" fill="#7f1d1d" /><circle cx="19" cy="58" r=".6" fill="#ef4444" /></g>)}
         <path d="M6 55 L9 66" stroke="#cbd5e1" strokeWidth="1.8" strokeLinecap="round" />
         <circle cx="5.6" cy="54" r="1.3" fill="#065f46" />
         <path d="M42 55 L39 66" stroke="#94a3b8" strokeWidth="1.8" strokeLinecap="round" />
@@ -3173,7 +3179,7 @@ const FIG_POSES = {
         </g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <path d="M14 58 L24 57 L23 69 L12 69 Z" fill="#44403c" />
         <path d="M27 62 L38 62 L40 69 L26 69 Z" fill="#3f3a34" />
@@ -3185,10 +3191,11 @@ const FIG_POSES = {
         <path d="M34 30 L44 34 L42 46 L32 42 Z" fill="#6e6a64" />
         <path d="M8 46 L4 60 L10 62 L13 48 Z" fill="#57534e" />
         <path d="M36 46 L42 60 L36 62 L31 48 Z" fill="#57534e" />
-        <g transform="translate(0,17) rotate(14 24 14)">
+        {foe !== "G" && (<g transform="translate(0,17) rotate(14 24 14)">
           <path d="M19 4 L18 9 L21 8 Z M29 4 L30 9 L27 8 Z" fill="#3f3a34" /><path d="M17 8 L31 8 L32 22 L16 22 Z" fill="#6e6a64" /><path d="M17 8 L24 8 L24 22 L16 22 Z" fill="#57534e" />
           <path d="M18 13 L30 13 L30 16 L18 16 Z" fill="#1c1917" />
-        </g>
+        </g>)}
+        {foe === "G" && (<g><path d="M19 34 L29 33 L29 37 L19 38 Z" fill="#1c1917" /><path d="M20 33 L18 29 M25 32.5 L25 28.5 M28 33 L31 30" stroke="#c4b5fd" strokeWidth=".8" opacity=".8" strokeLinecap="round" /></g>)}
       </g>
     ),
   },
@@ -3297,7 +3304,7 @@ const FIG_POSES = {
         </g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <path d="M8 63 Q13 58 19 62 Q22 66 18 69 L8 69 Z" fill="#8a6a3f" />
         <path d="M16 60 Q23 55 30 60 Q33 65 29 68 L17 68 Z" fill="#96703f" />
@@ -3306,10 +3313,12 @@ const FIG_POSES = {
         <path d="M4 66 Q7 63 10 66 Q10 68.5 8 69 L4 69 Z" fill="#7a5c33" />
         <path d="M22 60 L26 60 L26 64 L22 64 Z" fill="#7a5c33" />
         <path d="M23.4 60.5 L23.4 63.5" stroke="#57431f" strokeWidth=".8" />
+        {foe !== "G" && (<g>
         <path d="M14 54 Q14 47 22 46.5 Q30 47 30 54 L29 58 L15 58 Z" fill="#a67c4a" />
         <path d="M14 54 Q14 47 22 46.5 L22 58 L15 58 Z" fill="#8a6039" />
         <path d="M18 48 L21 52 L19 56" stroke="#3d2a12" strokeWidth="1.1" fill="none" />
-        <path d="M16.5 53 L27.5 53 L27.2 55.4 L16.8 55.4 Z" fill="#3d2a12" />
+        <path d="M16.5 53 L27.5 53 L27.2 55.4 L16.8 55.4 Z" fill="#3d2a12" /></g>)}
+        {foe === "G" && (<path d="M18 56 L26 56 L25 59 L19 59 Z" fill="#57431f" />)}
         <circle cx="8" cy="58" r="1" fill="#a8a29e" opacity=".6" /><circle cx="34" cy="55" r=".9" fill="#8f8a80" opacity=".6" /><circle cx="42" cy="60" r=".7" fill="#78716c" opacity=".5" />
       </g>
     ),
@@ -3422,7 +3431,7 @@ const FIG_POSES = {
         </g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <g transform="translate(10,68) rotate(20)">{DSPEAR}</g>
         <path d="M22 58 L36 56 L38 63 L21 64 Z" fill="#141d2b" />
@@ -3432,11 +3441,12 @@ const FIG_POSES = {
         <path d="M12 42 L20 40 L21 48 L13 50 Z" fill="#334155" />
         <path d="M18 38 Q24 42 30 38 Q30 42 26 43 Q22 44 20 43 Q17 41 18 38 Z" fill="#7f1d1d" />
         <g transform="translate(28,64.5) rotate(92)">{DSWORD}</g>
-        <g transform="translate(2,25) rotate(16 24 12)">
+        {foe !== "G" && (<g transform="translate(2,25) rotate(16 24 12)">
           <path d="M17 9 Q17 4 24 4 Q31 4 31 9 L31 15 L17 15 Z" fill="#94a3b8" /><path d="M17 9 Q17 4 24 4 L24 15 L17 15 Z" fill="#64748b" />
           <path d="M23 5 L25 5 L25 17 L23 17 Z" fill="#475569" />
           <path d="M17 12 L22 12 L22 15 L17 15 Z M26 12 L31 12 L31 15 L26 15 Z" fill="#0b0f16" />
-        </g>
+        </g>)}
+        {foe === "G" && (<g><path d="M19 39 L27 38 L27 42 L19 43 Z" fill="#7f1d1d" /><circle cx="17.5" cy="41" r=".6" fill="#ef4444" /></g>)}
       </g>
     ),
   },
@@ -3527,7 +3537,7 @@ const FIG_POSES = {
         </g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <path d="M4 64 Q14 57 26 62 Q36 66 44 62 Q42 70 30 69 Q14 68 4 70 Z" fill="#2dd4bf" opacity=".55" />
         <path d="M8 66 Q18 61 30 65" stroke="#5eead4" strokeWidth="1" fill="none" opacity=".7" />
@@ -3537,12 +3547,13 @@ const FIG_POSES = {
         <path d="M34 61.3 Q38 59 38 56 M34 61.3 Q38 63 38 66" stroke="#155e59" strokeWidth="1.3" fill="none" />
         <path d="M38 56 L43 54.8 L39.6 58 Z M38 61 L45 60.8 L39 63 Z M38 66 L43 67 L39.6 64.4 Z" fill="#a5f3fc" opacity=".9" />
         <circle cx="14" cy="52" r="1.4" fill="none" stroke="#5eead4" strokeWidth=".8" opacity=".7" /><circle cx="30" cy="48" r="1" fill="none" stroke="#5eead4" strokeWidth=".7" opacity=".6" />
-        <g transform="translate(1,28) rotate(10 24 14)" opacity=".92">
+        {foe !== "G" && (<g transform="translate(1,28) rotate(10 24 14)" opacity=".92">
           <circle cx="24" cy="14" r="6.5" fill="#cbd5e1" /><path d="M17.5 14 Q17.5 8 24 7.5 L24 20.5 Q18.5 20 17.5 14 Z" fill="#94a3b8" />
           <path d="M17 10 Q13 13 14 20 Q17 23 20 21 L20 13 Z" fill="#0b3f3a" opacity=".8" />
           <path d="M31 10 Q35 13 34 20 Q31 23 28 21 L28 13 Z" fill="#0b3f3a" opacity=".8" />
           <path d="M21 17.5 L27 17.5" stroke="#04211c" strokeWidth="1" />
-        </g>
+        </g>)}
+        {foe === "G" && (<path d="M18 46 L26 45 L26 49 L18 50 Z" fill="#0b3f3a" opacity=".85" />)}
       </g>
     ),
   },
@@ -3642,7 +3653,7 @@ const FIG_POSES = {
         </g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <path d="M12 20 L12 66" stroke="#92400e" strokeWidth="2.2" strokeLinecap="round" />
         <path d="M12 20 L12 66" stroke="#f5f5f4" strokeWidth="0.5" opacity=".6" />
@@ -3654,12 +3665,13 @@ const FIG_POSES = {
         <path d="M24 66 L33 66.6 L33 68 L24 67.6 Z" fill="#78350f" opacity=".8" />
         <path d="M36 50 Q39 48 41 50 Q39 53 36 52 Z" fill="#4ade80" opacity=".5" />
         <path d="M42 58 Q45 56 47 58 Q45 61 42 60 Z" fill="#166534" opacity=".6" />
-        <g transform="translate(-1,26) rotate(-8 24 14)">
+        {foe !== "G" && (<g transform="translate(-1,26) rotate(-8 24 14)">
           <path d="M24 3.5 Q16.5 6 15.5 15 Q15 20 17.5 23 Q17 15 24 12 Q31 15 30.5 23 Q33 20 32.5 15 Q31.5 6 24 3.5 Z" fill="#241505" />
           <path d="M18.5 12.5 Q24 9.5 29.5 12.5 L28.6 21 Q26.5 24.5 24 24.5 Q21.5 24.5 19.4 21 Z" fill="#d1a374" />
           <path d="M18.8 13.5 Q24 11 29.2 13.5 L28.9 16 Q24 14 19.1 16 Z" fill="#3d2410" />
           <path d="M21 18.5 L23 18 M27 18.5 L25 18" stroke="#3d2410" strokeWidth=".8" />
-        </g>
+        </g>)}
+        {foe === "G" && (<g><path d="M17 48 L24 47 L24 51 L17 52 Z" fill="#7f1d1d" /><circle cx="15.5" cy="50" r=".6" fill="#ef4444" /></g>)}
       </g>
     ),
   },
@@ -3732,20 +3744,21 @@ const FIG_POSES = {
         </g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <path d="M6 62 Q10 54 24 52 Q38 54 42 62 L42 69 L6 69 Z" fill="#1a2e0a" />
         <path d="M6 62 Q10 54 24 52 L23 69 L6 69 Z" fill="#101f05" />
         <path d="M8 56 L46 66" stroke="#78350f" strokeWidth="2" /><circle cx="47" cy="66.5" r="3" fill="#cfc9bd" /><circle cx="46" cy="66" r="0.7" fill="#0a0d05" /><circle cx="48.2" cy="66" r="0.7" fill="#0a0d05" />
         <path d="M20 56 Q24 52 28 56" stroke="#d6cdba" strokeWidth=".6" fill="none" opacity=".6" />
         <path d="M14 58 Q10 56 8 52" stroke="#d6cdba" strokeWidth=".5" fill="none" opacity=".5" />
-        <g transform="translate(0,36)">
+        {foe !== "G" && (<g transform="translate(0,36)">
           <path d="M20 12 Q28 8 32 14 Q35 22 32 30 Q27 36 21 33 Q15 27 16 19 Q17 14 20 12 Z" fill="#e7e5e4" />
           <path d="M20 12 Q24 10 26 10 L24 34 Q18 30 16 22 Q16 15 20 12 Z" fill="#cfc9bd" />
           <path d="M20 19 Q22 17 24 19 Q23 23 20.5 23 Z" fill="#0a0d05" /><path d="M30 19 Q28 17 26 19 Q27 23 29.5 23 Z" fill="#0a0d05" />
           <circle cx="22" cy="20.5" r="0.7" fill="#44403c" /><circle cx="28" cy="20.5" r="0.7" fill="#44403c" />
           <path d="M21 28 L29 28 M23 26.5 L23 29.5 M26 26.5 L26 29.5" stroke="#0a0d05" strokeWidth="0.9" />
-        </g>
+        </g>)}
+        {foe === "G" && (<path d="M20 54 Q24 51 28 54 L27 57 Q24 59 21 57 Z" fill="#101f05" />)}
         <circle cx="36" cy="44" r=".9" fill="#a3e635" opacity=".45" />
       </g>
     ),
