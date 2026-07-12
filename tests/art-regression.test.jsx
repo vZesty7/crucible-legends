@@ -13,8 +13,8 @@ test("the gallery markup matches the committed reference", () => {
   window.history.replaceState(null, "", "/?artgallery");
   const { container } = render(<App />);
   const svgs = container.querySelectorAll("svg");
-  // 12 portraits + 72 poses + 16 forge + 12 trophies + 72 board-scale + 24 mirror + 72 silhouettes = 280
-  expect(svgs.length).toBe(280);
+  // 12 portraits + 72 poses + 16 forge + 12 trophies + 72 board-scale + 24 mirror + 4 rake-proof + 72 silhouettes = 284
+  expect(svgs.length).toBe(284);
   expect(container.innerHTML).toMatchSnapshot();
   window.history.replaceState(null, "", "/");
 });
@@ -32,7 +32,7 @@ test("reduced motion strips every animation from the board figures", async () =>
     const { default: AppReduced } = await import("../src/App.jsx?reduced");
     window.history.replaceState(null, "", "/?artgallery");
     const { container } = render(<AppReduced />);
-    expect(container.querySelectorAll("svg").length).toBe(280);
+    expect(container.querySelectorAll("svg").length).toBe(284);
     // no breathing wrapper, no sway, no particles, no pose-swap animation class
     expect(container.querySelector(".vfig")).toBeNull();
     expect(container.querySelector(".figSway")).toBeNull();

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 /* ============ CRUCIBLE LEGENDS (working files: bloodgrounds-*) ============
    Five fighters · painted arena · terrain skins · element VFX
@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 
 const QUADS = ["NW", "NE", "SW", "SE"];
 const ADJ = { NW: ["NE", "SW"], NE: ["NW", "SE"], SW: ["NW", "SE"], SE: ["NE", "SW"] };
-const BUILD = "v0.89";
+const BUILD = "v0.90";
 const BEATS = { break: "ward", rush: "break", ward: "rush" };
 const TYPE_LABEL = { break: "BREAK", rush: "RUSH", ward: "WARD" };
 const TYPE_HEX = { break: "#ef4444", rush: "#f59e0b", ward: "#38bdf8" };
@@ -4180,7 +4180,7 @@ function HeraldBanner({ x, fk, fallback, dark }) {
     </g>
   );
 }
-function ArenaBackdrop({ pfk, afk }) {
+const ArenaBackdrop = React.memo(function ArenaBackdrop({ pfk, afk }) {
   return (
     <svg viewBox="0 0 400 96" className="w-full block" preserveAspectRatio="none" style={{ height: 84 }}>
       <defs>
@@ -4194,8 +4194,10 @@ function ArenaBackdrop({ pfk, afk }) {
       {Array.from({ length: 60 }).map((_, i) => (
         <circle key={i} cx={12 + (i * 6.5) % 380} cy={16 + ((i * 37) % 3) * 7} r="1.4" fill="#57534e" opacity=".35" />
       ))}
-      <HeraldBanner x={88} fk={pfk} fallback="#7f1d1d" dark="#450a0a" />
-      <HeraldBanner x={294} fk={afk} fallback="#064e3b" dark="#022c22" />
+      <g className={REDUCED ? "" : "bannerSway"} style={{ transformOrigin: "110px 20px" }}><HeraldBanner x={88} fk={pfk} fallback="#7f1d1d" dark="#450a0a" /></g>
+      <g className={REDUCED ? "" : "bannerSwayB"} style={{ transformOrigin: "316px 20px" }}><HeraldBanner x={294} fk={afk} fallback="#064e3b" dark="#022c22" /></g>
+      {!REDUCED && <circle className="ashDrift" cx="140" cy="30" r="1.2" fill="#78716c" opacity=".5" />}
+      {!REDUCED && <circle className="ashDriftB" cx="250" cy="20" r="1" fill="#57534e" opacity=".45" />}
       <g><rect x="30" y="62" width="16" height="8" rx="2" fill="#292524" /><rect x="36" y="70" width="4" height="20" fill="#1c1917" />
         <path className="flameA" d="M38 62 Q32 50 38 42 Q44 50 38 62 Z" fill="#f97316" /><path className="flameB" d="M38 60 Q35 52 38 47 Q41 52 38 60 Z" fill="#fde047" /></g>
       <g><rect x="354" y="62" width="16" height="8" rx="2" fill="#292524" /><rect x="360" y="70" width="4" height="20" fill="#1c1917" />
@@ -4203,8 +4205,8 @@ function ArenaBackdrop({ pfk, afk }) {
       <rect width="400" height="26" fill="url(#haze)" />
     </svg>
   );
-}
-function StoneTile({ seed }) {
+});
+const StoneTile = React.memo(function StoneTile({ seed }) {
   const flip = seed % 2 ? -1 : 1;
   return (
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
@@ -4221,8 +4223,8 @@ function StoneTile({ seed }) {
       <rect width="100" height="100" fill="none" stroke="#000" strokeOpacity=".38" strokeWidth="2" />
     </svg>
   );
-}
-function TerrainSkin({ kind }) {
+});
+const TerrainSkin = React.memo(function TerrainSkin({ kind }) {
   if (kind === "frost") return (
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
       <rect width="100" height="100" fill="#7dd3fc" opacity=".25" />
@@ -4290,7 +4292,7 @@ function TerrainSkin({ kind }) {
     </svg>
   );
   return null;
-}
+});
 
 /* ============ css ============ */
 const CSS = `
@@ -4326,6 +4328,23 @@ const CSS = `
 @keyframes feedIn{0%{opacity:0;transform:translateY(4px)}100%{opacity:1;transform:translateY(0)}}
 @keyframes flick{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.82)}}
 @keyframes fogDrift{0%{transform:translateX(-8%)}100%{transform:translateX(8%)}}
+.hitstop *{animation-play-state:paused!important}
+@keyframes bannerSway{0%,100%{transform:rotate(0)}50%{transform:rotate(1.6deg)}}
+.bannerSway{animation:bannerSway 5.6s ease-in-out infinite}
+.bannerSwayB{animation:bannerSway 6.8s ease-in-out infinite reverse}
+@keyframes ashDrift{0%{transform:translate(0,0);opacity:.5}100%{transform:translate(26px,44px);opacity:0}}
+.ashDrift{animation:ashDrift 7s linear infinite}
+.ashDriftB{animation:ashDrift 9s linear 2s infinite}
+@keyframes beamFlash{0%{opacity:0}18%{opacity:1}70%{opacity:1}100%{opacity:0}}
+@keyframes tokLungeR{0%{transform:translateX(0)}45%{transform:translateX(9px)}100%{transform:translateX(0)}}
+@keyframes tokLungeL{0%{transform:translateX(0)}45%{transform:translateX(-9px)}100%{transform:translateX(0)}}
+.tokLungeR{animation:tokLungeR .26s ease-out}
+.tokLungeL{animation:tokLungeL .26s ease-out}
+@keyframes rakeRend{0%{opacity:0;transform:scale(.15,.06) rotate(-8deg)}55%{opacity:1;transform:scale(1.05,1.02)}100%{opacity:0;transform:scale(1.05,1.02)}}
+@keyframes rakeWound{0%{opacity:0}12%{opacity:1}68%{opacity:1}100%{opacity:0}}
+@keyframes rakeCrackle{0%{opacity:0}20%{opacity:1}55%{opacity:.85}100%{opacity:0}}
+@keyframes rakeRift{0%{opacity:0;transform:scale(.4)}25%{opacity:1;transform:scale(1)}75%{opacity:.7}100%{opacity:0;transform:scale(1.1)}}
+.rakeLoop *{animation-iteration-count:infinite!important}
 .flameA{transform-origin:center 62px;animation:flick 1.1s ease-in-out infinite}
 .flameB{transform-origin:center 62px;animation:flick .8s ease-in-out .2s infinite}
 .bg-shake{animation:bgShake .32s linear}
@@ -4445,6 +4464,10 @@ export default function App() {
   const [cutin, setCutin] = useState(false);
   const [sudden, setSudden] = useState(null);
   const [hitTok, setHitTok] = useState(null);
+  const [hitstop, setHitstop] = useState(false);
+  const [projs, setProjs] = useState([]);
+  const [rake, setRake] = useState(null);
+  const [lunge, setLunge] = useState(null);
   const [poses, setPoses] = useState({ P: "idle", A: "idle" });
   const [dying, setDying] = useState(null);
   const [deathHold, setDeathHold] = useState(false);
@@ -4472,27 +4495,51 @@ export default function App() {
   const clearTimers = () => { timers.current.forEach(clearTimeout); timers.current = []; };
 
   /* ---- fx ---- */
-  const addPop = (sideK, text, cls) => {
-    const id = Math.random();
-    setPops((p) => [...p, { id, side: sideK, text, cls }]);
-    later(() => setPops((p) => p.filter((x) => x.id !== id)), 1100);
+  const fxSeq = useRef(0);
+  const addPop = (sideK, text, cls, big) => {
+    const id = ++fxSeq.current;
+    setPops((p) => [...p, { id, side: sideK, text, cls, big }]);
+    later(() => setPops((p) => p.filter((x) => x.id !== id)), big ? 1300 : 1100);
   };
   const flashQuad = (q, ty, el) => {
     if (!q) return;
-    const id = Math.random();
+    const id = ++fxSeq.current;
     setFlashes((f) => [...f, { id, q, ty, el }]);
     later(() => setFlashes((f) => f.filter((x) => x.id !== id)), 700);
   };
   const doShake = () => { if (REDUCED) return; setShake(true); later(() => setShake(false), 340); };
-  const showStamp = (text, tone) => { setStamp({ text, tone }); later(() => setStamp(null), 1150); };
+  const showStamp = (text, tone, heavy) => { setStamp({ text, tone, heavy }); later(() => setStamp(null), heavy ? 1450 : 1150); };
   const showBanner = (text, sub) => { setBanner({ text, sub }); later(() => setBanner(null), 1250); };
   const tokFlash = (k) => { setHitTok(k); later(() => setHitTok(null), 420); };
   const fireFx = (fx) => {
     if (!fx) return;
     if (fx.kind === "hit") {
-      addPop(fx.side, `−${fx.amt}`, "text-red-400"); flashQuad(fx.q, fx.ty, fx.el); tokFlash(fx.side); if (fx.amt >= 2) doShake();
-      setPoseFor(fx.side === "P" ? "A" : "P", "strike", 340);
-      later(() => setPoseFor(fx.side, "hurt", 400), 120);
+      const atkKey = fx.side === "P" ? "A" : "P";
+      const atk = G.current[atkKey];
+      const fromQ = atk?.pos;
+      const impact = () => {
+        addPop(fx.side, `−${fx.amt}`, "text-red-400", fx.amt >= 3 ? 2 : fx.amt >= 2 ? 1 : 0);
+        flashQuad(fx.q, fx.ty, fx.el); tokFlash(fx.side); if (fx.amt >= 2) doShake();
+        if (fx.amt >= 2 && !REDUCED) { setHitstop(true); later(() => setHitstop(false), 110); }
+        later(() => setPoseFor(fx.side, "hurt", 400), 40);
+      };
+      setPoseFor(atkKey, "strike", 420);
+      const theater = !REDUCED && speedRef.current !== "instant" && pendingRef.current;
+      if (theater && fromQ && fx.q && fromQ !== fx.q) {
+        const beam = atk.fk === "K" && fx.amt >= 5;
+        const id = ++fxSeq.current;
+        setProjs((ps) => [...ps, { id, from: fromQ, to: fx.q, fk: atk.fk, el: fx.el, beam }]);
+        later(() => setProjs((ps) => ps.filter((x) => x.id !== id)), beam ? 520 : 380);
+        later(impact, beam ? 260 : 300);
+      } else if (theater && fromQ && fx.q && fromQ === fx.q) {
+        setLunge(atkKey); later(() => setLunge(null), 260);
+        later(impact, 130);
+      } else impact();
+    }
+    if (fx.kind === "rake") {
+      const id = ++fxSeq.current;
+      setRake({ id, q: fx.q });
+      later(() => setRake((r) => (r && r.id === id ? null : r)), 1800);
     }
     if (fx.kind === "glance") { addPop(fx.side, `−${fx.amt}`, "text-stone-400"); flashQuad(fx.q, fx.ty, fx.el); setPoseFor(fx.side, "hurt", 300); }
     if (fx.kind === "heal") addPop(fx.side, `+${fx.amt}`, "text-emerald-400");
@@ -4501,7 +4548,7 @@ export default function App() {
     if (fx.kind === "chill") addPop(fx.side, "❄", "text-sky-300");
     if (fx.kind === "curse") addPop(fx.side, "+🧷", "text-fuchsia-400");
     if (fx.kind === "rupture") { addPop(fx.side, "RUPTURE", "text-lime-300"); showStamp("RUPTURE", "#a3e635"); doShake(); }
-    if (fx.kind === "combo") { showStamp(fx.text, "#fde047"); doShake(); }
+    if (fx.kind === "combo") { const heavy = /COMBUST|HARVEST|FINALITY/.test(fx.text || ""); showStamp(fx.text, heavy ? "#f97316" : "#fde047", heavy); doShake(); }
     if (fx.kind === "pow") addPop(fx.side, "+◆", "text-violet-300");
     if (fx.kind === "adv") showStamp(fx.text, fx.tone);
   };
@@ -4863,19 +4910,24 @@ export default function App() {
   const stepPlay = () => {
     const p = pendingRef.current;
     if (!p) return;
-    if (speedRef.current === "instant") { skipPlay(); return; }
+    if (REDUCED || speedRef.current === "instant") { skipPlay(); return; }
     if (p.i >= p.lines.length) { pendingRef.current = null; p.done(); return; }
     const line = p.lines[p.i++];
     if (line.t) G.current.feed.push(line);
+    if (line.t && line.t.includes("WARD catches")) {
+      const v = G.current.vs;
+      if (v?.p?.ty === "ward") setPoseFor("P", "ward", 1400);
+      if (v?.a?.ty === "ward") setPoseFor("A", "ward", 1400);
+    }
     fireFx(line.fx);
     rerender();
     // THE SEQUENCING LAW: one event at a time, causal order, readable breath.
     // Beat weights — heavy events dwell longer and exhale before the next beat.
     let d;
-    if (REDUCED) d = 140;
-    else {
+    {
       const k = line.fx?.kind;
-      d = k === "hit" ? 1000
+      d = k === "rake" ? 1550
+        : k === "hit" ? 1000
         : k === "combo" ? 950
         : k === "glance" ? 760
         : line.fx ? 780
@@ -5008,8 +5060,8 @@ export default function App() {
       L.push({ t: `🚪 Knock, knock. Who's there?` });
       const victims = [g.P, g.A].filter((f) => f.pos === rq);
       G.current._clawStrike = true;
-      if (victims.length) { L.push({ t: `👹 The Door answers — a nether claw lashes ${rq}!` }); victims.forEach((f) => dealRaw(f, 2, L, "The Claw", "rush", "#d946ef")); }
-      else L.push({ t: `👹 The Door answers — the claw rakes empty stone at ${rq}.` });
+      if (victims.length) { L.push({ t: `👹 The Door answers — a nether claw lashes ${rq}!`, fx: { kind: "rake", q: rq } }); victims.forEach((f) => dealRaw(f, 2, L, "The Claw", "rush", "#d946ef")); }
+      else L.push({ t: `👹 The Door answers — the claw rakes empty stone at ${rq}.`, fx: { kind: "rake", q: rq } });
       G.current._clawStrike = false;
       g.clawHit = { q: rq, r: g.roundJustPlayed };
     }
@@ -5232,7 +5284,7 @@ export default function App() {
         g.A.pow -= 3; g.A._spent = true; g.A.sieged = true;
         g.feed.push({ t: "⚙ SIEGE PROTOCOL — the foe's Cannonarm reconfigures: the SIEGE CANNON is live." });
       }
-      if (CLASH_ROUNDS.includes(g.round)) { g.phase = "clashIntro"; setCutin(true); later(() => { setCutin(false); afterCutin(); }, REDUCED ? 500 : speedRef.current === "instant" ? 400 : speedRef.current === "brisk" ? 900 : 1700); }
+      if (CLASH_ROUNDS.includes(g.round)) { g.phase = "clashIntro"; setCutin(true); const heavy = g.round === 10 ? 700 : 0; later(() => { setCutin(false); afterCutin(); }, REDUCED ? 500 : speedRef.current === "instant" ? 400 : speedRef.current === "brisk" ? 900 + heavy / 2 : 1700 + heavy); }
       else { g.phase = "plan"; showBanner(`ROUND ${g.round}`, "plan in secret"); resetSel(g); }
     }
     rerender();
@@ -5939,6 +5991,15 @@ export default function App() {
             </div>
           ))}
         </div>
+        <div className="text-xs tracking-widest text-stone-500 mb-2 mt-6">THE THIRD KNOCK — RAKE PROOF (phone tile, looping)</div>
+        <div className="flex gap-4 mb-6">
+          {[170, 120].map((w) => (
+            <div key={w} className="relative rounded-lg overflow-hidden" style={{ width: w, height: Math.round(w * 0.92) }}>
+              <StoneTile seed={2} />
+              <TheRake loop />
+            </div>
+          ))}
+        </div>
         <div className="text-xs tracking-widest text-stone-500 mb-2 mt-6">SILHOUETTE LAW — BLACK-FILL TEST</div>
         {Object.keys(FIGHTERS).map((fk) => (
           <div key={`sil${fk}`} className="mb-4">
@@ -6169,7 +6230,7 @@ export default function App() {
       )}
       {stamp && (
         <div className="fixed inset-0 z-40 grid place-items-center pointer-events-none">
-          <div className="px-5 py-2 font-black text-2xl tracking-widest text-stone-950 rounded" style={{ background: stamp.tone, animation: "stampIn .45s ease-out both", boxShadow: `0 0 60px ${stamp.tone}` }}>{stamp.text}</div>
+          <div className={`px-5 py-2 font-black ${stamp.heavy ? "text-4xl" : "text-2xl"} tracking-widest text-stone-950 rounded`} style={{ background: stamp.tone, animation: `stampIn ${stamp.heavy ? ".6s" : ".45s"} ease-out both`, boxShadow: `0 0 ${stamp.heavy ? 90 : 60}px ${stamp.tone}` }}>{stamp.text}</div>
         </div>
       )}
       {cutin && <ClashCutin round={g.round} me={me} ai={ai} />}
@@ -6232,7 +6293,7 @@ export default function App() {
                 {s.noGain && <span className="text-stone-500">✖◆</span>}
               </div>
               {pops.filter((p) => p.side === key).map((p) => (
-                <div key={p.id} className={`absolute -top-1 right-1 font-black text-lg ${p.cls}`} style={{ animation: "popRise 1.05s ease-out both" }}>{p.text}</div>
+                <div key={p.id} className={`absolute -top-1 right-1 font-black ${p.big === 2 ? "text-3xl" : p.big === 1 ? "text-2xl" : "text-lg"} ${p.cls}`} style={{ animation: `popRise ${p.big ? "1.3s" : "1.05s"} ease-out both`, textShadow: p.big ? "0 0 14px rgba(220,38,38,.8)" : undefined }}>{p.text}</div>
               ))}
             </div>
           );
@@ -6240,7 +6301,7 @@ export default function App() {
       </div>
 
       {/* ARENA SCENE — during the theater, tapping the stage fast-forwards */}
-      <div className={`relative mb-2 rounded-xl overflow-hidden border border-stone-800 ${shake ? "bg-shake" : ""}`} onClick={g?.phase === "playing" ? skipPlay : undefined}>
+      <div className={`relative mb-2 rounded-xl overflow-hidden border border-stone-800 ${shake ? "bg-shake" : ""} ${hitstop ? "hitstop" : ""}`} onClick={g?.phase === "playing" ? skipPlay : undefined}>
         <ArenaBackdrop pfk={g?.P?.fk} afk={g?.A?.fk} />
         <div className="relative grid grid-cols-2" style={{ background: "#15110d" }}>
           {QUADS.map((q, qi) => {
@@ -6323,6 +6384,7 @@ export default function App() {
                 )}
                 <span className="absolute top-1.5 left-2 text-xs text-stone-500 z-10" style={{ textShadow: "0 1px 2px #000" }}>{q}</span>
                 {flashes.filter((f) => f.q === q).map((f) => <QuadFx key={f.id} ty={f.ty} el={f.el} />)}
+                {rake && rake.q === q && <TheRake key={rake.id} />}
                 {railNow && g.phase === "prompt" && railPick && (q === railPick ? (
                   <span className="absolute inset-0 z-20 grid place-items-center pointer-events-none">
                     <span className="absolute inset-1 rounded-lg" style={{ border: "3px solid #fbbf24", boxShadow: "0 0 18px #f59e0b, inset 0 0 18px #f59e0b55", animation: "venPulse 1.1s infinite" }} />
@@ -6347,6 +6409,7 @@ export default function App() {
           })}
           <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(255,255,255,.03), transparent 30%, transparent 70%, rgba(255,255,255,.02))", animation: REDUCED ? "none" : "fogDrift 9s ease-in-out infinite alternate" }} />
           <div className="absolute inset-0 pointer-events-none">
+            {projs.map((p) => <Proj key={p.id} p={p} />)}
             {[me, ai].map((s, i) => {
               const key = i === 0 ? "P" : "A";
               const c = QPOS[s.pos];
@@ -6358,7 +6421,7 @@ export default function App() {
                   animation: hitTok === key ? "tokenHit .4s ease" : "none",
                 }}>
                   <span className="absolute left-1/2 -translate-x-1/2 rounded-full" style={{ bottom: -3, width: 34, height: 8, background: "radial-gradient(closest-side, rgba(0,0,0,.7), transparent)" }} />
-                  <span className="relative block" style={{ filter: `drop-shadow(0 0 8px ${F.hex}66)` }}>
+                  <span className={`relative block ${lunge === key ? (i === 0 ? "tokLungeR" : "tokLungeL") : ""}`} style={{ filter: `drop-shadow(0 0 8px ${F.hex}66)` }}>
                     <VecFig fk={s.fk} size={44} flip={i === 1} pose={poses[key]} dying={dying === key} foe={i === 0 ? ai.fk : me.fk} />
                   </span>
                 </div>
@@ -6531,6 +6594,12 @@ export default function App() {
         {g.phase === "over" && !deathHold && (
           <div className="text-center py-2">
             <div className="flex justify-center mb-2"><Portrait fk={g.winner === "A" ? ai.fk : me.fk} size={92} /></div>
+            {g.winner !== "LESSON" && (
+              <div className="flex justify-center items-end gap-8 mb-1">
+                <VecFig fk={g.winner === "A" ? ai.fk : me.fk} size={52} pose="victorious" foe={g.winner === "A" ? me.fk : ai.fk} />
+                <VecFig fk={g.winner === "A" ? me.fk : ai.fk} size={44} pose="fallen" flip foe={g.winner === "A" ? ai.fk : me.fk} />
+              </div>
+            )}
             <div className={`font-serif italic text-4xl ${g.winner === "LESSON" ? "text-amber-300" : g.winner === "P" ? "text-emerald-400" : "text-red-500"}`} style={{ textShadow: "0 0 40px rgba(220,38,38,.4)" }}>
               {g.winner === "LESSON" ? "Lesson Complete" : g.winner === "P" ? "Victory" : "Slain"}
             </div>
@@ -6649,6 +6718,73 @@ function Embers() {
     </div>
   );
 }
+function TheRake({ loop }) {
+  return (
+    <div className={`absolute inset-0 pointer-events-none overflow-hidden ${loop ? "rakeLoop" : ""}`} style={{ zIndex: 25 }}>
+      <div className="absolute" style={{ left: "-4%", top: "-6%", width: "50%", height: "38%", background: "radial-gradient(closest-side, #0a0208 18%, #7e22ce88 42%, #dc262633 68%, transparent)", animation: "rakeRift 1.7s ease-out both" }} />
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+        <g style={{ animation: "rakeRend .4s cubic-bezier(.75,0,.9,.5) both", transformOrigin: "10% 6%" }}>
+          <path d="M10 3 Q30 18 44 37 Q58 56 88 94 Q60 68 42 47 Q26 27 10 3 Z" fill="#dc2626" opacity=".9" />
+          <path d="M26 1 Q48 22 62 42 Q76 62 97 82 Q70 62 54 44 Q38 24 26 1 Z" fill="#a855f7" opacity=".85" />
+          <path d="M2 20 Q22 38 38 58 Q52 76 68 98 Q44 76 28 56 Q12 36 2 20 Z" fill="#7f1d1d" opacity=".85" />
+        </g>
+        <g style={{ animation: "rakeWound 1.5s ease-out .32s both" }}>
+          <path d="M9 2 Q32 20 46 39 Q61 59 90 96 Q58 70 41 48 Q24 26 9 2 Z" fill="#7f1d1d" opacity=".7" />
+          <path d="M10 3 Q31 19 44.5 37.5 Q59 57 87 93 Q58 68 42 47 Q26 26.5 10 3 Z" fill="#dc2626" opacity=".75" />
+          <path d="M11.5 5 Q31 20 44 38 L46 42 L44.8 39.5 Q52 50 60 60 L57 58 Q68 72 83 90 Q57 67 43 49 L40 44 L41.6 46.5 Q34 36 28 29 L30.5 31 Q20 19 11.5 5 Z" fill="#0a0208" />
+          <path d="M25 0 Q50 24 63 43 Q77 63 98 84 Q68 60 55 45 Q40 26 25 0 Z" fill="#7e22ce" opacity=".7" />
+          <path d="M26.5 2 Q49 24 62 42 L64.5 46 L62.8 43.5 Q72 54 79 62 L76.5 60 Q86 71 95 81 Q67 58 56 46 Q42 28 26.5 2 Z" fill="#0a0208" />
+          <path d="M1 18 Q25 40 40 60 Q54 79 70 99 Q42 74 29 57 Q13 38 1 18 Z" fill="#a855f7" opacity=".65" />
+          <path d="M2.5 20 Q24 40 38.5 59 L41 63.5 L39 61 Q47 72 54 82 L51.5 79.5 Q59 89 66 96 Q41 72 30 58 Q15 39 2.5 20 Z" fill="#0a0208" />
+        </g>
+        <g fill="#d946ef" style={{ animation: "rakeCrackle .9s ease-out .45s both" }}>
+          <path d="M50 28 L57 24 L53 31 L58 34 L49 33 Z" opacity=".95" />
+          <path d="M58 68 L64 64 L61 70 L65 73 L57 72 Z" opacity=".85" />
+          <path d="M24 44 L28 41 L26 46 Z" opacity=".8" />
+        </g>
+        <g fill="#f0abfc" style={{ animation: "rakeCrackle 1.1s ease-out .55s both" }}>
+          <circle cx="70" cy="50" r="1.5" opacity=".9" />
+          <circle cx="34" cy="72" r="1.2" opacity=".8" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+const PROJ_SHAPES = {
+  V: <svg viewBox="-18 -6 36 12" width="34" height="12"><path d="M-16 0 L10 -2.6 L17 0 L10 2.6 Z" fill="#a5f3fc" /><path d="M-16 0 L10 -1 L10 1 Z" fill="#e0f2fe" /><path d="M-10 -3.5 L-16 -5" stroke="#7dd3fc" strokeWidth="1.4" strokeLinecap="round" opacity=".8" /></svg>,
+  W: <svg viewBox="-18 -5 36 10" width="34" height="10"><path d="M-15 0 L12 0" stroke="#78350f" strokeWidth="1.8" /><path d="M12 -3 L18 0 L12 3 Z" fill="#cbd5e1" /><path d="M-15 -2.5 L-11 0 L-15 2.5 M-12 -2.5 L-8 0 L-12 2.5" stroke="#d9cfba" strokeWidth="1.2" fill="none" /></svg>,
+  C: <svg viewBox="-16 -7 34 14" width="32" height="14"><circle cx="8" cy="0" r="5" fill="#f97316" /><circle cx="9.5" cy="-1" r="2.2" fill="#fde047" /><path d="M4 0 Q-6 -4 -14 -1 Q-6 1 2 3 Z" fill="#fb923c" opacity=".8" /></svg>,
+  K: <svg viewBox="-16 -8 36 16" width="34" height="16"><circle cx="8" cy="0" r="5.5" fill="#a78bfa" /><circle cx="8" cy="0" r="2.4" fill="#ede9fe" /><path d="M0 -4 L-10 -6 M0 4 L-12 5" stroke="#c4b5fd" strokeWidth="1.4" strokeLinecap="round" opacity=".85" /></svg>,
+  Z: <svg viewBox="-18 -7 36 14" width="34" height="14"><path d="M-14 0 Q-4 -4 6 -1 Q12 1 16 0" stroke="#ef4444" strokeWidth="2.4" fill="none" strokeLinecap="round" /><path d="M-12 3 Q-2 5 10 2" stroke="#a855f7" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity=".85" /><circle cx="15" cy="0" r="2.6" fill="#d946ef" opacity=".9" /></svg>,
+  Y: <svg viewBox="-16 -6 34 12" width="32" height="12"><path d="M-14 0 Q0 -4 14 0 Q0 4 -14 0 Z" fill="#2dd4bf" opacity=".85" /><circle cx="10" cy="-2" r="1.4" fill="#a5f3fc" /><circle cx="2" cy="2.4" r="1" fill="#5eead4" opacity=".8" /></svg>,
+  M: <svg viewBox="-14 -5 30 10" width="28" height="10"><path d="M-6 0 L8 -1.4 L12 0 L8 1.4 Z" fill="#cbd5e1" /><path d="M-10 0 L-6 -1.2 L-6 1.2 Z" fill="#065f46" /></svg>,
+};
+const DefaultBolt = ({ el }) => <svg viewBox="-14 -6 30 12" width="28" height="12"><path d="M-10 0 L8 -2.4 L13 0 L8 2.4 Z" fill={el || "#e7e5e4"} /><circle cx="11" cy="0" r="2" fill="#ffffff" opacity=".75" /></svg>;
+function Proj({ p }) {
+  const [go, setGo] = useState(false);
+  useEffect(() => { const t = requestAnimationFrame(() => setGo(true)); return () => cancelAnimationFrame(t); }, []);
+  if (p.beam) {
+    const a = QPOS[p.from], b = QPOS[p.to];
+    const x1 = a.x + 25, y1 = a.y + 25, x2 = b.x + 25, y2 = b.y + 25;
+    return (
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ zIndex: 30 }}>
+        <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#ede9fe" strokeWidth="2.2" strokeLinecap="round" style={{ animation: "beamFlash .5s ease-out both" }} />
+        <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#a78bfa" strokeWidth="6" strokeLinecap="round" opacity=".45" style={{ animation: "beamFlash .5s ease-out both" }} />
+      </svg>
+    );
+  }
+  const a = QPOS[p.from], b = QPOS[p.to];
+  const ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+  // compositor-only travel: the wrapper spans the arena and its transform
+  // tweens the flight in arena percentages — no layout work per frame
+  return (
+    <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 30, transform: go ? `translate(${b.x - a.x}%, ${b.y - a.y}%)` : "translate(0,0)", transition: "transform .3s cubic-bezier(.4,.1,.8,.6)", willChange: "transform" }}>
+      <div className="absolute" style={{ left: `${a.x + 25}%`, top: `${a.y + 25}%`, transform: `translate(-50%,-50%) rotate(${ang}deg)`, filter: "drop-shadow(0 0 6px rgba(255,255,255,.35))" }}>
+        {PROJ_SHAPES[p.fk] || <DefaultBolt el={p.el} />}
+      </div>
+    </div>
+  );
+}
 function QuadFx({ ty, el }) {
   const glow = <div className="absolute inset-0" style={{ background: `radial-gradient(closest-side, ${el || TYPE_HEX[ty]}55, transparent)`, animation: "glowFade .6s ease-out both" }} />;
   if (ty === "ward") return <div className="absolute inset-0 grid place-items-center pointer-events-none">{glow}
@@ -6744,7 +6880,8 @@ function VsSplash({ me, ai, onDone }) {
 function ClashCutin({ round, me, ai }) {
   const final = round === 10;
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-black/85">
+    <div className={`fixed inset-0 z-50 overflow-hidden ${final ? "bg-black/95" : "bg-black/85"}`}>
+      {final && <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(120% 90% at 50% 55%, transparent 40%, rgba(127,29,29,.55))", animation: REDUCED ? "none" : "venPulse 1.6s ease-in-out infinite" }} />}
       <div className="absolute inset-y-0 left-0 flex items-center pl-4" style={{ width: "55%", clipPath: "polygon(0 0, 100% 0, 66% 100%, 0 100%)", background: `linear-gradient(135deg, ${FIGHTERS[me.fk].hex}33, #0c0a09)`, animation: REDUCED ? "none" : "cutL .4s ease-out both" }}>
         <div className="flex items-center gap-3"><Portrait fk={me.fk} size={90} /><div className={`font-black ${FIGHTERS[me.fk].tone}`}>{FIGHTERS[me.fk].short}</div></div>
       </div>
