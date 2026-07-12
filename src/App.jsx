@@ -4455,6 +4455,14 @@ export default function App() {
     if (ms) later(() => setPoses((p) => (p[side] === pose ? { ...p, [side]: "idle" } : p)), ms);
   };
   const [showLog, setShowLog] = useState(false);
+  const [speed, setSpeed] = useState(() => { try { return localStorage.getItem("cl_speed") || "normal"; } catch { return "normal"; } });
+  const speedRef = useRef(speed);
+  speedRef.current = speed;
+  const cycleSpeed = () => {
+    const next = speed === "normal" ? "brisk" : speed === "brisk" ? "instant" : "normal";
+    setSpeed(next);
+    try { localStorage.setItem("cl_speed", next); } catch {}
+  };
   const [showHelp, setShowHelp] = useState(false);
   const [tip, setTip] = useState(null);
   const [confirmExit, setConfirmExit] = useState(false);
@@ -4855,12 +4863,26 @@ export default function App() {
   const stepPlay = () => {
     const p = pendingRef.current;
     if (!p) return;
+    if (speedRef.current === "instant") { skipPlay(); return; }
     if (p.i >= p.lines.length) { pendingRef.current = null; p.done(); return; }
     const line = p.lines[p.i++];
     if (line.t) G.current.feed.push(line);
     fireFx(line.fx);
     rerender();
-    const d = REDUCED ? 140 : line.fx ? (line.fx.kind === "hit" ? 850 : 720) : 560;
+    // THE SEQUENCING LAW: one event at a time, causal order, readable breath.
+    // Beat weights — heavy events dwell longer and exhale before the next beat.
+    let d;
+    if (REDUCED) d = 140;
+    else {
+      const k = line.fx?.kind;
+      d = k === "hit" ? 1000
+        : k === "combo" ? 950
+        : k === "glance" ? 760
+        : line.fx ? 780
+        : (line.t || "").includes("—") ? 640
+        : 520;
+      if (speedRef.current === "brisk") d = Math.max(180, Math.round(d * 0.5));
+    }
     later(stepPlay, d);
   };
   const skipPlay = () => {
@@ -5210,7 +5232,7 @@ export default function App() {
         g.A.pow -= 3; g.A._spent = true; g.A.sieged = true;
         g.feed.push({ t: "⚙ SIEGE PROTOCOL — the foe's Cannonarm reconfigures: the SIEGE CANNON is live." });
       }
-      if (CLASH_ROUNDS.includes(g.round)) { g.phase = "clashIntro"; setCutin(true); later(() => { setCutin(false); afterCutin(); }, REDUCED ? 500 : 1700); }
+      if (CLASH_ROUNDS.includes(g.round)) { g.phase = "clashIntro"; setCutin(true); later(() => { setCutin(false); afterCutin(); }, REDUCED ? 500 : speedRef.current === "instant" ? 400 : speedRef.current === "brisk" ? 900 : 1700); }
       else { g.phase = "plan"; showBanner(`ROUND ${g.round}`, "plan in secret"); resetSel(g); }
     }
     rerender();
@@ -6160,6 +6182,7 @@ export default function App() {
         </div>
         <div className="flex items-center gap-2">
           <button onClick={() => setConfirmExit(true)} className="text-xs text-stone-300 border border-stone-700 rounded px-2 py-1 bg-stone-900">⌂</button>
+          <button onClick={cycleSpeed} title="Round theater speed" className="text-xs text-stone-300 border border-stone-700 rounded px-2 py-1 bg-stone-900">{speed === "normal" ? "▶ normal" : speed === "brisk" ? "▶▶ brisk" : "⏩ instant"}</button>
           <button onClick={() => setShowLog(true)} className="text-xs text-stone-300 border border-stone-700 rounded px-2 py-1 bg-stone-900">📜 Record</button>
           <button onClick={() => setShowHelp(true)} className="text-xs text-stone-300 border border-stone-700 rounded px-2 py-1 bg-stone-900">?</button>
         </div>
@@ -6216,8 +6239,8 @@ export default function App() {
         })}
       </div>
 
-      {/* ARENA SCENE */}
-      <div className={`relative mb-2 rounded-xl overflow-hidden border border-stone-800 ${shake ? "bg-shake" : ""}`}>
+      {/* ARENA SCENE — during the theater, tapping the stage fast-forwards */}
+      <div className={`relative mb-2 rounded-xl overflow-hidden border border-stone-800 ${shake ? "bg-shake" : ""}`} onClick={g?.phase === "playing" ? skipPlay : undefined}>
         <ArenaBackdrop pfk={g?.P?.fk} afk={g?.A?.fk} />
         <div className="relative grid grid-cols-2" style={{ background: "#15110d" }}>
           {QUADS.map((q, qi) => {
@@ -6472,8 +6495,8 @@ export default function App() {
           </div>
         )}
         {g.phase === "playing" && (
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-stone-500 uppercase tracking-widest">resolving…</span>
+          <div className="flex items-center justify-between" onClick={skipPlay} role="button">
+            <span className="text-xs text-stone-500 uppercase tracking-widest">resolving… tap to fast-forward</span>
             <button onClick={skipPlay} className="text-xs text-stone-400 border border-stone-700 rounded px-2 py-1">Skip ▸</button>
           </div>
         )}
