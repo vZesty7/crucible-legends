@@ -2458,6 +2458,31 @@ const MHEAD = (
     <path d="M20.8 18 L20.8 20.6 M22.4 18 L22.4 21.2 M24 18 L24 21.4 M25.6 18 L25.6 21.2 M27.2 18 L27.2 20.6" stroke="#05070d" strokeWidth=".8" />
   </g>
 );
+/* TROPHY HEADS — Gharzul's victory raises the head of WHOEVER he defeated.
+   Tiny dead heads, one per fighter, each in its own palette. ~9u box at origin. */
+const TROPHY0 = (
+  <g>
+    <circle cx="0" cy="0" r="4.2" fill="#c9a077" />
+    <path d="M-4.2 0 Q-4.2 -4 0 -4.2 L0 4.2 Q-3.2 3.6 -4.2 0 Z" fill="#b78a5e" />
+    <path d="M-3.8 -3.1 Q0 -5 3.2 -3.6" stroke="#3d2410" strokeWidth="1.4" fill="none" />
+    <path d="M-2.8 -0.8 L-0.8 0.2 M0.8 0.2 L2.8 -0.8" stroke="#241505" strokeWidth=".8" strokeLinecap="round" />
+    <path d="M-2.2 2.2 Q0 3.2 2.2 2.2" stroke="#241505" strokeWidth=".7" fill="none" />
+  </g>
+);
+const TROPHY = {
+  G: <g><circle cx="0" cy="0" r="4.2" fill="#4d7c0f" /><path d="M-4.2 0 Q-4.2 -4 0 -4.2 L0 4.2 Q-3.2 3.6 -4.2 0 Z" fill="#365314" /><path d="M-1 -4 L1 -4 L0.5 -6.5 L-0.5 -6.5 Z" fill="#120b08" /><path d="M-2.6 -0.8 L-0.8 0.6 M-0.8 -0.8 L-2.6 0.6 M0.8 -0.8 L2.6 0.6 M2.6 -0.8 L0.8 0.6" stroke="#120b08" strokeWidth=".7" /><path d="M-1.6 2.4 L-0.6 2.4 L-0.6 3.6 Z" fill="#e7ddc8" /></g>,
+  M: <g><path d="M0 -5.5 Q-4.5 -3 -4 1.5 L-3 4 L3 4 L4 1.5 Q4.5 -3 0 -5.5 Z" fill="#3a3054" /><path d="M0 -5.5 Q-4.5 -3 -4 1.5 L-3.4 3 Q-2 -2 0 -3.5 Z" fill="#2b2344" /><path d="M-2.4 0 L-0.8 0.5 M0.8 0.5 L2.4 0" stroke="#07120c" strokeWidth=".8" /><path d="M-2.2 2.4 L2.2 2.4 L1.8 3.6 L-1.8 3.6 Z" fill="#64748b" /></g>,
+  V: <g><circle cx="0" cy="0.4" r="3.9" fill="#e6d3bc" /><path d="M-3.9 0.4 Q-3.9 -3.2 0 -3.5 L0 4.3 Q-3 3.7 -3.9 0.4 Z" fill="#cbb49a" /><path d="M-4 -1.8 Q-3.4 -5 0 -5.2 Q3.4 -5 4 -1.8 L2.6 -2.8 Q0 -4 -2.6 -2.8 Z" fill="#1e2939" /><path d="M-1.6 -2.9 L-1 -4.2 L-0.4 -2.9 Z M0.4 -2.9 L1 -4.2 L1.6 -2.9 Z" fill="#e0f2fe" /><path d="M-2.4 -0.4 L-0.8 0.2 M0.8 0.2 L2.4 -0.4" stroke="#241c12" strokeWidth=".7" /></g>,
+  C: <g><circle cx="0" cy="0" r="4" fill="#92400e" /><path d="M-4 0 Q-4 -3.8 0 -4 L0 4 Q-3 3.4 -4 0 Z" fill="#7c3509" /><path d="M-2.6 -4 L-1.6 -5.8 L-0.6 -4 L0.6 -5.8 L1.6 -4 L2.6 -5.2 L2.2 -3.6 Z" fill="#3f2a1a" /><path d="M-2.4 -0.6 L-0.8 0 M0.8 0 L2.4 -0.6" stroke="#241505" strokeWidth=".8" /><path d="M-2.6 1.6 L2.6 1.6 L2.2 3.4 Q0 4.4 -2.2 3.4 Z" fill="#1c1917" /></g>,
+  K: <g><path d="M-3.6 -4 L3.6 -4 L4 3.6 L-4 3.6 Z" fill="#78716c" /><path d="M-3.6 -4 L0 -4 L0 3.6 L-4 3.6 Z" fill="#57534e" /><path d="M-2.2 -5.6 L-1.6 -3.8 M2.2 -5.6 L1.6 -3.8" stroke="#44403c" strokeWidth="1" /><path d="M-3 -0.8 L3 -0.8 L3 0.8 L-3 0.8 Z" fill="#1c1917" /></g>,
+  Z: <g><path d="M0 -5.5 Q-4.8 -3 -4.4 2 L-3.4 4.4 L3.4 4.4 L4.4 2 Q4.8 -3 0 -5.5 Z" fill="#4c1d95" /><path d="M0 -5.5 Q-4.8 -3 -4.4 2 L-3.8 3.6 Q-2.4 -2 0 -3.6 Z" fill="#2a1247" /><ellipse cx="0" cy="0.4" rx="2.6" ry="3.1" fill="#0d0512" /></g>,
+  L: <g><path d="M-3.6 0 Q-3.6 -4.6 0 -4.8 Q3.6 -4.6 3.6 0 L3.2 3 Q0 4.6 -3.2 3 Z" fill="#a8a29e" /><path d="M-3.6 0 Q-3.6 -4.6 0 -4.8 L0 4.2 Q-2.6 3.8 -3.2 3 Z" fill="#78716c" /><path d="M-0.5 -4.8 L0.5 -4.8 L0.6 -0.8 L-0.6 -0.8 Z" fill="#a16207" /><path d="M-2.8 -0.4 L2.8 -0.4 L2.4 1.6 L-2.4 1.6 Z" fill="#1c1502" /></g>,
+  D: <g><path d="M-3.8 1.4 Q-4.2 -4.4 0 -4.6 Q4.2 -4.4 3.8 1.4 L3 3.8 Q0 5 -3 3.8 Z" fill="#a67c4a" /><path d="M-3.8 1.4 Q-4.2 -4.4 0 -4.6 L0 4.4 Q-2.4 4.2 -3 3.8 Z" fill="#8a6039" /><path d="M-1.6 -3.4 L0.6 -1.4 L-0.6 0.6" stroke="#3d2a12" strokeWidth=".7" fill="none" /><path d="M-3 -0.6 L3 -0.6 L2.7 1 L-2.7 1 Z" fill="#3d2a12" /></g>,
+  Y: <g><circle cx="0" cy="0" r="3.9" fill="#cbd5e1" /><path d="M-3.9 0 Q-3.9 -3.6 0 -3.9 L0 3.9 Q-3 3.3 -3.9 0 Z" fill="#94a3b8" /><path d="M-3.9 0 L-6 -0.8 L-4.4 1.6 Z M3.9 0 L6 -0.8 L4.4 1.6 Z" fill="#0d9488" opacity=".85" /><path d="M-2.2 -0.6 L-0.8 0 M0.8 0 L2.2 -0.6" stroke="#04211c" strokeWidth=".7" /><path d="M-1.6 2 L1.6 2" stroke="#04211c" strokeWidth=".7" /></g>,
+  W: <g><path d="M0 -5.6 Q-4.4 -4 -4 0.6 Q-4 2.4 -2.8 3.6 Q-3 -1 0 -2.4 Q3 -1 2.8 3.6 Q4 2.4 4 0.6 Q4.4 -4 0 -5.6 Z" fill="#241505" /><path d="M-2.6 0 Q0 -1.6 2.6 0 L2.2 3 Q0 4.6 -2.2 3 Z" fill="#d1a374" /><path d="M-2.6 0 L-4 -0.8 L-2.8 1.4 Z M2.6 0 L4 -0.8 L2.8 1.4 Z" fill="#c08d5c" /><path d="M-1.8 0.8 L-0.6 1.2 M0.6 1.2 L1.8 0.8" stroke="#3d2410" strokeWidth=".7" /></g>,
+  X: <g><path d="M-3.6 -1 Q-3.6 -4.8 0 -4.8 Q3.6 -4.8 3.6 -1 L3.6 2 L-3.6 2 Z" fill="#94a3b8" /><path d="M-3.6 -1 Q-3.6 -4.8 0 -4.8 L0 2 L-3.6 2 Z" fill="#64748b" /><path d="M-0.5 -4.6 L0.5 -4.6 L0.5 2 L-0.5 2 Z" fill="#475569" /><path d="M-3 -0.6 L-0.8 -0.6 L-0.8 0.9 L-3 0.9 Z M0.8 -0.6 L3 -0.6 L3 0.9 L0.8 0.9 Z" fill="#0b0f16" /><path d="M-2 3.4 Q0 4.6 2 3.4 L1.6 4.6 Q0 5.4 -1.6 4.6 Z" fill="#cfae83" /></g>,
+  O: <g><path d="M-2.6 -4.4 Q0 -5.6 2.6 -4.4 Q4.4 -2 3.6 1.6 Q2 4.8 -1 4 Q-3.8 2.4 -3.6 -1.2 Q-3.4 -3.4 -2.6 -4.4 Z" fill="#e7e5e4" /><path d="M-2.6 -4.4 Q-0.6 -5.2 0 -5.2 L-0.6 4.4 Q-3 2.8 -3.6 -1.2 Q-3.4 -3.4 -2.6 -4.4 Z" fill="#cfc9bd" /><path d="M-2.4 -1.6 Q-1.4 -2.4 -0.6 -1.6 Q-1 0 -2 -0.2 Z" fill="#0a0d05" /><path d="M2.4 -1.6 Q1.4 -2.4 0.6 -1.6 Q1 0 2 -0.2 Z" fill="#0a0d05" /><path d="M-1.6 2 L1.6 2 M-0.8 1.4 L-0.8 2.6 M0.8 1.4 L0.8 2.6" stroke="#0a0d05" strokeWidth=".5" /></g>,
+};
 const FIG_POSES = {
   V: {
     strike: (
@@ -2865,7 +2890,7 @@ const FIG_POSES = {
         <g transform="translate(-4,2) rotate(-13 24 14)">{GHEAD}</g>
       </g>
     ),
-    victorious: (
+    victorious: (foe) => (
       <g>
         <g transform="translate(4,62) rotate(84)">{GAXE}</g>
         <path d="M14 50 L20 50 L18 69 L12 69 Z" fill="#7f1d1d" /><path d="M11 67 L19 67 L19 71 L10 71 Z" fill="#120b08" />
@@ -2881,12 +2906,8 @@ const FIG_POSES = {
         <path d="M34 1.5 Q38 .7 39 4 Q38.6 7.4 35.2 7 Q32.6 6 33 3.4 Z" fill="#4d7c0f" />
         <path d="M34 3 L37.6 2.6 M34 5 L37.6 4.6" stroke="#365314" strokeWidth=".6" />
         <path d="M36.5 7 L38.3 10 M38.2 6.8 L39.6 10" stroke="#3d2410" strokeWidth=".9" strokeLinecap="round" />
-        <circle cx="38.8" cy="13.6" r="4.2" fill="#c9a077" />
-        <path d="M34.6 13.6 Q34.6 9.6 38.8 9.4 L38.8 17.8 Q35.6 17.2 34.6 13.6 Z" fill="#b78a5e" />
-        <path d="M35 10.5 Q38 8.6 42 10" stroke="#3d2410" strokeWidth="1.4" fill="none" />
-        <path d="M36 12.8 L38 13.8 M39.6 13.8 L41.6 12.8" stroke="#241505" strokeWidth=".8" strokeLinecap="round" />
-        <path d="M36.6 15.8 Q38.8 16.8 41 15.8" stroke="#241505" strokeWidth=".7" fill="none" />
-        <path d="M36.8 17.6 L40.8 17.6 L40.2 19.4 L37.4 19.4 Z" fill="#7f1d1d" />
+        <g transform="translate(38.8,13.6)">{TROPHY[foe] || TROPHY0}</g>
+        <path d="M36.8 17.8 L40.8 17.8 L40.2 19.6 L37.4 19.6 Z" fill="#7f1d1d" />
         <circle cx="41" cy="21" r=".5" fill="#ef4444" /><circle cx="40.4" cy="23.6" r=".35" fill="#ef4444" />
         <g transform="translate(0,-1)">{GHEAD}</g>
       </g>
@@ -3758,12 +3779,13 @@ const FIG_SWAY = {
   X: <path className="figSway" d="M32 30 Q36 33 34 38" stroke="#b91c1c" strokeWidth="1.4" fill="none" opacity=".8" />,
   O: <path className="figSway" d="M12 30 Q10 33 12 36" stroke="#b45309" strokeWidth="1.1" fill="none" opacity=".7" />,
 };
-function VecFig({ fk, size = 56, flip, pose = "idle", dying }) {
+function VecFig({ fk, size = 56, flip, pose = "idle", dying, foe }) {
   const h = (size * 72) / 48;
   const fl = flip ? "scaleX(-1)" : "scaleX(1)";
   const still = pose === "fallen" || dying;
   // the death fall animates the HURT body collapsing, then the redrawn FALLEN lands
-  const body = (dying ? FIG_POSES[fk]?.hurt : pose !== "idle" ? FIG_POSES[fk]?.[pose] : null) || FIGS[fk]();
+  const raw = dying ? FIG_POSES[fk]?.hurt : pose !== "idle" ? FIG_POSES[fk]?.[pose] : null;
+  const body = (typeof raw === "function" ? raw(foe) : raw) || FIGS[fk]();
   const gCls = REDUCED ? "figPoseR" : dying ? `fall${fk}` : "figIn";
   return (
     <span className={REDUCED || still ? "" : "vfig"} style={{ display: "inline-block", width: size, height: h, transform: REDUCED ? fl : undefined, "--fl": fl }}>
@@ -5732,6 +5754,17 @@ export default function App() {
               <div className="text-[10px] text-stone-700 mt-1">{FIGHTERS[w.fk].short} — {w.label}</div>
             </div>
           ))}
+          <div className="w-full text-center">
+            <div className="flex flex-wrap justify-center gap-2">
+              {Object.keys(TROPHY).map((fk) => (
+                <div key={`tr${fk}`} className="text-center">
+                  <svg viewBox="-7 -8 14 15" width="34" height="36">{TROPHY[fk]}</svg>
+                  <div className="text-[9px] text-stone-600">{FIGHTERS[fk].short}</div>
+                </div>
+              ))}
+            </div>
+            <div className="text-[10px] text-stone-700 mt-1">Gharzul's trophy rack — the victory raises the head of whoever fell</div>
+          </div>
         </div>
         <div className="text-xs tracking-widest text-stone-500 mb-2 mt-6">BOARD SCALE — TRUE IN-GAME SIZE</div>
         {["V", "D", "G", "X"].map((fk) => (
@@ -6175,7 +6208,7 @@ export default function App() {
                 }}>
                   <span className="absolute left-1/2 -translate-x-1/2 rounded-full" style={{ bottom: -3, width: 34, height: 8, background: "radial-gradient(closest-side, rgba(0,0,0,.7), transparent)" }} />
                   <span className="relative block" style={{ filter: `drop-shadow(0 0 8px ${F.hex}66)` }}>
-                    <VecFig fk={s.fk} size={44} flip={i === 1} pose={poses[key]} dying={dying === key} />
+                    <VecFig fk={s.fk} size={44} flip={i === 1} pose={poses[key]} dying={dying === key} foe={i === 0 ? ai.fk : me.fk} />
                   </span>
                 </div>
               );
