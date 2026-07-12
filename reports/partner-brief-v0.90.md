@@ -1,4 +1,4 @@
-# Crucible Legends — Partner Brief (v0.90, July 2026)
+# Crucible Legends — Partner Brief (v0.91, July 2026)
 
 *A plain-words tour of where the game stands, with the proofs to look at. Written for the design table.*
 
@@ -26,6 +26,7 @@ The game auto-publishes from this repository: every change you see below is live
 | v0.88 | **Art Pass I** — the Art Bible written into law; portrait depth on all twelve; the six-pose living board (72 drawings); idle life; permanent art-regression gate |
 | v0.89 | **"Twelve True"** — the repair pass: eight new art laws, the Prop Forge (weapons drawn once, placed everywhere), every fighter's poses retold through their element, Gharzul's trophy system | 
 | v0.90 | **Art Pass II: The Theater** — combat becomes a conducted sequence: one beat at a time, projectiles that travel, hitstop impacts, the Third Knock's infernal rending (fourth attempt), ceremonies, pacing controls |
+| v0.91 | **Polish Pass I: True Endings & the Ranged Forge** — endings tell the truth (KO = a corpse, bell = beaten but standing; the trophy rack agrees); fighters always face their opponent; twelve named projectiles forged; the 60fps floor restored by fixing a real first-impact stutter |
 
 Every entry has a full dated write-up in the design doc's changelog.
 
@@ -46,6 +47,28 @@ Every entry has a full dated write-up in the design doc's changelog.
 **The living board in play:**
 
 ![The board](twelvetrue-board.png)
+
+### True endings & the Ranged Forge (Polish Pass I)
+
+**The Ranged Forge** — all twelve projectiles, in color and black-fill (each must be nameable by shape alone):
+
+![The Ranged Forge](rangedforge-strip.png)
+
+**The endings tell the truth** — a knockout leaves a corpse and raises the slain's trophy; a bell win leaves the loser standing, beaten, alive, and raises Gharzul's own totem instead:
+
+![KO — the kill and the ice-shard trophy](ending-ko-p-ceremony.png)
+![Bell — beaten but standing, the totem raised](ending-bell-p-ceremony.png)
+
+(Full set: `ending-ko-p/ko-a/bell-p/bell-a-board/-ceremony.png` plus `ending-vigil-board.png` — Kastor's Undying Vigil never shows the death fall.)
+
+**Facing truth** — twelve ordered position pairings, each mid-ward; the guard always leans toward the incoming enemy, never the wall:
+
+![Facing grid](facing-grid.png)
+
+**A projectile at true board scale** — Vessk's ice volley mid-flight, then breaking over Gharzul in Vessk's own cyan from the incoming side:
+
+![Mid-flight](proj-flight-board.png)
+![Impact](proj-impact-board.png)
 
 ### The theater (Art Pass II)
 
@@ -75,13 +98,14 @@ One full round's choreography, frame by frame — reveal, strike, travel, impact
 
 ## How the game protects itself
 
-Seventy-three permanent tests gate every deploy. If any fails, the site does not publish. Highlights:
+Seventy-seven permanent tests gate every deploy. If any fails, the site does not publish. Highlights:
 
 - **The art snapshot** — any change to any drawing fails the suite until deliberately approved
 - **The seam test** — the same seeded game must end identically whether the round theater plays, is skipped, or runs instant (presentation can never touch outcomes)
+- **The truth laws** (new in v0.91) — a bell ending renders zero corpses anywhere and the banner reads "Beaten," a knockout renders exactly one corpse per surface and reads "Slain," the trophy rack rises only on a kill, and all twelve position pairings face per the law
 - **The death-beat guardrails** — a knockout lands in FALLEN, a bell loss shows HURT, Undying Vigil never triggers the death fall
 - **Koros and Vessk kit guardrails** (13 + 28 rules pinned), **AI guardrails** (the new brain must out-pilot the old)
-- **Performance law** — the full theater must render at the frame ceiling on a mid-range phone profile
+- **Performance law** (hardened in v0.91) — two assertions, both must pass: an absolute 60fps floor during the round theater on a mid-range phone profile, AND ≥90% of the measuring machine's own frame ceiling; gate definitions can never change without a dated designer-approved doc entry first
 - **Reduced-motion law** — accessibility mode strips all animation and collapses the theater to instant
 
 ---
@@ -95,4 +119,4 @@ Seventy-three permanent tests gate every deploy. If any fails, the site does not
 
 ---
 
-*Compiled July 12, 2026 · build v0.90 · suite 73/73 green*
+*Compiled July 12, 2026 · build v0.91 · suite 77/77 green · perf floor 60.4fps on the phone profile*

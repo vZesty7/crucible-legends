@@ -7,7 +7,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 const QUADS = ["NW", "NE", "SW", "SE"];
 const ADJ = { NW: ["NE", "SW"], NE: ["NW", "SE"], SW: ["NW", "SE"], SE: ["NE", "SW"] };
-const BUILD = "v0.90";
+const BUILD = "v0.91";
 const BEATS = { break: "ward", rush: "break", ward: "rush" };
 const TYPE_LABEL = { break: "BREAK", rush: "RUSH", ward: "WARD" };
 const TYPE_HEX = { break: "#ef4444", rush: "#f59e0b", ward: "#38bdf8" };
@@ -17,6 +17,14 @@ const TYPE_CLS = {
   ward: "bg-sky-950 text-sky-300 border-sky-600",
 };
 const QPOS = { NW: { x: 0, y: 0 }, NE: { x: 50, y: 0 }, SW: { x: 0, y: 50 }, SE: { x: 50, y: 50 } };
+/* FACING TRUTH (v0.91): facing is computed every beat from the opponent's
+   CURRENT quadrant — never assumed from spawn side. Other column: face it.
+   Same column: face the arena's center line, never the outer wall. */
+const faceLeft = (meQ, foeQ) => {
+  const mx = QPOS[meQ].x, fx = QPOS[foeQ].x;
+  if (fx !== mx) return fx < mx;
+  return mx > 0;
+};
 const CLASH_ROUNDS = [3, 7, 10];
 const TERRA_META = {
   frost: { icon: "❄", name: "FROST", hex: "#7dd3fc" },
@@ -1617,7 +1625,7 @@ function PixelCard({ fk, size = 120 }) {
     </div>
   );
 }
-const Portrait = ({ fk, size }) => { const P = PORTRAITS[fk]; return P ? <P size={size} /> : <PixelCard fk={fk} size={size} />; };
+const Portrait = React.memo(({ fk, size }) => { const P = PORTRAITS[fk]; return P ? <P size={size} /> : <PixelCard fk={fk} size={size} />; });
 
 /* ============ PIXEL SPRITES (Hexen-style, 14×18, two-frame idle) ============ */
 const SPRITES = {
@@ -2519,14 +2527,14 @@ const TROPHY0 = (
 );
 const TROPHY = {
   G: <g><circle cx="0" cy="0" r="4.2" fill="#4d7c0f" /><path d="M-4.2 0 Q-4.2 -4 0 -4.2 L0 4.2 Q-3.2 3.6 -4.2 0 Z" fill="#365314" /><path d="M-1 -4 L1 -4 L0.5 -6.5 L-0.5 -6.5 Z" fill="#120b08" /><path d="M-2.6 -0.8 L-0.8 0.6 M-0.8 -0.8 L-2.6 0.6 M0.8 -0.8 L2.6 0.6 M2.6 -0.8 L0.8 0.6" stroke="#120b08" strokeWidth=".7" /><path d="M-1.6 2.4 L-0.6 2.4 L-0.6 3.6 Z" fill="#e7ddc8" /></g>,
-  M: <g><path d="M0 -5.5 Q-4.5 -3 -4 1.5 L-3 4 L3 4 L4 1.5 Q4.5 -3 0 -5.5 Z" fill="#3a3054" /><path d="M0 -5.5 Q-4.5 -3 -4 1.5 L-3.4 3 Q-2 -2 0 -3.5 Z" fill="#2b2344" /><path d="M-2.4 0 L-0.8 0.5 M0.8 0.5 L2.4 0" stroke="#07120c" strokeWidth=".8" /><path d="M-2.2 2.4 L2.2 2.4 L1.8 3.6 L-1.8 3.6 Z" fill="#64748b" /></g>,
-  V: <g><circle cx="0" cy="0.4" r="3.9" fill="#e6d3bc" /><path d="M-3.9 0.4 Q-3.9 -3.2 0 -3.5 L0 4.3 Q-3 3.7 -3.9 0.4 Z" fill="#cbb49a" /><path d="M-4 -1.8 Q-3.4 -5 0 -5.2 Q3.4 -5 4 -1.8 L2.6 -2.8 Q0 -4 -2.6 -2.8 Z" fill="#1e2939" /><path d="M-1.6 -2.9 L-1 -4.2 L-0.4 -2.9 Z M0.4 -2.9 L1 -4.2 L1.6 -2.9 Z" fill="#e0f2fe" /><path d="M-2.4 -0.4 L-0.8 0.2 M0.8 0.2 L2.4 -0.4" stroke="#241c12" strokeWidth=".7" /></g>,
+  M: <g><path d="M-1.2 -5.5 L1.2 -5.5 L1.2 -3.5 L-1.2 -3.5 Z" fill="#4b3c60" /><path d="M-1.6 -6.3 L1.6 -6.3 L1.6 -5.3 L-1.6 -5.3 Z" fill="#2b2344" /><path d="M-2.6 -3.5 L2.6 -3.5 Q3.4 0 2.4 3 Q0 4.8 -2.4 3 Q-3.4 0 -2.6 -3.5 Z" fill="#1c1736" opacity=".9" /><path d="M-2.2 -0.5 Q0 0.8 2.2 -0.5 Q2.6 1.5 1.8 2.8 Q0 4 -1.8 2.8 Q-2.6 1.5 -2.2 -0.5 Z" fill="#34d399" opacity=".9" /><circle cx="-0.8" cy="1.4" r=".5" fill="#6ee7b7" /></g>,
+  V: <g><path d="M-1.6 4.5 L-3.2 -2 L0 -6 L3.2 -2 L1.6 4.5 Z" fill="#a5f3fc" /><path d="M-1.6 4.5 L-3.2 -2 L0 -6 L0 4.5 Z" fill="#7dd3fc" /><path d="M0 -5 L0 3.5 M-2.2 -1.5 L1.8 0" stroke="#e0f2fe" strokeWidth=".5" opacity=".9" /><circle cx="1.8" cy="-3.4" r=".5" fill="#e0f2fe" /></g>,
   C: <g><circle cx="0" cy="0" r="4" fill="#92400e" /><path d="M-4 0 Q-4 -3.8 0 -4 L0 4 Q-3 3.4 -4 0 Z" fill="#7c3509" /><path d="M-2.6 -4 L-1.6 -5.8 L-0.6 -4 L0.6 -5.8 L1.6 -4 L2.6 -5.2 L2.2 -3.6 Z" fill="#3f2a1a" /><path d="M-2.4 -0.6 L-0.8 0 M0.8 0 L2.4 -0.6" stroke="#241505" strokeWidth=".8" /><path d="M-2.6 1.6 L2.6 1.6 L2.2 3.4 Q0 4.4 -2.2 3.4 Z" fill="#1c1917" /></g>,
-  K: <g><path d="M-3.6 -4 L3.6 -4 L4 3.6 L-4 3.6 Z" fill="#78716c" /><path d="M-3.6 -4 L0 -4 L0 3.6 L-4 3.6 Z" fill="#57534e" /><path d="M-2.2 -5.6 L-1.6 -3.8 M2.2 -5.6 L1.6 -3.8" stroke="#44403c" strokeWidth="1" /><path d="M-3 -0.8 L3 -0.8 L3 0.8 L-3 0.8 Z" fill="#1c1917" /></g>,
-  Z: <g><path d="M0 -5.5 Q-4.8 -3 -4.4 2 L-3.4 4.4 L3.4 4.4 L4.4 2 Q4.8 -3 0 -5.5 Z" fill="#4c1d95" /><path d="M0 -5.5 Q-4.8 -3 -4.4 2 L-3.8 3.6 Q-2.4 -2 0 -3.6 Z" fill="#2a1247" /><ellipse cx="0" cy="0.4" rx="2.6" ry="3.1" fill="#0d0512" /></g>,
+  K: <g><circle cx="0" cy="-0.5" r="4.4" fill="#1c1917" /><circle cx="0" cy="-0.5" r="3" fill="#a78bfa" /><circle cx="0" cy="-0.5" r="1.2" fill="#ede9fe" /><path d="M0 -5.6 L0 -4.4 M0 3.4 L0 4.6 M-4.4 -0.5 L-5.6 -0.5 M4.4 -0.5 L5.6 -0.5" stroke="#a78bfa" strokeWidth=".9" opacity=".85" /><path d="M2.6 -3.4 L3.8 -4.6" stroke="#c4b5fd" strokeWidth=".7" strokeLinecap="round" /></g>,
+  Z: <g><path d="M0 -6 L0 -4" stroke="#57534e" strokeWidth=".7" /><circle cx="0" cy="-0.2" r="3.8" fill="none" stroke="#ef4444" strokeWidth="1.2" /><path d="M0 -3 L0 2.6 M-2.4 -1.6 L2.4 1.2 M2.4 -1.6 L-2.4 1.2" stroke="#ef4444" strokeWidth=".8" /><circle cx="0" cy="-0.2" r="5.2" fill="#ef4444" opacity=".15" /></g>,
   L: <g><path d="M-3.6 0 Q-3.6 -4.6 0 -4.8 Q3.6 -4.6 3.6 0 L3.2 3 Q0 4.6 -3.2 3 Z" fill="#a8a29e" /><path d="M-3.6 0 Q-3.6 -4.6 0 -4.8 L0 4.2 Q-2.6 3.8 -3.2 3 Z" fill="#78716c" /><path d="M-0.5 -4.8 L0.5 -4.8 L0.6 -0.8 L-0.6 -0.8 Z" fill="#a16207" /><path d="M-2.8 -0.4 L2.8 -0.4 L2.4 1.6 L-2.4 1.6 Z" fill="#1c1502" /></g>,
-  D: <g><path d="M-3.8 1.4 Q-4.2 -4.4 0 -4.6 Q4.2 -4.4 3.8 1.4 L3 3.8 Q0 5 -3 3.8 Z" fill="#a67c4a" /><path d="M-3.8 1.4 Q-4.2 -4.4 0 -4.6 L0 4.4 Q-2.4 4.2 -3 3.8 Z" fill="#8a6039" /><path d="M-1.6 -3.4 L0.6 -1.4 L-0.6 0.6" stroke="#3d2a12" strokeWidth=".7" fill="none" /><path d="M-3 -0.6 L3 -0.6 L2.7 1 L-2.7 1 Z" fill="#3d2a12" /></g>,
-  Y: <g><circle cx="0" cy="0" r="3.9" fill="#cbd5e1" /><path d="M-3.9 0 Q-3.9 -3.6 0 -3.9 L0 3.9 Q-3 3.3 -3.9 0 Z" fill="#94a3b8" /><path d="M-3.9 0 L-6 -0.8 L-4.4 1.6 Z M3.9 0 L6 -0.8 L4.4 1.6 Z" fill="#0d9488" opacity=".85" /><path d="M-2.2 -0.6 L-0.8 0 M0.8 0 L2.2 -0.6" stroke="#04211c" strokeWidth=".7" /><path d="M-1.6 2 L1.6 2" stroke="#04211c" strokeWidth=".7" /></g>,
+  D: <g><path d="M-3.4 -1.6 L0 -5.2 L3.4 -1.6 L2.2 3.4 L-2.2 3.4 Z" fill="#f59e0b" /><path d="M-3.4 -1.6 L0 -5.2 L0 3.4 L-2.2 3.4 Z" fill="#d97706" /><path d="M-1.2 -2.6 L0.8 -0.4 L-0.4 1.6" stroke="#7a4a08" strokeWidth=".6" fill="none" /><circle cx="0" cy="-0.8" r="4.8" fill="#f59e0b" opacity=".18" /></g>,
+  Y: <g><circle cx="0" cy="-0.4" r="3.6" fill="#c3ded8" /><path d="M-3.6 -0.4 Q-3.6 -3.6 0 -4 L0 3.2 Q-2.8 2.6 -3.6 -0.4 Z" fill="#9ec4bd" /><path d="M-1.6 -2.4 Q-0.4 -3.2 0.8 -2.6" stroke="#f0fdfa" strokeWidth=".7" fill="none" opacity=".95" /><path d="M-1 4.4 Q0 3 1 4.4 Q0.5 5.6 0 5.6 Q-0.5 5.6 -1 4.4 Z" fill="#2dd4bf" opacity=".8" /></g>,
   W: <g><path d="M0 -5.6 Q-4.4 -4 -4 0.6 Q-4 2.4 -2.8 3.6 Q-3 -1 0 -2.4 Q3 -1 2.8 3.6 Q4 2.4 4 0.6 Q4.4 -4 0 -5.6 Z" fill="#241505" /><path d="M-2.6 0 Q0 -1.6 2.6 0 L2.2 3 Q0 4.6 -2.2 3 Z" fill="#d1a374" /><path d="M-2.6 0 L-4 -0.8 L-2.8 1.4 Z M2.6 0 L4 -0.8 L2.8 1.4 Z" fill="#c08d5c" /><path d="M-1.8 0.8 L-0.6 1.2 M0.6 1.2 L1.8 0.8" stroke="#3d2410" strokeWidth=".7" /></g>,
   X: <g><path d="M-3.6 -1 Q-3.6 -4.8 0 -4.8 Q3.6 -4.8 3.6 -1 L3.6 2 L-3.6 2 Z" fill="#94a3b8" /><path d="M-3.6 -1 Q-3.6 -4.8 0 -4.8 L0 2 L-3.6 2 Z" fill="#64748b" /><path d="M-0.5 -4.6 L0.5 -4.6 L0.5 2 L-0.5 2 Z" fill="#475569" /><path d="M-3 -0.6 L-0.8 -0.6 L-0.8 0.9 L-3 0.9 Z M0.8 -0.6 L3 -0.6 L3 0.9 L0.8 0.9 Z" fill="#0b0f16" /><path d="M-2 3.4 Q0 4.6 2 3.4 L1.6 4.6 Q0 5.4 -1.6 4.6 Z" fill="#cfae83" /></g>,
   O: <g><path d="M-2.6 -4.4 Q0 -5.6 2.6 -4.4 Q4.4 -2 3.6 1.6 Q2 4.8 -1 4 Q-3.8 2.4 -3.6 -1.2 Q-3.4 -3.4 -2.6 -4.4 Z" fill="#e7e5e4" /><path d="M-2.6 -4.4 Q-0.6 -5.2 0 -5.2 L-0.6 4.4 Q-3 2.8 -3.6 -1.2 Q-3.4 -3.4 -2.6 -4.4 Z" fill="#cfc9bd" /><path d="M-2.4 -1.6 Q-1.4 -2.4 -0.6 -1.6 Q-1 0 -2 -0.2 Z" fill="#0a0d05" /><path d="M2.4 -1.6 Q1.4 -2.4 0.6 -1.6 Q1 0 2 -0.2 Z" fill="#0a0d05" /><path d="M-1.6 2 L1.6 2 M-0.8 1.4 L-0.8 2.6 M0.8 1.4 L0.8 2.6" stroke="#0a0d05" strokeWidth=".5" /></g>,
@@ -2658,13 +2666,13 @@ const FIG_POSES = {
       <g>
         <ellipse cx="24" cy="66" rx="17" ry="4" fill="#7dd3fc" opacity=".14" />
         <path d="M10 69 L14 61 L20 69 Z" fill="#1b2942" /><path d="M19 69 L23 63 L27 69 Z" fill="#131e33" /><path d="M30 69 L33 62 L38 69 Z" fill="#1b2942" />
-        <path d="M14 69 L17 56 L21 69 Z" fill="#38bdf8" opacity=".85" /><path d="M24 69 L27 54 L31 69 Z" fill="#7dd3fc" opacity=".9" /><path d="M33 69 L36 59 L40 69 Z" fill="#a5f3fc" opacity=".8" /><path d="M6 69 L8 63 L11 69 Z" fill="#7dd3fc" opacity=".6" />
+        <path d="M14 69 L17 56 L21 69 Z" fill="#38bdf8" opacity=".85" />{foe !== "G" && <path d="M24 69 L27 54 L31 69 Z" fill="#7dd3fc" opacity=".9" />}<path d="M33 69 L36 59 L40 69 Z" fill="#a5f3fc" opacity=".8" /><path d="M6 69 L8 63 L11 69 Z" fill="#7dd3fc" opacity=".6" />
         <path d="M21 66 L23 63 L25 66 L23 68 Z" fill="#e0f2fe" opacity=".9" /><path d="M35 66 L37 64 L38.5 66.5 L36.5 68 Z" fill="#a5f3fc" opacity=".7" />
         <path d="M27 62 L32 57 L34 62 L30 65 Z" fill="#0e7490" opacity=".9" />
-        {foe !== "G" && (<g transform="rotate(-8 27 58)">
+        <g transform="rotate(-8 27 58)">
           <path d="M23 57 L31 57 L30.7 59.4 L23.3 59.4 Z" fill="#a5f3fc" opacity=".92" />
           <path d="M24 57 L24.8 54.8 L25.6 57 Z M26.4 57 L27.1 54 L27.8 57 Z M28.6 57 L29.4 54.8 L30.2 57 Z" fill="#e0f2fe" />
-        </g>)}
+        </g>
       </g>
     ),
   },
@@ -2967,7 +2975,7 @@ const FIG_POSES = {
         <g transform="translate(-4,2) rotate(-13 24 14)">{GHEAD}</g>
       </g>
     ),
-    victorious: (foe) => (
+    victorious: (foe, ko) => (
       <g>
         <g transform="translate(40,20) rotate(180)">{GAXE}</g>
         <path d="M14 50 L20 50 L18 69 L12 69 Z" fill="#7f1d1d" /><path d="M11 67 L19 67 L19 71 L10 71 Z" fill="#120b08" />
@@ -2982,10 +2990,18 @@ const FIG_POSES = {
         <path d="M31 26 L35 4 L40 5 L36 28 Z" fill="#4d7c0f" />
         <path d="M34 1.5 Q38 .7 39 4 Q38.6 7.4 35.2 7 Q32.6 6 33 3.4 Z" fill="#4d7c0f" />
         <path d="M34 3 L37.6 2.6 M34 5 L37.6 4.6" stroke="#365314" strokeWidth=".6" />
-        <path d="M36.5 7 L38.3 10 M38.2 6.8 L39.6 10" stroke="#3d2410" strokeWidth=".9" strokeLinecap="round" />
-        <g transform="translate(38.8,13.6)">{TROPHY[foe] || TROPHY0}</g>
-        <path d="M36.8 17.8 L40.8 17.8 L40.2 19.6 L37.4 19.6 Z" fill="#7f1d1d" />
-        <circle cx="41" cy="21" r=".5" fill="#ef4444" /><circle cx="40.4" cy="23.6" r=".35" fill="#ef4444" />
+        {ko ? (<g data-trophy="kill">
+          <path d="M36.5 7 L38.3 10 M38.2 6.8 L39.6 10" stroke="#3d2410" strokeWidth=".9" strokeLinecap="round" />
+          <g transform="translate(38.8,13.6)">{TROPHY[foe] || TROPHY0}</g>
+          <path d="M36.8 17.8 L40.8 17.8 L40.2 19.6 L37.4 19.6 Z" fill="#7f1d1d" />
+          <circle cx="41" cy="21" r=".5" fill="#ef4444" /><circle cx="40.4" cy="23.6" r=".35" fill="#ef4444" />
+        </g>) : (<g data-trophy="totem">
+          <path d="M37 7 L38.6 11.4" stroke="#3d2410" strokeWidth="1" strokeLinecap="round" />
+          <ellipse cx="38.8" cy="14.6" rx="4.6" ry="3.9" fill="#d6cdba" />
+          <circle cx="37.3" cy="14" r=".9" fill="#120b08" /><circle cx="40.3" cy="14" r=".9" fill="#120b08" />
+          <path d="M37.2 16.6 L40.4 16.6 M38 16.6 L38 17.8 M39.6 16.6 L39.6 17.8" stroke="#120b08" strokeWidth=".6" />
+          <path d="M35 12 L34 10.6 M42.6 12 L43.6 10.6" stroke="#a89f8c" strokeWidth=".7" strokeLinecap="round" />
+        </g>)}
         <g transform="translate(0,-1)">{GHEAD}</g>
       </g>
     ),
@@ -3094,12 +3110,11 @@ const FIG_POSES = {
         <circle cx="24" cy="46.5" r=".8" fill="#34d399" opacity=".6" />
         <g transform="translate(6,63) rotate(88)">{MDAGGER}</g>
         <g transform="translate(38,64) rotate(96)">{MDAGGER}</g>
-        {foe !== "G" && (<g transform="translate(0,34)" opacity=".95">
+        <g transform="translate(0,34)" opacity=".95">
           <path d="M24 5 L21 10 L27 10 Z" fill="#3a3054" /><path d="M24 1 L27.5 6 L24 8.5 L21.5 5 Z" fill="#2f2748" />
           <path d="M19 11.5 Q24 9.5 29 11.5 L28.6 16.5 L19.4 16.5 Z" fill="#6d5a86" />
           <path d="M19 16.8 L29 16.8 L28.4 21.2 Q24 23 19.6 21.2 Z" fill="#94a3b8" opacity=".85" />
-        </g>)}
-        {foe === "G" && (<path d="M20 52 L28 52 L27 55 L21 55 Z" fill="#7f1d1d" opacity=".9" />)}
+        </g>
       </g>
     ),
   },
@@ -3172,12 +3187,12 @@ const FIG_POSES = {
         <g transform="translate(0,-1)"><ellipse cx="24" cy="14" rx="6" ry="7" fill="#0d0512" /><circle cx="21.5" cy="13.5" r="1.4" fill="#ef4444" /><circle cx="26.5" cy="13.5" r="1.4" fill="#ef4444" /><circle cx="21.5" cy="13.5" r="3.6" fill="#ef4444" opacity=".25" /><circle cx="26.5" cy="13.5" r="3.6" fill="#ef4444" opacity=".25" /></g>
       </g>
     ),
-    fallen: (
+    fallen: (foe) => (
       <g>
         <path d="M8 62 L14 56 L20 61 L26 56 L32 61 L38 57 L42 63 L40 69 L9 69 Z" fill="#4c1d95" />
         <path d="M8 62 L14 56 L20 61 L18 69 L9 69 Z" fill="#2a1247" />
         <path d="M24 58 L30 58 L29 64 L25 64 Z" fill="#1c0b30" />
-        <circle cx="27" cy="61" r="4" fill="none" stroke="#7f1d1d" strokeWidth="1" opacity=".5" />
+        {foe !== "G" && <circle cx="27" cy="61" r="4" fill="none" stroke="#7f1d1d" strokeWidth="1" opacity=".5" />}
         <path d="M26 54 Q24 46 28 40 Q31 36 30 30" stroke="#ef4444" strokeWidth="1.1" fill="none" opacity=".6" strokeLinecap="round" />
         <circle cx="30" cy="27" r="1" fill="#ef4444" opacity=".7" />
         <path d="M31 34 L34 33 L33.6 44 L30.8 43 Z" fill="#ef4444" opacity=".14" />
@@ -3290,17 +3305,17 @@ const FIG_POSES = {
         <path d="M27 62 L38 62 L40 69 L26 69 Z" fill="#3f3a34" />
         <path d="M12 36 L36 34 L38 60 L10 60 Z" fill="#78716c" />
         <path d="M12 36 L24 35 L23 60 L10 60 Z" fill="#57534e" />
-        <circle cx="23" cy="48" r="5" fill="#1c1917" /><circle cx="23" cy="48" r="3" fill="#44403c" />
+        <circle cx="23" cy="48" r="5" fill="#1c1917" />{foe !== "G" && <circle cx="23" cy="48" r="3" fill="#44403c" />}
         <path d="M25 44 L27 42" stroke="#a78bfa" strokeWidth=".9" opacity=".4" />
         <path d="M2 34 L14 30 L16 42 L6 46 Z" fill="#8f8a80" />
         <path d="M34 30 L44 34 L42 46 L32 42 Z" fill="#6e6a64" />
         <path d="M8 46 L4 60 L10 62 L13 48 Z" fill="#57534e" />
         <path d="M36 46 L42 60 L36 62 L31 48 Z" fill="#57534e" />
-        {foe !== "G" && (<g transform="translate(0,17) rotate(14 24 14)">
+        <g transform="translate(0,17) rotate(14 24 14)">
           <path d="M19 4 L18 9 L21 8 Z M29 4 L30 9 L27 8 Z" fill="#3f3a34" /><path d="M17 8 L31 8 L32 22 L16 22 Z" fill="#6e6a64" /><path d="M17 8 L24 8 L24 22 L16 22 Z" fill="#57534e" />
           <path d="M18 13 L30 13 L30 16 L18 16 Z" fill="#1c1917" />
-        </g>)}
-        {foe === "G" && (<g><path d="M19 34 L29 33 L29 37 L19 38 Z" fill="#1c1917" /><path d="M20 33 L18 29 M25 32.5 L25 28.5 M28 33 L31 30" stroke="#c4b5fd" strokeWidth=".8" opacity=".8" strokeLinecap="round" /></g>)}
+        </g>
+        {foe === "G" && (<g><path d="M20 45 L24 49 M24 45 L20 49" stroke="#c4b5fd" strokeWidth=".8" opacity=".85" strokeLinecap="round" /></g>)}
       </g>
     ),
   },
@@ -3419,14 +3434,13 @@ const FIG_POSES = {
         <path d="M27 62 Q33 58 39 62 Q41 66 38 69 L28 69 Z" fill="#6b4f2c" />
         <path d="M36 64 Q41 61 45 64 Q46 67 44 69 L36 69 Z" fill="#78716c" />
         <path d="M4 66 Q7 63 10 66 Q10 68.5 8 69 L4 69 Z" fill="#7a5c33" />
-        <path d="M22 60 L26 60 L26 64 L22 64 Z" fill="#7a5c33" />
-        <path d="M23.4 60.5 L23.4 63.5" stroke="#57431f" strokeWidth=".8" />
-        {foe !== "G" && (<g>
+        {foe !== "G" && (<g><path d="M22 60 L26 60 L26 64 L22 64 Z" fill="#7a5c33" />
+        <path d="M23.4 60.5 L23.4 63.5" stroke="#57431f" strokeWidth=".8" /></g>)}
+        <g>
         <path d="M14 54 Q14 47 22 46.5 Q30 47 30 54 L29 58 L15 58 Z" fill="#a67c4a" />
         <path d="M14 54 Q14 47 22 46.5 L22 58 L15 58 Z" fill="#8a6039" />
         <path d="M18 48 L21 52 L19 56" stroke="#3d2a12" strokeWidth="1.1" fill="none" />
-        <path d="M16.5 53 L27.5 53 L27.2 55.4 L16.8 55.4 Z" fill="#3d2a12" /></g>)}
-        {foe === "G" && (<path d="M18 56 L26 56 L25 59 L19 59 Z" fill="#57431f" />)}
+        <path d="M16.5 53 L27.5 53 L27.2 55.4 L16.8 55.4 Z" fill="#3d2a12" /></g>
         <circle cx="8" cy="58" r="1" fill="#a8a29e" opacity=".6" /><circle cx="34" cy="55" r=".9" fill="#8f8a80" opacity=".6" /><circle cx="42" cy="60" r=".7" fill="#78716c" opacity=".5" />
       </g>
     ),
@@ -3632,14 +3646,13 @@ const FIG_POSES = {
         <path d="M20 44 Q12 48 11 62 L20 62 Q19 52 21 46 Z" fill="#0b3f3a" opacity=".85" />
         <g transform="translate(4,63) rotate(88)">{YTRIDENT}</g>
         <circle cx="14" cy="52" r="1.4" fill="none" stroke="#5eead4" strokeWidth=".8" opacity=".7" /><circle cx="30" cy="48" r="1" fill="none" stroke="#5eead4" strokeWidth=".7" opacity=".6" />
-        {foe !== "G" && (<g transform="translate(1,30) rotate(10 24 14)" opacity=".92">
+        <g transform="translate(1,30) rotate(10 24 14)" opacity=".92">
           <circle cx="24" cy="15" r="6.3" fill="#c3ded8" />
           <path d="M17.7 15 Q17.7 9 24 8.7 L24 21.3 Q18.7 20.7 17.7 15 Z" fill="#9ec4bd" />
           <path d="M28 8 Q20 5 15 9 Q13 13 15 17" fill="none" stroke="#0d9488" strokeWidth="2.4" opacity=".85" />
           <path d="M17.8 14 L12.8 12 L16.4 17.5 Z" fill="#2dd4bf" opacity=".8" />
           <path d="M21 17.8 L27 17.8" stroke="#04211c" strokeWidth="1" />
-        </g>)}
-        {foe === "G" && (<path d="M18 46 L26 45 L26 49 L18 50 Z" fill="#0b3f3a" opacity=".85" />)}
+        </g>
       </g>
     ),
   },
@@ -3907,16 +3920,16 @@ const FIG_SWAY = {
   X: <path className="figSway" d="M32 30 Q36 33 34 38" stroke="#b91c1c" strokeWidth="1.4" fill="none" opacity=".8" />,
   O: <path className="figSway" d="M12 30 Q10 33 12 36" stroke="#b45309" strokeWidth="1.1" fill="none" opacity=".7" />,
 };
-function VecFig({ fk, size = 56, flip, pose = "idle", dying, foe }) {
+const VecFig = React.memo(function VecFig({ fk, size = 56, flip, pose = "idle", dying, foe, ko }) {
   const h = (size * 72) / 48;
   const fl = flip ? "scaleX(-1)" : "scaleX(1)";
   const still = pose === "fallen" || dying;
   // the death fall animates the HURT body collapsing, then the redrawn FALLEN lands
   const raw = dying ? FIG_POSES[fk]?.hurt : pose !== "idle" ? FIG_POSES[fk]?.[pose] : null;
-  const body = (typeof raw === "function" ? raw(foe) : raw) || FIGS[fk]();
+  const body = (typeof raw === "function" ? raw(foe, ko) : raw) || FIGS[fk]();
   const gCls = REDUCED ? "figPoseR" : dying ? `fall${fk}` : "figIn";
   return (
-    <span className={REDUCED || still ? "" : "vfig"} style={{ display: "inline-block", width: size, height: h, transform: REDUCED ? fl : undefined, "--fl": fl }}>
+    <span className={REDUCED || still ? "" : "vfig"} data-pose={dying ? "dying" : pose} data-facing={flip ? "left" : "right"} style={{ display: "inline-block", width: size, height: h, transform: REDUCED ? fl : undefined, "--fl": fl }}>
       <svg viewBox="0 0 48 72" width={size} height={h} overflow="visible">
         <ellipse cx="24" cy="68.2" rx="12.5" ry="2.1" fill="#000000" opacity=".22" />
         <g key={dying ? "dying" : pose} className={gCls}>
@@ -3927,7 +3940,7 @@ function VecFig({ fk, size = 56, flip, pose = "idle", dying, foe }) {
       </svg>
     </span>
   );
-}
+});
 if (typeof console !== "undefined") Object.values(FIGHTERS).forEach((F) => {
   if (!F.pool.some((id) => ABILITIES[id].cost === 0)) console.warn(`DESIGN INVARIANT BROKEN: ${F.name} has no 0◆ ability in pool`);
   if (!F.aiLoad.some((id) => ABILITIES[id].cost === 0)) console.warn(`AI DEADLOCK RISK: ${F.name} aiLoad has no 0◆ ability`);
@@ -4328,7 +4341,7 @@ const CSS = `
 @keyframes feedIn{0%{opacity:0;transform:translateY(4px)}100%{opacity:1;transform:translateY(0)}}
 @keyframes flick{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.82)}}
 @keyframes fogDrift{0%{transform:translateX(-8%)}100%{transform:translateX(8%)}}
-.hitstop *{animation-play-state:paused!important}
+ .hitstop :is(.vfig,.figSway,.pDrift1,.pDrift2,.pEmber1,.pEmber2,.pEmber3,.pMote1,.pMote2,.flameA,.flameB,.bannerSway,.bannerSwayB,.ashDrift,.ashDriftB,.projSpin){animation-play-state:paused!important}
 @keyframes bannerSway{0%,100%{transform:rotate(0)}50%{transform:rotate(1.6deg)}}
 .bannerSway{animation:bannerSway 5.6s ease-in-out infinite}
 .bannerSwayB{animation:bannerSway 6.8s ease-in-out infinite reverse}
@@ -4336,6 +4349,8 @@ const CSS = `
 .ashDrift{animation:ashDrift 7s linear infinite}
 .ashDriftB{animation:ashDrift 9s linear 2s infinite}
 @keyframes beamFlash{0%{opacity:0}18%{opacity:1}70%{opacity:1}100%{opacity:0}}
+@keyframes projSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.projSpin{display:inline-block;animation:projSpin .35s linear infinite}
 @keyframes tokLungeR{0%{transform:translateX(0)}45%{transform:translateX(9px)}100%{transform:translateX(0)}}
 @keyframes tokLungeL{0%{transform:translateX(0)}45%{transform:translateX(-9px)}100%{transform:translateX(0)}}
 .tokLungeR{animation:tokLungeR .26s ease-out}
@@ -4443,9 +4458,9 @@ export default function App() {
     // the ~0.6s death fall into FALLEN only on a true match-ending KO —
     // survive-at-1 effects keep hp above 0 mid-match and can never reach here fallen
     if (gPhaseNow !== "over" || !G.current || !G.current.winner || G.current.winner === "LESSON") return;
-    const winSide = G.current.winner, loseSide = winSide === "P" ? "A" : "P";
-    const koLoss = G.current[loseSide].hp <= 0;
-    setPoses((p) => ({ ...p, [winSide]: "victorious", [loseSide]: koLoss ? p[loseSide] : "hurt" }));
+    const oc = endOutcome();
+    const winSide = oc.winKey, loseSide = oc.loseKey, koLoss = oc.ko;
+    setPoses((p) => ({ ...p, [winSide]: oc.winnerPose, [loseSide]: koLoss ? p[loseSide] : oc.loserPose }));
     if (koLoss) {
       setDying(loseSide); setDeathHold(true);
       later(() => { setDying(null); setPoses((p) => ({ ...p, [loseSide]: "fallen" })); setDeathHold(false); }, 650);
@@ -4501,10 +4516,11 @@ export default function App() {
     setPops((p) => [...p, { id, side: sideK, text, cls, big }]);
     later(() => setPops((p) => p.filter((x) => x.id !== id)), big ? 1300 : 1100);
   };
-  const flashQuad = (q, ty, el) => {
+  const flashQuad = (q, ty, el, fromQ) => {
     if (!q) return;
     const id = ++fxSeq.current;
-    setFlashes((f) => [...f, { id, q, ty, el }]);
+    const inc = fromQ && fromQ !== q ? { dx: Math.sign(QPOS[fromQ].x - QPOS[q].x), dy: Math.sign(QPOS[fromQ].y - QPOS[q].y) } : null;
+    setFlashes((f) => [...f, { id, q, ty, el, inc }]);
     later(() => setFlashes((f) => f.filter((x) => x.id !== id)), 700);
   };
   const doShake = () => { if (REDUCED) return; setShake(true); later(() => setShake(false), 340); };
@@ -4519,7 +4535,7 @@ export default function App() {
       const fromQ = atk?.pos;
       const impact = () => {
         addPop(fx.side, `−${fx.amt}`, "text-red-400", fx.amt >= 3 ? 2 : fx.amt >= 2 ? 1 : 0);
-        flashQuad(fx.q, fx.ty, fx.el); tokFlash(fx.side); if (fx.amt >= 2) doShake();
+        flashQuad(fx.q, fx.ty, fx.el, fromQ); tokFlash(fx.side); if (fx.amt >= 2) doShake();
         if (fx.amt >= 2 && !REDUCED) { setHitstop(true); later(() => setHitstop(false), 110); }
         later(() => setPoseFor(fx.side, "hurt", 400), 40);
       };
@@ -4532,7 +4548,9 @@ export default function App() {
         later(() => setProjs((ps) => ps.filter((x) => x.id !== id)), beam ? 520 : 380);
         later(impact, beam ? 260 : 300);
       } else if (theater && fromQ && fx.q && fromQ === fx.q) {
-        setLunge(atkKey); later(() => setLunge(null), 260);
+        const vKey = fx.side, vPos = G.current[vKey]?.pos || fx.q;
+        setLunge({ key: atkKey, dir: faceLeft(fromQ, vPos) ? "L" : "R" });
+        later(() => setLunge(null), 260);
         later(impact, 130);
       } else impact();
     }
@@ -4553,6 +4571,15 @@ export default function App() {
     if (fx.kind === "adv") showStamp(fx.text, fx.tone);
   };
 
+  /* POSE TRUTH (v0.91): the single state->pose table. Every surface —
+     living board, ceremony panel — draws its end poses from here. */
+  const endOutcome = () => {
+    const g = G.current;
+    if (!g || !g.winner || g.winner === "LESSON") return null;
+    const winKey = g.winner, loseKey = winKey === "P" ? "A" : "P";
+    const ko = g[loseKey].hp <= 0;
+    return { winKey, loseKey, ko, winnerPose: "victorious", loserPose: ko ? "fallen" : "hurt" };
+  };
   /* ---- helpers on G.current ---- */
   const sideKeyOf = (s) => (s === G.current.P ? "P" : "A");
   const other = (s) => (s === G.current.P ? G.current.A : G.current.P);
@@ -4916,8 +4943,18 @@ export default function App() {
     if (line.t) G.current.feed.push(line);
     if (line.t && line.t.includes("WARD catches")) {
       const v = G.current.vs;
-      if (v?.p?.ty === "ward") setPoseFor("P", "ward", 1400);
-      if (v?.a?.ty === "ward") setPoseFor("A", "ward", 1400);
+      const wardKey = v?.p?.ty === "ward" ? "P" : v?.a?.ty === "ward" ? "A" : null;
+      if (wardKey) {
+        setPoseFor(wardKey, "ward", 1400);
+        const atkKey = wardKey === "P" ? "A" : "P";
+        const fromQ = G.current[atkKey]?.pos, toQ = G.current[wardKey]?.pos;
+        if (!REDUCED && speedRef.current !== "instant" && fromQ && toQ && fromQ !== toQ) {
+          const id = ++fxSeq.current;
+          setProjs((ps) => [...ps, { id, from: fromQ, to: toQ, fk: G.current[atkKey].fk, el: elOf(G.current[atkKey]) }]);
+          later(() => setProjs((ps) => ps.filter((x) => x.id !== id)), 380);
+          later(() => flashQuad(toQ, "ward", elOf(G.current[wardKey]), fromQ), 300);
+        }
+      }
     }
     fireFx(line.fx);
     rerender();
@@ -5923,7 +5960,7 @@ export default function App() {
 
   // Dormant test hook: exposes engine internals to the automated test/audit
   // harness only when a test runner sets window.__CL_TEST_HOOK__. Inert in play.
-  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G, api: { startGame, beginBout, aiMakePlan, aiPivot, applyToll, resolveRound, confirmClash, confirmPlan, useCraven, answerPrompt, processPrompts, throwSudden, skipPlay, clearTimers, confirmUmbralMove, confirmFeint, confirmFeintClash, afterCutin, railPromptPick, aiPickOpt, runClash, resolveRail, getPoses: () => posesRef.current }, defs: { FIGHTERS, ABILITIES, PASSIVES, TUTS, QUADS, ADJ, BEATS, CLASH_ROUNDS }, mind: MIND };
+  if (typeof window !== "undefined" && window.__CL_TEST_HOOK__) window.__CL_TEST__ = { G, api: { startGame, beginBout, aiMakePlan, aiPivot, applyToll, resolveRound, confirmClash, confirmPlan, useCraven, answerPrompt, processPrompts, throwSudden, skipPlay, clearTimers, confirmUmbralMove, confirmFeint, confirmFeintClash, afterCutin, railPromptPick, aiPickOpt, runClash, resolveRail, flashQuad, getPoses: () => posesRef.current }, defs: { FIGHTERS, ABILITIES, PASSIVES, TUTS, QUADS, ADJ, BEATS, CLASH_ROUNDS, faceLeft }, mind: MIND };
   // Headless lab mode: the engine runs, nothing renders. Test-harness only.
   if (typeof window !== "undefined" && window.__CL_LAB__) return null;
   // Art gallery route (dev + visual-regression surface): ?artgallery
@@ -5988,6 +6025,18 @@ export default function App() {
                 <VecFig fk={fk} size={44} pose="strike" flip />
               </div>
               <div className="text-[10px] text-stone-500 mt-1">{FIGHTERS[fk].short}</div>
+            </div>
+          ))}
+        </div>
+        <div className="text-xs tracking-widest text-stone-500 mb-2 mt-6">THE RANGED FORGE — PROJECTILES, SOLO + BLACK-FILL</div>
+        <div className="flex flex-wrap items-center gap-4 rounded-lg p-3 mb-6" style={{ background: "#c9c2b6" }}>
+          {Object.keys(PROJ_SHAPES).map((fk) => (
+            <div key={`pf${fk}`} className="text-center">
+              <div className="flex items-center gap-2">
+                <span className="inline-block" style={{ transform: "scale(1.6)", transformOrigin: "center" }}>{PROJ_SHAPES[fk]}</span>
+                <span className="inline-block" style={{ transform: "scale(1.6)", transformOrigin: "center", filter: "brightness(0)" }}>{PROJ_SHAPES[fk]}</span>
+              </div>
+              <div className="text-[10px] text-stone-700 mt-1">{FIGHTERS[fk].short}</div>
             </div>
           ))}
         </div>
@@ -6383,7 +6432,7 @@ export default function App() {
                   <span onClick={(e) => { e.stopPropagation(); setTip("tolleye"); }} className="absolute top-1 left-1/2 -translate-x-1/2 z-10 text-sm cursor-pointer rounded-full px-1.5" style={{ background: "rgba(0,0,0,.55)", border: "1px solid #fbbf2466", textShadow: "0 0 8px #f59e0b", animation: REDUCED ? "none" : "venPulse 1.6s infinite" }}>👁</span>
                 )}
                 <span className="absolute top-1.5 left-2 text-xs text-stone-500 z-10" style={{ textShadow: "0 1px 2px #000" }}>{q}</span>
-                {flashes.filter((f) => f.q === q).map((f) => <QuadFx key={f.id} ty={f.ty} el={f.el} />)}
+                {flashes.filter((f) => f.q === q).map((f) => <QuadFx key={f.id} ty={f.ty} el={f.el} inc={f.inc} />)}
                 {rake && rake.q === q && <TheRake key={rake.id} />}
                 {railNow && g.phase === "prompt" && railPick && (q === railPick ? (
                   <span className="absolute inset-0 z-20 grid place-items-center pointer-events-none">
@@ -6408,12 +6457,15 @@ export default function App() {
             );
           })}
           <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(255,255,255,.03), transparent 30%, transparent 70%, rgba(255,255,255,.02))", animation: REDUCED ? "none" : "fogDrift 9s ease-in-out infinite alternate" }} />
-          <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 pointer-events-none" data-surface="board">
             {projs.map((p) => <Proj key={p.id} p={p} />)}
             {[me, ai].map((s, i) => {
               const key = i === 0 ? "P" : "A";
               const c = QPOS[s.pos];
               const F = FIGHTERS[s.fk];
+              const foeS = i === 0 ? ai : me;
+              const flipNow = faceLeft(s.pos, foeS.pos);
+              const oc = g.phase === "over" ? endOutcome() : null;
               return (
                 <div key={key} className="absolute" style={{
                   left: `calc(${c.x}% + ${i === 0 ? "6%" : "27%"})`, top: `calc(${c.y}% + 8%)`,
@@ -6421,8 +6473,9 @@ export default function App() {
                   animation: hitTok === key ? "tokenHit .4s ease" : "none",
                 }}>
                   <span className="absolute left-1/2 -translate-x-1/2 rounded-full" style={{ bottom: -3, width: 34, height: 8, background: "radial-gradient(closest-side, rgba(0,0,0,.7), transparent)" }} />
-                  <span className={`relative block ${lunge === key ? (i === 0 ? "tokLungeR" : "tokLungeL") : ""}`} style={{ filter: `drop-shadow(0 0 8px ${F.hex}66)` }}>
-                    <VecFig fk={s.fk} size={44} flip={i === 1} pose={poses[key]} dying={dying === key} foe={i === 0 ? ai.fk : me.fk} />
+                  <span className="absolute rounded-full" style={{ inset: "-6px", background: `radial-gradient(closest-side, ${F.hex}40, transparent 72%)` }} />
+                  <span className={`relative block ${lunge && lunge.key === key ? (lunge.dir === "R" ? "tokLungeR" : "tokLungeL") : ""}`}>
+                    <VecFig fk={s.fk} size={44} flip={flipNow} pose={poses[key]} dying={dying === key} foe={foeS.fk} ko={oc ? oc.ko : false} />
                   </span>
                 </div>
               );
@@ -6594,14 +6647,18 @@ export default function App() {
         {g.phase === "over" && !deathHold && (
           <div className="text-center py-2">
             <div className="flex justify-center mb-2"><Portrait fk={g.winner === "A" ? ai.fk : me.fk} size={92} /></div>
-            {g.winner !== "LESSON" && (
-              <div className="flex justify-center items-end gap-8 mb-1">
-                <VecFig fk={g.winner === "A" ? ai.fk : me.fk} size={52} pose="victorious" foe={g.winner === "A" ? me.fk : ai.fk} />
-                <VecFig fk={g.winner === "A" ? me.fk : ai.fk} size={44} pose="fallen" flip foe={g.winner === "A" ? ai.fk : me.fk} />
-              </div>
-            )}
+            {g.winner !== "LESSON" && (() => {
+              const oc = endOutcome();
+              const winFk = oc.winKey === "A" ? ai.fk : me.fk, loseFk = oc.loseKey === "A" ? ai.fk : me.fk;
+              return (
+                <div className="flex justify-center items-end gap-8 mb-1" data-surface="ceremony">
+                  <VecFig fk={winFk} size={52} pose={oc.winnerPose} foe={loseFk} ko={oc.ko} />
+                  <VecFig fk={loseFk} size={44} pose={oc.loserPose} flip foe={winFk} ko={oc.ko} />
+                </div>
+              );
+            })()}
             <div className={`font-serif italic text-4xl ${g.winner === "LESSON" ? "text-amber-300" : g.winner === "P" ? "text-emerald-400" : "text-red-500"}`} style={{ textShadow: "0 0 40px rgba(220,38,38,.4)" }}>
-              {g.winner === "LESSON" ? "Lesson Complete" : g.winner === "P" ? "Victory" : "Slain"}
+              {g.winner === "LESSON" ? "Lesson Complete" : g.winner === "P" ? "Victory" : endOutcome().ko ? "Slain" : "Beaten"}
             </div>
             <p className="text-xs text-stone-500 uppercase tracking-widest mt-1">{g.tut ? "Tutorial complete — the real Crucible awaits" : "The Crucible has spoken"}</p>
             <p className="text-xs text-stone-400 mt-2 mb-3">Final — you {Math.max(0, me.hp)} HP · foe {Math.max(0, ai.hp)} HP</p>
@@ -6699,6 +6756,17 @@ export default function App() {
 function Shell({ children }) {
   return (
     <div className="min-h-screen text-stone-200 px-3 py-4 relative overflow-hidden" style={{ background: "radial-gradient(120% 90% at 50% 0%, #1c1917 0%, #0c0a09 60%, #000 100%)", fontFamily: "ui-sans-serif, system-ui" }}>
+      {/* FONT PRE-WARM (perf floor, v0.91): every emoji/symbol glyph the game ever
+          prints, laid out once at mount. Without this, the first beat that prints a
+          new glyph pays a one-time synchronous emoji-font fallback inside layout
+          (~140ms at 4x throttle) and drops the theater below the 60fps floor. */}
+      <div aria-hidden="true" style={{ position: "absolute", left: -9999, top: 0, width: 0, height: 0, overflow: "hidden" }}>
+        {[400, 700, 900].map((w) =>
+          [12, 18, 24, 30].map((sz) => (
+            <span key={`${w}-${sz}`} style={{ fontWeight: w, fontSize: sz }}>☄⚑⚓⚔⚖⚙⚡⛓⛰✊✋✕✖✦✨❄🌀🌊🌫🎯🎲🎵🏳👁👃👹💢💥💫📌📖📜🔇🔊🔥🗡🚪🛡🛰🦅🧊🧪🧷🩸◆✚−×0123456789</span>
+          ))
+        )}
+      </div>
       <div className="max-w-md mx-auto relative">{children}</div>
     </div>
   );
@@ -6750,14 +6818,22 @@ function TheRake({ loop }) {
     </div>
   );
 }
+/* THE RANGED FORGE (v0.91): every projectile forged once, named, in its
+   owner's palette — nameable from black-fill alone. Hand weapons never
+   leave the grip; thrown objects are their own assets. */
 const PROJ_SHAPES = {
-  V: <svg viewBox="-18 -6 36 12" width="34" height="12"><path d="M-16 0 L10 -2.6 L17 0 L10 2.6 Z" fill="#a5f3fc" /><path d="M-16 0 L10 -1 L10 1 Z" fill="#e0f2fe" /><path d="M-10 -3.5 L-16 -5" stroke="#7dd3fc" strokeWidth="1.4" strokeLinecap="round" opacity=".8" /></svg>,
+  G: <g className="projSpin"><svg viewBox="-10 -10 20 20" width="22" height="22" overflow="visible"><path d="M0 7 L0 -7" stroke="#3d2a12" strokeWidth="2" strokeLinecap="round" /><path d="M-1.4 -6 L-7 -3.6 Q-9 -6.5 -7 -9.4 L-1.4 -8 Z" fill="#a8a29e" /><path d="M1.4 -6 L7 -3.6 Q9 -6.5 7 -9.4 L1.4 -8 Z" fill="#8f8a80" /><circle cx="0" cy="-6.8" r=".9" fill="#57534e" /></svg></g>,
+  X: <svg viewBox="-20 -5 40 10" width="38" height="10"><path d="M-17 0 L12 0" stroke="#64748b" strokeWidth="1.9" strokeLinecap="round" /><path d="M12 -2.6 L19 0 L12 2.6 L13.6 0 Z" fill="#cbd5e1" /><path d="M-14 -1 L8 -1" stroke="#f8fafc" strokeWidth=".6" opacity=".9" /><path d="M-17 0 L-19.5 1.6" stroke="#334155" strokeWidth="1.6" strokeLinecap="round" /></svg>,
+  M: <svg viewBox="-18 -6 36 12" width="32" height="11"><path d="M-4 0 L9 -1.5 L13 0 L9 1.5 Z" fill="#cbd5e1" /><path d="M-8 0 L-4 -1.3 L-4 1.3 Z" fill="#065f46" /><path d="M-16 -1 Q-10 -2.5 -5 -1 M-15 2 Q-10 3 -6 1.6" stroke="#34d399" strokeWidth="1" fill="none" opacity=".7" strokeLinecap="round" /></svg>,
+  V: <svg viewBox="-20 -8 40 16" width="36" height="15"><path d="M-14 0 L9 -2.4 L16 0 L9 2.4 Z" fill="#a5f3fc" /><path d="M-14 0 L9 -1 L9 1 Z" fill="#e0f2fe" /><path d="M-18 -5 L-6 -6 L-2 -5 L-6 -4 Z" fill="#7dd3fc" opacity=".85" /><path d="M-17 5 L-8 4.4 L-4 5.4 L-8 6.2 Z" fill="#38bdf8" opacity=".8" /></svg>,
   W: <svg viewBox="-18 -5 36 10" width="34" height="10"><path d="M-15 0 L12 0" stroke="#78350f" strokeWidth="1.8" /><path d="M12 -3 L18 0 L12 3 Z" fill="#cbd5e1" /><path d="M-15 -2.5 L-11 0 L-15 2.5 M-12 -2.5 L-8 0 L-12 2.5" stroke="#d9cfba" strokeWidth="1.2" fill="none" /></svg>,
-  C: <svg viewBox="-16 -7 34 14" width="32" height="14"><circle cx="8" cy="0" r="5" fill="#f97316" /><circle cx="9.5" cy="-1" r="2.2" fill="#fde047" /><path d="M4 0 Q-6 -4 -14 -1 Q-6 1 2 3 Z" fill="#fb923c" opacity=".8" /></svg>,
+  L: <svg viewBox="-18 -7 38 14" width="36" height="13"><path d="M-14 0 L10 -2 L17 0 L10 2 Z" fill="#fde047" /><path d="M-10 0 L12 -0.8 L12 0.8 Z" fill="#fffbe6" /><path d="M-6 -4.5 L2 -3.5 M-6 4.5 L2 3.5" stroke="#eab308" strokeWidth="1.1" strokeLinecap="round" opacity=".85" /><circle cx="15" cy="0" r="2.6" fill="#fde047" opacity=".45" /></svg>,
+  C: <svg viewBox="-18 -7 36 14" width="33" height="14"><circle cx="8" cy="0" r="5" fill="#f97316" /><circle cx="9.5" cy="-1" r="2.2" fill="#fde047" /><path d="M4 0 Q-6 -4 -14 -1 Q-6 1 2 3 Z" fill="#fb923c" opacity=".8" /><circle cx="-9" cy="-3.4" r=".9" fill="#fdba74" /><circle cx="-13" cy="1.8" r=".7" fill="#fde047" opacity=".85" /></svg>,
+  Z: <svg viewBox="-18 -7 38 14" width="35" height="14"><path d="M-15 -1 Q-6 -5 3 -1.5 Q10 1 16 -0.5" stroke="#ef4444" strokeWidth="2.2" fill="none" strokeLinecap="round" /><path d="M-14 2.5 Q-5 5.5 4 2 Q10 0 15 2" stroke="#a855f7" strokeWidth="1.7" fill="none" strokeLinecap="round" opacity=".9" /><path d="M-12 0.5 Q-3 -1.5 8 0.5" stroke="#7f1d1d" strokeWidth="1.1" fill="none" opacity=".8" /><circle cx="16" cy="0.5" r="2.4" fill="#d946ef" opacity=".9" /></svg>,
+  Y: <svg viewBox="-16 -6 34 12" width="32" height="12"><path d="M-14 0 Q0 -4 14 0 Q0 4 -14 0 Z" fill="#2dd4bf" opacity=".9" /><path d="M-10 -0.6 Q2 -2.4 12 -0.4" stroke="#ccfbf1" strokeWidth=".9" fill="none" opacity=".9" /><circle cx="10" cy="-2" r="1.4" fill="#a5f3fc" /><circle cx="2" cy="2.4" r="1" fill="#5eead4" opacity=".8" /></svg>,
+  D: <svg viewBox="-16 -8 34 16" width="30" height="15"><path d="M2 -6 L9 -3.4 L10.5 1.6 L6 5.8 L-1.4 4.6 L-3.4 -1.4 Z" fill="#a67c4a" /><path d="M2 -6 L-3.4 -1.4 L-1.4 4.6 L2 3.4 Z" fill="#8a6039" /><path d="M3 -2.4 L5.8 0.4" stroke="#6b4a24" strokeWidth=".8" /><circle cx="-8" cy="-2.6" r="1.1" fill="#8f8a80" opacity=".8" /><circle cx="-12" cy="2" r=".9" fill="#78716c" opacity=".7" /></svg>,
   K: <svg viewBox="-16 -8 36 16" width="34" height="16"><circle cx="8" cy="0" r="5.5" fill="#a78bfa" /><circle cx="8" cy="0" r="2.4" fill="#ede9fe" /><path d="M0 -4 L-10 -6 M0 4 L-12 5" stroke="#c4b5fd" strokeWidth="1.4" strokeLinecap="round" opacity=".85" /></svg>,
-  Z: <svg viewBox="-18 -7 36 14" width="34" height="14"><path d="M-14 0 Q-4 -4 6 -1 Q12 1 16 0" stroke="#ef4444" strokeWidth="2.4" fill="none" strokeLinecap="round" /><path d="M-12 3 Q-2 5 10 2" stroke="#a855f7" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity=".85" /><circle cx="15" cy="0" r="2.6" fill="#d946ef" opacity=".9" /></svg>,
-  Y: <svg viewBox="-16 -6 34 12" width="32" height="12"><path d="M-14 0 Q0 -4 14 0 Q0 4 -14 0 Z" fill="#2dd4bf" opacity=".85" /><circle cx="10" cy="-2" r="1.4" fill="#a5f3fc" /><circle cx="2" cy="2.4" r="1" fill="#5eead4" opacity=".8" /></svg>,
-  M: <svg viewBox="-14 -5 30 10" width="28" height="10"><path d="M-6 0 L8 -1.4 L12 0 L8 1.4 Z" fill="#cbd5e1" /><path d="M-10 0 L-6 -1.2 L-6 1.2 Z" fill="#065f46" /></svg>,
+  O: <svg viewBox="-18 -6 38 12" width="34" height="12"><path d="M-15 0 Q-6 -3.5 3 -0.5 Q10 1.5 16 0" stroke="#a3e635" strokeWidth="1.8" fill="none" strokeLinecap="round" opacity=".9" /><circle cx="-9" cy="-2" r="1" fill="#84cc16" opacity=".85" /><circle cx="0" cy="1.6" r="1.2" fill="#a3e635" /><circle cx="9" cy="-1" r=".9" fill="#bef264" opacity=".9" /><path d="M14 -1.6 L17 0 L14 1.6" stroke="#84cc16" strokeWidth="1" fill="none" strokeLinecap="round" /></svg>,
 };
 const DefaultBolt = ({ el }) => <svg viewBox="-14 -6 30 12" width="28" height="12"><path d="M-10 0 L8 -2.4 L13 0 L8 2.4 Z" fill={el || "#e7e5e4"} /><circle cx="11" cy="0" r="2" fill="#ffffff" opacity=".75" /></svg>;
 function Proj({ p }) {
@@ -6779,15 +6855,16 @@ function Proj({ p }) {
   // tweens the flight in arena percentages — no layout work per frame
   return (
     <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 30, transform: go ? `translate(${b.x - a.x}%, ${b.y - a.y}%)` : "translate(0,0)", transition: "transform .3s cubic-bezier(.4,.1,.8,.6)", willChange: "transform" }}>
-      <div className="absolute" style={{ left: `${a.x + 25}%`, top: `${a.y + 25}%`, transform: `translate(-50%,-50%) rotate(${ang}deg)`, filter: "drop-shadow(0 0 6px rgba(255,255,255,.35))" }}>
+      <div className="absolute" style={{ left: `${a.x + 25}%`, top: `${a.y + 25}%`, transform: `translate(-50%,-50%) rotate(${ang}deg)` }}>
         {PROJ_SHAPES[p.fk] || <DefaultBolt el={p.el} />}
       </div>
     </div>
   );
 }
-function QuadFx({ ty, el }) {
-  const glow = <div className="absolute inset-0" style={{ background: `radial-gradient(closest-side, ${el || TYPE_HEX[ty]}55, transparent)`, animation: "glowFade .6s ease-out both" }} />;
-  if (ty === "ward") return <div className="absolute inset-0 grid place-items-center pointer-events-none">{glow}
+function QuadFx({ ty, el, inc }) {
+  const bias = inc ? { transform: `translate(${inc.dx * 12}%, ${inc.dy * 12}%)` } : undefined;
+  const glow = <div className="absolute inset-0" style={{ background: `radial-gradient(closest-side, ${el || TYPE_HEX[ty]}55, transparent)`, animation: "glowFade .6s ease-out both", ...bias }} />;
+  if (ty === "ward") return <div className="absolute inset-0 grid place-items-center pointer-events-none" style={bias}>{glow}
     {[0, 1, 2].map((i) => <div key={i} className="absolute w-16 h-16 rounded-full border-4" style={{ borderColor: el || TYPE_HEX.ward, animation: `ringPulse .9s ease-out ${i * 0.16}s both`, boxShadow: `0 0 12px ${el || TYPE_HEX.ward}66` }} />)}
   </div>;
   if (ty === "rush") return (
