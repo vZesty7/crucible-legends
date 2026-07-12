@@ -1,8 +1,11 @@
-/* THE DEATH BEAT GUARDRAILS — permanent, deploy-gating (Art Pass I).
+/* THE DEATH BEAT GUARDRAILS — permanent, deploy-gating (Art Pass I;
+   amended 2026-07-12 by designer ruling: EVERY ending is a death).
    The living board's end poses must obey the design-doc law:
    1. A true match-ending KO plays the death fall and lands in FALLEN.
-   2. A bell-end loss shows HURT — never FALLEN.
-   3. UNDYING VIGIL (survive at 1) must NEVER trigger the death beat.
+   2. A bell-end loss ALSO plays the death fall into FALLEN — the Crucible
+      keeps whoever loses (designer ruling 2026-07-12).
+   3. UNDYING VIGIL (survive at 1) must NEVER trigger the death beat
+      mid-match — it is not an ending.
    4. A new game always starts both fighters back at IDLE. */
 import { describe, test, beforeEach, afterEach, vi, expect } from "vitest";
 import { cleanup } from "@testing-library/react";
@@ -51,7 +54,7 @@ test("a true KO lands the loser in FALLEN and the winner in VICTORIOUS", () => {
   expect(poses()).toEqual({ P: "idle", A: "idle" });
 });
 
-test("a bell-end loss shows HURT — never FALLEN", () => {
+test("a bell-end loss plays the death fall into FALLEN (every ending is a death)", () => {
   seedRandom(9202);
   mountGame();
   startDuel({
@@ -67,9 +70,8 @@ test("a bell-end loss shows HURT — never FALLEN", () => {
 
   expect(ph).toBe("over");
   expect(g().winner).toBe("A");
-  expect(g().P.hp, "bell loss means the loser is still standing").toBeGreaterThan(0);
-  expect(poses().P).toBe("hurt");
-  expect(poses().P).not.toBe("fallen");
+  expect(g().P.hp, "the bell decided it — HP never reached zero").toBeGreaterThan(0);
+  expect(poses().P).toBe("fallen");
   expect(poses().A).toBe("victorious");
 });
 
@@ -99,7 +101,8 @@ test("UNDYING VIGIL survives at 1 and never triggers the death beat", () => {
   // every timer has drained — if the death beat had fired, FALLEN would show
   expect(poses().P).not.toBe("fallen");
 
-  // now lose at the bell: the vigil survivor must fall HURT, never FALLEN
+  // now lose at the bell: the ENDING is a death for everyone — even the
+  // vigil survivor falls when the match itself is lost (ruling 2026-07-12)
   g().round = 10; g().P.hp = 5; g().A.hp = 12;
   playPlan({ ability: ABILITIES.aegis.name });
   ph = stepUntilDecision(Math.random);
@@ -107,6 +110,5 @@ test("UNDYING VIGIL survives at 1 and never triggers the death beat", () => {
   expect(ph).toBe("over");
   expect(g().winner).toBe("A");
   expect(g().P.hp).toBeGreaterThan(0);
-  expect(poses().P).toBe("hurt");
-  expect(poses().P).not.toBe("fallen");
+  expect(poses().P).toBe("fallen");
 });

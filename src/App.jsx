@@ -7,7 +7,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 const QUADS = ["NW", "NE", "SW", "SE"];
 const ADJ = { NW: ["NE", "SW"], NE: ["NW", "SE"], SW: ["NW", "SE"], SE: ["NE", "SW"] };
-const BUILD = "v0.91";
+const BUILD = "v0.91.1";
 const BEATS = { break: "ward", rush: "break", ward: "rush" };
 const TYPE_LABEL = { break: "BREAK", rush: "RUSH", ward: "WARD" };
 const TYPE_HEX = { break: "#ef4444", rush: "#f59e0b", ward: "#38bdf8" };
@@ -4454,17 +4454,16 @@ export default function App() {
     } else au.pause();
   }, [screen, gPhaseNow, muted, musicUrl]);
   useEffect(() => {
-    // the end pose beat: VICTORIOUS for the winner; HURT for a bell loss;
-    // the ~0.6s death fall into FALLEN only on a true match-ending KO —
-    // survive-at-1 effects keep hp above 0 mid-match and can never reach here fallen
+    // the end pose beat (designer ruling 2026-07-12): every ending is a death —
+    // the winner rises VICTORIOUS while the loser plays the ~0.6s death fall
+    // into FALLEN, whether HP hit zero or the bell decided it. Survive-at-1
+    // effects keep hp above 0 mid-match and can never reach here fallen.
     if (gPhaseNow !== "over" || !G.current || !G.current.winner || G.current.winner === "LESSON") return;
     const oc = endOutcome();
-    const winSide = oc.winKey, loseSide = oc.loseKey, koLoss = oc.ko;
-    setPoses((p) => ({ ...p, [winSide]: oc.winnerPose, [loseSide]: koLoss ? p[loseSide] : oc.loserPose }));
-    if (koLoss) {
-      setDying(loseSide); setDeathHold(true);
-      later(() => { setDying(null); setPoses((p) => ({ ...p, [loseSide]: "fallen" })); setDeathHold(false); }, 650);
-    }
+    const winSide = oc.winKey, loseSide = oc.loseKey;
+    setPoses((p) => ({ ...p, [winSide]: oc.winnerPose }));
+    setDying(loseSide); setDeathHold(true);
+    later(() => { setDying(null); setPoses((p) => ({ ...p, [loseSide]: "fallen" })); setDeathHold(false); }, 650);
   }, [gPhaseNow]);
   const [side, setSide] = useState(null);
   const [pickAb, setPickAb] = useState([]);
@@ -4574,11 +4573,14 @@ export default function App() {
   /* POSE TRUTH (v0.91): the single state->pose table. Every surface —
      living board, ceremony panel — draws its end poses from here. */
   const endOutcome = () => {
+    // designer ruling 2026-07-12: EVERY win ends in the loser's death pose —
+    // HP zero or bell alike, the Crucible keeps whoever loses. The ko flag
+    // still tells the trophy the truth: only a true kill takes the head/relic.
     const g = G.current;
     if (!g || !g.winner || g.winner === "LESSON") return null;
     const winKey = g.winner, loseKey = winKey === "P" ? "A" : "P";
     const ko = g[loseKey].hp <= 0;
-    return { winKey, loseKey, ko, winnerPose: "victorious", loserPose: ko ? "fallen" : "hurt" };
+    return { winKey, loseKey, ko, winnerPose: "victorious", loserPose: "fallen" };
   };
   /* ---- helpers on G.current ---- */
   const sideKeyOf = (s) => (s === G.current.P ? "P" : "A");
@@ -6658,7 +6660,7 @@ export default function App() {
               );
             })()}
             <div className={`font-serif italic text-4xl ${g.winner === "LESSON" ? "text-amber-300" : g.winner === "P" ? "text-emerald-400" : "text-red-500"}`} style={{ textShadow: "0 0 40px rgba(220,38,38,.4)" }}>
-              {g.winner === "LESSON" ? "Lesson Complete" : g.winner === "P" ? "Victory" : endOutcome().ko ? "Slain" : "Beaten"}
+              {g.winner === "LESSON" ? "Lesson Complete" : g.winner === "P" ? "Victory" : "Slain"}
             </div>
             <p className="text-xs text-stone-500 uppercase tracking-widest mt-1">{g.tut ? "Tutorial complete — the real Crucible awaits" : "The Crucible has spoken"}</p>
             <p className="text-xs text-stone-400 mt-2 mb-3">Final — you {Math.max(0, me.hp)} HP · foe {Math.max(0, ai.hp)} HP</p>

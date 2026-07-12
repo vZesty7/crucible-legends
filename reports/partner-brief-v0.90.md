@@ -26,7 +26,8 @@ The game auto-publishes from this repository: every change you see below is live
 | v0.88 | **Art Pass I** — the Art Bible written into law; portrait depth on all twelve; the six-pose living board (72 drawings); idle life; permanent art-regression gate |
 | v0.89 | **"Twelve True"** — the repair pass: eight new art laws, the Prop Forge (weapons drawn once, placed everywhere), every fighter's poses retold through their element, Gharzul's trophy system | 
 | v0.90 | **Art Pass II: The Theater** — combat becomes a conducted sequence: one beat at a time, projectiles that travel, hitstop impacts, the Third Knock's infernal rending (fourth attempt), ceremonies, pacing controls |
-| v0.91 | **Polish Pass I: True Endings & the Ranged Forge** — endings tell the truth (KO = a corpse, bell = beaten but standing; the trophy rack agrees); fighters always face their opponent; twelve named projectiles forged; the 60fps floor restored by fixing a real first-impact stutter |
+| v0.91 | **Polish Pass I: True Endings & the Ranged Forge** — one truth table drives every ending; the trophy rack agrees with the corpse; fighters always face their opponent; twelve named projectiles forged; the 60fps floor restored by fixing a real first-impact stutter |
+| v0.91.1 | **Every Ending Is a Death** (designer ruling, same day) — HP zero or bell win alike, the loser plays the full death fall; the Crucible keeps whoever loses. Only a true kill takes the head/relic — a bell win raises Gharzul's own totem over an intact corpse |
 
 Every entry has a full dated write-up in the design doc's changelog.
 
@@ -54,12 +55,12 @@ Every entry has a full dated write-up in the design doc's changelog.
 
 ![The Ranged Forge](rangedforge-strip.png)
 
-**The endings tell the truth** — a knockout leaves a corpse and raises the slain's trophy; a bell win leaves the loser standing, beaten, alive, and raises Gharzul's own totem instead:
+**Every ending is a death** (designer ruling) — the loser always plays the death fall; the difference lives in the trophy: a knockout raises the slain's head or relic, a bell win raises Gharzul's OWN totem over an intact corpse — he takes no piece of a foe the Crucible finished for him:
 
 ![KO — the kill and the ice-shard trophy](ending-ko-p-ceremony.png)
-![Bell — beaten but standing, the totem raised](ending-bell-p-ceremony.png)
+![Bell — the loser falls, the totem raised](ending-bell-p-ceremony.png)
 
-(Full set: `ending-ko-p/ko-a/bell-p/bell-a-board/-ceremony.png` plus `ending-vigil-board.png` — Kastor's Undying Vigil never shows the death fall.)
+(Full set: `ending-ko-p/ko-a/bell-p/bell-a-board/-ceremony.png` plus `ending-vigil-board.png` — Kastor's Undying Vigil never shows the death fall mid-match.)
 
 **Facing truth** — twelve ordered position pairings, each mid-ward; the guard always leans toward the incoming enemy, never the wall:
 
@@ -102,8 +103,8 @@ Seventy-seven permanent tests gate every deploy. If any fails, the site does not
 
 - **The art snapshot** — any change to any drawing fails the suite until deliberately approved
 - **The seam test** — the same seeded game must end identically whether the round theater plays, is skipped, or runs instant (presentation can never touch outcomes)
-- **The truth laws** (new in v0.91) — a bell ending renders zero corpses anywhere and the banner reads "Beaten," a knockout renders exactly one corpse per surface and reads "Slain," the trophy rack rises only on a kill, and all twelve position pairings face per the law
-- **The death-beat guardrails** — a knockout lands in FALLEN, a bell loss shows HURT, Undying Vigil never triggers the death fall
+- **The truth laws** (new in v0.91, amended v0.91.1) — every ending renders exactly one corpse per surface and the winner stands victorious; the KILL trophy rises only when HP hit zero, a bell win raises the totem; and all twelve position pairings face per the law
+- **The death-beat guardrails** — every loss plays the death fall into FALLEN (designer ruling: the Crucible keeps whoever loses); Undying Vigil never triggers the death fall mid-match
 - **Koros and Vessk kit guardrails** (13 + 28 rules pinned), **AI guardrails** (the new brain must out-pilot the old)
 - **Performance law** (hardened in v0.91) — two assertions, both must pass: an absolute 60fps floor during the round theater on a mid-range phone profile, AND ≥90% of the measuring machine's own frame ceiling; gate definitions can never change without a dated designer-approved doc entry first
 - **Reduced-motion law** — accessibility mode strips all animation and collapses the theater to instant
@@ -119,4 +120,4 @@ Seventy-seven permanent tests gate every deploy. If any fails, the site does not
 
 ---
 
-*Compiled July 12, 2026 · build v0.91 · suite 77/77 green · perf floor 60.4fps on the phone profile*
+*Compiled July 12, 2026 · build v0.91.1 · suite 77/77 green · perf floor 60.4fps on the phone profile*

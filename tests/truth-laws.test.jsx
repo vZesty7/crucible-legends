@@ -1,10 +1,14 @@
-/* POLISH PASS I — the truth laws (permanent, deploy-gating).
-   POSE TRUTH: a bell ending renders zero FALLEN sprites on any surface;
-   a KO ending renders exactly one per surface (board + ceremony).
+/* POLISH PASS I — the truth laws (permanent, deploy-gating; pose table
+   amended 2026-07-12 by designer ruling: EVERY ending is a death).
+   POSE TRUTH: every ending — KO or bell — renders exactly one FALLEN per
+   surface (board + ceremony); the winner stands VICTORIOUS; the loser
+   never stands. The banner reads "Slain" on every loss.
    FACING TRUTH: facing is computed from the opponent's current quadrant —
    other column faces it, same column faces the center line; asserted for
    all 12 ordered quadrant pairings on the live board.
-   TROPHY TRUTH: trophy present ⟺ kill occurred; bell wins raise the totem. */
+   TROPHY TRUTH: the KILL trophy (head/relic) ⟺ HP reached zero; a bell
+   win still raises Gharzul's OWN totem — he takes no piece of a foe the
+   Crucible finished for him. */
 import { test, expect, beforeEach, afterEach, vi } from "vitest";
 import { cleanup, act, fireEvent } from "@testing-library/react";
 import {
@@ -46,20 +50,20 @@ test("POSE TRUTH: a KO ending renders exactly one FALLEN per surface", () => {
   expect(poseOn("ceremony", "victorious")).toBe(1);
 });
 
-test("POSE TRUTH: a bell ending renders zero FALLEN anywhere; the loser stands HURT", () => {
+test("POSE TRUTH: a bell ending is a death too — exactly one FALLEN per surface", () => {
   startGharzulVsVessk(9202);
   g().round = 10; g().P.hp = 6; g().A.hp = 12;
   playPlan({ ability: "Skullsplitter", target: "NE" });
   expect(stepUntilDecision(Math.random)).toBe("over");
   expect(g().winner).toBe("A");
-  expect(g().P.hp).toBeGreaterThan(0);
-  expect(fallenOn("board")).toBe(0);
-  expect(fallenOn("ceremony")).toBe(0);
-  expect(poseOn("ceremony", "hurt")).toBe(1);
-  expect(poseOn("board", "hurt")).toBe(1);
-  // the banner speaks the same truth: a bell loss is "Beaten", never "Slain"
-  expect(document.body.textContent).toContain("Beaten");
-  expect(document.body.textContent).not.toContain("Slain");
+  expect(g().P.hp, "the bell decided it — HP never reached zero").toBeGreaterThan(0);
+  expect(fallenOn("board")).toBe(1);
+  expect(fallenOn("ceremony")).toBe(1);
+  expect(poseOn("ceremony", "victorious")).toBe(1);
+  expect(poseOn("board", "hurt")).toBe(0);
+  expect(poseOn("ceremony", "hurt")).toBe(0);
+  // the banner speaks the same truth: every loss reads "Slain"
+  expect(document.body.textContent).toContain("Slain");
 });
 
 test("TROPHY TRUTH: a kill raises the trophy; a bell win raises the totem", () => {
